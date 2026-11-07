@@ -1,0 +1,127 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { PREFECTURES, type Prefecture } from '../../../data/prefectures';
+import { getCollection } from 'astro:content';
+
+export function getStaticPaths() {
+  return PREFECTURES.map((pref) => ({
+    params: { pref: pref.id },
+    props: { pref },
+  }));
+}
+
+interface Props {
+  pref: Prefecture;
+}
+
+const { pref } = Astro.props;
+
+// Fetch articles for this prefecture in English
+const prefArticles = await getCollection('articles', ({ data }) => {
+  return data.lang === 'en' && data.pref === pref.id && !data.draft;
+});
+
+const sortedArticles = prefArticles.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<Layout
+  title={`${pref.nameEn} Travel Guide & Seasonal Highlights - tavi-navi`}
+  description={`Live travel information for ${pref.nameEn}, Japan. Discover current seasonal events, iconic highlights (${pref.highlightsEn.join(', ')}), weather, and travel tips.`}
+  lang="en"
+  currentPref={pref.id}
+>
+  <div style="background: #ffffff; border-bottom: 1px solid var(--color-border); padding: 1rem 0;">
+    <div class="container" style="font-size: 0.85rem; color: var(--color-text-muted);">
+      <a href="/en/" style="color: var(--color-primary);">Home</a>
+      <span style="margin: 0 0.4rem;">&gt;</span>
+      <span>{pref.regionNameEn}</span>
+      <span style="margin: 0 0.4rem;">&gt;</span>
+      <span style="font-weight: 700; color: var(--color-text-main);">{pref.nameEn}</span>
+    </div>
+  </div>
+
+  <div class="hero-banner" style="padding: 2.5rem 0 2rem;">
+    <div class="container">
+      <span class="badge-seasonal">{pref.regionNameEn} Region</span>
+      <h1 class="hero-title" style="margin-top: 0.75rem;">
+        {pref.nameEn}
+        <span style="font-size: 1.25rem; font-weight: 500; opacity: 0.85; margin-left: 0.5rem;">{pref.nameJa}</span>
+      </h1>
+      <p class="hero-subtitle">
+        {pref.descriptionEn}
+      </p>
+      <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin-top: 1rem;">
+        {pref.highlightsEn.map((item) => (
+          <span style="background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(4px); color: #ffffff; font-size: 0.8rem; font-weight: 600; padding: 0.25rem 0.75rem; border-radius: var(--radius-full);">
+            #{item}
+          </span>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="padding-top: 2.5rem; padding-bottom: 3.5rem;">
+    {/* Live Highlights Box */}
+    <div style="background: #ffffff; border: 1px solid var(--color-border); border-left: 5px solid var(--color-accent); border-radius: var(--radius-md); padding: 1.5rem; margin-bottom: 2.5rem; box-shadow: var(--shadow-sm);">
+      <h2 style="font-size: 1.15rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span style="color: var(--color-accent);">📢</span> {pref.nameEn} Travel Essentials & Highlights
+      </h2>
+      <ul style="padding-left: 1.25rem; font-size: 0.95rem; line-height: 1.8; color: var(--color-text-main);">
+        <li><strong>Top Sights</strong>: {pref.highlightsEn.join(', ')}</li>
+        <li><strong>Prefectural Capital</strong>: {pref.capitalEn}</li>
+        <li><strong>Current Season</strong>: Autumn (Peak foliage, harvest food festivals, and comfortable pleasant temperatures)</li>
+      </ul>
+    </div>
+
+    {/* Articles */}
+    <section>
+      <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span style="color: var(--color-primary);">📚</span> Guides & Stories in {pref.nameEn}
+      </h2>
+
+      {sortedArticles.length > 0 ? (
+        <div class="article-grid">
+          {sortedArticles.map((post) => {
+            const articleSlug = post.id.replace(/\.(md|mdx)$/, '');
+            return (
+              <article class="article-card">
+                <div class="article-card-body">
+                  <div class="article-card-meta">
+                    <span class="badge-seasonal">{post.data.category}</span>
+                    <span>•</span>
+                    <time datetime={post.data.pubDate.toISOString()}>
+                      {post.data.pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                    </time>
+                  </div>
+                  <h3 class="article-card-title">
+                    <a href={`/en/${pref.id}/${articleSlug}/`}>
+                      {post.data.title}
+                    </a>
+                  </h3>
+                  <p class="article-card-desc">{post.data.description}</p>
+                  <div style="margin-top: auto;">
+                    <a href={`/en/${pref.id}/${articleSlug}/`} style="font-weight: 700; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.25rem;">
+                      Read Guide &rarr;
+                    </a>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      ) : (
+        <div style="background: #ffffff; border: 1px dashed var(--color-border); border-radius: var(--radius-md); padding: 3rem 1.5rem; text-align: center; color: var(--color-text-muted);">
+          <p style="font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem;">Guides for {pref.nameEn} are currently being curated.</p>
+          <p style="font-size: 0.9rem;">Fresh seasonal reports and itineraries will be published here soon!</p>
+        </div>
+      )}
+    </section>
+
+    {/* Back */}
+    <div style="margin-top: 3.5rem; text-align: center;">
+      <a href="/en/" style="display: inline-flex; align-items: center; gap: 0.5rem; background: #ffffff; border: 1px solid var(--color-border); padding: 0.65rem 1.25rem; border-radius: var(--radius-full); font-size: 0.9rem; font-weight: 700; color: var(--color-text-main);">
+        &larr; Back to All Japan Prefectures
+      </a>
+    </div>
+  </div>
+</Layout>

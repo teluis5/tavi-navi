@@ -1,0 +1,53 @@
+---
+interface Props {
+  lang?: 'ja' | 'en';
+  currentPref?: string;
+}
+
+const { lang = 'ja', currentPref } = Astro.props;
+
+const currentPath = Astro.url.pathname;
+let targetLangPath = '/';
+if (lang === 'ja') {
+  // Switch to English: prepend /en
+  targetLangPath = `/en${currentPath.startsWith('/') ? currentPath : '/' + currentPath}`;
+} else {
+  // Switch to Japanese: remove /en
+  targetLangPath = currentPath.replace(/^\/en/, '') || '/';
+}
+if (!targetLangPath.endsWith('/') && !/\.[a-z0-9]+$/i.test(targetLangPath)) {
+  targetLangPath += '/';
+}
+
+const isEn = lang === 'en';
+const homeUrl = isEn ? '/en/' : '/';
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href={homeUrl} class="site-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+        <circle cx="32" cy="32" r="30" fill="#0284c7" />
+        <circle cx="32" cy="32" r="26" stroke="#ffffff" stroke-width="2" stroke-dasharray="4 2" />
+        <polygon points="32,10 38,30 32,26 26,30" fill="#f97316" />
+        <polygon points="32,54 38,34 32,38 26,34" fill="#ffffff" />
+        <circle cx="32" cy="32" r="4" fill="#0f172a" />
+      </svg>
+      <div>
+        <span>tavi-navi</span>
+        <span class="tagline">{isEn ? 'Japan Real-Time Travel Guide' : '都道府県ごとの旬の旅ナビ'}</span>
+      </div>
+    </a>
+
+    <div class="header-actions">
+      <a href={targetLangPath} class="lang-switch" title={isEn ? 'Switch to Japanese' : '英語へ切り替え'}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="2" y1="12" x2="22" y2="12"></line>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+        </svg>
+        <span>{isEn ? '日本語' : 'English'}</span>
+      </a>
+    </div>
+  </div>
+</header>

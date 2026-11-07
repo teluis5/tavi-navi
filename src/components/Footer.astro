@@ -1,0 +1,51 @@
+---
+import { REGIONS, PREFECTURES } from '../data/prefectures';
+
+interface Props {
+  lang?: 'ja' | 'en';
+}
+
+const { lang = 'ja' } = Astro.props;
+const isEn = lang === 'en';
+const prefPrefix = isEn ? '/en/' : '/';
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div style="margin-bottom: 2.5rem;">
+      <h3 style="font-size: 1rem; font-weight: 800; margin-bottom: 1rem; color: var(--color-text-main);">
+        {isEn ? 'Explore Japan by Prefecture' : '都道府県から旬の旅を探す'}
+      </h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem;">
+        {REGIONS.map((region) => {
+          const prefs = PREFECTURES.filter((p) => p.region === region.id);
+          return (
+            <div>
+              <h4 style="font-size: 0.82rem; font-weight: 700; color: var(--color-primary-dark); margin-bottom: 0.35rem;">
+                {isEn ? region.nameEn : region.nameJa}
+              </h4>
+              <div style="display: flex; flex-wrap: wrap; gap: 0.4rem; font-size: 0.78rem;">
+                {prefs.map((p) => (
+                  <a href={`${prefPrefix}${p.id}/`} style="color: var(--color-text-muted);">
+                    {isEn ? p.nameEn : p.nameJa}
+                  </a>
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+
+    <nav class="footer-nav">
+      <a href={isEn ? '/en/' : '/'}>{isEn ? 'Home' : 'ホーム'}</a>
+      <a href={isEn ? '/en/about/' : '/about/'}>{isEn ? 'About Us' : '当サイトについて'}</a>
+      <a href={isEn ? '/en/privacy/' : '/privacy/'}>{isEn ? 'Privacy Policy' : 'プライバシーポリシー'}</a>
+      <a href={isEn ? '/en/contact/' : '/contact/'}>{isEn ? 'Contact' : 'お問い合わせ'}</a>
+    </nav>
+
+    <div class="copyright">
+      &copy; {new Date().getFullYear()} tavi-navi.net. All rights reserved.
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,62 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  lang?: 'ja' | 'en';
+  canonicalPath?: string;
+}
+
+const { title, description, image = '/favicon.svg', lang = 'ja', canonicalPath } = Astro.props;
+
+// Canonical URL normalization (enforce trailing slash per workspace rules)
+const currentPath = canonicalPath || Astro.url.pathname;
+const normalizedPath = currentPath.endsWith('/') || /\.[a-z0-9]+$/i.test(currentPath)
+  ? currentPath
+  : `${currentPath}/`;
+
+const canonicalURL = new URL(normalizedPath, Astro.site);
+
+// Generate alternate hreflang URLs
+const pathWithoutLang = lang === 'en' 
+  ? normalizedPath.replace(/^\/en/, '') || '/'
+  : normalizedPath;
+
+const jaURL = new URL(pathWithoutLang, Astro.site);
+const enURL = new URL(`/en${pathWithoutLang === '/' ? '/' : pathWithoutLang}`, Astro.site);
+---
+
+<!-- Global Metadata -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<meta name="generator" content={Astro.generator} />
+
+<!-- Canonical URL -->
+<link rel="canonical" href={canonicalURL} />
+<link rel="sitemap" href="/sitemap-index.xml" />
+
+<!-- Multilingual SEO (hreflang) -->
+<link rel="alternate" hreflang="ja" href={jaURL} />
+<link rel="alternate" hreflang="en" href={enURL} />
+<link rel="alternate" hreflang="x-default" href={jaURL} />
+
+<!-- Primary Meta Tags -->
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={new URL(image, Astro.site)} />
+<meta property="og:site_name" content="tavi-navi（タビナビ）" />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={canonicalURL} />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={new URL(image, Astro.site)} />

@@ -1,0 +1,109 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { REGIONS, PREFECTURES } from '../../data/prefectures';
+import { getCollection } from 'astro:content';
+
+const allArticles = await getCollection('articles', ({ data }) => {
+  return data.lang === 'en' && !data.draft;
+});
+
+const recentArticles = allArticles.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 6);
+---
+
+<Layout
+  title="tavi-navi - Japan Real-Time Travel Guide Across 47 Prefectures"
+  description="Discover the best seasonal travel destinations, festivals, autumn foliage, cherry blossoms, and local secrets across all 47 prefectures in Japan."
+  lang="en"
+>
+  <div class="hero-banner">
+    <div class="container">
+      <span class="badge-seasonal">🍁 Autumn 2026 Foliage & Festivals Special</span>
+      <h1 class="hero-title" style="margin-top: 1rem;">Explore Japan by Prefecture, in Real Time</h1>
+      <p class="hero-subtitle">
+        Your go-to live travel navigator covering seasonal highlights, traditional festivals, hidden gems, and travel tips across every corner of Japan.
+      </p>
+    </div>
+  </div>
+
+  <div class="container" style="padding-top: 3rem; padding-bottom: 3rem;">
+    {/* Recent Articles */}
+    {recentArticles.length > 0 && (
+      <section style="margin-bottom: 3.5rem;">
+        <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+          <span style="color: var(--color-accent);">🔥</span> Latest Travel Reports & Guides
+        </h2>
+        <div class="article-grid">
+          {recentArticles.map((post) => {
+            const prefObj = PREFECTURES.find((p) => p.id === post.data.pref);
+            const articleSlug = post.id.replace(/\.(md|mdx)$/, '');
+            return (
+              <article class="article-card">
+                <div class="article-card-body">
+                  <div class="article-card-meta">
+                    <span style="font-weight: 700; color: var(--color-primary);">{prefObj ? prefObj.nameEn : post.data.pref}</span>
+                    <span>•</span>
+                    <span class="badge-seasonal">{post.data.category}</span>
+                    <span>•</span>
+                    <time datetime={post.data.pubDate.toISOString()}>
+                      {post.data.pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                    </time>
+                  </div>
+                  <h3 class="article-card-title">
+                    <a href={`/en/${post.data.pref}/${articleSlug}/`}>
+                      {post.data.title}
+                    </a>
+                  </h3>
+                  <p class="article-card-desc">{post.data.description}</p>
+                  <div style="margin-top: auto;">
+                    <a href={`/en/${post.data.pref}/${articleSlug}/`} style="font-weight: 700; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.25rem;">
+                      Read Article &rarr;
+                    </a>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+    )}
+
+    {/* 47 Prefectures Explorer */}
+    <section>
+      <div style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.75rem; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 0.5rem;">
+          Explore Japan's 47 Prefectures
+        </h2>
+        <p style="color: var(--color-text-muted); font-size: 0.95rem;">
+          Select a prefecture below to discover local seasonal events, top sights, food culture, and transit guides.
+        </p>
+      </div>
+
+      {REGIONS.map((region) => {
+        const regionPrefs = PREFECTURES.filter((p) => p.region === region.id);
+        return (
+          <div class="region-section">
+            <h3 class="region-title">
+              <span>{region.nameEn}</span>
+              <span class="region-title-en">{region.nameJa}</span>
+            </h3>
+            <div class="prefecture-grid">
+              {regionPrefs.map((pref) => (
+                <a href={`/en/${pref.id}/`} class="pref-card">
+                  <div class="pref-card-header">
+                    <span class="pref-card-title">{pref.nameEn}</span>
+                    <span class="pref-card-en">{pref.nameJa}</span>
+                  </div>
+                  <div class="pref-card-highlights">
+                    {pref.highlightsEn.slice(0, 2).map((item) => (
+                      <span class="pref-card-tag">{item}</span>
+                    ))}
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+    </section>
+  </div>
+</Layout>

@@ -1,0 +1,30 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  lang?: 'ja' | 'en';
+  currentPref?: string;
+}
+
+const { title, description, image, lang = 'ja', currentPref } = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <BaseHead title={title} description={description} image={image} lang={lang} />
+  </head>
+  <body>
+    <Header lang={lang} currentPref={currentPref} />
+    <main>
+      <slot />
+    </main>
+    <Footer lang={lang} />
+  </body>
+</html>
