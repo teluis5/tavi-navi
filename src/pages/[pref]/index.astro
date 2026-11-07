@@ -61,16 +61,29 @@ const sortedArticles = prefArticles.sort((a, b) => b.data.pubDate.valueOf() - a.
   </div>
 
   <div class="container" style="padding-top: 2.5rem; padding-bottom: 3.5rem;">
-    {/* リアルタイム旬インフォボックス */}
-    <div style="background: #ffffff; border: 1px solid var(--color-border); border-left: 5px solid var(--color-accent); border-radius: var(--radius-md); padding: 1.5rem; margin-bottom: 2.5rem; box-shadow: var(--shadow-sm);">
-      <h2 style="font-size: 1.15rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
-        <span style="color: var(--color-accent);">📢</span> {pref.nameJa}の現在の旬・旅行ハイライト
-      </h2>
-      <ul style="padding-left: 1.25rem; font-size: 0.95rem; line-height: 1.8; color: var(--color-text-main);">
-        <li><strong>主な見どころ</strong>: {pref.highlightsJa.join('、')}</li>
-        <li><strong>県庁所在地</strong>: {pref.capitalJa}</li>
-        <li><strong>現在のシーズン</strong>: 秋（紅葉・収穫祭・秋の味覚フェアが見頃を迎えています）</li>
-      </ul>
+    {/* 11月の旬タイムライン＆車なし・子連れ安心ナビ */}
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 2.5rem;">
+      <div style="background: #ffffff; border: 1px solid var(--color-border); border-left: 5px solid var(--color-accent); border-radius: var(--radius-md); padding: 1.25rem; box-shadow: var(--shadow-sm);">
+        <h2 style="font-size: 1.05rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+          <span style="color: var(--color-accent);">🍁</span> 11月の旬タイムライン（{pref.nameJa}）
+        </h2>
+        <div style="font-size: 0.85rem; line-height: 1.7; color: var(--color-text-main);">
+          <div style="margin-bottom: 0.35rem;"><strong>・上旬</strong>: 秋バラ・色づき始め・爽やかな秋晴れ散策</div>
+          <div style="margin-bottom: 0.35rem;"><strong>・中旬</strong>: イチョウ並木の黄金アーチ・紅葉見頃ピーク</div>
+          <div><strong>・下旬</strong>: 落ち葉の絨毯・夜間ライトアップ・冷え込み対策</div>
+        </div>
+      </div>
+
+      <div style="background: #ffffff; border: 1px solid var(--color-border); border-left: 5px solid var(--color-primary); border-radius: var(--radius-md); padding: 1.25rem; box-shadow: var(--shadow-sm);">
+        <h2 style="font-size: 1.05rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+          <span style="color: var(--color-primary);">👶</span> 車なし・子連れ安心チェック
+        </h2>
+        <div style="font-size: 0.85rem; line-height: 1.7; color: var(--color-text-main);">
+          <div>✅ <strong>駅から段差ゼロ</strong>: エレベーター完備ルートを優先案内</div>
+          <div>✅ <strong>ベビーカー安心</strong>: 階段・急坂・砂利道を避けた実走ルート</div>
+          <div>✅ <strong>設備完備</strong>: 徒歩3分以内のオムツ替え・授乳室を事前確認</div>
+        </div>
+      </div>
     </div>
 
     {/* 該当都道府県の記事一覧 */}

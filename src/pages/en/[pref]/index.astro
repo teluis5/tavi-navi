@@ -61,16 +61,29 @@ const sortedArticles = prefArticles.sort((a, b) => b.data.pubDate.valueOf() - a.
   </div>
 
   <div class="container" style="padding-top: 2.5rem; padding-bottom: 3.5rem;">
-    {/* Live Highlights Box */}
-    <div style="background: #ffffff; border: 1px solid var(--color-border); border-left: 5px solid var(--color-accent); border-radius: var(--radius-md); padding: 1.5rem; margin-bottom: 2.5rem; box-shadow: var(--shadow-sm);">
-      <h2 style="font-size: 1.15rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
-        <span style="color: var(--color-accent);">📢</span> {pref.nameEn} Travel Essentials & Highlights
-      </h2>
-      <ul style="padding-left: 1.25rem; font-size: 0.95rem; line-height: 1.8; color: var(--color-text-main);">
-        <li><strong>Top Sights</strong>: {pref.highlightsEn.join(', ')}</li>
-        <li><strong>Prefectural Capital</strong>: {pref.capitalEn}</li>
-        <li><strong>Current Season</strong>: Autumn (Peak foliage, harvest food festivals, and comfortable pleasant temperatures)</li>
-      </ul>
+    {/* November Seasonal Timeline & No Car / Family Guide */}
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 2.5rem;">
+      <div style="background: #ffffff; border: 1px solid var(--color-border); border-left: 5px solid var(--color-accent); border-radius: var(--radius-md); padding: 1.25rem; box-shadow: var(--shadow-sm);">
+        <h2 style="font-size: 1.05rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+          <span style="color: var(--color-accent);">🍁</span> November Seasonal Timeline ({pref.nameEn})
+        </h2>
+        <div style="font-size: 0.85rem; line-height: 1.7; color: var(--color-text-main);">
+          <div style="margin-bottom: 0.35rem;"><strong>• Early Nov</strong>: Autumn roses, crisp blue skies & early foliage tints</div>
+          <div style="margin-bottom: 0.35rem;"><strong>• Mid Nov</strong>: Golden ginkgo avenue peaks & fiery maple colors</div>
+          <div><strong>• Late Nov</strong>: Yellow carpets, evening illuminations & chilly breezes</div>
+        </div>
+      </div>
+
+      <div style="background: #ffffff; border: 1px solid var(--color-border); border-left: 5px solid var(--color-primary); border-radius: var(--radius-md); padding: 1.25rem; box-shadow: var(--shadow-sm);">
+        <h2 style="font-size: 1.05rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+          <span style="color: var(--color-primary);">👶</span> No Car & Family Safety Check
+        </h2>
+        <div style="font-size: 0.85rem; line-height: 1.7; color: var(--color-text-main);">
+          <div>✅ <strong>100% Step-Free</strong>: Guaranteed elevator routes from subway exits</div>
+          <div>✅ <strong>Stroller Friendly</strong>: Smooth paved sidewalks with zero stairs</div>
+          <div>✅ <strong>Baby Facilities</strong>: Clean nursing rooms & diaper tables within 3 mins</div>
+        </div>
+      </div>
     </div>
 
     {/* Articles */}
