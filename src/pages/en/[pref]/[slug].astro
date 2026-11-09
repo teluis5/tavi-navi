@@ -179,19 +179,19 @@ if (props.pageType === 'article') {
     lang="en"
     currentPref={prefSlug}
   >
-    <div style="background: #ffffff; border-bottom: 1px solid var(--color-border); padding: 1rem 0;">
-      <div class="container" style="font-size: 0.85rem; color: var(--color-text-muted);">
-        <a href="/en/" style="color: var(--color-primary);">Home</a>
-        <span style="margin: 0 0.4rem;">&gt;</span>
-        <a href={`/en/${prefSlug}/`} style="color: var(--color-primary);">{prefName}</a>
-        <span style="margin: 0 0.4rem;">&gt;</span>
-        <span style="font-weight: 700; color: var(--color-text-main);">{article.data.title}</span>
-      </div>
-    </div>
+    <div class="layout-container" style="padding-top: 1.5rem; padding-bottom: 3.5rem;">
+      <!-- Main Content (Left Column) -->
+      <article class="layout-main box google-anno-skip" style="background: #ffffff; padding: 2rem 2.25rem; border-radius: var(--radius); border: 1px solid var(--border-color); box-shadow: var(--shadow);">
+        <!-- Breadcrumb -->
+        <div style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border-color);">
+          <a href="/en/" style="color: var(--theme-accent);">Home</a>
+          <span style="margin: 0 0.4rem;">&gt;</span>
+          <a href={`/en/${prefSlug}/`} style="color: var(--theme-accent);">{prefName}</a>
+          <span style="margin: 0 0.4rem;">&gt;</span>
+          <span>{article.data.title}</span>
+        </div>
 
-    <div class="container" style="max-width: 860px; padding-top: 2.5rem; padding-bottom: 4rem;">
-      <article class="article-content">
-        <header style="margin-bottom: 2rem; border-bottom: 1px solid var(--color-border); padding-bottom: 1.5rem;">
+        <header style="margin-bottom: 2rem;">
           <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
             <a href={`/en/${prefSlug}/`} class="badge-seasonal" style="background: var(--color-primary-light); color: var(--color-primary-dark);">
               📍 {prefName}
@@ -204,27 +204,23 @@ if (props.pageType === 'article') {
             )}
           </div>
 
-          <h1 style="font-size: 1.85rem; font-weight: 900; line-height: 1.4; color: var(--color-text-main); margin-bottom: 1rem;">
+          <h1 style="font-size: 1.85rem; font-weight: 900; line-height: 1.4; color: var(--text-main); margin-bottom: 1rem;">
             {article.data.title}
           </h1>
 
-          <div style="display: flex; align-items: center; gap: 1rem; font-size: 0.85rem; color: var(--color-text-muted);">
-            <time datetime={article.data.pubDate.toISOString()}>
-              Published: {article.data.pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-            </time>
+          <div style="display: flex; align-items: center; gap: 1rem; font-size: 0.85rem; color: var(--text-light); border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
+            <span>Published: {article.data.pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
             {article.data.updatedDate && (
-              <time datetime={article.data.updatedDate.toISOString()}>
-                Updated: {article.data.updatedDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-              </time>
+              <span>Updated: {article.data.updatedDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
             )}
           </div>
         </header>
 
-        <div class="markdown-body prose">
+        <div class="prose google-anno-skip">
           <ContentComponent />
         </div>
 
-        {/* Up-Next: 4-Season Timeline & Guide Tabs */}
+        <!-- Up-Next: 4-Season Timeline & Guide Tabs -->
         <div style="margin-top: 3.5rem;">
           <SeasonalTabs
             prefId={prefSlug}
@@ -236,25 +232,83 @@ if (props.pageType === 'article') {
           />
         </div>
 
-        <footer style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--color-border);">
+        <footer style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color);">
           <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;">
             {article.data.tags.map((tag: string) => (
-              <span style="font-size: 0.8rem; background: var(--color-bg-base); border: 1px solid var(--color-border); padding: 0.2rem 0.6rem; border-radius: var(--radius-full); color: var(--color-text-muted);">
+              <span style="font-size: 0.8rem; background: var(--bg-main); border: 1px solid var(--border-color); padding: 0.2rem 0.6rem; border-radius: var(--radius-full); color: var(--text-light);">
                 #{tag}
               </span>
             ))}
           </div>
 
           <div style="display: flex; justify-content: space-between; align-items: center;">
-            <a href={`/en/${prefSlug}/`} style="font-weight: 700; font-size: 0.9rem; color: var(--color-primary);">
+            <a href={`/en/${prefSlug}/`} style="font-weight: 700; font-size: 0.9rem; color: var(--theme-accent);">
               &larr; More in {prefName}
             </a>
-            <a href="/en/" style="font-weight: 700; font-size: 0.9rem; color: var(--color-text-muted);">
+            <a href="/en/" style="font-weight: 700; font-size: 0.9rem; color: var(--text-light);">
               Back to Japan Top
             </a>
           </div>
         </footer>
       </article>
+
+      <!-- Sidebar (Right Column) -->
+      <aside class="layout-sidebar">
+        <!-- About tavi-navi -->
+        <div class="sidebar-widget box" style="background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 1.5rem; box-shadow: var(--shadow);">
+          <div style="display: flex; align-items: center; gap: 0.5rem; font-weight: 800; font-size: 1rem; margin-bottom: 0.75rem; border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem; color: var(--text-main);">
+            <span>🧭</span>
+            <span>About tavi-navi</span>
+          </div>
+          <p style="font-size: 0.88rem; line-height: 1.6; color: var(--text-light); margin-bottom: 1rem;">
+            Bilingual travel guide for all 47 prefectures in Japan. Unbiased model courses, synchronized public transport, and seasonal event forecasts.
+          </p>
+          <div style="font-size: 0.82rem; background: var(--bg-main); padding: 0.6rem 0.8rem; border-radius: var(--radius); color: var(--text-main); border: 1px solid var(--border-color);">
+            ✨ <strong>Official Tourism Archives</strong><br/>
+            Partnered with official prefecture tourism archives including Akita Tourism Federation.
+          </div>
+        </div>
+
+        <!-- Regional Cities -->
+        <div class="sidebar-widget box" style="background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 1.5rem; box-shadow: var(--shadow);">
+          <div style="display: flex; align-items: center; gap: 0.5rem; font-weight: 800; font-size: 1rem; margin-bottom: 0.75rem; border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem; color: var(--text-main);">
+            <span>📍</span>
+            <span>Key Areas in {prefName}</span>
+          </div>
+          <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.88rem;">
+            {CITIES.filter((c) => c.prefId === prefSlug).map((city) => (
+              <li style="margin-bottom: 0.45rem;">
+                <a href={`/en/${prefSlug}/${city.id}/`} style="display: flex; justify-content: space-between; align-items: center; padding: 0.45rem 0.65rem; border-radius: var(--radius); background: var(--bg-main); border: 1px solid var(--border-color); color: var(--text-main); font-weight: 700; text-decoration: none;">
+                  <span>{city.nameEn}</span>
+                  <span style="font-size: 0.75rem; color: var(--theme-accent);">&rarr;</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Featured Seasonal Guides -->
+        <div class="sidebar-widget box" style="background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius); padding: 1.25rem; box-shadow: var(--shadow);">
+          <div style="display: flex; align-items: center; gap: 0.5rem; font-weight: 800; font-size: 1rem; margin-bottom: 0.75rem; border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem; color: var(--text-main);">
+            <span>❄️</span>
+            <span>Featured Model Courses</span>
+          </div>
+          <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.85rem;">
+            <li style="margin-bottom: 0.75rem; padding-bottom: 0.75rem; border-bottom: 1px dashed var(--border-color);">
+              <a href="/en/hokkaido/early-june-best-route/" style="font-weight: 700; color: var(--text-main); display: block; margin-bottom: 0.2rem; line-height: 1.4;">
+                Early June in Hokkaido: Furano, Biei & Shakotan Sea Urchin
+              </a>
+              <span style="color: var(--text-light); font-size: 0.75rem;">Hokkaido - 3 Days</span>
+            </li>
+            <li>
+              <a href="/en/akita/winter-kakunodate-nyuto-onsen/" style="font-weight: 700; color: var(--theme-accent); display: block; margin-bottom: 0.2rem; line-height: 1.4;">
+                Winter in Akita: Samurai Town, Lake Tazawa & Nyuto Onsen
+              </a>
+              <span style="color: var(--text-light); font-size: 0.75rem;">Akita - 3 Days</span>
+            </li>
+          </ul>
+        </div>
+      </aside>
     </div>
   </Layout>
 ) : null}

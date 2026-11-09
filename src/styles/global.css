@@ -1,727 +1,523 @@
+
 :root {
-  /* ==========================================================================
-     全12メディア共通Cocoon風デザインシステム (Single Source of Truth)
-     ========================================================================== */
-  --theme-color: #0284c7;
-  --theme-accent: #0284c7;
-  --text-main: #0f172a;
-  --text-light: #64748b;
-  --bg-main: #f8fafc;
-  --bg-content: #ffffff;
-  --border-color: #e2e8f0;
-  --radius: 6px;
-  --shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  --font-base: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
-
-  /* tavi-navi 固有変数エイリアス（下位互換性を完全維持） */
-  --font-fallback: var(--font-base);
-  --font-main: var(--font-atkinson, var(--font-fallback));
-  --color-primary: var(--theme-accent);
-  --color-primary-dark: #0369a1;
-  --color-primary-light: #e0f2fe;
-  --color-accent: #f97316;
-  --color-accent-light: #ffedd5;
-  --color-text-main: var(--text-main);
-  --color-text-muted: var(--text-light);
-  --color-bg-base: var(--bg-main);
-  --color-bg-surface: var(--bg-content);
-  --color-border: var(--border-color);
-  --color-border-hover: #cbd5e1;
-  --shadow-sm: var(--shadow);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --radius-sm: 0.375rem;
-  --radius-md: var(--radius);
-  --radius-lg: 0.75rem;
-  --radius-full: 9999px;
-  --max-width: 1200px;
-}
-
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+	/* tavi-navi 互換変数 */
+	--color-primary: var(--theme-accent);
+	--color-primary-dark: #0369a1;
+	--color-primary-light: #e0f2fe;
+	--color-accent: #f97316;
+	--color-accent-light: #ffedd5;
+	--color-text-main: var(--text-main);
+	--color-text-muted: var(--text-light);
+	--color-bg-base: var(--bg-main);
+	--color-bg-surface: var(--bg-content);
+	--color-border: var(--border-color);
+	--shadow-sm: var(--shadow);
+	--radius-sm: var(--radius);
+	--radius-md: var(--radius);
+	--radius-lg: 8px;
+	--radius-full: 9999px;
+	--theme-color: #0284c7;
+	--theme-accent: #0284c7;
+	--text-main: #333333;
+	--text-light: #717171;
+	--bg-main: #f3f4f5;
+	--bg-content: #ffffff;
+	--border-color: #dfdfdf;
+	--radius: 4px;
+	--shadow: 0 1px 3px rgba(0,0,0,0.05);
+	--font-base: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
 }
 
 body {
-  font-family: var(--font-main);
-  background-color: var(--color-bg-base);
-  color: var(--color-text-main);
-  line-height: 1.8;
-  font-size: 16px;
-  -webkit-font-smoothing: antialiased;
+	font-family: var(--font-base);
+	margin: 0;
+	padding: 0;
+	text-align: left;
+	background-color: var(--bg-main);
+	color: var(--text-main);
+	font-size: 16px;
+	line-height: 1.8;
+}
+* {
+	box-sizing: border-box;
 }
 
 main {
-  width: 100%;
-  max-width: var(--max-width);
-  margin: 2rem auto;
-  padding: 0 1.25rem;
+	width: 100%;
+	max-width: 1200px;
+	margin: 2rem auto;
+	padding: 0 1rem;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  margin: 0 0 1rem 0;
-  color: var(--color-text-main);
-  line-height: 1.4;
-  font-weight: 700;
+	margin: 0 0 1rem 0;
+	color: var(--text-main);
+	line-height: 1.4;
+	font-weight: 700;
 }
 
 a {
-  color: var(--color-primary);
-  text-decoration: none;
-  transition: color 0.15s ease, opacity 0.15s ease;
+	color: var(--theme-accent);
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+	opacity: 0.8;
 }
 
-a:hover {
-  color: var(--color-primary-dark);
-  text-decoration: underline;
+/* SVG Icon alignment */
+.icon-inline {
+	display: inline-block;
+	vertical-align: text-bottom;
+	width: 1.2em;
+	height: 1.2em;
+}
+
+p { margin-bottom: 1.5em; }
+
+/* Cocoon-like Card Style */
+.box {
+	background-color: var(--bg-main);
+	border: 1px solid var(--border-color);
+	border-radius: var(--radius);
+	/* box-shadow: var(--shadow); */
+	overflow: hidden;
 }
 
 img {
-  max-width: 100%;
-  height: auto;
-  display: block;
+	max-width: 100%;
+	height: auto;
 }
 
-p {
-  margin-bottom: 1.5em;
-}
-
-.container {
-  max-width: var(--max-width);
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
-}
-
-/* ==========================================================================
-   画像・キャプション (figure / figcaption)
-   ========================================================================== */
+/* Image Caption (figure / figcaption) */
 figure {
-  margin: 1.5rem 0;
-  text-align: center;
+	margin: 1.25rem 0;
+	text-align: center;
 }
 
 @media (max-width: 640px) {
-  figure {
-    margin: 1.2rem 0;
-  }
+	figure {
+		margin: 1rem 0;
+	}
 }
 
 figure img {
-  display: block;
-  margin: 0 auto;
-  border-radius: var(--radius);
+	display: block;
+	margin: 0 auto;
+	border-radius: var(--radius);
 }
 
 figcaption,
 .caption,
 .image-caption {
-  display: block;
-  font-size: 0.85rem;
-  color: var(--color-text-muted);
-  margin-top: 0.5rem;
-  text-align: center;
-  line-height: 1.5;
+	display: block;
+	font-size: 0.85rem;
+	color: var(--text-light);
+	margin-top: 0.5rem;
+	text-align: center;
+	line-height: 1.5;
 }
 
 figcaption p,
 .caption p,
 .image-caption p {
-  margin: 0;
-  font-size: inherit;
-  color: inherit;
-  line-height: inherit;
+	margin: 0;
+	font-size: inherit;
+	color: inherit;
+	line-height: inherit;
 }
 
 figcaption a,
 .caption a,
 .image-caption a {
-  color: var(--color-text-muted);
-  text-decoration: underline;
+	color: var(--text-light);
+	text-decoration: underline;
 }
 
 figcaption a:hover,
 .caption a:hover,
 .image-caption a:hover {
-  color: var(--color-primary);
+	color: var(--theme-accent);
 }
 
-/* ==========================================================================
-   インラインコード & コードブロック (pre / Shiki)
-   ========================================================================== */
+/* Inline code */
 code {
-  font-family: "JetBrains Mono", Consolas, "SFMono-Regular", Menlo, Monaco, "Courier New", monospace;
-  font-size: 0.88em;
-  padding: 0.15em 0.45em;
-  background-color: rgba(0, 0, 0, 0.05);
-  color: #c7254e;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 4px;
-  word-break: break-word;
+	font-family: "JetBrains Mono", Consolas, "SFMono-Regular", Menlo, Monaco, "Courier New", monospace;
+	font-size: 0.88em;
+	padding: 0.15em 0.45em;
+	background-color: rgba(0, 0, 0, 0.05);
+	color: #c7254e;
+	border: 1px solid rgba(0, 0, 0, 0.08);
+	border-radius: 4px;
+	word-break: break-word;
 }
 
+/* Code block (pre / Shiki) */
 pre,
 .astro-code {
-  position: relative;
-  padding: 1.25rem 1.5rem;
-  margin: 1.75rem 0;
-  border-radius: 8px;
-  background-color: #1e293b !important;
-  color: #f8fafc !important;
-  border: 1px solid #334155;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
-  font-size: 0.92rem;
-  line-height: 1.65;
-  letter-spacing: 0.015em;
-  overflow-x: auto;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+	position: relative;
+	padding: 1.25rem 1.5rem;
+	margin: 1.75rem 0;
+	border-radius: 8px;
+	background-color: #1e293b !important;
+	color: #f8fafc !important;
+	border: 1px solid #334155;
+	box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+	font-size: 0.92rem;
+	line-height: 1.65;
+	letter-spacing: 0.015em;
+	overflow-x: auto;
+	scrollbar-width: thin;
+	scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
 }
 
+/* Code block inner code reset */
 pre code,
 .astro-code code {
-  all: unset;
-  display: block;
-  background: transparent !important;
-  background-color: transparent !important;
-  padding: 0 !important;
-  border: none !important;
-  border-radius: 0 !important;
-  font-family: "JetBrains Mono", Consolas, "SFMono-Regular", Menlo, Monaco, "Courier New", monospace;
-  font-size: inherit;
-  color: inherit;
-  line-height: inherit;
-  white-space: pre;
-  word-break: normal;
-  word-spacing: normal;
-  overflow-wrap: normal;
+	all: unset;
+	display: block;
+	background: transparent !important;
+	background-color: transparent !important;
+	padding: 0 !important;
+	border: none !important;
+	border-radius: 0 !important;
+	font-family: "JetBrains Mono", Consolas, "SFMono-Regular", Menlo, Monaco, "Courier New", monospace;
+	font-size: inherit;
+	color: inherit;
+	line-height: inherit;
+	white-space: pre;
+	word-break: normal;
+	word-spacing: normal;
+	overflow-wrap: normal;
 }
 
+/* Code block scrollbars */
+pre::-webkit-scrollbar,
+.astro-code::-webkit-scrollbar {
+	height: 6px;
+}
+pre::-webkit-scrollbar-thumb,
+.astro-code::-webkit-scrollbar-thumb {
+	background: rgba(255, 255, 255, 0.25);
+	border-radius: 3px;
+}
+pre::-webkit-scrollbar-thumb:hover,
+.astro-code::-webkit-scrollbar-thumb:hover {
+	background: rgba(255, 255, 255, 0.4);
+}
 blockquote {
-  border-left: 4px solid var(--color-border);
-  padding: 0.5rem 0 0.5rem 1rem;
-  margin: 1.5em 0;
-  color: var(--color-text-muted);
+	border-left: 4px solid #dddddd;
+	padding: 0 0 0 16px;
+	margin: 1.5em 0;
+	color: var(--text-light);
 }
-
 hr {
-  border: none;
-  border-top: 1px solid var(--color-border);
-  margin: 2rem 0;
+	border: none;
+	border-top: 1px solid var(--border-color);
+	margin: 2rem 0;
 }
 
-/* ==========================================================================
-   テーブル (Table) & 楽天アフィリエイトウィジェット最適化
-   ========================================================================== */
+/* Tables */
 table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 2rem 0;
-  font-size: 0.92rem;
+	width: 100%;
+	border-collapse: collapse;
+	margin: 2rem 0;
+	font-size: 0.9rem;
 }
-
 th, td {
-  border: 1px solid var(--color-border);
-  padding: 0.65rem 0.85rem;
-  text-align: left;
-  vertical-align: top;
-  word-break: break-all;
-  overflow-wrap: anywhere;
+	border: 1px solid var(--border-color);
+	padding: 0.6rem 0.8rem;
+	text-align: left;
+	vertical-align: top;
+	word-break: break-all;
+	overflow-wrap: anywhere;
 }
-
+table a {
+	word-break: break-all;
+	overflow-wrap: anywhere;
+}
 th {
-  background-color: var(--color-bg-base);
-  font-weight: 700;
-  font-size: 0.88rem;
+	background-color: var(--bg-main);
+	font-weight: bold;
+	font-size: 0.85rem;
+}
+tbody td:first-child {
+	font-weight: bold;
+	font-size: 0.85rem;
+	background-color: #fafafa;
 }
 
-thead th {
-  position: sticky;
-  top: 68px; /* ヘッダー高さ */
-  z-index: 10;
-  box-shadow: 0 1px 0 var(--color-border);
-}
-
-/* 楽天アフィリエイトテーブル崩れ防止 */
+/* 楽天アフィリエイトウィジェット表示の最適化 */
 table:has(a[href*="rakuten.co.jp"]) {
-  border: none !important;
-  background: transparent !important;
-  margin: 2rem auto !important;
-  max-width: 504px !important;
-  width: 100% !important;
-  box-shadow: none !important;
-  display: table !important;
+	border: none !important;
+	background: transparent !important;
+	margin: 2rem auto !important;
+	max-width: 504px !important;
+	width: 100% !important;
+	box-shadow: none !important;
+	display: table !important;
 }
-
 table:has(a[href*="rakuten.co.jp"]) table {
-  border: none !important;
-  background: transparent !important;
-  margin: 0 auto !important;
-  width: 100% !important;
-  box-shadow: none !important;
+	border: none !important;
+	background: transparent !important;
+	margin: 0 auto !important;
+	width: 100% !important;
+	box-shadow: none !important;
 }
-
 table:has(a[href*="rakuten.co.jp"]) th,
 table:has(a[href*="rakuten.co.jp"]) td {
-  border: none !important;
-  background: transparent !important;
-  padding: 0 !important;
-  box-shadow: none !important;
-  font-weight: normal !important;
+	border: none !important;
+	background: transparent !important;
+	padding: 0 !important;
+	box-shadow: none !important;
+	font-weight: normal !important;
+}
+table:has(a[href*="rakuten.co.jp"]) img {
+	background-color: transparent !important;
+}
+table:has(a[href*="rakuten.co.jp"]) a {
+	word-break: normal !important;
+}
+table:has(a[href*="rakuten.co.jp"]) a div[style*="background-color:#bf0000"],
+table:has(a[href*="rakuten.co.jp"]) a[href*="bbtn"] div {
+	white-space: nowrap !important;
+	word-break: keep-all !important;
+	width: auto !important;
+	min-width: 84px !important;
+	box-sizing: border-box !important;
+}
+table:has(a[href*="rakuten.co.jp"]) br {
+	display: none;
+}
+table:has(a[href*="rakuten.co.jp"]) div[style*="border-radius"] {
+	margin-left: auto !important;
+	margin-right: auto !important;
+	max-width: 100% !important;
+	box-sizing: border-box !important;
+}
+@media (max-width: 560px) {
+	table:has(a[href*="rakuten.co.jp"]) table,
+	table:has(a[href*="rakuten.co.jp"]) table tbody,
+	table:has(a[href*="rakuten.co.jp"]) table tr {
+		display: flex !important;
+		flex-direction: column !important;
+		align-items: center !important;
+		width: 100% !important;
+	}
+	table:has(a[href*="rakuten.co.jp"]) table td {
+		width: 100% !important;
+		max-width: 100% !important;
+		display: block !important;
+		text-align: center !important;
+		box-sizing: border-box !important;
+	}
+	table:has(a[href*="rakuten.co.jp"]) table td:first-child a {
+		display: inline-block !important;
+	}
+	table:has(a[href*="rakuten.co.jp"]) table td:first-child img {
+		max-width: 100% !important;
+		height: auto !important;
+		margin: 0 auto !important;
+	}
+	table:has(a[href*="rakuten.co.jp"]) table td:last-child p {
+		text-align: center !important;
+		margin: 8px 0 !important;
+	}
+	table:has(a[href*="rakuten.co.jp"]) table td:last-child div {
+		display: flex !important;
+		justify-content: center !important;
+		align-items: center !important;
+		gap: 12px !important;
+		margin: 8px auto !important;
+	}
+	table:has(a[href*="rakuten.co.jp"]) table td:last-child div a {
+		float: none !important;
+	}
+	table:has(a[href*="rakuten.co.jp"]) table td:last-child div a:last-child div {
+		float: none !important;
+		width: auto !important;
+		min-width: 110px !important;
+	}
+}
+thead th {
+	position: sticky;
+	top: 57px; /* サイトのヘッダー高さ(約57px)に合わせる */
+	z-index: 10;
+	/* border-collapse のバグ対策として、擬似的に下線を引く */
+	box-shadow: 0 1px 0 var(--border-color);
 }
 
-/* ==========================================================================
-   記事本文 (.prose) Cocoon風スタイル (Single Source of Truth)
-   ========================================================================== */
-.prose {
-  color: var(--color-text-main);
-  font-size: 1.05rem;
-  line-height: 1.85;
+/* Two Column Layout */
+.layout-container {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	gap: 2rem;
+}
+.layout-main {
+	flex: 1 1 65%;
+	min-width: 0;
+}
+.layout-sidebar {
+	flex: 1 1 30%;
+	min-width: 300px;
+	position: sticky;
+	top: 80px;
+	max-height: calc(100vh - 100px);
+	overflow-y: auto;
+	overflow-x: hidden;
+	scrollbar-width: thin;
+	scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
+}
+.layout-sidebar::-webkit-scrollbar {
+	width: 5px;
+}
+.layout-sidebar::-webkit-scrollbar-thumb {
+	background: rgba(0, 0, 0, 0.15);
+	border-radius: 4px;
+}
+.layout-sidebar::-webkit-scrollbar-thumb:hover {
+	background: rgba(0, 0, 0, 0.3);
 }
 
-/* H2: Cocoon風 左アクセントバー＋角丸薄背景 */
-.prose h2 {
-  padding: 0.85rem 1.15rem;
-  background-color: #f7f9fa;
-  border-left: 5px solid var(--theme-accent);
-  border-bottom: 1px solid var(--color-border);
-  font-size: 1.5rem;
-  font-weight: 800;
-  margin-top: 3rem;
-  margin-bottom: 1.5rem;
-  border-radius: 0 4px 4px 0;
-  line-height: 1.45;
+@media (max-width: 800px) {
+	.layout-main, .layout-sidebar {
+		flex: 1 1 100%;
+	}
+	.layout-sidebar {
+		position: static;
+		max-height: none;
+		overflow-y: visible;
+	}
 }
 
-/* H3: 下線＋左側アクセントバー */
-.prose h3 {
-  padding-bottom: 0.55rem;
-  border-bottom: 2px solid #e2e8f0;
-  font-size: 1.25rem;
-  font-weight: 800;
-  margin-top: 2.5rem;
-  margin-bottom: 1.25rem;
-  position: relative;
-  line-height: 1.45;
-}
-
-.prose h3::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -2px;
-  width: 60px;
-  height: 2px;
-  background-color: var(--theme-accent);
-}
-
-/* H4: 左細ボーダー */
-.prose h4 {
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-  padding-left: 0.65rem;
-  border-left: 3px solid #cbd5e1;
-}
-
-/* H5 */
-.prose h5 {
-  font-size: 1.05rem;
-  font-weight: 700;
-  margin-top: 1.5rem;
-  margin-bottom: 0.8rem;
-}
-
-/* 蛍光ペン風マーカー（下部40%） */
-.prose strong,
-.prose b {
-  font-weight: 700;
-  color: var(--color-text-main);
-  background: linear-gradient(transparent 60%, #fff3cd 60%);
-}
-
-.prose table strong {
-  background: none;
-}
-
-/* 引用ボックス（清潔感のあるブルー） */
-.prose blockquote {
-  background: #f0f9ff;
-  border-left: 5px solid var(--theme-accent);
-  padding: 1.2rem 1.5rem;
-  margin: 2rem 0;
-  border-radius: 4px;
-  color: #075985;
-  font-weight: 700;
-  font-size: 1.05rem;
-}
-
-.prose blockquote.twitter-tweet {
-  background: transparent;
-  border: none;
-  padding: 0;
-  margin: 1.5rem auto;
-  color: inherit;
-  font-weight: normal;
-}
-
-.prose blockquote p {
-  margin: 0;
-}
-
-/* リスト */
-.prose ul, .prose ol {
-  padding-left: 1.6rem;
-  margin-bottom: 1.5rem;
-}
-
-.prose li {
-  margin-bottom: 0.5rem;
-  line-height: 1.8;
-}
-
-/* 記事内画像 */
-.prose img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 6px;
-  content-visibility: auto;
-  background-color: var(--color-bg-base);
-}
-
-/* Google マップ レスポンシブ (16:10) */
-.prose iframe[src*="google.com/maps"],
-.prose iframe[data-src*="google.com/maps"] {
-  width: 100%;
-  aspect-ratio: 16 / 10;
-  height: auto;
-  border: 0;
-  border-radius: 8px;
-  background-color: #f1f5f9;
-}
-
-/* ==========================================================================
-   Header & Nav
-   ========================================================================== */
-.site-header {
-  background: #ffffff;
-  border-bottom: 1px solid var(--color-border);
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  box-shadow: var(--shadow-sm);
-}
-
-.header-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 68px;
-}
-
-.site-logo {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-size: 1.35rem;
-  font-weight: 800;
-  color: var(--color-text-main);
-  letter-spacing: -0.02em;
-}
-
-.site-logo svg {
-  width: 32px;
-  height: 32px;
-}
-
-.site-logo span.tagline {
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--color-text-muted);
-  border-left: 1px solid var(--color-border);
-  padding-left: 0.6rem;
-  margin-left: 0.2rem;
-  display: none;
-}
-
-@media (min-width: 640px) {
-  .site-logo span.tagline {
-    display: inline-block;
-  }
-}
-
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.lang-switch {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  background: var(--color-primary-light);
-  padding: 0.35rem 0.75rem;
-  border-radius: var(--radius-full);
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--color-primary-dark);
-}
-
-.lang-switch:hover {
-  background: #bae6fd;
-}
-
-/* ==========================================================================
-   Hero Section & Badges
-   ========================================================================== */
-.hero-banner {
-  background: linear-gradient(135deg, #0284c7 0%, #0369a1 50%, #075985 100%);
-  color: #ffffff;
-  padding: 3.5rem 0 3rem;
-  text-align: center;
-}
-
-.hero-title {
-  font-size: 2.25rem;
-  font-weight: 900;
-  letter-spacing: -0.03em;
-  margin-bottom: 0.75rem;
-}
-
-.hero-subtitle {
-  font-size: 1.05rem;
-  opacity: 0.92;
-  max-width: 680px;
-  margin: 0 auto 1.5rem;
-}
-
-.badge-seasonal {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.25rem 0.65rem;
-  border-radius: var(--radius-full);
-  font-size: 0.75rem;
-  font-weight: 700;
-  background: var(--color-accent-light);
-  color: #c2410c;
-}
-
-/* ==========================================================================
-   Prefecture & Region Grid
-   ========================================================================== */
-.prefecture-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-  gap: 0.85rem;
-}
-
-@media (min-width: 768px) {
-  .prefecture-grid {
-    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-    gap: 1rem;
-  }
-}
-
-.pref-card {
-  background: var(--color-bg-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: 1rem;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
-  display: flex;
-  flex-direction: column;
-}
-
-.pref-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--color-primary);
-}
-
-.pref-card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 0.35rem;
-}
-
-.pref-card-title {
-  font-size: 1.15rem;
-  font-weight: 800;
-  color: var(--color-text-main);
-}
-
-.pref-card-en {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--color-text-muted);
-}
-
-.pref-card-highlights {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.3rem;
-  margin-top: 0.5rem;
-}
-
-.pref-card-tag {
-  font-size: 0.7rem;
-  background: var(--color-bg-base);
-  border: 1px solid var(--color-border);
-  padding: 0.15rem 0.4rem;
-  border-radius: var(--radius-sm);
-  color: var(--color-text-muted);
-}
-
-.region-section {
-  margin-bottom: 2.5rem;
-}
-
-.region-title {
-  font-size: 1.35rem;
-  font-weight: 800;
-  margin-bottom: 1rem;
-  padding-left: 0.75rem;
-  border-left: 4px solid var(--color-primary);
-  display: flex;
-  align-items: baseline;
-  gap: 0.5rem;
-}
-
-.region-title-en {
-  font-size: 0.85rem;
-  color: var(--color-text-muted);
-  font-weight: 500;
-}
-
-/* ==========================================================================
-   Article Cards Grid
-   ========================================================================== */
-.article-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
-}
-
-.article-card {
-  background: var(--color-bg-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-  display: flex;
-  flex-direction: column;
-}
-
-.article-card:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-lg);
-}
-
-.article-card-body {
-  padding: 1.25rem;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.article-card-meta {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.8rem;
-  color: var(--color-text-muted);
-  margin-bottom: 0.5rem;
-}
-
-.article-card-title {
-  font-size: 1.15rem;
-  font-weight: 800;
-  line-height: 1.45;
-  color: var(--color-text-main);
-  margin-bottom: 0.5rem;
-}
-
-.article-card-desc {
-  font-size: 0.88rem;
-  color: var(--color-text-muted);
-  line-height: 1.6;
-  margin-bottom: 1rem;
-  flex-grow: 1;
-}
-
-/* ==========================================================================
-   Article Content Container
-   ========================================================================== */
-.article-content {
-  background: #ffffff;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: 2rem 1.5rem;
-  margin-bottom: 2rem;
-  box-shadow: var(--shadow-sm);
-}
-
-@media (min-width: 768px) {
-  .article-content {
-    padding: 3rem 2.5rem;
-  }
-}
-
-/* ==========================================================================
-   Footer
-   ========================================================================== */
-.site-footer {
-  background: #ffffff;
-  border-top: 1px solid var(--color-border);
-  padding: 3rem 0 2rem;
-  margin-top: 4rem;
-  font-size: 0.9rem;
-  color: var(--color-text-muted);
-}
-
-.footer-nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.25rem;
-  margin-bottom: 1.5rem;
-  justify-content: center;
-}
-
-.copyright {
-  text-align: center;
-  font-size: 0.8rem;
-}
-
-/* ==========================================================================
-   アクセシビリティ & AdSense 自動広告割り込み防止
-   ========================================================================== */
 .sr-only {
-  border: 0;
-  padding: 0;
-  margin: -1px;
-  position: absolute !important;
-  height: 1px;
-  width: 1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
+	border: 0;
+	padding: 0;
+	margin: 0;
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	clip: rect(1px 1px 1px 1px);
+	white-space: nowrap;
 }
 
+/* 見出しの装飾（派手すぎない・上品なスタイル） */
+.prose h2 {
+	padding: 0.8rem 1rem;
+	background-color: #f7f9fa;
+	border-left: 5px solid var(--theme-accent);
+	border-bottom: 1px solid var(--border-color);
+	font-size: 1.5rem;
+	margin-top: 3rem;
+	margin-bottom: 1.5rem;
+	border-radius: 0 4px 4px 0;
+}
+
+.prose h3 {
+	padding-bottom: 0.5rem;
+	border-bottom: 2px solid #e2e8f0;
+	font-size: 1.25rem;
+	margin-top: 2.5rem;
+	margin-bottom: 1.2rem;
+	position: relative;
+}
+.prose h3::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	bottom: -2px;
+	width: 60px;
+	height: 2px;
+	background-color: var(--theme-accent);
+}
+
+.prose h4 {
+	font-size: 1.1rem;
+	margin-top: 2rem;
+	margin-bottom: 1rem;
+	padding-left: 0.5rem;
+	border-left: 3px solid #cbd5e1;
+}
+
+.prose h5 {
+	font-size: 1.05rem;
+	font-weight: 700;
+	margin-top: 1.5rem;
+	margin-bottom: 0.8rem;
+}
+
+.prose b,
+.prose strong {
+	font-weight: 700;
+	color: var(--text-main);
+}
+
+.prose i,
+.prose em {
+	font-style: italic;
+}
+
+.prose s,
+.prose del {
+	text-decoration: line-through;
+	color: var(--text-light);
+}
+
+.prose u {
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+
+.prose mark {
+	background-color: #fef08a;
+	padding: 0.1em 0.35em;
+	border-radius: 2px;
+	color: inherit;
+}
+
+.prose kbd {
+	background-color: var(--bg-main);
+	border: 1px solid var(--border-color);
+	border-radius: 3px;
+	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+	font-size: 0.85em;
+	padding: 2px 6px;
+	font-family: monospace;
+}
+
+/* Screen reader only utility (アクセシビリティ・SEO用非表示見出し) */
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
+}
+
+/* ==========================================================================
+   Google AdSense 自動広告の割り込み防止（自動配置要素のみを完全遮断）
+   ※手動広告タグ（ins.adsbygoogle）は正常に描画させる
+   ========================================================================== */
 .google-auto-placed,
-.prose .google-auto-placed {
-  display: none !important;
-  height: 0 !important;
-  margin: 0 !important;
-  padding: 0 !important;
+.prose .google-auto-placed,
+.chiikawa-dashboard .google-auto-placed {
+	display: none !important;
+	height: 0 !important;
+	margin: 0 !important;
+	padding: 0 !important;
 }
 
+/* アンカー広告（オーバーレイ）の上部表示を防止し、下部せり上げを徹底 */
 .adsbygoogle-noablate[style*="top: 0px"],
 .adsbygoogle-noablate[style*="top:0px"] {
-  display: none !important;
+	display: none !important;
 }
+
+
+
