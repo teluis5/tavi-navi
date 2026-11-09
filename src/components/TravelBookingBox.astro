@@ -1,0 +1,262 @@
+---
+interface Props {
+  destination: string;    // e.g. "熱海・三島" or "Atami & Mishima"
+  station?: string;        // e.g. "熱海駅" or "Atami Station"
+  pref: string;           // e.g. "shizuoka"
+  lang?: 'ja' | 'en';
+}
+
+const { destination, station = '', pref, lang = 'ja' } = Astro.props;
+
+// Build search URLs
+const rakutenKeyword = encodeURIComponent(`${destination} 温泉`);
+const rakutenUrl = `https://travel.rakuten.co.jp/search/?f_keyword=${rakutenKeyword}`;
+
+const asoviewArea = encodeURIComponent(destination);
+const asoviewUrl = `https://www.asoview.com/leisure/?keyword=${asoviewArea}`;
+
+const bookingUrl = `https://www.booking.com/searchresults.html?ss=${encodeURIComponent(destination)}`;
+const klookUrl = `https://www.klook.com/search/?query=${encodeURIComponent(destination)}`;
+---
+
+<div class="travel-booking-box">
+  <div class="booking-header">
+    <div class="booking-badge">
+      <span>🏨</span>
+      <span>{lang === 'ja' ? '宿・体験のリアルタイム空室＆予約' : 'Live Booking & Availability'}</span>
+    </div>
+    <h3 class="booking-title">
+      {lang === 'ja' 
+        ? `${destination}の空室・おすすめ温泉宿＆体験チケット` 
+        : `Hotels, Ryokans & Activities in ${destination}`}
+    </h3>
+    <p class="booking-desc">
+      {lang === 'ja'
+        ? '週末やハイシーズンは人気宿・海沿い客室から早期に満室となります。日程が決まったら早めのチェックがおすすめです。'
+        : 'Popular hot spring ryokans and ocean-view rooms book out weeks in advance. Check live availability and rates below.'}
+    </p>
+  </div>
+
+  <div class="booking-grid">
+    {lang === 'ja' ? (
+      <>
+        {/* 楽天トラベル */}
+        <a href={rakutenUrl} target="_blank" rel="noopener noreferrer nofollow" class="booking-card rakuten-card">
+          <div class="booking-card-top">
+            <span class="booking-tag">温泉・ホテル</span>
+            <span class="booking-provider">楽天トラベル</span>
+          </div>
+          <div class="booking-card-body">
+            <h4 class="booking-card-heading">【{destination}】温泉宿・ホテルの空室を検索</h4>
+            <p class="booking-card-text">直前割・露天風呂付き客室・早期割引プランを一覧比較</p>
+          </div>
+          <div class="booking-card-action">
+            <span>空室・料金プランを見る</span>
+            <span class="action-arrow">&rarr;</span>
+          </div>
+        </a>
+
+        {/* アソビュー */}
+        <a href={asoviewUrl} target="_blank" rel="noopener noreferrer nofollow" class="booking-card asoview-card">
+          <div class="booking-card-top">
+            <span class="booking-tag tag-leisure">日帰り・遊び</span>
+            <span class="booking-provider">アソビュー！</span>
+          </div>
+          <div class="booking-card-body">
+            <h4 class="booking-card-heading">【{destination}】周辺の人気レジャー・体験電子チケット</h4>
+            <p class="booking-card-text">ロープウェイ・日帰り温泉・水族館の前売り割引チケット</p>
+          </div>
+          <div class="booking-card-action">
+            <span>体験・前売り券を探す</span>
+            <span class="action-arrow">&rarr;</span>
+          </div>
+        </a>
+      </>
+    ) : (
+      <>
+        {/* Booking.com */}
+        <a href={bookingUrl} target="_blank" rel="noopener noreferrer nofollow" class="booking-card bookingcom-card">
+          <div class="booking-card-top">
+            <span class="booking-tag">Hotels & Ryokans</span>
+            <span class="booking-provider">Booking.com</span>
+          </div>
+          <div class="booking-card-body">
+            <h4 class="booking-card-heading">Stay in {destination}: Onsen & Ocean Views</h4>
+            <p class="booking-card-text">Free cancellation options & instant confirmation</p>
+          </div>
+          <div class="booking-card-action">
+            <span>Check Availability & Rates</span>
+            <span class="action-arrow">&rarr;</span>
+          </div>
+        </a>
+
+        {/* Klook */}
+        <a href={klookUrl} target="_blank" rel="noopener noreferrer nofollow" class="booking-card klook-card">
+          <div class="booking-card-top">
+            <span class="booking-tag tag-leisure">Passes & Tours</span>
+            <span class="booking-provider">Klook</span>
+          </div>
+          <div class="booking-card-body">
+            <h4 class="booking-card-heading">{destination} Activities & Attraction Tickets</h4>
+            <p class="booking-card-text">Skip-the-line e-tickets & transport passes</p>
+          </div>
+          <div class="booking-card-action">
+            <span>View Deals & Passes</span>
+            <span class="action-arrow">&rarr;</span>
+          </div>
+        </a>
+      </>
+    )}
+  </div>
+</div>
+
+<style>
+  .travel-booking-box {
+    background: #ffffff;
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem;
+    margin: 2.5rem 0;
+    box-shadow: 0 4px 14px rgba(46, 125, 50, 0.08);
+  }
+
+  .booking-header {
+    margin-bottom: 1.25rem;
+  }
+
+  .booking-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: rgba(46, 125, 50, 0.1);
+    color: var(--color-primary);
+    font-size: 0.78rem;
+    font-weight: 800;
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-full);
+    margin-bottom: 0.5rem;
+  }
+
+  .booking-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--color-text-main);
+    margin: 0 0 0.4rem 0;
+    letter-spacing: -0.01em;
+  }
+
+  .booking-desc {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  .booking-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+
+  .booking-card {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    text-decoration: none;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .booking-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+  }
+
+  .rakuten-card:hover, .bookingcom-card:hover {
+    border-color: #bf0000;
+  }
+
+  .asoview-card:hover, .klook-card:hover {
+    border-color: #e65100;
+  }
+
+  .booking-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.65rem;
+  }
+
+  .booking-tag {
+    font-size: 0.72rem;
+    font-weight: 800;
+    background: #fee2e2;
+    color: #991b1b;
+    padding: 0.15rem 0.5rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .booking-tag.tag-leisure {
+    background: #ffedd5;
+    color: #9a3412;
+  }
+
+  .booking-provider {
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: var(--color-text-muted);
+  }
+
+  .booking-card-body {
+    flex: 1;
+    margin-bottom: 1rem;
+  }
+
+  .booking-card-heading {
+    font-size: 0.98rem;
+    font-weight: 800;
+    line-height: 1.4;
+    color: var(--color-text-main);
+    margin: 0 0 0.35rem 0;
+  }
+
+  .booking-card-text {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  .booking-card-action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    border-top: 1px solid var(--color-border);
+    padding-top: 0.65rem;
+  }
+
+  .action-arrow {
+    font-size: 1.05rem;
+    transition: transform 0.2s ease;
+  }
+
+  .booking-card:hover .action-arrow {
+    transform: translateX(4px);
+  }
+
+  @media (max-width: 640px) {
+    .travel-booking-box {
+      padding: 1.25rem 0.85rem;
+    }
+    .booking-title {
+      font-size: 1.1rem;
+    }
+  }
+</style>

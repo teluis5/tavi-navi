@@ -69,6 +69,105 @@ const recentArticles = allArticles.sort((a, b) => b.data.pubDate.valueOf() - a.d
       </section>
     )}
 
+    {/* 出発地から探す！週末の王道1泊2日モデルコース */}
+    <section style="margin-bottom: 3.5rem;">
+      <div style="margin-bottom: 1.5rem;">
+        <span class="badge-seasonal" style="background: rgba(46, 125, 50, 0.1); color: var(--color-primary); margin-bottom: 0.5rem; display: inline-block;">
+          🚅 移動時間・新幹線アクセス別
+        </span>
+        <h2 style="font-size: 1.5rem; font-weight: 800; display: flex; align-items: center; gap: 0.5rem; margin: 0 0 0.4rem 0;">
+          <span style="color: var(--color-primary);">🗺️</span> 出発地から探す！週末1泊2日モデルコース
+        </h2>
+        <p style="color: var(--color-text-muted); font-size: 0.92rem; margin: 0;">
+          「今週末、東京や大阪からサクッと行ける温泉・絶景は？」移動疲れの少ない新幹線・特急直通の人気デスティネーションを厳選。
+        </p>
+      </div>
+
+      <div class="getaway-grid">
+        {/* 東京発カード */}
+        <div class="getaway-hub-card">
+          <div class="getaway-hub-header">
+            <span class="getaway-hub-icon">🗼</span>
+            <div>
+              <h3 class="getaway-hub-title">東京発（関東・東海へ）</h3>
+              <span class="getaway-hub-sub">新幹線・特急で45分〜2時間の人気温泉＆絶景</span>
+            </div>
+          </div>
+          <div class="getaway-dest-list">
+            <a href="/shizuoka/from-tokyo-2days/" class="getaway-dest-item is-featured">
+              <div class="getaway-dest-left">
+                <span class="getaway-time-badge">新幹線 45分</span>
+                <span class="getaway-dest-name">静岡（三島・熱海）</span>
+              </div>
+              <span class="getaway-dest-desc">雪化粧の富士山パノラマ＆名湯露天風呂【特集記事あり】 &rarr;</span>
+            </a>
+            <a href="/kanagawa/yokohama-autumn-kids-no-car/" class="getaway-dest-item">
+              <div class="getaway-dest-left">
+                <span class="getaway-time-badge">電車 30分</span>
+                <span class="getaway-dest-name">神奈川（横浜・箱根）</span>
+              </div>
+              <span class="getaway-dest-desc">日本大通りイチョウ並木＆秋バラ・彫刻の森 &rarr;</span>
+            </a>
+            <a href="/tochigi/" class="getaway-dest-item">
+              <div class="getaway-dest-left">
+                <span class="getaway-time-badge">スペーシア 110分</span>
+                <span class="getaway-dest-name">栃木（日光・鬼怒川）</span>
+              </div>
+              <span class="getaway-dest-desc">世界遺産日光東照宮＆中禅寺湖・渓谷美温泉 &rarr;</span>
+            </a>
+            <a href="/gunma/" class="getaway-dest-item">
+              <div class="getaway-dest-left">
+                <span class="getaway-time-badge">特急 150分</span>
+                <span class="getaway-dest-name">群馬（草津・伊香保）</span>
+              </div>
+              <span class="getaway-dest-desc">湯畑ライトアップ＆石段街の湯めぐり旅 &rarr;</span>
+            </a>
+          </div>
+        </div>
+
+        {/* 大阪・関西発カード */}
+        <div class="getaway-hub-card">
+          <div class="getaway-hub-header">
+            <span class="getaway-hub-icon">🐙</span>
+            <div>
+              <h3 class="getaway-hub-title">大阪・京都発（近畿へ）</h3>
+              <span class="getaway-hub-sub">特急・新快速で直行できる冬の名湯＆海の幸</span>
+            </div>
+          </div>
+          <div class="getaway-dest-list">
+            <a href="/hyogo/" class="getaway-dest-item">
+              <div class="getaway-dest-left">
+                <span class="getaway-time-badge">こうのとり 150分</span>
+                <span class="getaway-dest-name">兵庫（城崎温泉）</span>
+              </div>
+              <span class="getaway-dest-desc">浴衣で巡る7つの外湯＆冬の松葉ガニ満喫 &rarr;</span>
+            </a>
+            <a href="/wakayama/" class="getaway-dest-item">
+              <div class="getaway-dest-left">
+                <span class="getaway-time-badge">くろしお 135分</span>
+                <span class="getaway-dest-name">和歌山（南紀白浜）</span>
+              </div>
+              <span class="getaway-dest-desc">白砂ビーチと太平洋望む絶景露天風呂リゾート &rarr;</span>
+            </a>
+            <a href="/mie/" class="getaway-dest-item">
+              <div class="getaway-dest-left">
+                <span class="getaway-time-badge">しまかぜ 110分</span>
+                <span class="getaway-dest-name">三重（伊勢志摩）</span>
+              </div>
+              <span class="getaway-dest-desc">お伊勢参りとおかげ横丁の食べ歩き旅 &rarr;</span>
+            </a>
+            <a href="/kyoto/" class="getaway-dest-item">
+              <div class="getaway-dest-left">
+                <span class="getaway-time-badge">特急 120分</span>
+                <span class="getaway-dest-name">京都（海の京都・天橋立）</span>
+              </div>
+              <span class="getaway-dest-desc">日本三景天橋立と伊根の舟屋・絶景クルーズ &rarr;</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     {/* 47都道府県ナビ */}
     <section>
       <div style="margin-bottom: 2rem;">
@@ -109,3 +208,121 @@ const recentArticles = allArticles.sort((a, b) => b.data.pubDate.valueOf() - a.d
     </section>
   </div>
 </Layout>
+
+<style>
+  .getaway-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .getaway-hub-card {
+    background: #ffffff;
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .getaway-hub-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border-bottom: 2px solid var(--color-border);
+    padding-bottom: 0.85rem;
+  }
+
+  .getaway-hub-icon {
+    font-size: 1.75rem;
+    line-height: 1;
+  }
+
+  .getaway-hub-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--color-text-main);
+    margin: 0 0 0.2rem 0;
+  }
+
+  .getaway-hub-sub {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    font-weight: 600;
+  }
+
+  .getaway-dest-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .getaway-dest-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 0.85rem 1rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .getaway-dest-item:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+    background: #ffffff;
+  }
+
+  .getaway-dest-item.is-featured {
+    background: rgba(46, 125, 50, 0.04);
+    border-color: var(--color-primary);
+    border-left: 4px solid var(--color-primary);
+  }
+
+  .getaway-dest-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .getaway-time-badge {
+    font-size: 0.72rem;
+    font-weight: 800;
+    background: var(--color-primary);
+    color: #ffffff;
+    padding: 0.15rem 0.5rem;
+    border-radius: var(--radius-sm);
+    line-height: 1.2;
+  }
+
+  .getaway-dest-name {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--color-text-main);
+  }
+
+  .getaway-dest-desc {
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    line-height: 1.4;
+  }
+
+  .getaway-dest-item:hover .getaway-dest-desc {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  @media (max-width: 640px) {
+    .getaway-grid {
+      grid-template-columns: 1fr;
+    }
+    .getaway-hub-card {
+      padding: 1.15rem 1rem;
+    }
+  }
+</style>

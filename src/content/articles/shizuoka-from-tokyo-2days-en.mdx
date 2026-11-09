@@ -12,6 +12,9 @@ tags: ["From Tokyo", "2-Day Trip", "Shizuoka", "Atami", "Mishima", "Mount Fuji",
 ---
 import ProblemBox from '../../components/ProblemBox.astro';
 import ConclusionBox from '../../components/ConclusionBox.astro';
+import QuickJumpBar from '../../components/QuickJumpBar.astro';
+import TravelTimeline from '../../components/TravelTimeline.astro';
+import TravelBookingBox from '../../components/TravelBookingBox.astro';
 
 <ProblemBox>
 - Looking for an effortless 2-day getaway from Tokyo with iconic Mount Fuji views and authentic hot springs?
@@ -22,6 +25,8 @@ import ConclusionBox from '../../components/ConclusionBox.astro';
 Located just 45 to 50 minutes from Tokyo Station aboard the Tokaido Shinkansen, eastern Shizuoka Prefecture (Mishima and Atami) offers **the premier 2-day escape from Tokyo**. You get the best of Japan in 48 hours: pristine snow-capped Mount Fuji panoramas, oceanfront hot spring onsen, and delicious coastal seafood.
 
 Here is your complete weekend blueprint, featuring both a **step-free bullet train itinerary (no rental car needed)** and an **expressway driving route** designed to dodge peak traffic.
+
+<QuickJumpBar lang="en" />
 
 ---
 
@@ -36,55 +41,118 @@ Here is your complete weekend blueprint, featuring both a **step-free bullet tra
 
 ---
 
-## 🚅【Bullet Train & No Car】2-Day Classic Itinerary from Tokyo
+<h2 id="section-no-car">🚅【Bullet Train & No Car】2-Day Classic Itinerary from Tokyo</h2>
 
 No international driving permit or car rental is needed. The Tokaido Shinkansen combined with direct local buses provides smooth, elevator-equipped transit.
 
-### Day 1: Mishima Mount Fuji Vistas ➔ Atami Onsen Coastal Retreat
+<TravelTimeline
+  dayTitle="Day 1: Mishima Mount Fuji Vistas ➔ Atami Onsen Coastal Retreat"
+  steps={[
+    {
+      time: "08:26 AM",
+      title: "Depart Tokyo Station (Tokaido Shinkansen 'Kodama')",
+      icon: "🚅",
+      transit: "50 mins (look out right window for approaching Fuji panoramas)",
+      desc: "Reserve ordinary car seats via SmartEX or JR Pass counters for stress-free boarding."
+    },
+    {
+      time: "09:18 AM",
+      title: "Arrive at Mishima Station (South Exit Bus Terminal)",
+      icon: "🚉",
+      transit: "25 mins via Tokai Express Bus to Skywalk",
+      desc: "Direct express buses depart from Bus Stop #5. IC transit cards (Suica/Pasmo) accepted."
+    },
+    {
+      time: "09:50 AM",
+      title: "Mishima Skywalk (Japan's Longest Pedestrian Suspension Bridge)",
+      icon: "🌉",
+      transit: "20 mins via bus towards Mishima Taisha Shrine",
+      desc: "Breathtaking 400-meter crossing with unobstructed vistas of snow-capped Fuji and Suruga Bay.",
+      points: [
+        "Morning hours avoid backlighting, capturing sharp, vibrant photos of Mount Fuji",
+        "Relax at the indoor Sky Garden cafe surrounded by hanging floral chandeliers"
+      ]
+    },
+    {
+      time: "12:30 PM",
+      title: "Mishima Taisha Shrine & Regional Unagi Lunch",
+      icon: "🍱",
+      transit: "13 mins via JR Tokaido Line to Atami",
+      desc: "Savor tender grilled freshwater eel (unagi) nourished by pure Mount Fuji spring waters. Pray for safe travels at the 800-year-old historic shrine."
+    },
+    {
+      time: "02:30 PM",
+      title: "Arrive at Atami Station & Arcade Stroll",
+      icon: "🛍️",
+      transit: "Short walk or hotel shuttle to coastal ryokan",
+      desc: "Stroll Heiwa-dori arcade for steaming onsen manju pastries and grilled fresh fish cakes."
+    },
+    {
+      time: "03:30 PM",
+      title: "Check into Oceanfront Atami Ryokan",
+      icon: "♨️",
+      desc: "Soak in seaside outdoor thermal baths overlooking Sagami Bay at sunset.",
+      points: [
+        "Indulge in traditional Kaiseki dinner featuring simmered local Kinmedai snapper",
+        "Enjoy crystal clear night reflections across the natural volcanic bay"
+      ]
+    }
+  ]}
+/>
 
-```
-08:26 AM  Depart Tokyo Station aboard Tokaido Shinkansen "Kodama"
-   ↓ (50 mins; look out the right window for approaching Fuji views)
-09:18 AM  Arrive at Mishima Station (Head to South Exit bus stops)
-   ↓ (25 mins via Tokai Express Bus directly to Skywalk)
-09:50 AM  Mishima Skywalk
-          • Walk Japan's longest 400m pedestrian suspension bridge
-          • Take morning panoramic photos of snow-dusted Fuji across Suruga Bay
-   ↓ (20 mins via bus)
-12:30 PM  Mishima Taisha Shrine & Gourmet Lunch
-          • Savor regional grilled unagi (freshwater eel) nurtured by pure Fuji spring water
-          • Stroll through historic shrine grounds dating back over 800 years
-   ↓ (13 mins via JR Tokaido Line to Atami)
-02:30 PM  Arrive at Atami Station
-          • Explore Heiwa-dori arcade for steaming onsen manju & grilled fish cakes
-   ↓ (Short walk or hotel shuttle)
-03:30 PM  Check into an oceanfront Atami Ryokan
-          • Soak in outdoor thermal onsen overlooking Sagami Bay
-          • Enjoy multi-course Kaiseki dinner featuring local simmered Kinmedai
-```
+<TravelTimeline
+  dayTitle="Day 2: Sacred Giant Camphor Tree ➔ Ocean Art ➔ Evening Return"
+  steps={[
+    {
+      time: "09:30 AM",
+      title: "Morning Onsen Soak, Seafood Breakfast & Check-out",
+      icon: "🌅",
+      transit: "5 mins via taxi or 20 mins gentle walk",
+      desc: "Feel the invigorating morning coastal breeze as you begin Day 2."
+    },
+    {
+      time: "10:00 AM",
+      title: "Kinomiya Shrine (Kinomiya Jinja)",
+      icon: "⛩️",
+      transit: "10 mins via taxi or bus",
+      desc: "Circle the sacred 2,100-year-old giant camphor tree (national natural monument) for vitality.",
+      points: [
+        "Sip matcha green tea at outdoor cafe 'Saryo Hoko' under autumn foliage",
+        "Gentle barrier-free ramps make it easy for strollers and families"
+      ]
+    },
+    {
+      time: "11:45 AM",
+      title: "MOA Museum of Art (Panoramic Hilltop Museum)",
+      icon: "🎨",
+      transit: "10 mins via bus back to Atami Station",
+      desc: "Sweeping 180-degree ocean views over Sagami Bay. Marvel at circular kaleidoscope projection halls and peaceful tea garden pavilions.",
+      points: [
+        "Savor panoramic lunch overlooking the water at 'the cafe'",
+        "Spacious indoor halls offer 100% weather-proof enjoyment on rainy days"
+      ]
+    },
+    {
+      time: "03:00 PM",
+      title: "Souvenir Shopping & Pudding at Atami Station",
+      icon: "🍮",
+      transit: "45 mins via Tokaido Shinkansen 'Kodama'",
+      desc: "Pick up the famous retro Atami Pudding, local wasabi paste, and vacuum-packed dried seafood."
+    },
+    {
+      time: "04:15 PM",
+      title: "Arrive back at Tokyo Station",
+      icon: "🏠",
+      desc: "Arriving before evening leaves you completely refreshed and rested for the week ahead."
+    }
+  ]}
+/>
 
-### Day 2: Sacred Giant Camphor Tree ➔ Ocean Art ➔ Evening Return
-
-```
-09:30 AM  Check out after a restorative morning onsen and seafood breakfast
-   ↓ (5 mins via taxi or 20 mins gentle walk)
-10:00 AM  Kinomiya Shrine (Kinomiya Jinja)
-          • Circle the sacred 2,100-year-old giant camphor tree for health and longevity
-          • Sip matcha green tea at outdoor cafe "Saryo Hoko" under falling autumn leaves
-   ↓ (10 mins via taxi or bus)
-11:45 AM  MOA Museum of Art
-          • Hilltop museum with breathtaking 180-degree ocean views
-          • Marvel at circular kaleidoscope projection halls and modern Japanese gardens
-          • Lunch with panoramic sea vistas at "the cafe"
-   ↓ (10 mins via bus)
-03:00 PM  Souvenir shopping at Atami Station (Atami pudding, wasabi, and dried fish)
-   ↓ (45 mins via Tokaido Shinkansen "Kodama")
-04:15 PM  Arrive back at Tokyo Station refreshed and rested before evening
-```
+<TravelBookingBox destination="Atami & Mishima" station="Atami Station" pref="shizuoka" lang="en" />
 
 ---
 
-## 🚗【Road Trip Driving Tips】Avoiding Weekend Highway Congestion
+<h2 id="section-drive">🚗【Road Trip Driving Tips】Avoiding Weekend Highway Congestion</h2>
 
 If you drive a personal or rental car, **depart Tokyo before 7:30 AM**:
 
@@ -94,7 +162,7 @@ If you drive a personal or rental car, **depart Tokyo before 7:30 AM**:
 
 ---
 
-## 👶 Family & Stroller-Friendly Peace of Mind
+<h2 id="section-family">👶 Family & Stroller-Friendly Peace of Mind</h2>
 
 - **Mishima Skywalk Stroller Service**: For safety reasons, personal lightweight strollers are not permitted on the suspended suspension deck. However, **free off-road wide-wheel strollers are provided at the ticket gate**, making the crossing completely step-free and safe for toddlers.
 - **Optimal Shinkansen Cars**: On the Tokaido Shinkansen "Kodama", booking seats near Cars 11 and 12 gives immediate access to spacious multipurpose rooms and clean accessible restrooms with diaper tables.
@@ -102,7 +170,7 @@ If you drive a personal or rental car, **depart Tokyo before 7:30 AM**:
 
 ---
 
-## 🌤️ Weather & Attire in Mid-November & December
+<h2 id="section-climate">🌤️ Weather & Attire in Mid-November & December</h2>
 
 - **Elevation Temperature Gap**: Coastal Atami stays mild at 16–18°C (61–64°F) during the day, but high altitudes like Mishima Skywalk (250m elevation) and mountain passes experience cold crosswinds that feel 5°C (9°F) colder.
 - **Recommended Attire**: Wear a windproof light coat or jacket. Bring a scarf and ensure hats have chin straps or clips when walking on suspension bridges.

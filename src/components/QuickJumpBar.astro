@@ -1,0 +1,125 @@
+---
+interface JumpItem {
+  label: string;
+  targetId: string;
+  icon: string;
+}
+
+interface Props {
+  items?: JumpItem[];
+  lang?: 'ja' | 'en';
+}
+
+const { lang = 'ja', items } = Astro.props;
+
+const defaultItemsJa: JumpItem[] = [
+  { label: '車なし新幹線プラン', targetId: 'section-no-car', icon: '🚅' },
+  { label: '車ドライブプラン', targetId: 'section-drive', icon: '🚗' },
+  { label: '子連れ安心情報', targetId: 'section-family', icon: '👶' },
+  { label: '気候・おすすめ服装', targetId: 'section-climate', icon: '🌤️' },
+];
+
+const defaultItemsEn: JumpItem[] = [
+  { label: 'No-Car Train Route', targetId: 'section-no-car', icon: '🚅' },
+  { label: 'Drive & Traffic Tips', targetId: 'section-drive', icon: '🚗' },
+  { label: 'Family & Stroller Tips', targetId: 'section-family', icon: '👶' },
+  { label: 'Weather & Attire', targetId: 'section-climate', icon: '🌤️' },
+];
+
+const jumpList = items || (lang === 'ja' ? defaultItemsJa : defaultItemsEn);
+---
+
+<nav class="quick-jump-nav" aria-label={lang === 'ja' ? 'スタイル別ジャンプ' : 'Quick Jump'}>
+  <div class="quick-jump-header">
+    <span class="quick-jump-title">
+      <span>⚡</span>
+      <span>{lang === 'ja' ? '知りたい旅のスタイルへスキップ' : 'Jump to your travel style'}:</span>
+    </span>
+  </div>
+  <div class="quick-jump-buttons">
+    {jumpList.map((item) => (
+      <a href={`#${item.targetId}`} class="quick-jump-btn">
+        <span class="quick-jump-icon">{item.icon}</span>
+        <span class="quick-jump-label">{item.label}</span>
+        <span class="quick-jump-arrow">↓</span>
+      </a>
+    ))}
+  </div>
+</nav>
+
+<style>
+  .quick-jump-nav {
+    background: linear-gradient(135deg, rgba(46, 125, 50, 0.05), rgba(230, 81, 0, 0.05));
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0 2rem 0;
+  }
+
+  .quick-jump-header {
+    margin-bottom: 0.65rem;
+  }
+
+  .quick-jump-title {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .quick-jump-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .quick-jump-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: #ffffff;
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-full);
+    padding: 0.45rem 0.85rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--color-text-main);
+    text-decoration: none;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    transition: all 0.2s ease;
+  }
+
+  .quick-jump-btn:hover {
+    border-color: var(--color-primary);
+    background: rgba(46, 125, 50, 0.05);
+    color: var(--color-primary);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+  }
+
+  .quick-jump-icon {
+    font-size: 0.95rem;
+  }
+
+  .quick-jump-arrow {
+    color: var(--color-accent);
+    font-weight: 900;
+    font-size: 0.75rem;
+    margin-left: 0.15rem;
+  }
+
+  @media (max-width: 640px) {
+    .quick-jump-nav {
+      padding: 0.85rem;
+    }
+    .quick-jump-buttons {
+      gap: 0.35rem;
+    }
+    .quick-jump-btn {
+      padding: 0.4rem 0.65rem;
+      font-size: 0.78rem;
+    }
+  }
+</style>

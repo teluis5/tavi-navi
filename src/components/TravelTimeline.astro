@@ -1,0 +1,245 @@
+---
+export interface TimelineStep {
+  time: string;           // e.g. "08:26"
+  title: string;          // e.g. "東京駅発"
+  icon?: string;          // e.g. "🚅", "🚶", "🚌", "☕", "♨️"
+  transit?: string;       // e.g. "東海道新幹線「こだま」で約50分"
+  desc?: string;          // 説明文
+  points?: string[];      // 箇条書きポイント
+}
+
+interface Props {
+  dayTitle?: string;      // e.g. "【1日目】三島富士山パノラマ ➔ 熱海温泉街"
+  steps: TimelineStep[];
+}
+
+const { dayTitle, steps } = Astro.props;
+---
+
+<div class="travel-timeline">
+  {dayTitle && (
+    <div class="timeline-day-header">
+      <span class="timeline-day-badge">DAY</span>
+      <h3 class="timeline-day-title">{dayTitle}</h3>
+    </div>
+  )}
+
+  <div class="timeline-steps">
+    {steps.map((step, index) => {
+      const isLast = index === steps.length - 1;
+      return (
+        <div class={`timeline-step ${isLast ? 'is-last' : ''}`}>
+          <div class="timeline-left">
+            <span class="timeline-time">{step.time}</span>
+            <div class="timeline-node">
+              <span class="timeline-node-icon">{step.icon || '📍'}</span>
+            </div>
+            {!isLast && <div class="timeline-line" />}
+          </div>
+
+          <div class="timeline-content">
+            <h4 class="timeline-step-title">{step.title}</h4>
+            
+            {step.desc && <p class="timeline-step-desc">{step.desc}</p>}
+
+            {step.points && step.points.length > 0 && (
+              <ul class="timeline-step-points">
+                {step.points.map((pt) => (
+                  <li>{pt}</li>
+                ))}
+              </ul>
+            )}
+
+            {step.transit && !isLast && (
+              <div class="timeline-transit-badge">
+                <span class="transit-arrow">↓</span>
+                <span class="transit-text">{step.transit}</span>
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    })}
+  </div>
+</div>
+
+<style>
+  .travel-timeline {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin: 1.75rem 0;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .timeline-day-header {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding-bottom: 1rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 2px solid var(--color-border);
+  }
+
+  .timeline-day-badge {
+    background: var(--color-primary);
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    padding: 0.2rem 0.55rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .timeline-day-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--color-text-main);
+    margin: 0;
+  }
+
+  .timeline-steps {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .timeline-step {
+    display: flex;
+    gap: 1.25rem;
+    position: relative;
+    padding-bottom: 1.5rem;
+  }
+
+  .timeline-step.is-last {
+    padding-bottom: 0;
+  }
+
+  .timeline-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 65px;
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .timeline-time {
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    margin-bottom: 0.35rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .timeline-node {
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-full);
+    background: var(--color-bg-alt);
+    border: 2px solid var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+
+  .timeline-node-icon {
+    font-size: 1rem;
+    line-height: 1;
+  }
+
+  .timeline-line {
+    position: absolute;
+    top: 54px;
+    bottom: -8px;
+    width: 2px;
+    background: var(--color-border);
+    z-index: 1;
+  }
+
+  .timeline-content {
+    flex: 1;
+    padding-top: 0.15rem;
+  }
+
+  .timeline-step-title {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--color-text-main);
+    margin: 0 0 0.4rem 0;
+    line-height: 1.4;
+  }
+
+  .timeline-step-desc {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--color-text-main);
+    margin: 0 0 0.5rem 0;
+  }
+
+  .timeline-step-points {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 0.65rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .timeline-step-points li {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--color-text-main);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+
+  .timeline-step-points li::before {
+    content: "・";
+    color: var(--color-primary);
+    font-weight: 800;
+  }
+
+  .timeline-transit-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: var(--color-bg-alt);
+    border: 1px dashed var(--color-border);
+    padding: 0.3rem 0.75rem;
+    border-radius: var(--radius-full);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-text-muted);
+    margin-top: 0.35rem;
+  }
+
+  .transit-arrow {
+    color: var(--color-accent);
+    font-weight: 900;
+  }
+
+  @media (max-width: 640px) {
+    .travel-timeline {
+      padding: 1.15rem 0.85rem;
+    }
+    .timeline-left {
+      width: 52px;
+    }
+    .timeline-node {
+      width: 28px;
+      height: 28px;
+    }
+    .timeline-node-icon {
+      font-size: 0.85rem;
+    }
+    .timeline-line {
+      top: 48px;
+    }
+    .timeline-step-title {
+      font-size: 0.98rem;
+    }
+  }
+</style>
