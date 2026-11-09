@@ -1,22 +1,37 @@
 :root {
-  --font-fallback: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+  /* ==========================================================================
+     全12メディア共通Cocoon風デザインシステム (Single Source of Truth)
+     ========================================================================== */
+  --theme-color: #0284c7;
+  --theme-accent: #0284c7;
+  --text-main: #0f172a;
+  --text-light: #64748b;
+  --bg-main: #f8fafc;
+  --bg-content: #ffffff;
+  --border-color: #e2e8f0;
+  --radius: 6px;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --font-base: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+
+  /* tavi-navi 固有変数エイリアス（下位互換性を完全維持） */
+  --font-fallback: var(--font-base);
   --font-main: var(--font-atkinson, var(--font-fallback));
-  --color-primary: #0284c7;
+  --color-primary: var(--theme-accent);
   --color-primary-dark: #0369a1;
   --color-primary-light: #e0f2fe;
   --color-accent: #f97316;
   --color-accent-light: #ffedd5;
-  --color-text-main: #0f172a;
-  --color-text-muted: #64748b;
-  --color-bg-base: #f8fafc;
-  --color-bg-surface: #ffffff;
-  --color-border: #e2e8f0;
+  --color-text-main: var(--text-main);
+  --color-text-muted: var(--text-light);
+  --color-bg-base: var(--bg-main);
+  --color-bg-surface: var(--bg-content);
+  --color-border: var(--border-color);
   --color-border-hover: #cbd5e1;
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-sm: var(--shadow);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --radius-sm: 0.375rem;
-  --radius-md: 0.5rem;
+  --radius-md: var(--radius);
   --radius-lg: 0.75rem;
   --radius-full: 9999px;
   --max-width: 1200px;
@@ -32,8 +47,23 @@ body {
   font-family: var(--font-main);
   background-color: var(--color-bg-base);
   color: var(--color-text-main);
-  line-height: 1.7;
+  line-height: 1.8;
+  font-size: 16px;
   -webkit-font-smoothing: antialiased;
+}
+
+main {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 2rem auto;
+  padding: 0 1.25rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 1rem 0;
+  color: var(--color-text-main);
+  line-height: 1.4;
+  font-weight: 700;
 }
 
 a {
@@ -44,12 +74,17 @@ a {
 
 a:hover {
   color: var(--color-primary-dark);
+  text-decoration: underline;
 }
 
 img {
   max-width: 100%;
   height: auto;
   display: block;
+}
+
+p {
+  margin-bottom: 1.5em;
 }
 
 .container {
@@ -60,7 +95,317 @@ img {
   padding-right: 1.25rem;
 }
 
-/* Header & Nav */
+/* ==========================================================================
+   画像・キャプション (figure / figcaption)
+   ========================================================================== */
+figure {
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  figure {
+    margin: 1.2rem 0;
+  }
+}
+
+figure img {
+  display: block;
+  margin: 0 auto;
+  border-radius: var(--radius);
+}
+
+figcaption,
+.caption,
+.image-caption {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-top: 0.5rem;
+  text-align: center;
+  line-height: 1.5;
+}
+
+figcaption p,
+.caption p,
+.image-caption p {
+  margin: 0;
+  font-size: inherit;
+  color: inherit;
+  line-height: inherit;
+}
+
+figcaption a,
+.caption a,
+.image-caption a {
+  color: var(--color-text-muted);
+  text-decoration: underline;
+}
+
+figcaption a:hover,
+.caption a:hover,
+.image-caption a:hover {
+  color: var(--color-primary);
+}
+
+/* ==========================================================================
+   インラインコード & コードブロック (pre / Shiki)
+   ========================================================================== */
+code {
+  font-family: "JetBrains Mono", Consolas, "SFMono-Regular", Menlo, Monaco, "Courier New", monospace;
+  font-size: 0.88em;
+  padding: 0.15em 0.45em;
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #c7254e;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  word-break: break-word;
+}
+
+pre,
+.astro-code {
+  position: relative;
+  padding: 1.25rem 1.5rem;
+  margin: 1.75rem 0;
+  border-radius: 8px;
+  background-color: #1e293b !important;
+  color: #f8fafc !important;
+  border: 1px solid #334155;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  font-size: 0.92rem;
+  line-height: 1.65;
+  letter-spacing: 0.015em;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+}
+
+pre code,
+.astro-code code {
+  all: unset;
+  display: block;
+  background: transparent !important;
+  background-color: transparent !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  font-family: "JetBrains Mono", Consolas, "SFMono-Regular", Menlo, Monaco, "Courier New", monospace;
+  font-size: inherit;
+  color: inherit;
+  line-height: inherit;
+  white-space: pre;
+  word-break: normal;
+  word-spacing: normal;
+  overflow-wrap: normal;
+}
+
+blockquote {
+  border-left: 4px solid var(--color-border);
+  padding: 0.5rem 0 0.5rem 1rem;
+  margin: 1.5em 0;
+  color: var(--color-text-muted);
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: 2rem 0;
+}
+
+/* ==========================================================================
+   テーブル (Table) & 楽天アフィリエイトウィジェット最適化
+   ========================================================================== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+  font-size: 0.92rem;
+}
+
+th, td {
+  border: 1px solid var(--color-border);
+  padding: 0.65rem 0.85rem;
+  text-align: left;
+  vertical-align: top;
+  word-break: break-all;
+  overflow-wrap: anywhere;
+}
+
+th {
+  background-color: var(--color-bg-base);
+  font-weight: 700;
+  font-size: 0.88rem;
+}
+
+thead th {
+  position: sticky;
+  top: 68px; /* ヘッダー高さ */
+  z-index: 10;
+  box-shadow: 0 1px 0 var(--color-border);
+}
+
+/* 楽天アフィリエイトテーブル崩れ防止 */
+table:has(a[href*="rakuten.co.jp"]) {
+  border: none !important;
+  background: transparent !important;
+  margin: 2rem auto !important;
+  max-width: 504px !important;
+  width: 100% !important;
+  box-shadow: none !important;
+  display: table !important;
+}
+
+table:has(a[href*="rakuten.co.jp"]) table {
+  border: none !important;
+  background: transparent !important;
+  margin: 0 auto !important;
+  width: 100% !important;
+  box-shadow: none !important;
+}
+
+table:has(a[href*="rakuten.co.jp"]) th,
+table:has(a[href*="rakuten.co.jp"]) td {
+  border: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  font-weight: normal !important;
+}
+
+/* ==========================================================================
+   記事本文 (.prose) Cocoon風スタイル (Single Source of Truth)
+   ========================================================================== */
+.prose {
+  color: var(--color-text-main);
+  font-size: 1.05rem;
+  line-height: 1.85;
+}
+
+/* H2: Cocoon風 左アクセントバー＋角丸薄背景 */
+.prose h2 {
+  padding: 0.85rem 1.15rem;
+  background-color: #f7f9fa;
+  border-left: 5px solid var(--theme-accent);
+  border-bottom: 1px solid var(--color-border);
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+  border-radius: 0 4px 4px 0;
+  line-height: 1.45;
+}
+
+/* H3: 下線＋左側アクセントバー */
+.prose h3 {
+  padding-bottom: 0.55rem;
+  border-bottom: 2px solid #e2e8f0;
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin-top: 2.5rem;
+  margin-bottom: 1.25rem;
+  position: relative;
+  line-height: 1.45;
+}
+
+.prose h3::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 60px;
+  height: 2px;
+  background-color: var(--theme-accent);
+}
+
+/* H4: 左細ボーダー */
+.prose h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  padding-left: 0.65rem;
+  border-left: 3px solid #cbd5e1;
+}
+
+/* H5 */
+.prose h5 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-top: 1.5rem;
+  margin-bottom: 0.8rem;
+}
+
+/* 蛍光ペン風マーカー（下部40%） */
+.prose strong,
+.prose b {
+  font-weight: 700;
+  color: var(--color-text-main);
+  background: linear-gradient(transparent 60%, #fff3cd 60%);
+}
+
+.prose table strong {
+  background: none;
+}
+
+/* 引用ボックス（清潔感のあるブルー） */
+.prose blockquote {
+  background: #f0f9ff;
+  border-left: 5px solid var(--theme-accent);
+  padding: 1.2rem 1.5rem;
+  margin: 2rem 0;
+  border-radius: 4px;
+  color: #075985;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.prose blockquote.twitter-tweet {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 1.5rem auto;
+  color: inherit;
+  font-weight: normal;
+}
+
+.prose blockquote p {
+  margin: 0;
+}
+
+/* リスト */
+.prose ul, .prose ol {
+  padding-left: 1.6rem;
+  margin-bottom: 1.5rem;
+}
+
+.prose li {
+  margin-bottom: 0.5rem;
+  line-height: 1.8;
+}
+
+/* 記事内画像 */
+.prose img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  content-visibility: auto;
+  background-color: var(--color-bg-base);
+}
+
+/* Google マップ レスポンシブ (16:10) */
+.prose iframe[src*="google.com/maps"],
+.prose iframe[data-src*="google.com/maps"] {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  height: auto;
+  border: 0;
+  border-radius: 8px;
+  background-color: #f1f5f9;
+}
+
+/* ==========================================================================
+   Header & Nav
+   ========================================================================== */
 .site-header {
   background: #ffffff;
   border-bottom: 1px solid var(--color-border);
@@ -130,7 +475,9 @@ img {
   background: #bae6fd;
 }
 
-/* Hero Section */
+/* ==========================================================================
+   Hero Section & Badges
+   ========================================================================== */
 .hero-banner {
   background: linear-gradient(135deg, #0284c7 0%, #0369a1 50%, #075985 100%);
   color: #ffffff;
@@ -152,7 +499,6 @@ img {
   margin: 0 auto 1.5rem;
 }
 
-/* Seasonal Badge */
 .badge-seasonal {
   display: inline-flex;
   align-items: center;
@@ -165,7 +511,9 @@ img {
   color: #c2410c;
 }
 
-/* Prefecture Grid */
+/* ==========================================================================
+   Prefecture & Region Grid
+   ========================================================================== */
 .prefecture-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
@@ -230,7 +578,6 @@ img {
   color: var(--color-text-muted);
 }
 
-/* Region Sections */
 .region-section {
   margin-bottom: 2.5rem;
 }
@@ -252,7 +599,9 @@ img {
   font-weight: 500;
 }
 
-/* Article Cards */
+/* ==========================================================================
+   Article Cards Grid
+   ========================================================================== */
 .article-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -306,7 +655,9 @@ img {
   flex-grow: 1;
 }
 
-/* Article Content Layout */
+/* ==========================================================================
+   Article Content Container
+   ========================================================================== */
 .article-content {
   background: #ffffff;
   border: 1px solid var(--color-border);
@@ -322,38 +673,9 @@ img {
   }
 }
 
-.article-content h2 {
-  font-size: 1.6rem;
-  font-weight: 800;
-  border-bottom: 2px solid var(--color-primary);
-  padding-bottom: 0.4rem;
-  margin-top: 2.2rem;
-  margin-bottom: 1rem;
-}
-
-.article-content h3 {
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin-top: 1.8rem;
-  margin-bottom: 0.75rem;
-  color: var(--color-primary-dark);
-}
-
-.article-content p {
-  margin-bottom: 1.2rem;
-  font-size: 1.02rem;
-}
-
-.article-content ul, .article-content ol {
-  margin-bottom: 1.2rem;
-  padding-left: 1.5rem;
-}
-
-.article-content li {
-  margin-bottom: 0.4rem;
-}
-
-/* Footer */
+/* ==========================================================================
+   Footer
+   ========================================================================== */
 .site-footer {
   background: #ffffff;
   border-top: 1px solid var(--color-border);
@@ -374,4 +696,32 @@ img {
 .copyright {
   text-align: center;
   font-size: 0.8rem;
+}
+
+/* ==========================================================================
+   アクセシビリティ & AdSense 自動広告割り込み防止
+   ========================================================================== */
+.sr-only {
+  border: 0;
+  padding: 0;
+  margin: -1px;
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.google-auto-placed,
+.prose .google-auto-placed {
+  display: none !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.adsbygoogle-noablate[style*="top: 0px"],
+.adsbygoogle-noablate[style*="top:0px"] {
+  display: none !important;
 }
