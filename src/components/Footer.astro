@@ -49,3 +49,37 @@ const prefPrefix = isEn ? '/en/' : '/';
     </div>
   </div>
 </footer>
+
+<style>
+  .site-footer {
+    background: #ffffff;
+    border-top: 1px solid var(--border-color, #e2e8f0);
+    padding: 3rem 0 2rem;
+    margin-top: 4rem;
+    font-size: 0.9rem;
+    color: var(--text-light, #64748b);
+  }
+
+  .footer-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+    justify-content: center;
+  }
+
+  .footer-nav a {
+    color: var(--text-light, #64748b);
+    text-decoration: none;
+  }
+  .footer-nav a:hover {
+    color: var(--theme-accent, #0284c7);
+    text-decoration: underline;
+  }
+
+  .copyright {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-light, #64748b);
+  }
+</style>
