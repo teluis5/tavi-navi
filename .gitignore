@@ -13,7 +13,6 @@ dist/
 .DS_Store
 Thumbs.db
 
-# ローカル高画質原本アーカイブ（ブログでは圧縮WebPを使用）
-src/assets/photos/akita/*.jpg
-src/assets/photos/akita/*.png
-src/assets/photos/akita/*.jpeg
+# ローカル高画質原本アーカイブ（ブログでは圧縮WebPを使用し、原本JPG/PNGはGitから除外）
+src/assets/photos/*/
+!src/assets/photos/*_compressed/
