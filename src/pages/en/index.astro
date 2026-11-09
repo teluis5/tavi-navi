@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import { REGIONS, PREFECTURES } from '../../data/prefectures';
 import { getCollection } from 'astro:content';
+import { getArticleSlug } from '../../utils/slug';
 
 const allArticles = await getCollection('articles', ({ data }) => {
   return data.lang === 'en' && !data.draft;
@@ -35,7 +36,7 @@ const recentArticles = allArticles.sort((a, b) => b.data.pubDate.valueOf() - a.d
         <div class="article-grid">
           {recentArticles.map((post) => {
             const prefObj = PREFECTURES.find((p) => p.id === post.data.pref);
-            const articleSlug = post.id.replace(/\.(md|mdx)$/, '');
+            const articleSlug = getArticleSlug(post.id, post.data.pref);
             return (
               <article class="article-card">
                 <div class="article-card-body">

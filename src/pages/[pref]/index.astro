@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import { PREFECTURES, type Prefecture } from '../../data/prefectures';
 import { getCollection } from 'astro:content';
+import { getArticleSlug } from '../../utils/slug';
 
 export function getStaticPaths() {
   return PREFECTURES.map((pref) => ({
@@ -76,12 +77,12 @@ const sortedArticles = prefArticles.sort((a, b) => b.data.pubDate.valueOf() - a.
 
       <div style="background: #ffffff; border: 1px solid var(--color-border); border-left: 5px solid var(--color-primary); border-radius: var(--radius-md); padding: 1.25rem; box-shadow: var(--shadow-sm);">
         <h2 style="font-size: 1.05rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-          <span style="color: var(--color-primary);">👶</span> 車なし・子連れ安心チェック
+          <span style="color: var(--color-primary);">🎒</span> 旅のスタイル別安心ガイド
         </h2>
         <div style="font-size: 0.85rem; line-height: 1.7; color: var(--color-text-main);">
-          <div>✅ <strong>駅から段差ゼロ</strong>: エレベーター完備ルートを優先案内</div>
-          <div>✅ <strong>ベビーカー安心</strong>: 階段・急坂・砂利道を避けた実走ルート</div>
-          <div>✅ <strong>設備完備</strong>: 徒歩3分以内のオムツ替え・授乳室を事前確認</div>
+          <div>🚃 <strong>車なし（電車）</strong>: 駅から段差ゼロ・エレベーター完備ルート</div>
+          <div>👶 <strong>子連れ安心</strong>: 授乳室・オムツ替え・広々休憩スポット</div>
+          <div>🚗 <strong>車ドライブ</strong>: 渋滞回避時間帯・最寄り駐車場チェック</div>
         </div>
       </div>
     </div>
@@ -95,7 +96,7 @@ const sortedArticles = prefArticles.sort((a, b) => b.data.pubDate.valueOf() - a.
       {sortedArticles.length > 0 ? (
         <div class="article-grid">
           {sortedArticles.map((post) => {
-            const articleSlug = post.id.replace(/\.(md|mdx)$/, '');
+            const articleSlug = getArticleSlug(post.id, post.data.pref);
             return (
               <article class="article-card">
                 <div class="article-card-body">
