@@ -353,10 +353,20 @@ thead th {
 	flex-wrap: wrap;
 	align-items: flex-start;
 	gap: 2rem;
+	padding-top: 1.5rem;
+	padding-bottom: 3.5rem;
 }
 .layout-main {
 	flex: 1 1 65%;
 	min-width: 0;
+}
+/* PC時の記事カード枠スタイル（Cocoon風カード） */
+.layout-main.box {
+	background-color: #ffffff;
+	border: 1px solid var(--border-color);
+	border-radius: var(--radius);
+	box-shadow: var(--shadow);
+	padding: 2rem 2.25rem;
 }
 .layout-sidebar {
 	flex: 1 1 30%;
@@ -381,13 +391,39 @@ thead th {
 }
 
 @media (max-width: 800px) {
+	/* スマホではmain要素の外側パディング・マージンを完全撤廃し横幅めいっぱいに */
+	main {
+		margin: 0 auto !important;
+		padding: 0 !important;
+	}
+
+	.layout-container {
+		gap: 0;
+		padding-top: 0 !important;
+		padding-bottom: 2rem !important;
+	}
+
 	.layout-main, .layout-sidebar {
 		flex: 1 1 100%;
 	}
+
+	/* スマホでは記事全体を覆う枠（ボーダー・角丸・影）を完全撤廃し、横幅めいっぱいに表示 */
+	.layout-main.box {
+		border: none !important;
+		border-radius: 0 !important;
+		box-shadow: none !important;
+		background: #ffffff !important;
+		width: 100% !important;
+		padding: 1.25rem 1rem !important;
+		margin: 0 !important;
+	}
+
 	.layout-sidebar {
 		position: static;
 		max-height: none;
 		overflow-y: visible;
+		padding: 1.25rem 1rem;
+		background: var(--bg-main);
 	}
 }
 
@@ -790,11 +826,7 @@ thead th {
 }
 
 /* 2カラムレイアウト記事詳細 スマホ最適化パディング */
-@media (max-width: 640px) {
-  .layout-main.box {
-    padding: 1.25rem 0.9rem !important;
-  }
-}
+
 
 /* フッター */
 .site-footer {
