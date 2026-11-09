@@ -56,7 +56,14 @@ const seasonsData = seasons.map((season) => {
     </p>
   </div>
 
-  {/* Tab Navigation Buttons */}
+  {/* Tab Navigation Guide & Buttons */}
+  <div class="tabs-nav-guide">
+    <span class="tabs-guide-icon">👇</span>
+    <span class="tabs-guide-text">
+      {lang === 'ja' ? '気になる時期をタップして切り替え' : 'Tap a season below to switch'}
+    </span>
+  </div>
+
   <div class="tabs-nav-bar" role="tablist" aria-label={lang === 'ja' ? 'シーズン切り替え' : 'Season Switcher'}>
     {seasonsData.map(({ season }, index) => {
       const isActive = index === 0;
@@ -72,15 +79,17 @@ const seasonsData = seasons.map((season) => {
           aria-controls={panelId}
           data-tab-target={panelId}
         >
-          <span class="tab-btn-icon-wrap">
-            <span class="tab-btn-icon">{season.icon}</span>
-            {season.isCurrent && (
-              <span class="tab-btn-badge">{lang === 'ja' ? '最新' : 'Now'}</span>
-            )}
-          </span>
-          <span class="tab-btn-text">
-            {lang === 'ja' ? season.shortLabelJa : season.shortLabelEn}
-          </span>
+          <div class="tab-btn-inner">
+            <span class="tab-btn-icon-wrap">
+              <span class="tab-btn-icon">{season.icon}</span>
+              {season.isCurrent && (
+                <span class="tab-btn-badge">{lang === 'ja' ? '最新' : 'Now'}</span>
+              )}
+            </span>
+            <span class="tab-btn-text">
+              {lang === 'ja' ? season.shortLabelJa : season.shortLabelEn}
+            </span>
+          </div>
         </button>
       );
     })}
@@ -301,53 +310,98 @@ const seasonsData = seasons.map((season) => {
     margin: 0;
   }
 
-  /* Tab Navigation */
+  /* Tab Navigation Guide */
+  .tabs-nav-guide {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    margin-bottom: 0.65rem;
+  }
+
+  .tabs-guide-icon {
+    font-size: 1rem;
+    animation: bounce 1.5s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(3px); }
+  }
+
+  /* Tab Navigation Buttons Bar */
   .tabs-nav-bar {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 0.5rem;
-    border-bottom: 2px solid var(--color-border);
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.75rem;
+    position: relative;
   }
 
   .season-tab-btn {
-    display: inline-flex;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 0.75rem 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    width: 100%;
+    outline: none;
+  }
+
+  .tab-btn-inner {
+    display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     gap: 0.45rem;
-    padding: 0.75rem 0.5rem;
-    background: var(--color-bg-alt);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md) var(--radius-md) 0 0;
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--color-text-muted);
-    cursor: pointer;
-    white-space: nowrap;
-    transition: all 0.2s ease;
-    border-bottom: none;
-    margin-bottom: -2px;
     width: 100%;
   }
 
   .season-tab-btn:hover {
-    color: var(--color-primary);
-    background: #ffffff;
+    border-color: var(--color-primary);
+    background: rgba(46, 125, 50, 0.04);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
   }
 
+  .season-tab-btn:active {
+    transform: translateY(1px) scale(0.98);
+  }
+
+  /* Active Selected Tab State */
   .season-tab-btn.is-active {
-    background: #ffffff;
-    color: var(--color-primary);
-    border-color: var(--color-primary) var(--color-primary) #ffffff;
-    border-top: 3px solid var(--color-primary);
-    font-weight: 800;
+    background: linear-gradient(135deg, #1b5e20, #2e7d32);
+    border-color: #1b5e20;
+    box-shadow: 0 4px 12px rgba(27, 94, 32, 0.3);
+  }
+
+  /* Selected Pointer Arrow pointing to panel */
+  .season-tab-btn.is-active::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid #2e7d32;
+    z-index: 2;
   }
 
   .tab-btn-icon-wrap {
     display: inline-flex;
     align-items: center;
-    gap: 0.35rem;
+    gap: 0.3rem;
   }
 
   .tab-btn-icon {
@@ -356,19 +410,31 @@ const seasonsData = seasons.map((season) => {
   }
 
   .tab-btn-text {
-    font-size: 0.92rem;
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--color-text-main);
     line-height: 1.2;
     white-space: nowrap;
+    transition: color 0.2s ease;
+  }
+
+  .season-tab-btn.is-active .tab-btn-text {
+    color: #ffffff;
   }
 
   .tab-btn-badge {
-    font-size: 0.68rem;
+    font-size: 0.65rem;
     font-weight: 800;
     background: #e65100;
     color: #ffffff;
-    padding: 0.15rem 0.45rem;
+    padding: 0.12rem 0.4rem;
     border-radius: var(--radius-full);
     line-height: 1;
+  }
+
+  .season-tab-btn.is-active .tab-btn-badge {
+    background: #ffffff;
+    color: #e65100;
   }
 
   /* Tab Panels */
@@ -607,7 +673,7 @@ const seasonsData = seasons.map((season) => {
 
   @media (max-width: 640px) {
     .seasonal-tabs-widget {
-      padding: 1.25rem 0.85rem;
+      padding: 1.25rem 0.75rem;
     }
     .seasonal-tabs-title {
       font-size: 1.15rem;
@@ -615,37 +681,29 @@ const seasonsData = seasons.map((season) => {
     .tabs-nav-bar {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 0.25rem;
-      border-bottom: none;
-      background: var(--color-bg-alt);
-      padding: 0.25rem;
-      border-radius: var(--radius-md);
-      margin-bottom: 1.25rem;
+      gap: 0.35rem;
+      margin-bottom: 1.5rem;
     }
     .season-tab-btn {
-      flex-direction: column;
-      gap: 0.15rem;
       padding: 0.5rem 0.15rem;
       border-radius: var(--radius-sm);
-      border: 1px solid transparent;
-      border-bottom: 1px solid transparent;
-      margin-bottom: 0;
-      background: transparent;
-      min-height: 52px;
+      min-height: 58px;
     }
-    .season-tab-btn.is-active {
-      background: #ffffff;
-      color: var(--color-primary);
-      border: 1px solid var(--color-border);
-      border-top: 1px solid var(--color-border);
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-      font-weight: 800;
+    .tab-btn-inner {
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    .season-tab-btn.is-active::after {
+      bottom: -6px;
+      border-width: 6px 6px 0 6px;
+      border-top-color: #2e7d32;
     }
     .tab-btn-icon-wrap {
       gap: 0.2rem;
     }
     .tab-btn-icon {
-      font-size: 1rem;
+      font-size: 1.1rem;
+      line-height: 1;
     }
     .tab-btn-text {
       font-size: 0.76rem;
@@ -654,8 +712,8 @@ const seasonsData = seasons.map((season) => {
       white-space: nowrap;
     }
     .tab-btn-badge {
-      font-size: 0.58rem;
-      padding: 0.08rem 0.25rem;
+      font-size: 0.55rem;
+      padding: 0.08rem 0.22rem;
       margin-top: -2px;
     }
     .panel-banner {
