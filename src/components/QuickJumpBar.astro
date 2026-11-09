@@ -8,22 +8,28 @@ interface JumpItem {
 interface Props {
   items?: JumpItem[];
   lang?: 'ja' | 'en';
+  noCarHref?: string;
+  driveHref?: string;
+  familyHref?: string;
+  climateHref?: string;
 }
 
-const { lang = 'ja', items } = Astro.props;
+const { lang = 'ja', items, noCarHref, driveHref, familyHref, climateHref } = Astro.props;
+
+const cleanId = (href?: string) => href ? href.replace(/^#/, '') : undefined;
 
 const defaultItemsJa: JumpItem[] = [
-  { label: '車なし新幹線プラン', targetId: 'section-no-car', icon: '🚅' },
-  { label: '車ドライブプラン', targetId: 'section-drive', icon: '🚗' },
-  { label: '子連れ安心情報', targetId: 'section-family', icon: '👶' },
-  { label: '気候・おすすめ服装', targetId: 'section-climate', icon: '🌤️' },
+  { label: '車なし新幹線プラン', targetId: cleanId(noCarHref) || 'section-no-car', icon: '🚅' },
+  { label: '車ドライブプラン', targetId: cleanId(driveHref) || 'section-drive', icon: '🚗' },
+  { label: '子連れ安心情報', targetId: cleanId(familyHref) || 'section-family', icon: '👶' },
+  { label: '気候・おすすめ服装', targetId: cleanId(climateHref) || 'section-climate', icon: '🌤️' },
 ];
 
 const defaultItemsEn: JumpItem[] = [
-  { label: 'No-Car Train Route', targetId: 'section-no-car', icon: '🚅' },
-  { label: 'Drive & Traffic Tips', targetId: 'section-drive', icon: '🚗' },
-  { label: 'Family & Stroller Tips', targetId: 'section-family', icon: '👶' },
-  { label: 'Weather & Attire', targetId: 'section-climate', icon: '🌤️' },
+  { label: 'No-Car Train Route', targetId: cleanId(noCarHref) || 'section-no-car', icon: '🚅' },
+  { label: 'Drive & Traffic Tips', targetId: cleanId(driveHref) || 'section-drive', icon: '🚗' },
+  { label: 'Family & Stroller Tips', targetId: cleanId(familyHref) || 'section-family', icon: '👶' },
+  { label: 'Weather & Attire', targetId: cleanId(climateHref) || 'section-climate', icon: '🌤️' },
 ];
 
 const jumpList = items || (lang === 'ja' ? defaultItemsJa : defaultItemsEn);

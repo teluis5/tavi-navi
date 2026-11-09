@@ -1,15 +1,31 @@
 ---
 interface Props {
-  destination: string;    // e.g. "熱海・三島" or "Atami & Mishima"
+  destination?: string;    // e.g. "熱海・三島" or "Atami & Mishima"
   station?: string;        // e.g. "熱海駅" or "Atami Station"
-  pref: string;           // e.g. "shizuoka"
+  pref?: string;           // e.g. "shizuoka"
+  prefName?: string;
+  keyword?: string;
+  title?: string;
+  subtitle?: string;
   lang?: 'ja' | 'en';
 }
 
-const { destination, station = '', pref, lang = 'ja' } = Astro.props;
+const {
+  destination: propDest,
+  station = '',
+  pref = '',
+  prefName = '',
+  keyword: propKeyword,
+  title: propTitle,
+  subtitle: propSubtitle,
+  lang = 'ja'
+} = Astro.props;
+
+const destination = propDest || prefName || '観光地';
+const searchKeyword = propKeyword || `${destination} 温泉`;
 
 // Build search URLs
-const rakutenKeyword = encodeURIComponent(`${destination} 温泉`);
+const rakutenKeyword = encodeURIComponent(searchKeyword);
 const rakutenUrl = `https://travel.rakuten.co.jp/search/?f_keyword=${rakutenKeyword}`;
 
 const asoviewArea = encodeURIComponent(destination);
@@ -26,14 +42,14 @@ const klookUrl = `https://www.klook.com/search/?query=${encodeURIComponent(desti
       <span>{lang === 'ja' ? '宿・体験のリアルタイム空室＆予約' : 'Live Booking & Availability'}</span>
     </div>
     <h3 class="booking-title">
-      {lang === 'ja' 
+      {propTitle || (lang === 'ja' 
         ? `${destination}の空室・おすすめ温泉宿＆体験チケット` 
-        : `Hotels, Ryokans & Activities in ${destination}`}
+        : `Hotels, Ryokans & Activities in ${destination}`)}
     </h3>
     <p class="booking-desc">
-      {lang === 'ja'
+      {propSubtitle || (lang === 'ja'
         ? '週末やハイシーズンは人気宿・海沿い客室から早期に満室となります。日程が決まったら早めのチェックがおすすめです。'
-        : 'Popular hot spring ryokans and ocean-view rooms book out weeks in advance. Check live availability and rates below.'}
+        : 'Popular hot spring ryokans and ocean-view rooms book out weeks in advance. Check live availability and rates below.')}
     </p>
   </div>
 
