@@ -232,10 +232,130 @@ function getDefaultSeasonalInfo(region: string, period: SeasonPeriod): SeasonalI
 /**
  * 都道府県IDとシーズン情報から、リッチな旬情報を取得する
  */
+// 都道府県固有のシーズン別特化データ（静岡県）
+const SHIZUOKA_SEASONS: Record<string, Partial<SeasonalInfo>> = {
+  '11-mid': {
+    highlightsJa: [
+      '三島スカイウォーク：日本最長400mの吊橋から望む雪化粧の富士山＆駿河湾',
+      '修善寺温泉：伊豆の小京都「竹林の小径」と修善寺もみじまつりの紅葉散策',
+      '熱海温泉街：熱海駅前平和通り商店街の温泉まんじゅう＆海鮮浜焼き食べ歩き',
+      '伊豆パノラマパーク：ロープウェイ山頂「碧テラス」の水盤に映る秋の富士山'
+    ],
+    highlightsEn: [
+      'Mishima Skywalk: Japan\'s longest 400m pedestrian bridge with snow-capped Fuji vistas',
+      'Shuzenji Onsen: Romantic bamboo paths & vibrant autumn maple festival in Izu',
+      'Atami Onsen Bayside: Steaming onsen buns & fresh grilled seafood street food',
+      'Izu Panorama Park: Panoramic reflection of Mount Fuji from Ao Terrace mountain water basins'
+    ],
+    climateJa: '最高17〜19℃ / 最低9〜11℃。平野部は温暖ですが、スカイウォークや山頂テラスは吹き抜ける風で体感が一気に下がります。',
+    climateEn: 'High 17–19°C / Low 9–11°C. Mild coastal weather, but high suspension bridges and mountain summits experience gusty chills.',
+    clothingJa: '脱ぎ着しやすいウインドブレーカーや秋ジャケット。吊橋を渡る際は風で飛ばされない帽子止めや防風着を。',
+    clothingEn: 'Windbreaker or medium jacket. Secure lightweight hats when crossing high bridges.',
+    noCarTipJa: '東海道新幹線「こだま」で東京〜熱海わずか45分、三島50分！三島駅南口から特急路線バスで三島スカイウォーク直行。',
+    noCarTipEn: 'Tokaido Shinkansen (Kodama) reaches Atami in 45 mins, Mishima in 50 mins from Tokyo! Direct buses link to attractions.',
+    familyTipJa: '三島スカイウォークはベビーカー無料貸出（幅広専用車）あり。歩道が広くファミリー・3世代旅行に最適。',
+    familyTipEn: 'Mishima Skywalk provides free rental of wide off-road strollers. Completely flat wooden boardwalks.',
+    driveTipJa: '東名・新東名高速ともに週末午前は海老名SA付近で自然渋滞あり。東京を午前7:00台に出発すると快適。',
+    driveTipEn: 'Tomei Expressway suffers morning queues near Ebina. Departing Tokyo around 7:00 AM avoids major jams.'
+  },
+  '11-late': {
+    highlightsJa: [
+      '熱海梅園もみじまつり：日本一遅い紅葉と謳われる早咲きの梅とモミジの共演',
+      '伊豆ぐらんぱる公園：約600万球が輝く体験型イルミネーション「グランイルミ」開幕',
+      '寸又峡「夢の吊橋」：南アルプスの山奥に現れるエメラルドグリーンの湖と紅葉',
+      '熱海・伊東：旬を迎える脂の乗った「地金目鯛の煮付け」と海鮮丼'
+    ],
+    highlightsEn: [
+      'Atami Plum Garden: Famous as Japan\'s latest autumn foliage alongside early plum buds',
+      'Izu Granpal Park: "Granillumi" 6-million-light interactive winter illumination spectacle',
+      'Sumatakyo Dream Suspension Bridge: Emerald lake crossing framed by deep autumn foliage',
+      'Atami & Ito: Peak season for simmered local golden-eye snapper (Kinmedai) seafood'
+    ],
+    climateJa: '最高14〜16℃ / 最低6〜8℃。朝晩の冷え込みが深まりますが、日中の伊豆半島海沿いは暖かな日差しに恵まれます。',
+    climateEn: 'High 14–16°C / Low 6–8°C. Crisper mornings and evenings, but coastal Izu enjoys warm daytime sunshine.',
+    clothingJa: '裏地付きコートやライトダウン。夜のグランイルミ鑑賞には手袋・マフラー・カイロが必須です。',
+    clothingEn: 'Lined winter coat or light down. Warm gloves and scarves are vital for outdoor night illuminations.',
+    noCarTipJa: '伊豆急行線のリゾート21（展望列車）を利用すれば、普通運賃のみで海側パノラマ座席から絶景車窓が楽しめます。',
+    noCarTipEn: 'Ride Izu Kyuko\'s "Resort 21" scenic trains at standard fare for ocean-facing panoramic window seating.',
+    familyTipJa: 'グランイルミは夜間冷え込むため防寒着を万全に。昼の伊豆高原旅なら「大室山リフト」も子どもに大人気。',
+    familyTipEn: 'Dress toddlers warmly for night illuminations. Omuroyama chairlift offers safe, thrilling fun by day.',
+    driveTipJa: '熱海〜伊東の国道135号線は夕方に渋滞しやすいので、伊豆スカイライン（有料山道）への迂回がスムーズ。',
+    driveTipEn: 'Route 135 gets congested at dusk; bypass via scenic Izu Skyline toll road for open cruising.'
+  },
+  '12-early': {
+    highlightsJa: [
+      '熱海海上花火大会：冬の澄んだ夜空とすり鉢状の熱海湾に大音響で轟く特大花火',
+      '御殿場プレミアム・アウトレット：雄大な富士山をバックに楽しむ冬のウインターセール',
+      '富士山本宮浅間大社：世界遺産・富士山の湧水「湧玉池」と冬晴れの霊峰参拝',
+      '静岡おでん街：青葉横丁・青葉おでん街で味わう黒はんぺんと出汁粉の熱々おでん'
+    ],
+    highlightsEn: [
+      'Atami Marine Fireworks: Winter firework explosions echoing powerfully across the natural bay',
+      'Gotemba Premium Outlets: Winter holiday shopping paired with majestic sunset Fuji views',
+      'Fujisan Hongu Sengen Taisha: Sacred natural spring ponds & clear winter shrine grounds',
+      'Shizuoka Oden Alley: Steaming black broth skewers dusted with sardine powder and dashi'
+    ],
+    climateJa: '最高11〜13℃ / 最低3〜5℃。富士山麓（御殿場・富士宮）はさらに3〜5℃低く、本格的な防寒が必要です。',
+    climateEn: 'High 11–13°C / Low 3–5°C. Foothill areas around Gotemba/Fujinomiya run 3–5°C colder with icy winds.',
+    clothingJa: '厚手ダウンコート、タートルネック、防寒シューズ。花火鑑賞時はベンチ用ブランケットがあると快適。',
+    clothingEn: 'Heavy winter parka, thermal layers, and warm boots. Seat pads or blankets ideal for seaside fireworks.',
+    noCarTipJa: '熱海花火大会は駅から親水公園まで徒歩15分。花火終了後の上り新幹線・東海道線は混み合うため宿宿泊が正解。',
+    noCarTipEn: 'Atami Fireworks are a 15-min walk from station. Staying overnight is vastly superior to post-event transit queues.',
+    familyTipJa: 'アウトレットは授乳室やキッズエリアが完備。熱海海上花火は混雑を避け客室から鑑賞できる温泉宿がベスト。',
+    familyTipEn: 'Gotemba Outlets offer full baby nursery stations. Ocean-view ryokans let families watch fireworks from warm rooms.',
+    driveTipJa: '御殿場IC周辺はセール期間中の週末に高速出口渋滞が発生。東名「足柄スマートIC」の利用が裏ワザ。',
+    driveTipEn: 'Gotemba IC exit jams on sale weekends; use Ashigara Smart IC as an effortless local shortcut.'
+  },
+  '12-mid': {
+    highlightsJa: [
+      '伊豆シャボテン動物公園：名物「元祖カピバラの露天風呂」で温まるカピバラの愛らしい姿',
+      '日本平夢テラス：隈研吾設計の展望施設から望む富士山・駿河湾・清水港の360度大パノラマ',
+      '由比港：冬に旬を迎える「生桜えび」と獲れたて桜えびかき揚げ',
+      '熱海・湯河原・修善寺：1年を締めくくる極上温泉宿での露天風呂と湯治ステイ'
+    ],
+    highlightsEn: [
+      'Izu Shaboten Zoo: World-famous "Original Capybara Open-Air Onsen" winter bathing',
+      'Nihondaira Yume Terrace: Kengo Kuma panoramic wood observatory over Suruga Bay & Mount Fuji',
+      'Yui Port: Peak winter season for pristine fresh and crisp Sakura Shrimp tempura',
+      'Atami & Shuzenji Ryokan: Year-end rejuvenating hot spring baths and luxury kaiseki dining'
+    ],
+    climateJa: '最高9〜11℃ / 最低2〜4℃。空気中の水蒸気が減り、1年で最も富士山が美しくくっきり見える季節。',
+    climateEn: 'High 9–11°C / Low 2–4°C. Lowest humidity of the year guarantees the sharpest Mount Fuji clarity.',
+    clothingJa: 'ロング丈の防寒アウター、手袋、マフラー。屋外展望台では耳当てやニット帽があると快適。',
+    clothingEn: 'Long thermal coat, warm gloves, neck scarf, and knit beanie for scenic outdoor lookouts.',
+    noCarTipJa: '静岡駅から日本平ロープウェイ直通バス運行中。新幹線「ひかり」なら東京〜静岡もわずか58分。',
+    noCarTipEn: 'Direct city buses connect Shizuoka Shinkansen Station to Nihondaira ropeways in 35 minutes.',
+    familyTipJa: 'シャボテン動物公園は動物との距離が近く放し飼いエリア多数。園内レストランもキッズメニュー豊富。',
+    familyTipEn: 'Izu Shaboten Zoo allows close tactile animal encounters and features full kid-friendly dining facilities.',
+    driveTipJa: '箱根峠や天城峠を越えるルートは路面凍結の可能性あり。海沿い（熱海〜伊東ルート）の走行が安全。',
+    driveTipEn: 'Mountain passes around Hakone/Amagi risk black ice; adhere to lower coastal highway routes for safety.'
+  }
+};
+
 export function getSeasonalInfoForPrefecture(prefId: string, region: string, period: SeasonPeriod): SeasonalInfo {
   // 神奈川県の特化データ
   if (prefId === 'kanagawa' && KANAGAWA_SEASONS[period.key]) {
     const specific = KANAGAWA_SEASONS[period.key];
+    const fallback = getDefaultSeasonalInfo(region, period);
+    return {
+      highlightsJa: specific.highlightsJa || fallback.highlightsJa,
+      highlightsEn: specific.highlightsEn || fallback.highlightsEn,
+      climateJa: specific.climateJa || fallback.climateJa,
+      climateEn: specific.climateEn || fallback.climateEn,
+      clothingJa: specific.clothingJa || fallback.clothingJa,
+      clothingEn: specific.clothingEn || fallback.clothingEn,
+      noCarTipJa: specific.noCarTipJa || fallback.noCarTipJa,
+      noCarTipEn: specific.noCarTipEn || fallback.noCarTipEn,
+      familyTipJa: specific.familyTipJa || fallback.familyTipJa,
+      familyTipEn: specific.familyTipEn || fallback.familyTipEn,
+      driveTipJa: specific.driveTipJa || fallback.driveTipJa,
+      driveTipEn: specific.driveTipEn || fallback.driveTipEn,
+    };
+  }
+
+  // 静岡県の特化データ
+  if (prefId === 'shizuoka' && SHIZUOKA_SEASONS[period.key]) {
+    const specific = SHIZUOKA_SEASONS[period.key];
     const fallback = getDefaultSeasonalInfo(region, period);
     return {
       highlightsJa: specific.highlightsJa || fallback.highlightsJa,
