@@ -1,0 +1,79 @@
+---
+import { CITIES, type City } from '../../../../data/cities';
+import { PREFECTURES, type Prefecture } from '../../../../data/prefectures';
+import { MONTHLY_THEMES, type MonthTheme } from '../../../../data/monthlyThemes';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import EnCityMonthPage from '../../../../components/EnCityMonthPage.astro';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles', ({ data }) => {
+    return data.lang === 'en' && !data.draft;
+  });
+
+  return CITIES.flatMap((city) => {
+    const pref = PREFECTURES.find((p) => p.id === city.prefId) || {
+      id: city.prefId,
+      code: 0,
+      nameJa: city.prefId,
+      nameEn: city.prefId,
+      region: city.region,
+      regionNameJa: '',
+      regionNameEn: '',
+      capitalJa: '',
+      capitalEn: '',
+      highlightsJa: [],
+      highlightsEn: [],
+      descriptionJa: '',
+      descriptionEn: '',
+    };
+
+    const allCityArticles = articles.filter((art) => {
+      if (art.data.pref !== city.prefId) return false;
+      return art.data.cities.includes(city.id) || art.data.tags.includes(city.nameEn);
+    });
+
+    return MONTHLY_THEMES.map((theme) => {
+      const monthArticles = allCityArticles.filter((art) => {
+        const s = (art.data.season || '').toLowerCase();
+        return s.includes(theme.monthNameEn.toLowerCase());
+      });
+
+      return {
+        params: {
+          pref: city.prefId,
+          city: city.id,
+          month: String(theme.month),
+        },
+        props: {
+          pref,
+          city,
+          month: theme.month,
+          monthTheme: theme,
+          articles: monthArticles,
+          allCityArticles,
+        },
+      };
+    });
+  });
+}
+
+interface Props {
+  pref: Prefecture;
+  city: City;
+  month: number;
+  monthTheme: MonthTheme;
+  articles: CollectionEntry<'articles'>[];
+  allCityArticles: CollectionEntry<'articles'>[];
+}
+
+const { pref, city, month, monthTheme, articles, allCityArticles } = Astro.props;
+---
+
+<EnCityMonthPage
+  pref={pref}
+  city={city}
+  month={month}
+  monthTheme={monthTheme}
+  articles={articles}
+  allCityArticles={allCityArticles}
+/>

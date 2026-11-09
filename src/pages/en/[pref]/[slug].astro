@@ -2,10 +2,12 @@
 import Layout from '../../../layouts/Layout.astro';
 import { PREFECTURES, type Prefecture } from '../../../data/prefectures';
 import { MONTHLY_THEMES, type MonthTheme } from '../../../data/monthlyThemes';
+import { CITIES, type City } from '../../../data/cities';
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 import { getArticleSlug } from '../../../utils/slug';
 import SeasonalTabs from '../../../components/SeasonalTabs.astro';
 import EnPrefectureMonthPage from '../../../components/EnPrefectureMonthPage.astro';
+import EnCityHubPage from '../../../components/EnCityHubPage.astro';
 
 export async function getStaticPaths() {
   const articles = await getCollection('articles', ({ data }) => {
@@ -30,13 +32,11 @@ export async function getStaticPaths() {
   // 2. Prefecture x 12-Month guides (/en/hokkaido/6/, /en/shizuoka/11/ etc.)
   const monthPaths = PREFECTURES.flatMap((pref) => {
     return MONTHLY_THEMES.map((theme) => {
-      // Articles matching this prefecture and month
       const matchingArticles = articles.filter((art) => {
         if (art.data.pref !== pref.id) return false;
         const s = (art.data.season || '').toLowerCase();
         return s.includes(theme.monthNameEn.toLowerCase());
       });
-      // All articles in this prefecture
       const allPrefArticles = articles.filter((art) => art.data.pref === pref.id);
 
       return {
@@ -56,7 +56,46 @@ export async function getStaticPaths() {
     });
   });
 
-  return [...articlePaths, ...monthPaths];
+  // 3. City & Area hubs (/en/hokkaido/furano/, /en/shizuoka/atami/ etc.)
+  const cityPaths = CITIES.map((city) => {
+    const pref = PREFECTURES.find((p) => p.id === city.prefId) || {
+      id: city.prefId,
+      code: 0,
+      nameJa: city.prefId,
+      nameEn: city.prefId,
+      region: city.region,
+      regionNameJa: '',
+      regionNameEn: '',
+      capitalJa: '',
+      capitalEn: '',
+      highlightsJa: [],
+      highlightsEn: [],
+      descriptionJa: '',
+      descriptionEn: '',
+    };
+
+    const matchingArticles = articles.filter((art) => {
+      if (art.data.pref !== city.prefId) return false;
+      return art.data.cities.includes(city.id) || art.data.tags.includes(city.nameEn);
+    });
+    const allPrefArticles = articles.filter((art) => art.data.pref === city.prefId);
+
+    return {
+      params: {
+        pref: city.prefId,
+        slug: city.id,
+      },
+      props: {
+        pageType: 'city' as const,
+        pref,
+        city,
+        cityArticles: matchingArticles,
+        allPrefArticles,
+      },
+    };
+  });
+
+  return [...articlePaths, ...monthPaths, ...cityPaths];
 }
 
 type Props =
@@ -70,6 +109,13 @@ type Props =
       month: number;
       monthTheme: MonthTheme;
       monthArticles: CollectionEntry<'articles'>[];
+      allPrefArticles: CollectionEntry<'articles'>[];
+    }
+  | {
+      pageType: 'city';
+      pref: Prefecture;
+      city: City;
+      cityArticles: CollectionEntry<'articles'>[];
       allPrefArticles: CollectionEntry<'articles'>[];
     };
 
@@ -117,6 +163,13 @@ if (props.pageType === 'article') {
     month={props.month}
     monthTheme={props.monthTheme}
     articles={props.monthArticles}
+    allPrefArticles={props.allPrefArticles}
+  />
+) : props.pageType === 'city' ? (
+  <EnCityHubPage
+    pref={props.pref}
+    city={props.city}
+    articles={props.cityArticles}
     allPrefArticles={props.allPrefArticles}
   />
 ) : article ? (

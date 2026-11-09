@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import { PREFECTURES, type Prefecture } from '../../data/prefectures';
 import { MONTHLY_THEMES } from '../../data/monthlyThemes';
+import { getCitiesByPrefecture } from '../../data/cities';
 import { getCollection } from 'astro:content';
 import { getArticleSlug } from '../../utils/slug';
 import SeasonalTabs from '../../components/SeasonalTabs.astro';
@@ -25,6 +26,7 @@ const prefArticles = await getCollection('articles', ({ data }) => {
 });
 
 const sortedArticles = prefArticles.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const prefCities = getCitiesByPrefecture(pref.id);
 ---
 
 <Layout
@@ -90,6 +92,44 @@ const sortedArticles = prefArticles.sort((a, b) => b.data.pubDate.valueOf() - a.
       lang="ja"
       articles={sortedArticles}
     />
+
+    {/* 主要市町村・観光エリア */}
+    {prefCities.length > 0 && (
+      <section style="margin-bottom: 3.5rem;">
+        <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+          <span style="color: var(--color-primary);">🏛️</span> {pref.nameJa}の主要エリア・市町村から探す
+        </h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.25rem;">
+          {prefCities.map((c) => (
+            <a
+              href={`/${pref.id}/${c.id}/`}
+              style="background: #ffffff; border: 1.5px solid var(--color-border); border-radius: 12px; padding: 1.25rem; text-decoration: none; color: inherit; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.2s ease; box-shadow: 0 2px 6px rgba(0,0,0,0.04);"
+            >
+              <div>
+                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.4rem;">
+                  <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--color-text-main); margin: 0;">{c.nameJa}</h3>
+                  <span style="font-size: 0.8rem; color: var(--color-text-muted);">{c.nameEn}</span>
+                </div>
+                <p style="font-size: 0.85rem; color: var(--color-text-muted); line-height: 1.5; margin: 0 0 0.85rem;">
+                  {c.catchphraseJa}
+                </p>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 1rem;">
+                  {c.highlightsJa.slice(0, 3).map((h) => (
+                    <span style="font-size: 0.72rem; background: var(--color-bg-base); padding: 0.15rem 0.5rem; border-radius: 4px; color: var(--color-text-muted);">
+                      {h}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; font-weight: 700; color: var(--color-primary); border-top: 1px dashed var(--color-border); padding-top: 0.6rem;">
+                <span>{c.nameJa}の旬と観光ガイドを見る</span>
+                <span>&rarr;</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
 
     {/* 該当都道府県の記事一覧 */}
     <section>

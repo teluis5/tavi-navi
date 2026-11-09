@@ -1,0 +1,719 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { type City } from '../data/cities';
+import { type Prefecture } from '../data/prefectures';
+import { MONTHLY_THEMES, type MonthTheme } from '../data/monthlyThemes';
+import { getPeriodsForMonth } from '../utils/seasons';
+import { getSeasonalInfoForPrefecture } from '../data/seasonalData';
+import { getArticleSlug } from '../utils/slug';
+import TravelBookingBox from './TravelBookingBox.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  pref: Prefecture;
+  city: City;
+  month: number;
+  monthTheme: MonthTheme;
+  articles: CollectionEntry<'articles'>[];
+  allCityArticles: CollectionEntry<'articles'>[];
+}
+
+const { pref, city, month, monthTheme, articles, allCityArticles } = Astro.props;
+
+// 上旬・中旬・下旬のシーズンデータを取得
+const periods = getPeriodsForMonth(month);
+const earlyInfo = getSeasonalInfoForPrefecture(pref.id, pref.region, periods.early);
+const midInfo = getSeasonalInfoForPrefecture(pref.id, pref.region, periods.mid);
+const lateInfo = getSeasonalInfoForPrefecture(pref.id, pref.region, periods.late);
+
+// 旬の代表見どころ
+const topHighlights = [
+  earlyInfo.highlightsJa[0],
+  midInfo.highlightsJa[0],
+  lateInfo.highlightsJa[0],
+].filter(Boolean);
+
+const isBestSeason = city.bestMonths.includes(month);
+
+const pageTitle = `【${month}月の${city.nameJa}旅行】旬の見頃・イベント・気候と服装ガイド - tavi-navi`;
+const pageDesc = `${month}月の${pref.nameJa}・${city.nameJa}旅行・観光ガイド。${city.nameJa}の${topHighlights.join('、')}など上旬・中旬・下旬の見どころタイムライン、気候と服装、車なし＆ドライブ攻略、おすすめ宿・モデルコースを完全網羅。`;
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDesc}
+  lang="ja"
+  currentPref={pref.id}
+>
+  {/* パンくずリスト */}
+  <div style="background: #ffffff; border-bottom: 1px solid var(--color-border); padding: 1rem 0;">
+    <div class="container" style="font-size: 0.85rem; color: var(--color-text-muted);">
+      <a href="/" style="color: var(--color-primary);">ホーム</a>
+      <span style="margin: 0 0.4rem;">&gt;</span>
+      <a href={`/${pref.id}/`} style="color: var(--color-primary);">{pref.nameJa}</a>
+      <span style="margin: 0 0.4rem;">&gt;</span>
+      <a href={`/${pref.id}/${city.id}/`} style="color: var(--color-primary);">{city.nameJa}</a>
+      <span style="margin: 0 0.4rem;">&gt;</span>
+      <span style="font-weight: 700; color: var(--color-text-main);">{month}月の{city.nameJa}</span>
+    </div>
+  </div>
+
+  {/* ヒーローバナー */}
+  <div class="hero-banner">
+    <div class="container">
+      <div style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;">
+        <a href={`/${pref.id}/`} class="badge-seasonal" style="text-decoration: none;">
+          📍 {pref.nameJa}
+        </a>
+        <a href={`/${pref.id}/${city.id}/`} class="badge-seasonal" style="text-decoration: none;">
+          🏛️ {city.nameJa}
+        </a>
+        <span class="badge-seasonal">{monthTheme.icon} {month}月の旬</span>
+        {isBestSeason && (
+          <span class="badge-seasonal" style="background: #facc15; color: #713f12; font-weight: 800;">
+            ⭐ ベストシーズン！
+          </span>
+        )}
+      </div>
+      <h1 class="hero-title">
+        {month}月の{city.nameJa} 旅行・観光ガイド
+      </h1>
+      <p class="hero-subtitle">
+        {topHighlights.length > 0 ? topHighlights.join('・') : city.catchphraseJa}
+      </p>
+
+      {/* 1月〜12月 月別セレクター */}
+      <div class="month-selector-wrapper">
+        <span class="month-selector-title">🗓️ {city.nameJa}の他の月・半年先をチェック:</span>
+        <div class="month-pill-grid">
+          {MONTHLY_THEMES.map((m) => {
+            const isCurrent = m.month === month;
+            const isBest = city.bestMonths.includes(m.month);
+            return (
+              <a
+                href={`/${pref.id}/${city.id}/${m.month}/`}
+                class={`month-pill ${isCurrent ? 'is-active' : ''} ${isBest && !isCurrent ? 'is-best' : ''}`}
+              >
+                <span class="month-pill-icon">{m.icon}</span>
+                <span class="month-pill-name">{m.nameJa}</span>
+                {isBest && !isCurrent && <span class="best-dot">●</span>}
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="max-width: 920px; padding-top: 2.5rem; padding-bottom: 4rem;">
+    {/* 上旬・中旬・下旬 タイムライン */}
+    <section style="margin-bottom: 3.5rem;">
+      <h2 class="section-heading">
+        <span class="heading-icon">📅</span> {month}月の{city.nameJa} 旬タイムライン（上旬・中旬・下旬）
+      </h2>
+
+      <div class="season-timeline-grid">
+        {/* 上旬 */}
+        <div class="period-card">
+          <div class="period-card-header period-early">
+            <span class="period-badge">上旬（1日〜10日）</span>
+            <span class="period-icon">🌱</span>
+          </div>
+          <div class="period-card-body">
+            <ul class="period-highlight-list">
+              {earlyInfo.highlightsJa.map((h) => (
+                <li>
+                  <span class="period-bullet">✦</span>
+                  <span>{h}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* 中旬 */}
+        <div class="period-card">
+          <div class="period-card-header period-mid">
+            <span class="period-badge">中旬（11日〜20日）</span>
+            <span class="period-icon">🌿</span>
+          </div>
+          <div class="period-card-body">
+            <ul class="period-highlight-list">
+              {midInfo.highlightsJa.map((h) => (
+                <li>
+                  <span class="period-bullet">✦</span>
+                  <span>{h}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* 下旬 */}
+        <div class="period-card">
+          <div class="period-card-header period-late">
+            <span class="period-badge">下旬（21日〜月末）</span>
+            <span class="period-icon">🍃</span>
+          </div>
+          <div class="period-card-body">
+            <ul class="period-highlight-list">
+              {lateInfo.highlightsJa.map((h) => (
+                <li>
+                  <span class="period-bullet">✦</span>
+                  <span>{h}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* 気候と服装ガイド */}
+    <section style="margin-bottom: 3.5rem;">
+      <h2 class="section-heading">
+        <span class="heading-icon">🌤️</span> {month}月の{city.nameJa} 気候とおすすめ服装
+      </h2>
+      <div class="info-box-grid">
+        <div class="info-card">
+          <div class="info-card-title">
+            <span>🌡️</span> 気候・気温の目安
+          </div>
+          <p class="info-card-text">
+            {midInfo.climateJa || `${month}月の${city.nameJa}は季節の変わり目。朝晩と日中の寒暖差にご注意ください。`}
+          </p>
+        </div>
+        <div class="info-card">
+          <div class="info-card-title">
+            <span>👔</span> おすすめの服装・持ち物
+          </div>
+          <p class="info-card-text">
+            {midInfo.clothingJa || '脱ぎ着しやすい羽織りもの（カーディガンや薄手ジャケット）があると快適です。'}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    {/* 車なし・子連れ・ドライブのスタイル別攻略 */}
+    <section style="margin-bottom: 3.5rem;">
+      <h2 class="section-heading">
+        <span class="heading-icon">💡</span> {city.nameJa} 旅行スタイル別ワンポイント攻略
+      </h2>
+      <div class="style-cards-grid">
+        <div class="style-card">
+          <div class="style-card-header">
+            <span>🚆 車なし・公共交通派</span>
+          </div>
+          <p class="style-card-body">
+            {midInfo.noCarTipJa || `${city.nameJa}周辺の主要観光路線は事前時刻表チェックを推奨。`}
+          </p>
+        </div>
+        <div class="style-card">
+          <div class="style-card-header">
+            <span>👨‍👩‍👧 子連れ・ファミリー派</span>
+          </div>
+          <p class="style-card-body">
+            {midInfo.familyTipJa || '主要駅や道の駅にベビールーム完備。段差の少ないルートが安心です。'}
+          </p>
+        </div>
+        <div class="style-card">
+          <div class="style-card-header">
+            <span>🚗 レンタカー・ドライブ派</span>
+          </div>
+          <p class="style-card-body">
+            {midInfo.driveTipJa || '週末の人気スポット周辺は午前中から駐車場混雑の可能性あり。朝早めの出発が快適です。'}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    {/* 特集記事（モデルコース） */}
+    <section style="margin-bottom: 3.5rem;">
+      <h2 class="section-heading">
+        <span class="heading-icon">📖</span> {month}月の{city.nameJa} 特集・モデルコース記事
+      </h2>
+
+      {articles.length > 0 ? (
+        <div class="article-grid">
+          {articles.map((art) => {
+            const slug = getArticleSlug(art.id, art.data.pref);
+            return (
+              <a href={`/${art.data.pref}/${slug}/`} class="featured-article-card">
+                <div class="featured-card-header">
+                  <span class="featured-card-badge">{art.data.category}</span>
+                  {art.data.season && (
+                    <span class="featured-card-season">{art.data.season}</span>
+                  )}
+                </div>
+                <h3 class="featured-card-title">{art.data.title}</h3>
+                <p class="featured-card-desc">{art.data.description}</p>
+                <div class="featured-card-cta">
+                  <span>モデルコースを見る</span>
+                  <span>&rarr;</span>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      ) : (
+        <div class="no-articles-card">
+          <p style="font-weight: 700; margin-bottom: 0.5rem; color: var(--color-text-main);">
+            現在、{month}月の{city.nameJa}特化モデルコース記事を取材・執筆中です！
+          </p>
+          <p style="font-size: 0.9rem; color: var(--color-text-muted); margin-bottom: 1.25rem;">
+            下記のホテル・アクティビティ予約や、{city.nameJa}の他のシーズンの記事もぜひご覧ください。
+          </p>
+          {allCityArticles.length > 0 && (
+            <div style="text-align: left; margin-top: 1rem;">
+              <span style="font-size: 0.85rem; font-weight: 700; color: var(--color-text-muted); display: block; margin-bottom: 0.5rem;">
+                📌 {city.nameJa}の他の人気記事:
+              </span>
+              <ul style="padding-left: 1.2rem; font-size: 0.9rem;">
+                {allCityArticles.map((art) => {
+                  const slug = getArticleSlug(art.id, art.data.pref);
+                  return (
+                    <li style="margin-bottom: 0.4rem;">
+                      <a href={`/${art.data.pref}/${slug}/`} style="color: var(--color-primary); font-weight: 600;">
+                        {art.data.title}
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          )}
+        </div>
+      )}
+    </section>
+
+    {/* 予約ボックス */}
+    <TravelBookingBox
+      title={`【${month}月】${city.nameJa}旅行の予約・空室チェック`}
+      subtitle={`${city.nameJa}の人気温泉旅館・駅近ホテル・レンタカー・アクティビティをまとめて比較`}
+      prefName={city.nameJa}
+      keyword={`${city.nameJa} ホテル`}
+    />
+
+    {/* 都道府県・全国へのクロスリンク */}
+    <div class="cross-link-grid">
+      <a href={`/${pref.id}/${month}/`} class="cross-link-card">
+        <span class="cross-link-icon">📍</span>
+        <div>
+          <span class="cross-link-title">{pref.nameJa}全体の{month}月ガイドを見る</span>
+          <span class="cross-link-desc">{pref.nameJa}の他の見どころ・全域の旬情報 &rarr;</span>
+        </div>
+      </a>
+      <a href={`/season/${month}/`} class="cross-link-card">
+        <span class="cross-link-icon">🗾</span>
+        <div>
+          <span class="cross-link-title">日本全国の{month}月ガイドを見る</span>
+          <span class="cross-link-desc">47都道府県の旬・ベストシーズン一覧 &rarr;</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .hero-banner {
+    background: linear-gradient(135deg, #1b3d2f 0%, #2e5c46 100%);
+    color: #ffffff;
+    padding: 2.5rem 0 2rem;
+    text-align: center;
+  }
+
+  .badge-seasonal {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0.35rem 0.9rem;
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #e2f5ea;
+  }
+
+  .hero-title {
+    font-size: 2.1rem;
+    font-weight: 800;
+    margin: 0.8rem 0 0.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-subtitle {
+    font-size: 0.98rem;
+    opacity: 0.92;
+    max-width: 680px;
+    margin: 0 auto 1.5rem;
+    line-height: 1.6;
+  }
+
+  .month-selector-wrapper {
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  .month-selector-title {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #a7f3d0;
+    margin-bottom: 0.6rem;
+    text-align: left;
+  }
+
+  .month-pill-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 0.35rem;
+  }
+
+  .month-pill {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 6px;
+    padding: 0.4rem 0.1rem;
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    transition: all 0.15s ease;
+  }
+
+  .month-pill:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .month-pill.is-active {
+    background: #ffffff;
+    color: var(--color-primary-dark);
+    border-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .month-pill.is-best {
+    border-color: #facc15;
+  }
+
+  .best-dot {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    color: #facc15;
+    font-size: 0.5rem;
+    line-height: 1;
+  }
+
+  .month-pill-icon {
+    font-size: 0.95rem;
+    line-height: 1;
+    margin-bottom: 0.15rem;
+  }
+
+  .section-heading {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .heading-icon {
+    color: var(--color-accent);
+  }
+
+  .season-timeline-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  .period-card {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  }
+
+  .period-card-header {
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 700;
+    color: #ffffff;
+  }
+
+  .period-early {
+    background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+  }
+
+  .period-mid {
+    background: linear-gradient(135deg, #1b3d2f 0%, #2e5c46 100%);
+  }
+
+  .period-late {
+    background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
+  }
+
+  .period-badge {
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+  }
+
+  .period-icon {
+    font-size: 1.1rem;
+  }
+
+  .period-card-body {
+    padding: 1.25rem 1rem;
+  }
+
+  .period-highlight-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .period-highlight-list li {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--color-text-main);
+    display: flex;
+    gap: 0.4rem;
+    align-items: flex-start;
+  }
+
+  .period-bullet {
+    color: var(--color-primary);
+    font-size: 0.75rem;
+    margin-top: 0.15rem;
+    flex-shrink: 0;
+  }
+
+  .info-box-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  .info-card {
+    background: #f8fafc;
+    border: 1.5px solid var(--color-border);
+    border-radius: 10px;
+    padding: 1.25rem;
+  }
+
+  .info-card-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-text-main);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .info-card-text {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  .style-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  .style-card {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+  }
+
+  .style-card-header {
+    background: #f1f5f9;
+    padding: 0.65rem 0.9rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-text-main);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .style-card-body {
+    padding: 1rem 0.9rem;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  .article-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .featured-article-card {
+    background: #ffffff;
+    border: 1.5px solid var(--color-border);
+    border-radius: 12px;
+    padding: 1.35rem;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  }
+
+  .featured-article-card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(27, 61, 47, 0.12);
+  }
+
+  .featured-card-header {
+    display: flex;
+    gap: 0.4rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .featured-card-badge {
+    background: var(--color-primary-light);
+    color: var(--color-primary-dark);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+  }
+
+  .featured-card-season {
+    background: #fef08a;
+    color: #854d0e;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+  }
+
+  .featured-card-title {
+    font-size: 1.05rem;
+    font-weight: 800;
+    line-height: 1.45;
+    color: var(--color-text-main);
+    margin-bottom: 0.5rem;
+  }
+
+  .featured-card-desc {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    flex-grow: 1;
+  }
+
+  .featured-card-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    padding-top: 0.6rem;
+    border-top: 1px dashed var(--color-border);
+  }
+
+  .no-articles-card {
+    background: #f8fafc;
+    border: 1px dashed var(--color-border);
+    border-radius: 12px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+  }
+
+  .cross-link-grid {
+    margin-top: 3.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  .cross-link-card {
+    background: #ffffff;
+    border: 1.5px solid var(--color-border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.2s ease;
+  }
+
+  .cross-link-card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(27, 61, 47, 0.08);
+  }
+
+  .cross-link-icon {
+    font-size: 1.75rem;
+  }
+
+  .cross-link-title {
+    font-weight: 800;
+    font-size: 0.95rem;
+    color: var(--color-text-main);
+    display: block;
+    margin-bottom: 0.15rem;
+  }
+
+  .cross-link-desc {
+    font-size: 0.8rem;
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  @media (max-width: 768px) {
+    .season-timeline-grid,
+    .info-box-grid,
+    .style-cards-grid,
+    .cross-link-grid {
+      grid-template-columns: 1fr;
+    }
+    .month-pill-grid {
+      grid-template-columns: repeat(6, 1fr);
+    }
+    .hero-title {
+      font-size: 1.65rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .month-pill-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

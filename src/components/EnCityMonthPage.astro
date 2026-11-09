@@ -1,0 +1,719 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { type City } from '../data/cities';
+import { type Prefecture } from '../data/prefectures';
+import { MONTHLY_THEMES, type MonthTheme } from '../data/monthlyThemes';
+import { getPeriodsForMonth } from '../utils/seasons';
+import { getSeasonalInfoForPrefecture } from '../data/seasonalData';
+import { getArticleSlug } from '../utils/slug';
+import TravelBookingBox from './TravelBookingBox.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  pref: Prefecture;
+  city: City;
+  month: number;
+  monthTheme: MonthTheme;
+  articles: CollectionEntry<'articles'>[];
+  allCityArticles: CollectionEntry<'articles'>[];
+}
+
+const { pref, city, month, monthTheme, articles, allCityArticles } = Astro.props;
+
+// Fetch seasonal information for early, mid, late
+const periods = getPeriodsForMonth(month);
+const earlyInfo = getSeasonalInfoForPrefecture(pref.id, pref.region, periods.early);
+const midInfo = getSeasonalInfoForPrefecture(pref.id, pref.region, periods.mid);
+const lateInfo = getSeasonalInfoForPrefecture(pref.id, pref.region, periods.late);
+
+const topHighlights = [
+  earlyInfo.highlightsEn[0],
+  midInfo.highlightsEn[0],
+  lateInfo.highlightsEn[0],
+].filter(Boolean);
+
+const isBestSeason = city.bestMonths.includes(month);
+
+const pageTitle = `【${city.nameEn} in ${monthTheme.monthNameEn}】Best Things to Do, Weather & Seasonal Guide - tavi-navi`;
+const pageDesc = `Complete travel guide for ${city.nameEn}, ${pref.nameEn} in ${monthTheme.monthNameEn}. Early, mid, late seasonal highlights (${topHighlights.join(', ')}), weather, packing tips, transit advice, and top accommodations.`;
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDesc}
+  lang="en"
+  currentPref={pref.id}
+>
+  {/* Breadcrumbs */}
+  <div style="background: #ffffff; border-bottom: 1px solid var(--color-border); padding: 1rem 0;">
+    <div class="container" style="font-size: 0.85rem; color: var(--color-text-muted);">
+      <a href="/en/" style="color: var(--color-primary);">Home</a>
+      <span style="margin: 0 0.4rem;">&gt;</span>
+      <a href={`/en/${pref.id}/`} style="color: var(--color-primary);">{pref.nameEn}</a>
+      <span style="margin: 0 0.4rem;">&gt;</span>
+      <a href={`/en/${pref.id}/${city.id}/`} style="color: var(--color-primary);">{city.nameEn}</a>
+      <span style="margin: 0 0.4rem;">&gt;</span>
+      <span style="font-weight: 700; color: var(--color-text-main);">{city.nameEn} in {monthTheme.monthNameEn}</span>
+    </div>
+  </div>
+
+  {/* Hero Banner */}
+  <div class="hero-banner">
+    <div class="container">
+      <div style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;">
+        <a href={`/en/${pref.id}/`} class="badge-seasonal" style="text-decoration: none;">
+          📍 {pref.nameEn}
+        </a>
+        <a href={`/en/${pref.id}/${city.id}/`} class="badge-seasonal" style="text-decoration: none;">
+          🏛️ {city.nameEn}
+        </a>
+        <span class="badge-seasonal">{monthTheme.icon} {monthTheme.monthNameEn}</span>
+        {isBestSeason && (
+          <span class="badge-seasonal" style="background: #facc15; color: #713f12; font-weight: 800;">
+            ⭐ Prime Season!
+          </span>
+        )}
+      </div>
+      <h1 class="hero-title">
+        {city.nameEn} in {monthTheme.monthNameEn} Travel Guide
+      </h1>
+      <p class="hero-subtitle">
+        {topHighlights.length > 0 ? topHighlights.join(' • ') : city.catchphraseEn}
+      </p>
+
+      {/* 12-Month Selector */}
+      <div class="month-selector-wrapper">
+        <span class="month-selector-title">🗓️ Check Other Months in {city.nameEn}:</span>
+        <div class="month-pill-grid">
+          {MONTHLY_THEMES.map((m) => {
+            const isCurrent = m.month === month;
+            const isBest = city.bestMonths.includes(m.month);
+            return (
+              <a
+                href={`/en/${pref.id}/${city.id}/${m.month}/`}
+                class={`month-pill ${isCurrent ? 'is-active' : ''} ${isBest && !isCurrent ? 'is-best' : ''}`}
+              >
+                <span class="month-pill-icon">{m.icon}</span>
+                <span class="month-pill-name">{m.monthShortEn}</span>
+                {isBest && !isCurrent && <span class="best-dot">●</span>}
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="max-width: 920px; padding-top: 2.5rem; padding-bottom: 4rem;">
+    {/* Early, Mid, Late Timeline */}
+    <section style="margin-bottom: 3.5rem;">
+      <h2 class="section-heading">
+        <span class="heading-icon">📅</span> {city.nameEn} in {monthTheme.monthNameEn}: Seasonal Timeline
+      </h2>
+
+      <div class="season-timeline-grid">
+        {/* Early */}
+        <div class="period-card">
+          <div class="period-card-header period-early">
+            <span class="period-badge">Early {monthTheme.monthShortEn} (1st–10th)</span>
+            <span class="period-icon">🌱</span>
+          </div>
+          <div class="period-card-body">
+            <ul class="period-highlight-list">
+              {earlyInfo.highlightsEn.map((h) => (
+                <li>
+                  <span class="period-bullet">✦</span>
+                  <span>{h}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Mid */}
+        <div class="period-card">
+          <div class="period-card-header period-mid">
+            <span class="period-badge">Mid-{monthTheme.monthShortEn} (11th–20th)</span>
+            <span class="period-icon">🌿</span>
+          </div>
+          <div class="period-card-body">
+            <ul class="period-highlight-list">
+              {midInfo.highlightsEn.map((h) => (
+                <li>
+                  <span class="period-bullet">✦</span>
+                  <span>{h}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Late */}
+        <div class="period-card">
+          <div class="period-card-header period-late">
+            <span class="period-badge">Late {monthTheme.monthShortEn} (21st–End)</span>
+            <span class="period-icon">🍃</span>
+          </div>
+          <div class="period-card-body">
+            <ul class="period-highlight-list">
+              {lateInfo.highlightsEn.map((h) => (
+                <li>
+                  <span class="period-bullet">✦</span>
+                  <span>{h}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Weather & Clothing */}
+    <section style="margin-bottom: 3.5rem;">
+      <h2 class="section-heading">
+        <span class="heading-icon">🌤️</span> Weather & What to Wear in {monthTheme.monthNameEn}
+      </h2>
+      <div class="info-box-grid">
+        <div class="info-card">
+          <div class="info-card-title">
+            <span>🌡️</span> Climate & Temperatures
+          </div>
+          <p class="info-card-text">
+            {midInfo.climateEn || `Enjoy seasonal outdoor activities in ${city.nameEn}. Watch out for morning and evening temperature swings.`}
+          </p>
+        </div>
+        <div class="info-card">
+          <div class="info-card-title">
+            <span>👔</span> Packing & Dressing Advice
+          </div>
+          <p class="info-card-text">
+            {midInfo.clothingEn || 'Layered clothing such as a light windbreaker or cardigan is ideal.'}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    {/* Style Practical Tips */}
+    <section style="margin-bottom: 3.5rem;">
+      <h2 class="section-heading">
+        <span class="heading-icon">💡</span> Practical Travel Tips for {city.nameEn}
+      </h2>
+      <div class="style-cards-grid">
+        <div class="style-card">
+          <div class="style-card-header">
+            <span>🚆 Transit & Public Transport</span>
+          </div>
+          <p class="style-card-body">
+            {midInfo.noCarTipEn || `Check train and local bus schedules connecting ${city.nameEn} ahead of time.`}
+          </p>
+        </div>
+        <div class="style-card">
+          <div class="style-card-header">
+            <span>👨‍👩‍👧 Family & Kids</span>
+          </div>
+          <p class="style-card-body">
+            {midInfo.familyTipEn || 'Major sightseeing spots offer elevator access and family restrooms.'}
+          </p>
+        </div>
+        <div class="style-card">
+          <div class="style-card-header">
+            <span>🚗 Rental Car & Driving</span>
+          </div>
+          <p class="style-card-body">
+            {midInfo.driveTipEn || 'Arrive early at popular scenic spots to secure smooth parking.'}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    {/* Featured Itineraries */}
+    <section style="margin-bottom: 3.5rem;">
+      <h2 class="section-heading">
+        <span class="heading-icon">📖</span> {monthTheme.monthNameEn} Guides & Itineraries for {city.nameEn}
+      </h2>
+
+      {articles.length > 0 ? (
+        <div class="article-grid">
+          {articles.map((art) => {
+            const slug = getArticleSlug(art.id, art.data.pref);
+            return (
+              <a href={`/en/${art.data.pref}/${slug}/`} class="featured-article-card">
+                <div class="featured-card-header">
+                  <span class="featured-card-badge">{art.data.category}</span>
+                  {art.data.season && (
+                    <span class="featured-card-season">{art.data.season}</span>
+                  )}
+                </div>
+                <h3 class="featured-card-title">{art.data.title}</h3>
+                <p class="featured-card-desc">{art.data.description}</p>
+                <div class="featured-card-cta">
+                  <span>Read Complete Guide</span>
+                  <span>&rarr;</span>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      ) : (
+        <div class="no-articles-card">
+          <p style="font-weight: 700; margin-bottom: 0.5rem; color: var(--color-text-main);">
+            Dedicated {monthTheme.monthNameEn} travel stories for {city.nameEn} are being curated!
+          </p>
+          <p style="font-size: 0.9rem; color: var(--color-text-muted); margin-bottom: 1.25rem;">
+            Explore verified accommodations below or check all seasonal guides in {city.nameEn}.
+          </p>
+          {allCityArticles.length > 0 && (
+            <div style="text-align: left; margin-top: 1rem;">
+              <span style="font-size: 0.85rem; font-weight: 700; color: var(--color-text-muted); display: block; margin-bottom: 0.5rem;">
+                📌 More Guides for {city.nameEn}:
+              </span>
+              <ul style="padding-left: 1.2rem; font-size: 0.9rem;">
+                {allCityArticles.map((art) => {
+                  const slug = getArticleSlug(art.id, art.data.pref);
+                  return (
+                    <li style="margin-bottom: 0.4rem;">
+                      <a href={`/en/${art.data.pref}/${slug}/`} style="color: var(--color-primary); font-weight: 600;">
+                        {art.data.title}
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          )}
+        </div>
+      )}
+    </section>
+
+    {/* Booking Box */}
+    <TravelBookingBox
+      title={`Plan Your ${monthTheme.monthNameEn} Trip to ${city.nameEn}`}
+      subtitle={`Find top onsen hotels, holiday stays, and local activities with free cancellation`}
+      prefName={city.nameEn}
+      keyword={`${city.nameEn} hotels`}
+      lang="en"
+    />
+
+    {/* Cross links */}
+    <div class="cross-link-grid">
+      <a href={`/en/${pref.id}/${month}/`} class="cross-link-card">
+        <span class="cross-link-icon">📍</span>
+        <div>
+          <span class="cross-link-title">Explore All {pref.nameEn} in {monthTheme.monthNameEn}</span>
+          <span class="cross-link-desc">View region-wide seasonal highlights &rarr;</span>
+        </div>
+      </a>
+      <a href={`/en/season/${month}/`} class="cross-link-card">
+        <span class="cross-link-icon">🗾</span>
+        <div>
+          <span class="cross-link-title">Explore Japan Nationwide in {monthTheme.monthNameEn}</span>
+          <span class="cross-link-desc">Compare 47 prefectures across Japan &rarr;</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .hero-banner {
+    background: linear-gradient(135deg, #1b3d2f 0%, #2e5c46 100%);
+    color: #ffffff;
+    padding: 2.5rem 0 2rem;
+    text-align: center;
+  }
+
+  .badge-seasonal {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0.35rem 0.9rem;
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #e2f5ea;
+  }
+
+  .hero-title {
+    font-size: 2.1rem;
+    font-weight: 800;
+    margin: 0.8rem 0 0.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-subtitle {
+    font-size: 0.98rem;
+    opacity: 0.92;
+    max-width: 680px;
+    margin: 0 auto 1.5rem;
+    line-height: 1.6;
+  }
+
+  .month-selector-wrapper {
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  .month-selector-title {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #a7f3d0;
+    margin-bottom: 0.6rem;
+    text-align: left;
+  }
+
+  .month-pill-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 0.35rem;
+  }
+
+  .month-pill {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 6px;
+    padding: 0.4rem 0.1rem;
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    transition: all 0.15s ease;
+  }
+
+  .month-pill:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .month-pill.is-active {
+    background: #ffffff;
+    color: var(--color-primary-dark);
+    border-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .month-pill.is-best {
+    border-color: #facc15;
+  }
+
+  .best-dot {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    color: #facc15;
+    font-size: 0.5rem;
+    line-height: 1;
+  }
+
+  .month-pill-icon {
+    font-size: 0.95rem;
+    line-height: 1;
+    margin-bottom: 0.15rem;
+  }
+
+  .section-heading {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .heading-icon {
+    color: var(--color-accent);
+  }
+
+  .season-timeline-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  .period-card {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  }
+
+  .period-card-header {
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 700;
+    color: #ffffff;
+  }
+
+  .period-early {
+    background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+  }
+
+  .period-mid {
+    background: linear-gradient(135deg, #1b3d2f 0%, #2e5c46 100%);
+  }
+
+  .period-late {
+    background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
+  }
+
+  .period-badge {
+    font-size: 0.82rem;
+    letter-spacing: 0.01em;
+  }
+
+  .period-icon {
+    font-size: 1.1rem;
+  }
+
+  .period-card-body {
+    padding: 1.25rem 1rem;
+  }
+
+  .period-highlight-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .period-highlight-list li {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--color-text-main);
+    display: flex;
+    gap: 0.4rem;
+    align-items: flex-start;
+  }
+
+  .period-bullet {
+    color: var(--color-primary);
+    font-size: 0.75rem;
+    margin-top: 0.15rem;
+    flex-shrink: 0;
+  }
+
+  .info-box-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  .info-card {
+    background: #f8fafc;
+    border: 1.5px solid var(--color-border);
+    border-radius: 10px;
+    padding: 1.25rem;
+  }
+
+  .info-card-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-text-main);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .info-card-text {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  .style-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  .style-card {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+  }
+
+  .style-card-header {
+    background: #f1f5f9;
+    padding: 0.65rem 0.9rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-text-main);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .style-card-body {
+    padding: 1rem 0.9rem;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  .article-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .featured-article-card {
+    background: #ffffff;
+    border: 1.5px solid var(--color-border);
+    border-radius: 12px;
+    padding: 1.35rem;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  }
+
+  .featured-article-card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(27, 61, 47, 0.12);
+  }
+
+  .featured-card-header {
+    display: flex;
+    gap: 0.4rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .featured-card-badge {
+    background: var(--color-primary-light);
+    color: var(--color-primary-dark);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+  }
+
+  .featured-card-season {
+    background: #fef08a;
+    color: #854d0e;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+  }
+
+  .featured-card-title {
+    font-size: 1.05rem;
+    font-weight: 800;
+    line-height: 1.45;
+    color: var(--color-text-main);
+    margin-bottom: 0.5rem;
+  }
+
+  .featured-card-desc {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    flex-grow: 1;
+  }
+
+  .featured-card-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    padding-top: 0.6rem;
+    border-top: 1px dashed var(--color-border);
+  }
+
+  .no-articles-card {
+    background: #f8fafc;
+    border: 1px dashed var(--color-border);
+    border-radius: 12px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+  }
+
+  .cross-link-grid {
+    margin-top: 3.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  .cross-link-card {
+    background: #ffffff;
+    border: 1.5px solid var(--color-border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.2s ease;
+  }
+
+  .cross-link-card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(27, 61, 47, 0.08);
+  }
+
+  .cross-link-icon {
+    font-size: 1.75rem;
+  }
+
+  .cross-link-title {
+    font-weight: 800;
+    font-size: 0.95rem;
+    color: var(--color-text-main);
+    display: block;
+    margin-bottom: 0.15rem;
+  }
+
+  .cross-link-desc {
+    font-size: 0.8rem;
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  @media (max-width: 768px) {
+    .season-timeline-grid,
+    .info-box-grid,
+    .style-cards-grid,
+    .cross-link-grid {
+      grid-template-columns: 1fr;
+    }
+    .month-pill-grid {
+      grid-template-columns: repeat(6, 1fr);
+    }
+    .hero-title {
+      font-size: 1.65rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .month-pill-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>
