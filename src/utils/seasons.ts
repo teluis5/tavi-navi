@@ -49,6 +49,55 @@ function getSeasonIcon(month: number, period: Period): string {
 }
 
 /**
+ * Returns early, mid, late SeasonPeriod for a specific month (1..12).
+ */
+export function getPeriodsForMonth(month: number): {
+  early: SeasonPeriod;
+  mid: SeasonPeriod;
+  late: SeasonPeriod;
+} {
+  const mName = MONTH_NAMES_EN[month] || '';
+  return {
+    early: {
+      key: `${month}-early`,
+      month,
+      period: 'early',
+      labelJa: `${month}月上旬`,
+      labelEn: `Early ${mName}`,
+      shortLabelJa: `${month}月上旬`,
+      shortLabelEn: `Early ${mName.slice(0, 3)}`,
+      monthNameEn: mName,
+      icon: getSeasonIcon(month, 'early'),
+      isCurrent: false,
+    },
+    mid: {
+      key: `${month}-mid`,
+      month,
+      period: 'mid',
+      labelJa: `${month}月中旬`,
+      labelEn: `Mid-${mName}`,
+      shortLabelJa: `${month}月中旬`,
+      shortLabelEn: `Mid-${mName.slice(0, 3)}`,
+      monthNameEn: mName,
+      icon: getSeasonIcon(month, 'mid'),
+      isCurrent: false,
+    },
+    late: {
+      key: `${month}-late`,
+      month,
+      period: 'late',
+      labelJa: `${month}月下旬`,
+      labelEn: `Late ${mName}`,
+      shortLabelJa: `${month}月下旬`,
+      shortLabelEn: `Late ${mName.slice(0, 3)}`,
+      monthNameEn: mName,
+      icon: getSeasonIcon(month, 'late'),
+      isCurrent: false,
+    },
+  };
+}
+
+/**
  * Returns upcoming seasons starting from referenceDate.
  * e.g., if today is Nov 9, 2026, the 4 upcoming seasons are:
  * 1. 11月中旬 (Nov 11-20)

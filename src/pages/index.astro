@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { REGIONS, PREFECTURES } from '../data/prefectures';
+import { MONTHLY_THEMES } from '../data/monthlyThemes';
 import { getCollection } from 'astro:content';
 import { getArticleSlug } from '../utils/slug';
 
@@ -24,6 +25,29 @@ const recentArticles = allArticles.sort((a, b) => b.data.pubDate.valueOf() - a.d
       <p class="hero-subtitle">
         全国47都道府県の今週末のイベント、開花・見頃の絶景、旬のグルメ速報をお届け。「車なし（電車）プラン」や「子連れ安心ルート」など旅のスタイル別ガイドも充実。
       </p>
+
+      {/* 1月〜12月 時期から探すピルナビ */}
+      <div style="margin-top: 1.75rem; background: rgba(0, 0, 0, 0.25); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px; padding: 1.1rem 1.25rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem;">
+          <span style="font-size: 0.85rem; font-weight: 700; color: #a7f3d0;">
+            🗓️ 旅行の時期・月から探す（1月〜12月）:
+          </span>
+          <a href="/season/" style="font-size: 0.78rem; font-weight: 700; color: #ffffff; text-decoration: underline;">
+            四季カレンダー一覧を見る &rarr;
+          </a>
+        </div>
+        <div class="top-month-grid">
+          {MONTHLY_THEMES.map((m) => (
+            <a
+              href={`/season/${m.month}/`}
+              class="top-month-pill"
+            >
+              <span style="font-size: 0.95rem; line-height: 1; margin-bottom: 0.15rem;">{m.icon}</span>
+              <span>{m.nameJa}</span>
+            </a>
+          ))}
+        </div>
+      </div>
     </div>
   </div>
 
@@ -364,6 +388,45 @@ const recentArticles = allArticles.sort((a, b) => b.data.pubDate.valueOf() - a.d
     }
     .getaway-hub-card {
       padding: 1.15rem 1rem;
+    }
+  }
+
+  .top-month-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 0.35rem;
+  }
+
+  .top-month-pill {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 6px;
+    padding: 0.4rem 0.1rem;
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    transition: all 0.15s ease;
+  }
+
+  .top-month-pill:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 768px) {
+    .top-month-grid {
+      grid-template-columns: repeat(6, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .top-month-grid {
+      grid-template-columns: repeat(4, 1fr);
     }
   }
 </style>

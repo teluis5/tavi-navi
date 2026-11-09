@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { PREFECTURES, type Prefecture } from '../../data/prefectures';
+import { MONTHLY_THEMES } from '../../data/monthlyThemes';
 import { getCollection } from 'astro:content';
 import { getArticleSlug } from '../../utils/slug';
 import SeasonalTabs from '../../components/SeasonalTabs.astro';
@@ -58,6 +59,24 @@ const sortedArticles = prefArticles.sort((a, b) => b.data.pubDate.valueOf() - a.
             #{item}
           </span>
         ))}
+      </div>
+
+      {/* 1月〜12月 月別セレクター */}
+      <div style="margin-top: 1.5rem; background: rgba(0, 0, 0, 0.25); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px; padding: 1rem 1.25rem; max-width: 760px; margin-left: auto; margin-right: auto;">
+        <span style="display: block; font-size: 0.82rem; font-weight: 700; color: #a7f3d0; margin-bottom: 0.6rem; text-align: left;">
+          🗓️ {pref.nameJa}の時期・月から探す（1月〜12月）:
+        </span>
+        <div style="display: grid; grid-template-columns: repeat(12, 1fr); gap: 0.35rem;">
+          {MONTHLY_THEMES.map((m) => (
+            <a
+              href={`/${pref.id}/${m.month}/`}
+              style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 6px; padding: 0.4rem 0.1rem; text-decoration: none; color: #ffffff; font-size: 0.75rem; font-weight: 700; transition: all 0.15s ease;"
+            >
+              <span style="font-size: 0.95rem; line-height: 1; margin-bottom: 0.15rem;">{m.icon}</span>
+              <span>{m.nameJa}</span>
+            </a>
+          ))}
+        </div>
       </div>
     </div>
   </div>

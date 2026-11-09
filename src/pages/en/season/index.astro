@@ -1,0 +1,284 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { MONTHLY_THEMES } from '../../../data/monthlyThemes';
+
+const springMonths = MONTHLY_THEMES.filter((m) => m.seasonType === 'spring');
+const summerMonths = MONTHLY_THEMES.filter((m) => m.seasonType === 'summer');
+const autumnMonths = MONTHLY_THEMES.filter((m) => m.seasonType === 'autumn');
+const winterMonths = MONTHLY_THEMES.filter((m) => m.seasonType === 'winter');
+---
+
+<Layout
+  title="Explore Japan by Season & Month | 12-Month Travel Guide - tavi-navi"
+  description="Discover the best places to visit in Japan by month and season. From spring cherry blossoms and summer lavender fields to vibrant autumn leaves and snowy hot springs."
+  lang="en"
+>
+  <div style="background: #ffffff; border-bottom: 1px solid var(--color-border); padding: 1rem 0;">
+    <div class="container" style="font-size: 0.85rem; color: var(--color-text-muted);">
+      <a href="/en/" style="color: var(--color-primary);">Home</a>
+      <span style="margin: 0 0.4rem;">&gt;</span>
+      <span style="font-weight: 700; color: var(--color-text-main);">Explore by Season</span>
+    </div>
+  </div>
+
+  <div class="hero-banner" style="padding: 2.5rem 0 2rem;">
+    <div class="container">
+      <span class="badge-seasonal">🗓️ Four Seasons Calendar</span>
+      <h1 class="hero-title" style="margin-top: 0.75rem;">
+        Explore Japan by Season & Month
+      </h1>
+      <p class="hero-subtitle">
+        Planning a trip next month or half a year ahead? Explore the best seasonal highlights, festivals, culinary specialties, and weather guides across Japan for all 12 months.
+      </p>
+    </div>
+  </div>
+
+  <div class="container" style="padding-top: 3rem; padding-bottom: 4rem;">
+    {/* Spring */}
+    <section class="season-group">
+      <h2 class="season-group-title">
+        <span>🌸 Spring (March, April, May)</span>
+        <span class="season-group-sub">Cherry blossoms, fresh greenery, alpine snow walls & flower fields</span>
+      </h2>
+      <div class="month-cards-grid">
+        {springMonths.map((m) => (
+          <a href={`/en/season/${m.month}/`} class="month-card">
+            <div class="month-card-header">
+              <span class="month-card-icon">{m.icon}</span>
+              <div>
+                <h3 class="month-card-name">{m.monthNameEn}</h3>
+                <span class="month-card-en">{m.nameJa}</span>
+              </div>
+            </div>
+            <p class="month-card-tagline">{m.taglineEn}</p>
+            <div class="month-card-action">
+              <span>View Seasonal Highlights</span>
+              <span>&rarr;</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    {/* Summer */}
+    <section class="season-group">
+      <h2 class="season-group-title">
+        <span>🌻 Summer (June, July, August)</span>
+        <span class="season-group-sub">Rain-free Hokkaido, Furano lavender, grand summer matsuri festivals & fireworks</span>
+      </h2>
+      <div class="month-cards-grid">
+        {summerMonths.map((m) => (
+          <a href={`/en/season/${m.month}/`} class="month-card">
+            <div class="month-card-header">
+              <span class="month-card-icon">{m.icon}</span>
+              <div>
+                <h3 class="month-card-name">{m.monthNameEn}</h3>
+                <span class="month-card-en">{m.nameJa}</span>
+              </div>
+            </div>
+            <p class="month-card-tagline">{m.taglineEn}</p>
+            <div class="month-card-action">
+              <span>View Seasonal Highlights</span>
+              <span>&rarr;</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    {/* Autumn */}
+    <section class="season-group">
+      <h2 class="season-group-title">
+        <span>🍁 Autumn (September, October, November)</span>
+        <span class="season-group-sub">Peak fall foliage, harvest delicacies, golden ginkgo avenues & night illuminations</span>
+      </h2>
+      <div class="month-cards-grid">
+        {autumnMonths.map((m) => (
+          <a href={`/en/season/${m.month}/`} class="month-card">
+            <div class="month-card-header">
+              <span class="month-card-icon">{m.icon}</span>
+              <div>
+                <h3 class="month-card-name">{m.monthNameEn}</h3>
+                <span class="month-card-en">{m.nameJa}</span>
+              </div>
+            </div>
+            <p class="month-card-tagline">{m.taglineEn}</p>
+            <div class="month-card-action">
+              <span>View Seasonal Highlights</span>
+              <span>&rarr;</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    {/* Winter */}
+    <section class="season-group">
+      <h2 class="season-group-title">
+        <span>❄️ Winter (December, January, February)</span>
+        <span class="season-group-sub">Sapporo Snow Festival, powder snow skiing, steaming onsen & early blossoms</span>
+      </h2>
+      <div class="month-cards-grid">
+        {winterMonths.map((m) => (
+          <a href={`/en/season/${m.month}/`} class="month-card">
+            <div class="month-card-header">
+              <span class="month-card-icon">{m.icon}</span>
+              <div>
+                <h3 class="month-card-name">{m.monthNameEn}</h3>
+                <span class="month-card-en">{m.nameJa}</span>
+              </div>
+            </div>
+            <p class="month-card-tagline">{m.taglineEn}</p>
+            <div class="month-card-action">
+              <span>View Seasonal Highlights</span>
+              <span>&rarr;</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .hero-banner {
+    background: linear-gradient(135deg, #1b3d2f 0%, #2e5c46 100%);
+    color: #ffffff;
+    text-align: center;
+  }
+
+  .badge-seasonal {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0.35rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #e2f5ea;
+  }
+
+  .hero-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin: 0.8rem 0 0.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+    opacity: 0.9;
+    max-width: 680px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .season-group {
+    margin-bottom: 3.5rem;
+  }
+
+  .season-group-title {
+    font-size: 1.45rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid var(--color-border);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.75rem;
+  }
+
+  .season-group-sub {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+  }
+
+  .month-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  .month-card {
+    background: #ffffff;
+    border: 1.5px solid var(--color-border);
+    border-radius: 12px;
+    padding: 1.35rem;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  }
+
+  .month-card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(27, 61, 47, 0.12);
+  }
+
+  .month-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .month-card-icon {
+    font-size: 2.2rem;
+    line-height: 1;
+  }
+
+  .month-card-name {
+    font-size: 1.35rem;
+    font-weight: 800;
+    margin: 0;
+    color: var(--color-text-main);
+  }
+
+  .month-card-en {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    font-weight: 600;
+    display: block;
+  }
+
+  .month-card-tagline {
+    font-size: 0.88rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+    margin-bottom: 1.25rem;
+    flex-grow: 1;
+  }
+
+  .month-card-action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    padding-top: 0.75rem;
+    border-top: 1px dashed var(--color-border);
+  }
+
+  @media (max-width: 860px) {
+    .month-cards-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 580px) {
+    .month-cards-grid {
+      grid-template-columns: 1fr;
+    }
+    .hero-title {
+      font-size: 1.7rem;
+    }
+  }
+</style>

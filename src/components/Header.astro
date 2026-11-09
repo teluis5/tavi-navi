@@ -40,6 +40,11 @@ const homeUrl = isEn ? '/en/' : '/';
     </a>
 
     <div class="header-actions">
+      <a href={isEn ? '/en/season/' : '/season/'} class="nav-season-link">
+        <span>🗓️</span>
+        <span>{isEn ? 'By Season' : '時期から探す'}</span>
+      </a>
+
       <a href={targetLangPath} class="lang-switch" title={isEn ? 'Switch to Japanese' : '英語へ切り替え'}>
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="10"></circle>
@@ -51,3 +56,23 @@ const homeUrl = isEn ? '/en/' : '/';
     </div>
   </div>
 </header>
+
+<style>
+  .nav-season-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    text-decoration: none;
+    padding: 0.4rem 0.8rem;
+    background: var(--color-primary-light);
+    border-radius: var(--radius-full);
+    transition: all 0.15s ease;
+  }
+  .nav-season-link:hover {
+    background: #c8edd8;
+    transform: translateY(-1px);
+  }
+</style>
