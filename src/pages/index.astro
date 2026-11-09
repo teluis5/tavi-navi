@@ -28,7 +28,7 @@ const recentArticles = allArticles.sort((a, b) => b.data.pubDate.valueOf() - a.d
 
       {/* 1月〜12月 時期から探すピルナビ */}
       <div style="margin-top: 1.75rem; background: rgba(0, 0, 0, 0.25); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px; padding: 1.1rem 1.25rem; max-width: 800px; margin-left: auto; margin-right: auto;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem;">
+        <div class="hero-month-header">
           <span style="font-size: 0.85rem; font-weight: 700; color: #a7f3d0;">
             🗓️ 旅行の時期・月から探す（1月〜12月）:
           </span>
@@ -388,6 +388,20 @@ const recentArticles = allArticles.sort((a, b) => b.data.pubDate.valueOf() - a.d
     }
     .getaway-hub-card {
       padding: 1.15rem 1rem;
+    }
+  }
+
+    .hero-month-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.6rem;
+  }
+  @media (max-width: 640px) {
+    .hero-month-header {
+      flex-direction: column;
+      align-items: flex-start !important;
+      gap: 0.35rem;
     }
   }
 

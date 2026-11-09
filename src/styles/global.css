@@ -77,7 +77,7 @@ p { margin-bottom: 1.5em; }
 
 /* Cocoon-like Card Style */
 .box {
-	background-color: var(--bg-main);
+	background-color: var(--bg-content);
 	border: 1px solid var(--border-color);
 	border-radius: var(--radius);
 	/* box-shadow: var(--shadow); */
@@ -519,5 +519,311 @@ thead th {
 	display: none !important;
 }
 
+/* ==========================================================================
+   tavi-navi 固有コンポーネント & モバイル最適化UIシステム
+   ========================================================================== */
 
+/* 共通コンテナ */
+.container {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
 
+@media (max-width: 640px) {
+  .container {
+    padding-left: 0.85rem;
+    padding-right: 0.85rem;
+  }
+}
+
+/* ヒーローバナー */
+.hero-banner {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 50%, #075985 100%);
+  color: #ffffff;
+  padding: 3.5rem 0 3rem;
+  text-align: center;
+}
+
+.hero-title {
+  font-size: clamp(1.6rem, 4.5vw, 2.25rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.75rem;
+  color: #ffffff;
+  line-height: 1.35;
+}
+
+.hero-subtitle {
+  font-size: clamp(0.9rem, 2.2vw, 1.05rem);
+  opacity: 0.92;
+  max-width: 680px;
+  margin: 0 auto 1.5rem;
+  line-height: 1.65;
+  color: #f0f9ff;
+}
+
+@media (max-width: 640px) {
+  .hero-banner {
+    padding: 2.25rem 0 1.75rem;
+  }
+}
+
+/* 季節・カテゴリバッジ */
+.badge-seasonal {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full, 9999px);
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: #ffedd5;
+  color: #c2410c;
+  line-height: 1.3;
+}
+
+/* 最新の旬・旅行速報 記事カードグリッド */
+.article-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+@media (max-width: 640px) {
+  .article-grid {
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+  }
+}
+
+.article-card {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.article-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  border-color: var(--theme-accent);
+}
+
+.article-card-body {
+  padding: 1.25rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 640px) {
+  .article-card-body {
+    padding: 1rem;
+  }
+}
+
+.article-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--text-light);
+  margin-bottom: 0.5rem;
+}
+
+.article-card-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  line-height: 1.45;
+  color: var(--text-main);
+  margin-bottom: 0.5rem;
+}
+
+.article-card-title a {
+  color: var(--text-main);
+  text-decoration: none;
+}
+
+.article-card-title a:hover {
+  color: var(--theme-accent);
+}
+
+.article-card-desc {
+  font-size: 0.88rem;
+  color: var(--text-light);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  flex-grow: 1;
+}
+
+/* 47都道府県カードグリッド */
+.prefecture-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 0.85rem;
+}
+
+@media (min-width: 768px) {
+  .prefecture-grid {
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .prefecture-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.65rem;
+  }
+}
+
+.pref-card {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius, 4px);
+  padding: 1rem;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  text-decoration: none;
+}
+
+@media (max-width: 640px) {
+  .pref-card {
+    padding: 0.75rem;
+  }
+}
+
+.pref-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border-color: var(--theme-accent);
+}
+
+.pref-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.35rem;
+}
+
+.pref-card-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+@media (max-width: 640px) {
+  .pref-card-title {
+    font-size: 1rem;
+  }
+}
+
+.pref-card-en {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-light);
+}
+
+.pref-card-highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: 0.5rem;
+}
+
+.pref-card-tag {
+  font-size: 0.7rem;
+  background: var(--bg-main);
+  border: 1px solid var(--border-color);
+  padding: 0.15rem 0.4rem;
+  border-radius: var(--radius, 4px);
+  color: var(--text-light);
+  line-height: 1.3;
+}
+
+/* 地域（地方）セクション */
+.region-section {
+  margin-bottom: 2.5rem;
+}
+
+.region-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  padding-left: 0.75rem;
+  border-left: 4px solid var(--theme-accent);
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  color: var(--text-main);
+}
+
+.region-title-en {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  font-weight: 500;
+}
+
+/* 記事詳細コンテナ */
+.article-content {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2rem 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+@media (min-width: 768px) {
+  .article-content {
+    padding: 3rem 2.5rem;
+  }
+}
+
+/* 2カラムレイアウト記事詳細 スマホ最適化パディング */
+@media (max-width: 640px) {
+  .layout-main.box {
+    padding: 1.25rem 0.9rem !important;
+  }
+}
+
+/* フッター */
+.site-footer {
+  background: #ffffff;
+  border-top: 1px solid var(--border-color);
+  padding: 3rem 0 2rem;
+  margin-top: 4rem;
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+  justify-content: center;
+}
+
+.footer-nav a {
+  color: var(--text-light);
+}
+
+.footer-nav a:hover {
+  color: var(--theme-accent);
+}
+
+.copyright {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-light);
+}
