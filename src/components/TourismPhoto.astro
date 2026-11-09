@@ -1,0 +1,152 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  src: ImageMetadata | string;
+  alt: string;
+  caption?: string;
+  credit?: string;
+  creditUrl?: string;
+  width?: number;
+  height?: number;
+}
+
+const {
+  src,
+  alt,
+  caption,
+  credit = '写真提供：一般社団法人 秋田県観光連盟「あきたファン」',
+  creditUrl = 'https://akita-fun.jp/photo_gallery',
+  width = 1200,
+  height,
+} = Astro.props;
+
+const isImageMetadata = typeof src === 'object';
+---
+
+<figure class="tourism-photo-container">
+  <div class="photo-wrapper">
+    {isImageMetadata ? (
+      <Image
+        src={src as ImageMetadata}
+        alt={alt}
+        width={width}
+        quality={80}
+        format="webp"
+        class="tourism-photo-img"
+        loading="lazy"
+        decoding="async"
+      />
+    ) : (
+      <img
+        src={src as string}
+        alt={alt}
+        width={width}
+        height={height}
+        class="tourism-photo-img"
+        loading="lazy"
+        decoding="async"
+      />
+    )}
+  </div>
+
+  {(caption || credit) && (
+    <figcaption class="tourism-photo-caption">
+      {caption && <span class="caption-text">{caption}</span>}
+      {credit && (
+        <span class="credit-text">
+          {creditUrl ? (
+            <a href={creditUrl} target="_blank" rel="noopener noreferrer" class="credit-link">
+              {credit}
+            </a>
+          ) : (
+            credit
+          )}
+        </span>
+      )}
+    </figcaption>
+  )}
+</figure>
+
+<style>
+  .tourism-photo-container {
+    margin: 2rem 0;
+    padding: 0;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  }
+
+  .photo-wrapper {
+    position: relative;
+    width: 100%;
+    background: #f1f5f9;
+    overflow: hidden;
+  }
+
+  .tourism-photo-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 540px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .tourism-photo-container:hover .tourism-photo-img {
+    transform: scale(1.015);
+  }
+
+  .tourism-photo-caption {
+    padding: 0.85rem 1.15rem;
+    background: #fafafa;
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .caption-text {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--color-text-main);
+    line-height: 1.5;
+  }
+
+  .credit-text {
+    font-size: 0.72rem;
+    color: var(--color-text-muted);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .credit-link {
+    color: var(--color-text-muted);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.15s ease;
+  }
+
+  .credit-link:hover {
+    color: var(--color-primary);
+  }
+
+  @media (max-width: 640px) {
+    .tourism-photo-container {
+      margin: 1.5rem 0;
+      border-radius: 10px;
+    }
+    .tourism-photo-caption {
+      padding: 0.7rem 0.9rem;
+    }
+    .caption-text {
+      font-size: 0.82rem;
+    }
+    .credit-text {
+      font-size: 0.68rem;
+    }
+  }
+</style>

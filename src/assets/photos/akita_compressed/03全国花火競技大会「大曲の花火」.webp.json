@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "2.0",
+  "assetId": "akita_629",
+  "provider": {
+    "id": "akita_tourism_federation",
+    "nameJa": "一般社団法人 秋田県観光連盟",
+    "nameEn": "Akita Prefecture Tourism Federation",
+    "libraryName": "あきたファン フォトギャラリー",
+    "sourceUrl": "https://akita-fun.jp/photo_gallery"
+  },
+  "subject": {
+    "photoId": "629",
+    "titleJa": "03全国花火競技大会「大曲の花火」",
+    "titleEn": "03全国花火競技大会「大曲の花火」",
+    "prefecture": "秋田県",
+    "city": "大仙市",
+    "cityEn": "大仙 City",
+    "season": "夏",
+    "genre": "祭り・イベント"
+  },
+  "specs": {
+    "width": 1066,
+    "height": 1600,
+    "orientation": "portrait",
+    "aspectRatio": "2:3",
+    "fileSizeBytes": 251844,
+    "sha256": "bf22434947bc52bbd44833cef4263e48e0c327b35199d5a123b213386feada0d",
+    "filename": "03全国花火競技大会「大曲の花火」.webp",
+    "originalFilename": "03全国花火競技大会「大曲の花火」.jpg",
+    "format": "webp"
+  },
+  "policy": {
+    "commercialUse": true,
+    "purposeConstraint": "tourism_pr_only",
+    "allowedProjects": [
+      "tavi-navi",
+      "DeepJapan",
+      "teluis",
+      "yomilee"
+    ],
+    "creditRequired": true,
+    "maxPerArticle": null,
+    "modification": "crop_and_resize_only",
+    "redistributionAllowed": false
+  },
+  "i18n": {
+    "ja": {
+      "alt": "大仙市の観光名所・03全国花火競技大会「大曲の花火」の風景写真",
+      "caption": "大仙市「03全国花火競技大会「大曲の花火」」の観光スポット風景",
+      "credit": "写真提供：一般社団法人 秋田県観光連盟「あきたファン」"
+    },
+    "en": {
+      "alt": "Scenic view of 03全国花火競技大会「大曲の花火」 in 大仙 City, Akita",
+      "caption": "03全国花火競技大会「大曲の花火」 in 大仙 City, Akita",
+      "credit": "Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun)"
+    }
+  },
+  "downloadedAt": "2026-11-09T18:08:19+0900"
+}

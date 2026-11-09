@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "2.0",
+  "assetId": "akita_298",
+  "provider": {
+    "id": "akita_tourism_federation",
+    "nameJa": "一般社団法人 秋田県観光連盟",
+    "nameEn": "Akita Prefecture Tourism Federation",
+    "libraryName": "あきたファン フォトギャラリー",
+    "sourceUrl": "https://akita-fun.jp/photo_gallery"
+  },
+  "subject": {
+    "photoId": "298",
+    "titleJa": "02横手のかまくら",
+    "titleEn": "02横手のかまくら",
+    "prefecture": "秋田県",
+    "city": "横手市",
+    "cityEn": "横手 City",
+    "season": "冬",
+    "genre": "祭り・イベント"
+  },
+  "specs": {
+    "width": 1600,
+    "height": 1066,
+    "orientation": "landscape",
+    "aspectRatio": "1.5:1",
+    "fileSizeBytes": 43714,
+    "sha256": "4db4bd5f95d6dc62fa615e5c4de9d942e2cf264b6b477539b2e6c63e55a7f5a7",
+    "filename": "02横手のかまくら.webp",
+    "originalFilename": "02横手のかまくら.jpg",
+    "format": "webp"
+  },
+  "policy": {
+    "commercialUse": true,
+    "purposeConstraint": "tourism_pr_only",
+    "allowedProjects": [
+      "tavi-navi",
+      "DeepJapan",
+      "teluis",
+      "yomilee"
+    ],
+    "creditRequired": true,
+    "maxPerArticle": null,
+    "modification": "crop_and_resize_only",
+    "redistributionAllowed": false
+  },
+  "i18n": {
+    "ja": {
+      "alt": "横手市の観光名所・02横手のかまくらの風景写真",
+      "caption": "横手市「02横手のかまくら」の観光スポット風景",
+      "credit": "写真提供：一般社団法人 秋田県観光連盟「あきたファン」"
+    },
+    "en": {
+      "alt": "Scenic view of 02横手のかまくら in 横手 City, Akita",
+      "caption": "02横手のかまくら in 横手 City, Akita",
+      "credit": "Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun)"
+    }
+  },
+  "downloadedAt": "2026-11-09T18:15:43+0900"
+}

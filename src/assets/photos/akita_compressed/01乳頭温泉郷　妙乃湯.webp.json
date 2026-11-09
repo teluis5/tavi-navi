@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "2.0",
+  "assetId": "akita_1672",
+  "provider": {
+    "id": "akita_tourism_federation",
+    "nameJa": "一般社団法人 秋田県観光連盟",
+    "nameEn": "Akita Prefecture Tourism Federation",
+    "libraryName": "あきたファン フォトギャラリー",
+    "sourceUrl": "https://akita-fun.jp/photo_gallery"
+  },
+  "subject": {
+    "photoId": "1672",
+    "titleJa": "01乳頭温泉郷　妙乃湯",
+    "titleEn": "01乳頭温泉郷　妙乃湯",
+    "prefecture": "秋田県",
+    "city": "仙北市",
+    "cityEn": "仙北 City",
+    "season": "秋",
+    "genre": "温泉・宿泊施設"
+  },
+  "specs": {
+    "width": 1096,
+    "height": 847,
+    "orientation": "landscape",
+    "aspectRatio": "1.29:1",
+    "fileSizeBytes": 106100,
+    "sha256": "1584491a460746779730eca11b54597c34efea9f6f0104d0e538f37cfa49cc86",
+    "filename": "01乳頭温泉郷　妙乃湯.webp",
+    "originalFilename": "01乳頭温泉郷　妙乃湯.jpg",
+    "format": "webp"
+  },
+  "policy": {
+    "commercialUse": true,
+    "purposeConstraint": "tourism_pr_only",
+    "allowedProjects": [
+      "tavi-navi",
+      "DeepJapan",
+      "teluis",
+      "yomilee"
+    ],
+    "creditRequired": true,
+    "maxPerArticle": null,
+    "modification": "crop_and_resize_only",
+    "redistributionAllowed": false
+  },
+  "i18n": {
+    "ja": {
+      "alt": "仙北市の観光名所・01乳頭温泉郷　妙乃湯の風景写真",
+      "caption": "仙北市「01乳頭温泉郷　妙乃湯」の観光スポット風景",
+      "credit": "写真提供：一般社団法人 秋田県観光連盟「あきたファン」"
+    },
+    "en": {
+      "alt": "Scenic view of 01乳頭温泉郷　妙乃湯 in 仙北 City, Akita",
+      "caption": "01乳頭温泉郷　妙乃湯 in 仙北 City, Akita",
+      "credit": "Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun)"
+    }
+  },
+  "downloadedAt": "2026-11-09T18:47:47+0900"
+}

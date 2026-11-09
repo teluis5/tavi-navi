@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "2.0",
+  "assetId": "akita_759",
+  "provider": {
+    "id": "akita_tourism_federation",
+    "nameJa": "一般社団法人 秋田県観光連盟",
+    "nameEn": "Akita Prefecture Tourism Federation",
+    "libraryName": "あきたファン フォトギャラリー",
+    "sourceUrl": "https://akita-fun.jp/photo_gallery"
+  },
+  "subject": {
+    "photoId": "759",
+    "titleJa": "16千秋公園・久保田城",
+    "titleEn": "16千秋公園・久保田城",
+    "prefecture": "秋田県",
+    "city": "秋田市",
+    "cityEn": "秋田 City",
+    "season": "冬",
+    "genre": "自然・景勝地 歴史・文化"
+  },
+  "specs": {
+    "width": 1600,
+    "height": 1066,
+    "orientation": "landscape",
+    "aspectRatio": "3:2",
+    "fileSizeBytes": 614392,
+    "sha256": "321aaa7bc91c78ff5bedcf9120e94b46e40e950ec1ebea6305f96de8761a96db",
+    "filename": "16千秋公園・久保田城.webp",
+    "originalFilename": "16千秋公園・久保田城.jpg",
+    "format": "webp"
+  },
+  "policy": {
+    "commercialUse": true,
+    "purposeConstraint": "tourism_pr_only",
+    "allowedProjects": [
+      "tavi-navi",
+      "DeepJapan",
+      "teluis",
+      "yomilee"
+    ],
+    "creditRequired": true,
+    "maxPerArticle": null,
+    "modification": "crop_and_resize_only",
+    "redistributionAllowed": false
+  },
+  "i18n": {
+    "ja": {
+      "alt": "秋田市の観光名所・16千秋公園・久保田城の風景写真",
+      "caption": "秋田市「16千秋公園・久保田城」の観光スポット風景",
+      "credit": "写真提供：一般社団法人 秋田県観光連盟「あきたファン」"
+    },
+    "en": {
+      "alt": "Scenic view of 16千秋公園・久保田城 in 秋田 City, Akita",
+      "caption": "16千秋公園・久保田城 in 秋田 City, Akita",
+      "credit": "Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun)"
+    }
+  },
+  "downloadedAt": "2026-11-09T18:08:19+0900"
+}
