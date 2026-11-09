@@ -72,13 +72,15 @@ const seasonsData = seasons.map((season) => {
           aria-controls={panelId}
           data-tab-target={panelId}
         >
-          <span class="tab-btn-icon">{season.icon}</span>
+          <span class="tab-btn-icon-wrap">
+            <span class="tab-btn-icon">{season.icon}</span>
+            {season.isCurrent && (
+              <span class="tab-btn-badge">{lang === 'ja' ? '最新' : 'Now'}</span>
+            )}
+          </span>
           <span class="tab-btn-text">
             {lang === 'ja' ? season.shortLabelJa : season.shortLabelEn}
           </span>
-          {season.isCurrent && (
-            <span class="tab-btn-badge">{lang === 'ja' ? '最新' : 'Now'}</span>
-          )}
         </button>
       );
     })}
@@ -301,25 +303,20 @@ const seasonsData = seasons.map((season) => {
 
   /* Tab Navigation */
   .tabs-nav-bar {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: 0.5rem;
-    overflow-x: auto;
-    padding-bottom: 0.5rem;
     border-bottom: 2px solid var(--color-border);
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
     margin-bottom: 1.5rem;
-  }
-
-  .tabs-nav-bar::-webkit-scrollbar {
-    display: none;
   }
 
   .season-tab-btn {
     display: inline-flex;
+    flex-direction: row;
     align-items: center;
+    justify-content: center;
     gap: 0.45rem;
-    padding: 0.65rem 1.15rem;
+    padding: 0.75rem 0.5rem;
     background: var(--color-bg-alt);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md) var(--radius-md) 0 0;
@@ -331,6 +328,7 @@ const seasonsData = seasons.map((season) => {
     transition: all 0.2s ease;
     border-bottom: none;
     margin-bottom: -2px;
+    width: 100%;
   }
 
   .season-tab-btn:hover {
@@ -346,12 +344,25 @@ const seasonsData = seasons.map((season) => {
     font-weight: 800;
   }
 
+  .tab-btn-icon-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
   .tab-btn-icon {
     font-size: 1.15rem;
+    line-height: 1;
+  }
+
+  .tab-btn-text {
+    font-size: 0.92rem;
+    line-height: 1.2;
+    white-space: nowrap;
   }
 
   .tab-btn-badge {
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     font-weight: 800;
     background: #e65100;
     color: #ffffff;
@@ -596,10 +607,56 @@ const seasonsData = seasons.map((season) => {
 
   @media (max-width: 640px) {
     .seasonal-tabs-widget {
-      padding: 1.25rem 1rem;
+      padding: 1.25rem 0.85rem;
     }
     .seasonal-tabs-title {
-      font-size: 1.2rem;
+      font-size: 1.15rem;
+    }
+    .tabs-nav-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.25rem;
+      border-bottom: none;
+      background: var(--color-bg-alt);
+      padding: 0.25rem;
+      border-radius: var(--radius-md);
+      margin-bottom: 1.25rem;
+    }
+    .season-tab-btn {
+      flex-direction: column;
+      gap: 0.15rem;
+      padding: 0.5rem 0.15rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid transparent;
+      border-bottom: 1px solid transparent;
+      margin-bottom: 0;
+      background: transparent;
+      min-height: 52px;
+    }
+    .season-tab-btn.is-active {
+      background: #ffffff;
+      color: var(--color-primary);
+      border: 1px solid var(--color-border);
+      border-top: 1px solid var(--color-border);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+      font-weight: 800;
+    }
+    .tab-btn-icon-wrap {
+      gap: 0.2rem;
+    }
+    .tab-btn-icon {
+      font-size: 1rem;
+    }
+    .tab-btn-text {
+      font-size: 0.76rem;
+      line-height: 1.15;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .tab-btn-badge {
+      font-size: 0.58rem;
+      padding: 0.08rem 0.25rem;
+      margin-top: -2px;
     }
     .panel-banner {
       padding: 1rem;
