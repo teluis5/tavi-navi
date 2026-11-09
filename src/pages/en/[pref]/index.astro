@@ -3,6 +3,7 @@ import Layout from '../../../layouts/Layout.astro';
 import { PREFECTURES, type Prefecture } from '../../../data/prefectures';
 import { getCollection } from 'astro:content';
 import { getArticleSlug } from '../../../utils/slug';
+import SeasonalTabs from '../../../components/SeasonalTabs.astro';
 
 export function getStaticPaths() {
   return PREFECTURES.map((pref) => ({
@@ -62,30 +63,14 @@ const sortedArticles = prefArticles.sort((a, b) => b.data.pubDate.valueOf() - a.
   </div>
 
   <div class="container" style="padding-top: 2.5rem; padding-bottom: 3.5rem;">
-    {/* November Seasonal Timeline & No Car / Family Guide */}
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 2.5rem;">
-      <div style="background: #ffffff; border: 1px solid var(--color-border); border-left: 5px solid var(--color-accent); border-radius: var(--radius-md); padding: 1.25rem; box-shadow: var(--shadow-sm);">
-        <h2 style="font-size: 1.05rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-          <span style="color: var(--color-accent);">🍁</span> November Seasonal Timeline ({pref.nameEn})
-        </h2>
-        <div style="font-size: 0.85rem; line-height: 1.7; color: var(--color-text-main);">
-          <div style="margin-bottom: 0.35rem;"><strong>• Early Nov</strong>: Autumn roses, crisp blue skies & early foliage tints</div>
-          <div style="margin-bottom: 0.35rem;"><strong>• Mid Nov</strong>: Golden ginkgo avenue peaks & fiery maple colors</div>
-          <div><strong>• Late Nov</strong>: Yellow carpets, evening illuminations & chilly breezes</div>
-        </div>
-      </div>
-
-      <div style="background: #ffffff; border: 1px solid var(--color-border); border-left: 5px solid var(--color-primary); border-radius: var(--radius-md); padding: 1.25rem; box-shadow: var(--shadow-sm);">
-        <h2 style="font-size: 1.05rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-          <span style="color: var(--color-primary);">🎒</span> Travel Style Options
-        </h2>
-        <div style="font-size: 0.85rem; line-height: 1.7; color: var(--color-text-main);">
-          <div>🚃 <strong>No Car (Train)</strong>: 100% elevator-accessible & step-free paths</div>
-          <div>👶 <strong>Family Friendly</strong>: Nursing rooms, diaper stations & open parks</div>
-          <div>🚗 <strong>Road Trip</strong>: Traffic peak avoidance & nearby parking insights</div>
-        </div>
-      </div>
-    </div>
+    {/* Upcoming 4-Season Timeline & Guide Tabs */}
+    <SeasonalTabs
+      prefId={pref.id}
+      prefName={pref.nameEn}
+      region={pref.region}
+      lang="en"
+      articles={sortedArticles}
+    />
 
     {/* Articles */}
     <section>

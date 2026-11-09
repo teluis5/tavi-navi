@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import { PREFECTURES, type Prefecture } from '../../data/prefectures';
 import { getCollection } from 'astro:content';
 import { getArticleSlug } from '../../utils/slug';
+import SeasonalTabs from '../../components/SeasonalTabs.astro';
 
 export function getStaticPaths() {
   return PREFECTURES.map((pref) => ({
@@ -62,30 +63,14 @@ const sortedArticles = prefArticles.sort((a, b) => b.data.pubDate.valueOf() - a.
   </div>
 
   <div class="container" style="padding-top: 2.5rem; padding-bottom: 3.5rem;">
-    {/* 11月の旬タイムライン＆車なし・子連れ安心ナビ */}
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 2.5rem;">
-      <div style="background: #ffffff; border: 1px solid var(--color-border); border-left: 5px solid var(--color-accent); border-radius: var(--radius-md); padding: 1.25rem; box-shadow: var(--shadow-sm);">
-        <h2 style="font-size: 1.05rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-          <span style="color: var(--color-accent);">🍁</span> 11月の旬タイムライン（{pref.nameJa}）
-        </h2>
-        <div style="font-size: 0.85rem; line-height: 1.7; color: var(--color-text-main);">
-          <div style="margin-bottom: 0.35rem;"><strong>・上旬</strong>: 秋バラ・色づき始め・爽やかな秋晴れ散策</div>
-          <div style="margin-bottom: 0.35rem;"><strong>・中旬</strong>: イチョウ並木の黄金アーチ・紅葉見頃ピーク</div>
-          <div><strong>・下旬</strong>: 落ち葉の絨毯・夜間ライトアップ・冷え込み対策</div>
-        </div>
-      </div>
-
-      <div style="background: #ffffff; border: 1px solid var(--color-border); border-left: 5px solid var(--color-primary); border-radius: var(--radius-md); padding: 1.25rem; box-shadow: var(--shadow-sm);">
-        <h2 style="font-size: 1.05rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-          <span style="color: var(--color-primary);">🎒</span> 旅のスタイル別安心ガイド
-        </h2>
-        <div style="font-size: 0.85rem; line-height: 1.7; color: var(--color-text-main);">
-          <div>🚃 <strong>車なし（電車）</strong>: 駅から段差ゼロ・エレベーター完備ルート</div>
-          <div>👶 <strong>子連れ安心</strong>: 授乳室・オムツ替え・広々休憩スポット</div>
-          <div>🚗 <strong>車ドライブ</strong>: 渋滞回避時間帯・最寄り駐車場チェック</div>
-        </div>
-      </div>
-    </div>
+    {/* この先4シーズンの旬タイムライン・スタイル別ガイド（タブ切り替え） */}
+    <SeasonalTabs
+      prefId={pref.id}
+      prefName={pref.nameJa}
+      region={pref.region}
+      lang="ja"
+      articles={sortedArticles}
+    />
 
     {/* 該当都道府県の記事一覧 */}
     <section>

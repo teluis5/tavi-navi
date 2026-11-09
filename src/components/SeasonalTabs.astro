@@ -1,0 +1,611 @@
+---
+import { getUpcomingSeasons, type SeasonPeriod } from '../utils/seasons';
+import { getSeasonalInfoForPrefecture } from '../data/seasonalData';
+import { getArticleSlug } from '../utils/slug';
+
+interface Props {
+  prefId: string;
+  prefName: string;
+  region: string;
+  lang?: 'ja' | 'en';
+  articles?: any[];
+}
+
+const { prefId, prefName, region, lang = 'ja', articles = [] } = Astro.props;
+
+// Get upcoming 4 seasons from now
+const seasons = getUpcomingSeasons(4);
+
+// Pre-fetch seasonal info for each period
+const seasonsData = seasons.map((season) => {
+  const info = getSeasonalInfoForPrefecture(prefId, region, season);
+  
+  // Find articles matching this season
+  const matchingArticles = articles.filter((a) => {
+    const s = (a.data.season || '').toLowerCase();
+    const lJa = season.labelJa.toLowerCase();
+    const lEn = season.labelEn.toLowerCase();
+    const sEn = season.shortLabelEn.toLowerCase();
+    return s.includes(lJa) || s.includes(lEn) || s.includes(sEn) || (lang === 'ja' ? s.includes(season.period) : false);
+  });
+
+  return {
+    season,
+    info,
+    matchingArticles,
+  };
+});
+---
+
+<div class="seasonal-tabs-widget">
+  <div class="seasonal-tabs-header">
+    <div class="seasonal-tabs-title-group">
+      <span class="seasonal-tabs-badge">
+        {lang === 'ja' ? '🗓️ シーズン先取りナビ' : '🗓️ Upcoming 4-Season Guide'}
+      </span>
+      <h2 class="seasonal-tabs-title">
+        {lang === 'ja' 
+          ? `${prefName}の旬・イベント（この先4シーズン切り替え）` 
+          : `Seasonal Timeline & Highlights for ${prefName}`}
+      </h2>
+    </div>
+    <p class="seasonal-tabs-desc">
+      {lang === 'ja'
+        ? '見頃ピークや街のイベントは時期によって激変します。気になるシーズンをタップして、見どころ・気候・服装・移動プランを先取りチェック！'
+        : 'Blossom peaks and holiday events shift quickly. Select an upcoming season below to view peak highlights, weather, clothing tips, and transit advice.'}
+    </p>
+  </div>
+
+  {/* Tab Navigation Buttons */}
+  <div class="tabs-nav-bar" role="tablist" aria-label={lang === 'ja' ? 'シーズン切り替え' : 'Season Switcher'}>
+    {seasonsData.map(({ season }, index) => {
+      const isActive = index === 0;
+      const tabId = `tab-btn-${prefId}-${season.key}`;
+      const panelId = `tab-panel-${prefId}-${season.key}`;
+      return (
+        <button
+          type="button"
+          class={`season-tab-btn ${isActive ? 'is-active' : ''}`}
+          role="tab"
+          id={tabId}
+          aria-selected={isActive ? 'true' : 'false'}
+          aria-controls={panelId}
+          data-tab-target={panelId}
+        >
+          <span class="tab-btn-icon">{season.icon}</span>
+          <span class="tab-btn-text">
+            {lang === 'ja' ? season.shortLabelJa : season.shortLabelEn}
+          </span>
+          {season.isCurrent && (
+            <span class="tab-btn-badge">{lang === 'ja' ? '最新' : 'Now'}</span>
+          )}
+        </button>
+      );
+    })}
+  </div>
+
+  {/* Tab Panels */}
+  <div class="tabs-content-wrapper">
+    {seasonsData.map(({ season, info, matchingArticles }, index) => {
+      const isActive = index === 0;
+      const tabId = `tab-btn-${prefId}-${season.key}`;
+      const panelId = `tab-panel-${prefId}-${season.key}`;
+      return (
+        <div
+          class={`season-panel ${isActive ? 'is-active' : ''}`}
+          id={panelId}
+          role="tabpanel"
+          aria-labelledby={tabId}
+          hidden={!isActive}
+        >
+          {/* Panel Top Highlight Banner */}
+          <div class="panel-banner">
+            <div class="panel-banner-header">
+              <span class="panel-banner-tag">
+                {season.icon} {lang === 'ja' ? `${season.labelJa}のベストシーズン` : `${season.labelEn} Peak Season`}
+              </span>
+              <span class="panel-banner-date-range">
+                {lang === 'ja' 
+                  ? `${season.month}月の${season.period === 'early' ? '1日〜10日' : season.period === 'mid' ? '11日〜20日' : '21日〜末日'}`
+                  : `${season.monthNameEn} ${season.period === 'early' ? '1st - 10th' : season.period === 'mid' ? '11th - 20th' : '21st - End'}`}
+              </span>
+            </div>
+            
+            <h3 class="panel-section-title">
+              {lang === 'ja' ? '🍁 旬の絶景・祭り・注目イベント' : '🍁 Seasonal Highlights & Festivals'}
+            </h3>
+            <ul class="highlights-list">
+              {(lang === 'ja' ? info.highlightsJa : info.highlightsEn).map((item) => (
+                <li class="highlight-item">
+                  <span class="highlight-bullet">✦</span>
+                  <span class="highlight-text">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* 2-Column Info Grid: Weather/Clothing & Travel Styles */}
+          <div class="panel-details-grid">
+            {/* Climate & Clothing */}
+            <div class="detail-card climate-card">
+              <h4 class="detail-card-title">
+                <span>🌤️</span>
+                <span>{lang === 'ja' ? '現地の気候とおすすめ服装' : 'Weather & Clothing Tips'}</span>
+              </h4>
+              <div class="detail-card-content">
+                <div class="detail-row">
+                  <span class="detail-label">{lang === 'ja' ? '気候・体感' : 'Climate'}:</span>
+                  <p class="detail-desc">{lang === 'ja' ? info.climateJa : info.climateEn}</p>
+                </div>
+                <div class="detail-row">
+                  <span class="detail-label">{lang === 'ja' ? '服装アドバイス' : 'Attire'}:</span>
+                  <p class="detail-desc">{lang === 'ja' ? info.clothingJa : info.clothingEn}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Travel Styles */}
+            <div class="detail-card styles-card">
+              <h4 class="detail-card-title">
+                <span>🎒</span>
+                <span>{lang === 'ja' ? '旅のスタイル別安心ポイント' : 'Actionable Travel Tips'}</span>
+              </h4>
+              <div class="detail-card-content">
+                <div class="style-row">
+                  <span class="style-icon">🚃</span>
+                  <div class="style-text">
+                    <strong>{lang === 'ja' ? '車なし・電車' : 'No-Car (Transit)'}:</strong>
+                    <span>{lang === 'ja' ? info.noCarTipJa : info.noCarTipEn}</span>
+                  </div>
+                </div>
+                <div class="style-row">
+                  <span class="style-icon">👶</span>
+                  <div class="style-text">
+                    <strong>{lang === 'ja' ? '子連れ・安心' : 'Family (Kids)'}:</strong>
+                    <span>{lang === 'ja' ? info.familyTipJa : info.familyTipEn}</span>
+                  </div>
+                </div>
+                <div class="style-row">
+                  <span class="style-icon">🚗</span>
+                  <div class="style-text">
+                    <strong>{lang === 'ja' ? '車・ドライブ' : 'Road Trip'}:</strong>
+                    <span>{lang === 'ja' ? info.driveTipJa : info.driveTipEn}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Matching Featured Articles in this season */}
+          {matchingArticles.length > 0 && (
+            <div class="matching-articles-box">
+              <h4 class="matching-articles-title">
+                <span>✨</span>
+                <span>
+                  {lang === 'ja' 
+                    ? `この時期（${season.shortLabelJa}）の特集記事` 
+                    : `Featured Guides for ${season.shortLabelEn}`}
+                </span>
+              </h4>
+              <div class="matching-articles-grid">
+                {matchingArticles.map((article) => {
+                  const articleSlug = getArticleSlug(article.id, prefId);
+                  const articleUrl = lang === 'ja' ? `/${prefId}/${articleSlug}/` : `/en/${prefId}/${articleSlug}/`;
+                  return (
+                    <a href={articleUrl} class="matching-article-card">
+                      <div class="matching-article-meta">
+                        <span class="matching-article-cat">{article.data.category}</span>
+                        <span class="matching-article-season">🏷️ {article.data.season}</span>
+                      </div>
+                      <h5 class="matching-article-title">{article.data.title}</h5>
+                      <span class="matching-article-link">
+                        {lang === 'ja' ? 'プラン詳細を見る →' : 'View Detailed Route →'}
+                      </span>
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </div>
+      );
+    })}
+  </div>
+</div>
+
+<script>
+  function setupSeasonalTabs() {
+    const widgets = document.querySelectorAll('.seasonal-tabs-widget');
+    widgets.forEach((widget) => {
+      const tabButtons = widget.querySelectorAll('.season-tab-btn');
+      const tabPanels = widget.querySelectorAll('.season-panel');
+
+      tabButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const targetId = btn.getAttribute('data-tab-target');
+          if (!targetId) return;
+
+          // Deactivate all buttons
+          tabButtons.forEach((b) => {
+            b.classList.remove('is-active');
+            b.setAttribute('aria-selected', 'false');
+          });
+
+          // Hide all panels
+          tabPanels.forEach((p) => {
+            p.classList.remove('is-active');
+            p.setAttribute('hidden', 'true');
+          });
+
+          // Activate clicked button
+          btn.classList.add('is-active');
+          btn.setAttribute('aria-selected', 'true');
+
+          // Show target panel
+          const targetPanel = widget.querySelector(`#${targetId}`);
+          if (targetPanel) {
+            targetPanel.classList.remove('is-active'); // ensure reset
+            void (targetPanel as HTMLElement).offsetWidth; // trigger reflow for smooth animation
+            targetPanel.classList.add('is-active');
+            targetPanel.removeAttribute('hidden');
+          }
+        });
+      });
+    });
+  }
+
+  // Run on page load & Astro page swap
+  setupSeasonalTabs();
+  document.addEventListener('astro:page-load', setupSeasonalTabs);
+</script>
+
+<style>
+  .seasonal-tabs-widget {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 3rem;
+  }
+
+  .seasonal-tabs-header {
+    margin-bottom: 1.25rem;
+  }
+
+  .seasonal-tabs-badge {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    background: rgba(46, 125, 50, 0.08);
+    padding: 0.25rem 0.65rem;
+    border-radius: var(--radius-full);
+    margin-bottom: 0.5rem;
+  }
+
+  .seasonal-tabs-title {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--color-text-main);
+    letter-spacing: -0.02em;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .seasonal-tabs-desc {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  /* Tab Navigation */
+  .tabs-nav-bar {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--color-border);
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 1.5rem;
+  }
+
+  .tabs-nav-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .season-tab-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.65rem 1.15rem;
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    border-bottom: none;
+    margin-bottom: -2px;
+  }
+
+  .season-tab-btn:hover {
+    color: var(--color-primary);
+    background: #ffffff;
+  }
+
+  .season-tab-btn.is-active {
+    background: #ffffff;
+    color: var(--color-primary);
+    border-color: var(--color-primary) var(--color-primary) #ffffff;
+    border-top: 3px solid var(--color-primary);
+    font-weight: 800;
+  }
+
+  .tab-btn-icon {
+    font-size: 1.15rem;
+  }
+
+  .tab-btn-badge {
+    font-size: 0.7rem;
+    font-weight: 800;
+    background: #e65100;
+    color: #ffffff;
+    padding: 0.15rem 0.45rem;
+    border-radius: var(--radius-full);
+    line-height: 1;
+  }
+
+  /* Tab Panels */
+  .tabs-content-wrapper {
+    position: relative;
+  }
+
+  .season-panel {
+    display: none;
+  }
+
+  .season-panel.is-active {
+    display: block;
+    animation: fadeIn 0.25s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Panel Banner */
+  .panel-banner {
+    background: linear-gradient(135deg, rgba(46, 125, 50, 0.05), rgba(230, 81, 0, 0.05));
+    border: 1px solid var(--color-border);
+    border-left: 5px solid var(--color-primary);
+    border-radius: var(--radius-md);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .panel-banner-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .panel-banner-tag {
+    font-weight: 800;
+    font-size: 0.85rem;
+    color: var(--color-primary);
+  }
+
+  .panel-banner-date-range {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+
+  .panel-section-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--color-text-main);
+    margin: 0 0 0.85rem 0;
+  }
+
+  .highlights-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .highlight-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--color-text-main);
+  }
+
+  .highlight-bullet {
+    color: var(--color-accent);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    flex-shrink: 0;
+  }
+
+  /* Details Grid */
+  .panel-details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .detail-card {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+  }
+
+  .detail-card-title {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--color-text-main);
+    margin: 0 0 0.85rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 0.65rem;
+  }
+
+  .detail-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    font-size: 0.88rem;
+    line-height: 1.6;
+  }
+
+  .detail-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .detail-label {
+    font-weight: 700;
+    color: var(--color-primary);
+    font-size: 0.82rem;
+  }
+
+  .detail-desc {
+    margin: 0;
+    color: var(--color-text-main);
+  }
+
+  /* Style Rows */
+  .style-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+
+  .style-icon {
+    font-size: 1.1rem;
+    line-height: 1.4;
+    flex-shrink: 0;
+  }
+
+  .style-text {
+    color: var(--color-text-main);
+    line-height: 1.55;
+  }
+
+  .style-text strong {
+    color: var(--color-text-main);
+    display: block;
+    margin-bottom: 0.15rem;
+  }
+
+  /* Matching Articles */
+  .matching-articles-box {
+    background: var(--color-bg-alt);
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+  }
+
+  .matching-articles-title {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--color-text-main);
+    margin: 0 0 0.85rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .matching-articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  .matching-article-card {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    transition: all 0.2s ease;
+  }
+
+  .matching-article-card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .matching-article-meta {
+    display: flex;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+  }
+
+  .matching-article-cat {
+    color: var(--color-primary);
+    font-weight: 700;
+  }
+
+  .matching-article-title {
+    font-size: 0.92rem;
+    font-weight: 700;
+    line-height: 1.45;
+    color: var(--color-text-main);
+    margin: 0;
+  }
+
+  .matching-article-link {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-top: auto;
+    padding-top: 0.5rem;
+  }
+
+  @media (max-width: 640px) {
+    .seasonal-tabs-widget {
+      padding: 1.25rem 1rem;
+    }
+    .seasonal-tabs-title {
+      font-size: 1.2rem;
+    }
+    .panel-banner {
+      padding: 1rem;
+    }
+    .panel-details-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
