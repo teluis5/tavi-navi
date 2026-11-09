@@ -1,5 +1,5 @@
 ---
-import { getUpcomingSeasons, type SeasonPeriod } from '../utils/seasons';
+import { getUpcomingSeasons, getSeasonsFromMonth, type SeasonPeriod } from '../utils/seasons';
 import { getSeasonalInfoForPrefecture } from '../data/seasonalData';
 import { getArticleSlug } from '../utils/slug';
 
@@ -9,12 +9,15 @@ interface Props {
   region: string;
   lang?: 'ja' | 'en';
   articles?: any[];
+  targetMonth?: number;   // e.g. 6 for June (early summer planning)
 }
 
-const { prefId, prefName, region, lang = 'ja', articles = [] } = Astro.props;
+const { prefId, prefName, region, lang = 'ja', articles = [], targetMonth } = Astro.props;
 
-// Get upcoming 4 seasons from now
-const seasons = getUpcomingSeasons(4);
+// If targetMonth is provided (e.g. 6 for June), generate 4 seasons from that month
+const seasons = targetMonth 
+  ? getSeasonsFromMonth(targetMonth, 'early', 4) 
+  : getUpcomingSeasons(4);
 
 // Pre-fetch seasonal info for each period
 const seasonsData = seasons.map((season) => {

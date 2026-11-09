@@ -34,6 +34,19 @@ const prefRegion = prefObj ? prefObj.region : 'kanto';
 const prefArticles = await getCollection('articles', ({ data }) => {
   return data.lang === 'en' && data.pref === prefSlug && !data.draft;
 });
+
+// Extract month number from English season (e.g. "Early June" -> 6)
+let articleMonth: number | undefined;
+if (article.data.season) {
+  const s = article.data.season.toLowerCase();
+  const months = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
+  for (let i = 0; i < months.length; i++) {
+    if (s.includes(months[i])) {
+      articleMonth = i + 1;
+      break;
+    }
+  }
+}
 ---
 
 <Layout
@@ -95,6 +108,7 @@ const prefArticles = await getCollection('articles', ({ data }) => {
           region={prefRegion}
           lang="en"
           articles={prefArticles}
+          targetMonth={articleMonth}
         />
       </div>
 

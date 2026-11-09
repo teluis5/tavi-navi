@@ -113,3 +113,75 @@ export function getUpcomingSeasons(count = 4, referenceDate = new Date()): Seaso
 
   return result;
 }
+
+/**
+ * Returns all 3 periods (early, mid, late) for a specific month.
+ * e.g., for month = 6 (June), returns 6月上旬, 6月中旬, 6月下旬
+ */
+export function getSeasonsForMonth(month: number): SeasonPeriod[] {
+  const periodsOrder: Period[] = ['early', 'mid', 'late'];
+  const mNameEn = MONTH_NAMES_EN[month] || '';
+
+  return periodsOrder.map((p) => {
+    const key = `${month}-${p}`;
+    const pLabelJa = PERIOD_LABELS_JA[p];
+    const pLabelEn = PERIOD_LABELS_EN[p];
+    return {
+      key,
+      month,
+      period: p,
+      labelJa: `${month}月${pLabelJa}`,
+      labelEn: `${pLabelEn}-${mNameEn}`,
+      shortLabelJa: `${month}月${pLabelJa}`,
+      shortLabelEn: `${pLabelEn}-${mNameEn.slice(0, 3)}`,
+      monthNameEn: mNameEn,
+      icon: getSeasonIcon(month, p),
+      isCurrent: false,
+    };
+  });
+}
+
+/**
+ * Returns consecutive seasons starting from a specific month and period.
+ * e.g., startMonth = 6 (June), returns:
+ * 1. 6月上旬 (Early June)
+ * 2. 6月中旬 (Mid June)
+ * 3. 6月下旬 (Late June)
+ * 4. 7月上旬 (Early July)
+ */
+export function getSeasonsFromMonth(startMonth: number, startPeriod: Period = 'early', count = 4): SeasonPeriod[] {
+  const periodsOrder: Period[] = ['early', 'mid', 'late'];
+  let periodIdx = periodsOrder.indexOf(startPeriod);
+  let month = startMonth;
+  const result: SeasonPeriod[] = [];
+
+  for (let i = 0; i < count; i++) {
+    const p = periodsOrder[periodIdx];
+    const key = `${month}-${p}`;
+    const pLabelJa = PERIOD_LABELS_JA[p];
+    const pLabelEn = PERIOD_LABELS_EN[p];
+    const mNameEn = MONTH_NAMES_EN[month];
+
+    result.push({
+      key,
+      month,
+      period: p,
+      labelJa: `${month}月${pLabelJa}`,
+      labelEn: `${pLabelEn}-${mNameEn}`,
+      shortLabelJa: `${month}月${pLabelJa}`,
+      shortLabelEn: `${pLabelEn}-${mNameEn.slice(0, 3)}`,
+      monthNameEn: mNameEn,
+      icon: getSeasonIcon(month, p),
+      isCurrent: i === 0,
+    });
+
+    periodIdx++;
+    if (periodIdx >= periodsOrder.length) {
+      periodIdx = 0;
+      month = month === 12 ? 1 : month + 1;
+    }
+  }
+
+  return result;
+}
+

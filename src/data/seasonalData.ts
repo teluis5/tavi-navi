@@ -332,7 +332,103 @@ const SHIZUOKA_SEASONS: Record<string, Partial<SeasonalInfo>> = {
   }
 };
 
+// 都道府県固有のシーズン別特化データ（北海道）
+const HOKKAIDO_SEASONS: Record<string, Partial<SeasonalInfo>> = {
+  '6-early': {
+    highlightsJa: [
+      '積丹半島：6月上旬に積丹ブルーの海で「生ウニ漁」解禁！極上の獲れたて生ウニ丼',
+      '富良野・美瑛：本州が梅雨に入る中、北海道は「梅雨なし爽快な初夏」！新緑のパッチワークの丘',
+      'ファーム富田：早咲きラベンダーとオリエンタルポピーが咲き誇る花畑',
+      '札幌大通公園：熱気あふれる初夏の風物詩「YOSAKOIソーラン祭り」'
+    ],
+    highlightsEn: [
+      'Shakotan Peninsula: Peak opening of raw sea urchin (Uni) season over "Shakotan Blue" seas',
+      'Furano & Biei: Escape mainland Japan\'s rainy season! Crisp, dry summer greenery and scenic rolling hills',
+      'Farm Tomita: Early blooming purple lavender fields and vibrant oriental poppy carpets',
+      'Sapporo Odori Park: Vibrant, energetic "YOSAKOI Soran Festival" street dance celebrations'
+    ],
+    climateJa: '最高19〜22℃ / 最低10〜13℃。本州と異なり梅雨がなく、湿度が低く爽やか。ただし朝晩や山間部は10℃近くまで冷え込みます。',
+    climateEn: 'High 19–22°C / Low 10–13°C. Zero rainy season humidity! Crisp, sunny days, but early mornings and hilltop passes drop near 10°C.',
+    clothingJa: '日中は半袖や薄手長袖で爽快ですが、朝晩や風の強い丘陵地帯用に薄手のウインドブレーカーやカーディガンが必須。',
+    clothingEn: 'Short sleeves for sunny afternoons, paired with a lightweight windbreaker or cardigan for cool morning/evening breezes.',
+    noCarTipJa: '札幌〜旭川・富良野は特急ライラックや臨時特急「フラノラベンダーエクスプレス」が直通。美瑛駅からは美瑛観光周遊バスが便利。',
+    noCarTipEn: 'Direct Limited Express trains link Sapporo to Asahikawa and Furano. Local Biei sightseeing loop buses serve top vistas.',
+    familyTipJa: '旭山動物園は初夏の活発な動物たちの行動展示が見どころ。ファーム富田は平坦な木道が整備されベビーカー移動も快適。',
+    familyTipEn: 'Asahiyama Zoo showcases lively animal habitats in early summer. Farm Tomita offers smooth, stroller-friendly boardwalks.',
+    driveTipJa: '美瑛「パッチワークの路」や「ジェットコースターの路」は日本屈指の絶景ルート。スピードの出し過ぎや野生動物（シカ・キツネ）に注意。',
+    driveTipEn: 'Biei\'s "Roller Coaster Road" offers iconic open-road driving. Watch speed on rural straights and keep an eye out for wildlife.'
+  },
+  '6-mid': {
+    highlightsJa: [
+      '美瑛「白金青い池」：初夏の日差しを浴びて最も神秘的なコバルトブルーに輝くベストシーズン',
+      '知床横断道路：残雪の羅臼岳と知床峠の新緑コントラスト（ドライブ開通期）',
+      '夕張・富良野：初夏の味覚「完熟夕張メロン」の出荷ピークとメロンスイーツ',
+      '釧路湿原：カヌーで川下りをしながら望む初夏のエゾシカや丹頂鶴'
+    ],
+    highlightsEn: [
+      'Shirogane Blue Pond (Biei): Peak season for deep cobalt blue waters illuminated by summer sun',
+      'Shiretoko Pass: Alpine drive framing lingering white snow peaks against lush green valleys',
+      'Yubari & Furano: Luscious sweet orange melon harvest season and soft-serve melon sundaes',
+      'Kushiro Wetland: Peaceful early summer canoeing excursions spotting red-crowned cranes'
+    ],
+    climateJa: '最高20〜23℃ / 最低11〜14℃。初夏の爽やかな風が吹き抜ける行楽日和が続きます。紫外線対策が必要です。',
+    climateEn: 'High 20–23°C / Low 11–14°C. Perfect touring weather with crystal skies. Strong UV index calls for sun protection.',
+    clothingJa: '長袖シャツ、UVカットパーカー、歩きやすいスニーカー。帽子と日焼け止めを持参しましょう。',
+    clothingEn: 'Long-sleeve breathable shirts, light sun hoodies, and comfortable sneakers. Sunglasses and sunscreen recommended.',
+    noCarTipJa: 'JR富良野線「富良野・美瑛ノロッコ号」に乗れば、窓のない開放的なトロッコ列車から雄大なパノラマを楽しめます。',
+    noCarTipEn: 'Ride the open-window "Norokko Train" along the JR Furano Line for panoramic countryside views without driving.',
+    familyTipJa: '富良野チーズ工房では手作りアイス・バター体験教室があり雨天でも子どもが大喜び。',
+    familyTipEn: 'Furano Cheese Factory offers hands-on ice cream and butter-making workshops ideal for toddlers.',
+    driveTipJa: '道東（阿寒・知床方面）はガソリンスタンドの間隔が50km以上空く区間があるため、市街地での早め給油を。',
+    driveTipEn: 'Rural Eastern Hokkaido highways often lack gas stations for 50+ km. Refuel early in major towns.'
+  },
+  '6-late': {
+    highlightsJa: [
+      '富良野全域：ラベンダーが中咲きから満開へと向かう年間最大の絶頂シーズン突入',
+      '礼文島・利尻島：別名「花の浮島」と呼ばれる最北端の島に咲き誇るエゾカンゾウ高山植物群落',
+      '函館山夜景：初夏の澄んだ夜空に浮かび上がる「100万ドルの夜景」と五稜郭の新緑',
+      '噴火湾：初夏に旬を迎える甘み抜群の「ホタテ貝柱」と朝市海鮮丼'
+    ],
+    highlightsEn: [
+      'Furano Basin: Main blooming cycle of violet lavender blankets spreading across rolling valleys',
+      'Rebun & Rishiri Islands: "Floating Flower Islands" where rare alpine blooms flourish at sea level',
+      'Mount Hakodate Nightscape: Iconic "Million Dollar Night View" glowing crisply in early summer air',
+      'Funka Bay Scallops: Fresh, naturally sweet giant scallop season at morning seaside markets'
+    ],
+    climateJa: '最高22〜25℃ / 最低13〜16℃。日中は半袖で心地よい暖かさ。内陸（旭川・富良野）は日中28℃近くまで上がる日もあります。',
+    climateEn: 'High 22–25°C / Low 13–16°C. Pleasantly warm daytime weather; inland Furano can occasionally touch 28°C.',
+    clothingJa: '日中は半袖Tシャツ、夜間や沿岸部の散策には薄手の羽織りものを1枚。',
+    clothingEn: 'Short sleeves for daytime sightseeing; keep a light jacket handy for coastal evenings.',
+    noCarTipJa: '夏季限定の臨時駅「ラベンダー畑駅」が開設され、ファーム富田まで徒歩7分で電車アクセス可能に。',
+    noCarTipEn: 'Seasonal temporary station "Lavender Farm Station" opens, providing a 7-minute walk directly to Farm Tomita.',
+    familyTipJa: '美瑛の「四季彩の丘」ではノロッコ号（トラクターバス）やカートで広大な園内を楽々周遊できます。',
+    familyTipEn: 'Shikisai-no-Oka in Biei offers tractor-pulled train rides, making vast flower fields accessible for small kids.',
+    driveTipJa: 'ファーム富田周辺の駐車場は午前9:30以降満車に。早朝8:00前の到着なら渋滞ゼロで撮影可能。',
+    driveTipEn: 'Farm Tomita parking fills by 9:30 AM on sunny weekends. Arrive by 8:00 AM for crowd-free, magical photos.'
+  }
+};
+
 export function getSeasonalInfoForPrefecture(prefId: string, region: string, period: SeasonPeriod): SeasonalInfo {
+  // 北海道の特化データ
+  if (prefId === 'hokkaido' && HOKKAIDO_SEASONS[period.key]) {
+    const specific = HOKKAIDO_SEASONS[period.key];
+    const fallback = getDefaultSeasonalInfo(region, period);
+    return {
+      highlightsJa: specific.highlightsJa || fallback.highlightsJa,
+      highlightsEn: specific.highlightsEn || fallback.highlightsEn,
+      climateJa: specific.climateJa || fallback.climateJa,
+      climateEn: specific.climateEn || fallback.climateEn,
+      clothingJa: specific.clothingJa || fallback.clothingJa,
+      clothingEn: specific.clothingEn || fallback.clothingEn,
+      noCarTipJa: specific.noCarTipJa || fallback.noCarTipJa,
+      noCarTipEn: specific.noCarTipEn || fallback.noCarTipEn,
+      familyTipJa: specific.familyTipJa || fallback.familyTipJa,
+      familyTipEn: specific.familyTipEn || fallback.familyTipEn,
+      driveTipJa: specific.driveTipJa || fallback.driveTipJa,
+      driveTipEn: specific.driveTipEn || fallback.driveTipEn,
+    };
+  }
+
   // 神奈川県の特化データ
   if (prefId === 'kanagawa' && KANAGAWA_SEASONS[period.key]) {
     const specific = KANAGAWA_SEASONS[period.key];
