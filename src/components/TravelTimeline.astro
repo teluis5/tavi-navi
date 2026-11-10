@@ -11,6 +11,7 @@ export interface TimelineHotelData {
 
 export interface TimelineStep {
   id?: string;
+  leadHeading?: string;   // e.g. "サザンビーチで海を見ながら散歩"（体験アクション見出し）
   duration?: string;      // e.g. "目安 75分", "ランチ 60分", "宿泊"
   time?: string;          // 後方互換用
   title: string;          // e.g. "熱海サンビーチ & 親水公園"
@@ -104,6 +105,12 @@ function getWideImageUrl(url?: string, fallbackUrl?: string): string {
             <div class={`flow-step-item ${isLast ? 'is-last-step' : ''}`}>
               {hasAlternatives && (
                 <div class="carousel-section-header" data-track-id={`wide-track-${index}`}>
+                  {step.leadHeading && (
+                    <div class="step-lead-heading">
+                      <h3 class="step-lead-text">{step.leadHeading}</h3>
+                    </div>
+                  )}
+
                   <div class="carousel-title-bar">
                     <div class="carousel-title-left">
                       <span class="carousel-category-title">{step.categoryLabel || 'スポット選択'}</span>
@@ -193,6 +200,12 @@ function getWideImageUrl(url?: string, fallbackUrl?: string): string {
                   </div>
                 ) : step.isHotel ? (
                   <div class="wide-hotel-unit">
+                    {step.leadHeading && (
+                      <div class="step-lead-heading">
+                        <h3 class="step-lead-text">{step.leadHeading}</h3>
+                      </div>
+                    )}
+
                     <div class="wide-photo-container">
                       {step.image && (
                         <img src={step.image} alt={step.title} class="wide-photo-img" loading="lazy" />
@@ -246,6 +259,12 @@ function getWideImageUrl(url?: string, fallbackUrl?: string): string {
                     role={step.spotData ? "button" : undefined}
                     tabindex={step.spotData ? "0" : undefined}
                   >
+                    {step.leadHeading && (
+                      <div class="step-lead-heading">
+                        <h3 class="step-lead-text">{step.leadHeading}</h3>
+                      </div>
+                    )}
+
                     <div class="wide-photo-container">
                       {step.image && (
                         <img
@@ -494,6 +513,20 @@ function getWideImageUrl(url?: string, fallbackUrl?: string): string {
 
   .flow-step-item {
     position: relative;
+  }
+
+  /* 体験アクション見出し（写真の直上に配置） */
+  .step-lead-heading {
+    margin-bottom: 0.45rem;
+  }
+
+  .step-lead-text {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #111827;
+    margin: 0;
+    line-height: 1.38;
+    letter-spacing: -0.015em;
   }
 
   /* カルーセル専用ヘッダー（何の選択肢か＋矢印インジケーター＋ジャンルタブ） */
