@@ -52,6 +52,22 @@ const recentArticles = allArticles.sort((a, b) => b.data.pubDate.valueOf() - a.d
   </div>
 
   <div class="container" style="padding-top: 3rem; padding-bottom: 3rem;">
+    {/* 注目特集バナー */}
+    <section style="margin-bottom: 3.5rem;">
+      <a href="/special/dokokanibyun/" style="text-decoration: none; display: block;">
+        <div style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #ffffff; border-radius: 16px; padding: 1.5rem 1.8rem; box-shadow: 0 4px 20px rgba(2, 132, 199, 0.2); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem;">
+          <div>
+            <span style="background: #f97316; color: #fff; font-size: 0.75rem; font-weight: 800; padding: 0.2rem 0.65rem; border-radius: 999px; display: inline-block; margin-bottom: 0.5rem;">JR東日本 JRE POINT特集</span>
+            <h2 style="font-size: 1.35rem; font-weight: 800; margin: 0 0 0.35rem; color: #ffffff;">🚅 【どこかにビューン！】完全攻略！4候補駅の選び方＆車なし旅ガイド</h2>
+            <p style="margin: 0; font-size: 0.9rem; opacity: 0.95; line-height: 1.5;">6,000ptで新幹線往復！田沢湖（乳頭温泉郷）・越後湯沢・角館など全47駅の車なし度・モデルコース・周辺宿を徹底解説</p>
+          </div>
+          <div style="background: #ffffff; color: #0284c7; font-weight: 800; font-size: 0.88rem; padding: 0.6rem 1.2rem; border-radius: 999px; white-space: nowrap;">
+            特集を見る &rarr;
+          </div>
+        </div>
+      </a>
+    </section>
+
     {/* 最新の旬・旅行記事 */}
     {recentArticles.length > 0 && (
       <section style="margin-bottom: 3.5rem;">
