@@ -109,6 +109,9 @@ const lines = ['東北', '秋田', '山形', '上越', '北陸'] as const;
             <li>日本一の深さを誇るエメラルドグリーンの田沢湖周遊バスも駅前発着</li>
           </ul>
           <div class="card-link-box">
+            <a href="/akita/dokokanibyun-tazawako-no-car/" class="inner-cluster-link" style="color: #059669; margin-bottom: 0.35rem; display: inline-block;">
+              🚅 【モデルコース】路線バスで巡る田沢湖一周＆乳頭温泉郷1泊2日 →
+            </a><br />
             <a href="/cluster/nyuto-onsen-inns/" class="inner-cluster-link">
               ♨ 田沢湖駅から行ける「乳頭温泉郷の温泉宿まとめ」を見る →
             </a>
@@ -180,11 +183,18 @@ const lines = ['東北', '秋田', '山形', '上越', '北陸'] as const;
 
                   <div class="station-meta-footer">
                     <span class="spot-tag">注目の見どころ: <strong>{station.bestSpot}</strong></span>
-                    {station.targetClusterId && (
-                      <a href={`/cluster/${station.targetClusterId}/`} class="station-cluster-btn">
-                        ♨ {station.name}から行ける温泉宿まとめ →
-                      </a>
-                    )}
+                    <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
+                      {station.courseUrl && (
+                        <a href={station.courseUrl} class="station-cluster-btn" style="color: #059669;">
+                          🚅 モデルコースを見る →
+                        </a>
+                      )}
+                      {station.targetClusterId && (
+                        <a href={`/cluster/${station.targetClusterId}/`} class="station-cluster-btn">
+                          ♨ 温泉宿まとめ →
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
               ))}

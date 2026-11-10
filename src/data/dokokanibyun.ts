@@ -9,6 +9,7 @@ export interface DokokaniStation {
   highlight: string;
   targetClusterId?: string; // 関連クラスタ（例: nyuto-onsen-inns）
   targetSpotId?: string;
+  courseUrl?: string;       // 関連モデルコースURL
   travelTimeFromTokyo: string; // 東京からの新幹線目安
   bestSpot: string;
 }
@@ -24,6 +25,7 @@ export const DOKOKANI_STATIONS: DokokaniStation[] = [
     noCarRating: '◯ バスで名所',
     highlight: '日本一深い神秘の湖＆乳頭温泉郷の秘湯めぐり',
     targetClusterId: 'nyuto-onsen-inns',
+    courseUrl: '/akita/dokokanibyun-tazawako-no-car/',
     travelTimeFromTokyo: '約2時間50分（こまち）',
     bestSpot: '乳頭温泉郷・田沢湖畔',
   },
