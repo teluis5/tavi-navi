@@ -1,0 +1,106 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { PREFECTURES } from '../../data/prefectures';
+import { spots, clusterMap, spotMap, getClusterSpots } from '../../data/spots';
+
+export function getStaticPaths() {
+  return spots.map((spot) => ({ params: { id: spot.id }, props: { spot } }));
+}
+
+const { spot } = Astro.props;
+const pref = PREFECTURES.find((p) => p.id === spot.prefId);
+const cluster = spot.clusterId ? clusterMap.get(spot.clusterId) : undefined;
+const siblings = cluster ? getClusterSpots(cluster).filter((s) => s.id !== spot.id) : [];
+const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(spot.mapQuery)}&output=embed`;
+---
+
+<Layout title={`${spot.title}｜${spot.category}ガイド`} description={spot.summary} image={spot.image}>
+  <article class="spot-page">
+    <nav class="crumbs" aria-label="パンくず">
+      <a href="/">トップ</a>
+      {pref && (<><span>›</span><a href={`/${pref.id}/`}>{pref.nameJa}</a></>)}
+      {cluster && (<><span>›</span><a href={`/cluster/${cluster.id}/`}>{cluster.title}</a></>)}
+    </nav>
+
+    <header class="spot-hero" style={spot.image ? `background-image:url(${spot.image})` : undefined}>
+      <span class="pill">{spot.category}</span>
+      <h1>{spot.title}</h1>
+      <p class="catch">{spot.catchphrase}</p>
+    </header>
+
+    <section class="block">
+      <h2>ここが見どころ</h2>
+      <ul class="points">
+        {spot.points.map((p) => <li>{p}</li>)}
+      </ul>
+      {spot.amenities && (
+        <div class="chips">
+          {spot.amenities.map((a) => (
+            <span class={`chip ${a.type ?? 'info'}`}><span aria-hidden="true">{a.icon}</span>{a.label}</span>
+          ))}
+        </div>
+      )}
+      {spot.caution && <p class="caution">⚠ {spot.caution}</p>}
+    </section>
+
+    {(spot.access || cluster?.access) && (
+      <section class="block">
+        <h2>行き方</h2>
+        {(() => {
+          const a = spot.access ?? cluster!.access!;
+          return (
+            <div class="access">
+              <div class="access-main"><span class="from">{a.from}</span><span class="arrow">↓</span><span class="method">{a.method}</span></div>
+              {a.specs && <ul class="specs">{a.specs.map((s) => <li>{s}</li>)}</ul>}
+            </div>
+          );
+        })()}
+      </section>
+    )}
+
+    <section class="block">
+      <h2>地図</h2>
+      <div class="map"><iframe src={mapSrc} loading="lazy" title={`${spot.title}の地図`} referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+    </section>
+
+    {cluster && siblings.length > 0 && (
+      <section class="block">
+        <h2>{cluster.title}のほかのスポット</h2>
+        <div class="sibling-list">
+          {siblings.map((s) => (
+            <a class="sibling" href={`/spot/${s.id}/`}>
+              <strong>{s.title}</strong><span>{s.catchphrase}</span>
+            </a>
+          ))}
+        </div>
+        <a class="to-cluster" href={`/cluster/${cluster.id}/`}>{cluster.title}をまとめて比較 →</a>
+      </section>
+    )}
+  </article>
+</Layout>
+
+<style>
+  .spot-page { max-width: 720px; margin: 0 auto; padding: 1rem 1rem 3rem; }
+  .crumbs { font-size: .78rem; color: #6b7280; display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .75rem; }
+  .crumbs a { color: inherit; text-decoration: none; }
+  .spot-hero { background: linear-gradient(135deg, #2f4858, #4a6a7c) center/cover; color: #fff; border-radius: 12px; padding: 2rem 1.1rem 1.4rem; aspect-ratio: 2 / 1; display: flex; flex-direction: column; justify-content: flex-end; }
+  .spot-hero h1 { margin: .4rem 0 .2rem; font-size: 1.6rem; line-height: 1.25; }
+  .catch { margin: 0; font-size: .95rem; opacity: .95; }
+  .pill { align-self: flex-start; background: rgba(255,255,255,.2); border-radius: 999px; padding: .1rem .7rem; font-size: .75rem; font-weight: 700; }
+  .block { margin-top: 1.6rem; }
+  .block h2 { font-size: 1.15rem; margin: 0 0 .6rem; }
+  .points { margin: 0; padding-left: 1.2rem; line-height: 1.8; }
+  .chips { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .7rem; }
+  .chip { background: #e3e7ed; border-radius: 999px; padding: .2rem .7rem; font-size: .8rem; display: inline-flex; gap: .3rem; }
+  .chip.warning { background: #fdecc8; }
+  .chip.safe { background: #d9f0e0; }
+  .caution { background: #fdecc8; border-radius: 8px; padding: .6rem .8rem; font-size: .88rem; margin: .8rem 0 0; }
+  .access { background: #e3e7ed; border-radius: 12px; padding: .9rem 1rem; }
+  .access-main { display: flex; flex-direction: column; gap: .15rem; font-weight: 700; }
+  .access-main .arrow { color: #6b7280; }
+  .specs { margin: .6rem 0 0; padding-left: 1.1rem; font-size: .88rem; line-height: 1.7; font-weight: 400; }
+  .map iframe { width: 100%; aspect-ratio: 4 / 3; border: 0; border-radius: 12px; }
+  .sibling-list { display: grid; gap: .5rem; }
+  .sibling { display: flex; flex-direction: column; background: #e3e7ed; border-radius: 12px; padding: .7rem .9rem; text-decoration: none; color: inherit; font-size: .85rem; }
+  .to-cluster { display: inline-block; margin-top: .8rem; font-weight: 700; }
+</style>

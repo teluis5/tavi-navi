@@ -9,6 +9,16 @@ interface Props {
 
 const { title, description, image = '/favicon.svg', lang = 'ja', canonicalPath } = Astro.props;
 
+// Google 検索結果にブランド名（サイト名）を表示させるための WebSite 構造化データ
+const siteUrl = Astro.site ? Astro.site.toString() : Astro.url.origin;
+const websiteSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'WebSite',
+	'name': 'タビナビ',
+	'alternateName': ['tavi-navi', 'タビナビ（tavi-navi）', 'TaviNavi'],
+	'url': siteUrl,
+};
+
 // Canonical URL normalization (enforce trailing slash per workspace rules)
 const currentPath = canonicalPath || Astro.url.pathname;
 const normalizedPath = currentPath.endsWith('/') || /\.[a-z0-9]+$/i.test(currentPath)
@@ -34,6 +44,9 @@ const enURL = new URL(`/en${pathWithoutLang === '/' ? '/' : pathWithoutLang}`, A
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
+
+<!-- Google サイト名表示用 構造化データ (WebSite JSON-LD) -->
+<script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
 <link rel="sitemap" href="/sitemap-index.xml" />
 
 <!-- Multilingual SEO (hreflang) -->
