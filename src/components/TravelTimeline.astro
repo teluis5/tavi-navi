@@ -88,7 +88,6 @@ timelineDays.forEach(day => {
 
           return (
             <div class={`flow-step-item ${isLast ? 'is-last-step' : ''}`}>
-              <!-- ① ステップ上部ヘッダー（時間 ＆ カテゴリ/タブピル） -->
               <div class="step-meta-header">
                 <div class="step-time-badge">
                   <span class="timeline-dot"></span>
@@ -112,12 +111,10 @@ timelineDays.forEach(day => {
                 )}
               </div>
 
-              <!-- ② カード本体エリア（横幅100%活用） -->
               <div class="step-card-container">
                 {!isLast && <div class="timeline-vertical-line"></div>}
 
                 {hasAlternatives ? (
-                  <!-- 横スワイプ カルーセル（Peeking 88%設計） -->
                   <div class="peeking-carousel-wrapper">
                     <div class="peeking-carousel-track" id={`track-${index}`}>
                       {allOptions.map((opt, optIdx) => (
@@ -163,7 +160,6 @@ timelineDays.forEach(day => {
                       ))}
                     </div>
 
-                    <!-- スワイプインジケーター（ドット） -->
                     <div class="carousel-dots-row">
                       {allOptions.map((_, dotIdx) => (
                         <span class={`indicator-dot ${dotIdx === 0 ? 'is-active' : ''}`} data-dot-index={dotIdx}></span>
@@ -171,7 +167,6 @@ timelineDays.forEach(day => {
                     </div>
                   </div>
                 ) : step.isHotel ? (
-                  <!-- 宿アフィリエイト専用カード -->
                   <div class="stream-hotel-card">
                     <div class="hotel-card-inner">
                       {step.image && (
@@ -210,7 +205,6 @@ timelineDays.forEach(day => {
                     )}
                   </div>
                 ) : (
-                  <!-- 通常スポットカード（横幅100%） -->
                   <div
                     class="stream-spot-card clickable-card"
                     data-open-spot={step.spotData?.id}
@@ -251,7 +245,6 @@ timelineDays.forEach(day => {
                 )}
               </div>
 
-              <!-- ③ 移動手段トランジット（カードとカードの間のライン上に配置） -->
               {(step.transit || step.transitBadge) && !isLast && (
                 <div class="transit-stream-row">
                   <div class="transit-line-pill">
@@ -267,7 +260,6 @@ timelineDays.forEach(day => {
     </div>
   ))}
 
-  <!-- 全画面スポットカード用モーダルダイアログ群 -->
   {allModalSpots.map((spot) => (
     <dialog class="tavinavi-spot-dialog" id={`dialog-${spot.id}`}>
       <SpotCard spot={spot} mode="modal-view" />
