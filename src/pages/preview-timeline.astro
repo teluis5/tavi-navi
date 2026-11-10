@@ -84,22 +84,22 @@ const steps: TimelineStep[] = [
     points: [
       "青い海とヤシの木の南国風プロムナード",
       "親水公園第1デッキからの熱海城ビュー",
-      "砂浜沿いは段差ゼロでベビーカーもスイスイ"
+      "砂浜沿いは段差ゼロでベビーカーも快適"
     ],
     amenities: [
       { icon: "🚻", label: "トイレ完備", type: "safe" },
       { icon: "🪑", label: "ベンチ多数", type: "info" },
-      { icon: "👶", label: "授乳近く", type: "safe" },
+      { icon: "👶", label: "授乳室近く", type: "safe" },
       { icon: "☀️", label: "晴天推奨", type: "warning" },
     ],
     spotData: atamiBeachSpot,
-    transit: "🚶 徒歩 約8分 (平坦・歩道あり)"
+    transit: "徒歩 8分（平坦・歩道あり）"
   },
   {
-    duration: "ランチ 60分",
+    duration: "目安 60分",
     title: "熱海銀座 おさかな食堂",
     categoryLabel: "ランチ",
-    alternativeLabel: "🍣 お魚派 (定番海鮮)",
+    alternativeLabel: "魚：おさかな食堂",
     image: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=200&q=80",
     points: [
       "朝獲れ地魚がどっさり乗った海鮮てっぺん丼",
@@ -108,18 +108,17 @@ const steps: TimelineStep[] = [
     ],
     amenities: [
       { icon: "🍴", label: "海鮮処", type: "info" },
-      { icon: "☔", label: "雨OK", type: "safe" },
+      { icon: "☔", label: "雨天OK", type: "safe" },
       { icon: "💳", label: "カード可", type: "info" },
     ],
     spotData: fishLunchSpot,
-    transit: "🚌 湯〜遊〜バス 12分 (1回乗車200円)",
-    // 横スワイプ候補（お肉派の代替プラン！）
+    transit: "湯〜遊〜バス 12分（1回200円）",
     alternatives: [
       {
-        duration: "ランチ 50分",
+        duration: "目安 50分",
         title: "CAFE RoCA (静岡牛バーガー)",
         categoryLabel: "ランチ",
-        alternativeLabel: "🥩 お肉派 (静岡牛)",
+        alternativeLabel: "肉：静岡牛バーガー",
         image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=200&q=80",
         points: [
           "静岡そだち牛100%パティの肉厚ジューシーバーガー",
@@ -128,21 +127,21 @@ const steps: TimelineStep[] = [
         ],
         amenities: [
           { icon: "🥩", label: "お肉料理", type: "info" },
-          { icon: "🪑", label: "テラスあり", type: "safe" },
-          { icon: "👶", label: "子連れOK", type: "safe" },
+          { icon: "🪑", label: "テラス席あり", type: "safe" },
+          { icon: "👶", label: "子連れ歓迎", type: "safe" },
         ],
         spotData: meatLunchSpot,
       }
     ]
   },
   {
-    duration: "チェックイン・宿泊",
+    duration: "チェックイン",
     title: "熱海温泉 ホテルミクラス",
     categoryLabel: "今夜の宿",
     image: getRakutenHotelImageUrl("67295"),
     isHotel: true,
     points: [
-      "熱海サンビーチ目の前！最上階オーシャンビュー展望露天風呂",
+      "熱海サンビーチ目の前、最上階オーシャンビュー展望露天風呂",
       "熱海駅より路線バスで約5分・タクシー1メーターの好アクセス",
       "夕食は地元静岡食材をふんだんに使用したフレンチコース"
     ],
@@ -150,7 +149,7 @@ const steps: TimelineStep[] = [
       rating: "4.4",
       reviewCount: "2,150",
       rakutenUrl: buildRakutenTravelUrl({ hotelNo: "67295", keyword: "熱海温泉 ホテルミクラス" }),
-      priceText: "2名1室 税込15,400円〜 / 人"
+      priceText: "2名1室 15,400円〜/人"
     }
   }
 ];
@@ -162,16 +161,15 @@ const steps: TimelineStep[] = [
 >
   <div class="preview-page-container">
     <div class="preview-header">
-      <span class="preview-badge">✨ 新UIプロトタイプ</span>
-      <h1>【熱海・車なし】1泊2日モデルコース</h1>
+      <span class="preview-badge">MODEL COURSE · ATAMI</span>
+      <h1>熱海 1泊2日モデルコース（車なし・新幹線45分）</h1>
       <p class="preview-lead">
-        東京駅から新幹線45分！徒歩と周遊バスだけで回れる海沿い満喫プラン。<br>
-        <strong>タイムラインの画像・詳細タップで「全画面スポットカード」</strong>が開き、<strong>ランチは横スワイプでお肉と魚を切り替え</strong>られます。
+        徒歩と周遊バスだけで巡る海沿いプラン。各スポットをタップすると全画面ガイドが開き、ランチは横スワイプで候補を切り替えられます。
       </p>
     </div>
 
     <TravelTimeline
-      dayTitle="【1日目】海沿いプロムナード散策 ➔ 熱海銀座ランチ ➔ 絶景温泉宿"
+      dayTitle="海沿いプロムナード散策 — 熱海銀座ランチ — 絶景温泉宿"
       steps={steps}
     />
   </div>
@@ -179,43 +177,42 @@ const steps: TimelineStep[] = [
 
 <style>
   .preview-page-container {
-    max-width: 680px;
+    max-width: 640px;
     margin: 0 auto;
-    padding: 1.5rem 1rem 3rem;
+    padding: 1.5rem 1rem 3.5rem;
   }
 
   @media (max-width: 480px) {
     .preview-page-container {
-      padding: 1rem 0.75rem 2.5rem; /* スマホ左右12pxで横幅最大化 */
+      padding: 1.25rem 0.85rem 3rem;
     }
   }
 
   .preview-header {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.75rem;
   }
 
   .preview-badge {
     display: inline-block;
-    background: #e0f2fe;
-    color: #0369a1;
-    font-size: 0.75rem;
-    font-weight: 800;
-    padding: 0.25rem 0.6rem;
-    border-radius: 9999px;
-    margin-bottom: 0.5rem;
+    color: #6b7280;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.35rem;
   }
 
   .preview-header h1 {
-    font-size: 1.45rem;
+    font-size: 1.35rem;
     font-weight: 800;
     color: #111827;
     margin: 0 0 0.5rem;
     line-height: 1.35;
+    letter-spacing: -0.02em;
   }
 
   .preview-lead {
-    font-size: 0.88rem;
-    color: #4b5563;
+    font-size: 0.82rem;
+    color: #6b7280;
     line-height: 1.6;
     margin: 0;
   }
