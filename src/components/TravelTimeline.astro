@@ -89,14 +89,8 @@ timelineDays.forEach(day => {
 
           return (
             <div class={`flow-step-item ${isLast ? 'is-last-step' : ''}`}>
-              <div class="step-meta-header">
-                {(step.duration || step.time) && (
-                  <div class="step-time-badge">
-                    <span class="duration-badge">⏱️ {step.duration || step.time}</span>
-                  </div>
-                )}
-
-                {hasAlternatives ? (
+              {hasAlternatives && (
+                <div class="step-meta-header">
                   <div class="swipe-tab-controls" data-track-id={`track-${index}`}>
                     {allOptions.map((opt, optIdx) => (
                       <button
@@ -108,10 +102,8 @@ timelineDays.forEach(day => {
                       </button>
                     ))}
                   </div>
-                ) : step.categoryLabel && (
-                  <span class="step-category-tag">{step.categoryLabel}</span>
-                )}
-              </div>
+                </div>
+              )}
 
               <div class="step-card-container">
                 {hasAlternatives ? (
@@ -132,6 +124,13 @@ timelineDays.forEach(day => {
                             )}
 
                             <div class="spot-card-main">
+                              <div class="spot-card-meta-row">
+                                {(opt.duration || opt.time) && (
+                                  <span class="card-duration-badge">⏱️ {opt.duration || opt.time}</span>
+                                )}
+                                {opt.categoryLabel && <span class="card-category-badge">{opt.categoryLabel}</span>}
+                              </div>
+
                               <div class="spot-title-row">
                                 <h4 class="spot-heading">{opt.title}</h4>
                                 {opt.spotData && <span class="open-arrow-icon">›</span>}
@@ -173,7 +172,12 @@ timelineDays.forEach(day => {
                         <img src={step.image} alt={step.title} class="hotel-main-thumb" loading="lazy" />
                       )}
                       <div class="hotel-card-details">
-                        <div class="hotel-label-pill">🏨 今夜の厳選宿</div>
+                        <div class="hotel-card-meta-row">
+                          <div class="hotel-label-pill">🏨 今夜の厳選宿</div>
+                          {(step.duration || step.time) && (
+                            <span class="card-duration-badge">⏱️ {step.duration || step.time}</span>
+                          )}
+                        </div>
                         <h4 class="hotel-name">{step.title}</h4>
                         {step.hotelData && (
                           <div class="hotel-rating-line">
@@ -218,6 +222,13 @@ timelineDays.forEach(day => {
                     )}
 
                     <div class="spot-card-main">
+                      <div class="spot-card-meta-row">
+                        {(step.duration || step.time) && (
+                          <span class="card-duration-badge">⏱️ {step.duration || step.time}</span>
+                        )}
+                        {step.categoryLabel && <span class="card-category-badge">{step.categoryLabel}</span>}
+                      </div>
+
                       <div class="spot-title-row">
                         <h4 class="spot-heading">{step.title}</h4>
                         {step.spotData && <span class="open-arrow-icon">›</span>}
@@ -410,39 +421,12 @@ timelineDays.forEach(day => {
     margin-bottom: 0.25rem;
   }
 
-  /* ① ステップヘッダー行（時間 ＆ タブ/カテゴリ） */
+  /* ① スワイプ候補切り替えタブ（候補がある時だけ右上に表示） */
   .step-meta-header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 0.5rem;
-    margin-bottom: 0.45rem;
-    padding-left: 0;
-  }
-
-  .step-time-badge {
-    display: inline-flex;
-    align-items: center;
-  }
-
-  .duration-badge {
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: #0369a1;
-    background: #f0f9ff;
-    padding: 0.15rem 0.55rem;
-    border-radius: 9999px;
-    font-variant-numeric: tabular-nums;
-    line-height: 1.3;
-  }
-
-  .step-category-tag {
-    font-size: 0.72rem;
-    font-weight: 700;
-    color: #0369a1;
-    background: #f0f9ff;
-    padding: 0.15rem 0.5rem;
-    border-radius: 6px;
+    justify-content: flex-end;
+    margin-bottom: 0.35rem;
   }
 
   /* スワイプ候補切り替えタブ（お魚 ⇔ お肉） */
@@ -527,6 +511,34 @@ timelineDays.forEach(day => {
     flex-direction: column;
     justify-content: space-between;
     gap: 0.35rem;
+  }
+
+  /* カード内部のメタ情報（所要時間・カテゴリ） */
+  .spot-card-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .card-duration-badge {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #0369a1;
+    background: #e0f2fe;
+    padding: 0.1rem 0.45rem;
+    border-radius: 9999px;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.25;
+  }
+
+  .card-category-badge {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #475569;
+    background: #f1f5f9;
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    line-height: 1.25;
   }
 
   .spot-title-row {
@@ -701,8 +713,14 @@ timelineDays.forEach(day => {
     gap: 0.25rem;
   }
 
+  .hotel-card-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+
   .hotel-label-pill {
-    align-self: flex-start;
     background: #fef3c7;
     color: #92400e;
     font-size: 0.68rem;
