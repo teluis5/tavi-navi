@@ -124,6 +124,7 @@ const yoshokuLunchSpot = {
 const steps: TimelineStep[] = [
   {
     leadHeading: "サザンビーチで海を見ながらのんびり散歩",
+    areaLabel: "海沿いプロムナード",
     duration: "目安 75分",
     title: "熱海サンビーチ & 親水公園",
     categoryLabel: "絶景・散策",
@@ -140,10 +141,16 @@ const steps: TimelineStep[] = [
       { icon: "☀️", label: "晴天推奨", type: "warning" },
     ],
     spotData: atamiBeachSpot,
-    transit: "徒歩 8分（平坦・歩道あり）"
+    transit: "徒歩 約8分",
+    transitRoute: "サンビーチ（海沿い）→ 熱海銀座商店街",
+    transitSpecs: [
+      "道のり：ほぼ平坦・広めの歩道あり（階段なし・ベビーカー快適）",
+      "ルート：サンビーチ交差点を街側へ渡り、アーケード街へ直進"
+    ]
   },
   {
     leadHeading: "熱海銀座で名物ご当地ランチを堪能",
+    areaLabel: "熱海銀座商店街",
     duration: "目安 60分",
     title: "熱海銀座 おさかな食堂",
     categoryLabel: "ランチ",
@@ -160,9 +167,15 @@ const steps: TimelineStep[] = [
       { icon: "💳", label: "カード可", type: "info" },
     ],
     spotData: fishLunchSpot,
-    transit: "湯〜遊〜バス 12分（1回200円）",
+    transit: "湯〜遊〜バス 約12分（徒歩なら海沿いへ約6分）",
+    transitRoute: "熱海銀座バス停 → サンビーチ前",
+    transitSpecs: [
+      "運行本数：1時間に3〜4本（約15〜20分間隔で運行）",
+      "運賃：1回250円 / 1日フリーきっぷ800円（交通系IC可）"
+    ],
     alternatives: [
       {
+        areaLabel: "熱海銀座エリア",
         duration: "目安 50分",
         title: "CAFE RoCA (静岡牛バーガー)",
         categoryLabel: "ランチ",
@@ -181,6 +194,7 @@ const steps: TimelineStep[] = [
         spotData: meatLunchSpot,
       },
       {
+        areaLabel: "親水公園近く",
         duration: "目安 60分",
         title: "トラットリア テンポドーロ",
         categoryLabel: "ランチ",
@@ -199,6 +213,7 @@ const steps: TimelineStep[] = [
         spotData: pastaLunchSpot,
       },
       {
+        areaLabel: "渚町（海から徒歩3分）",
         duration: "目安 65分",
         title: "レストラン スコット本店",
         categoryLabel: "ランチ",
@@ -220,6 +235,7 @@ const steps: TimelineStep[] = [
   },
   {
     leadHeading: "海を一望する絶景露天風呂と美食フレンチで贅沢ステイ",
+    areaLabel: "サンビーチ目の前",
     duration: "チェックイン",
     title: "熱海温泉 ホテルミクラス",
     categoryLabel: "今夜の宿",

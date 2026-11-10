@@ -9,9 +9,16 @@ export interface TimelineHotelData {
   features?: string[];
 }
 
+export interface TimelineTransitDetail {
+  method: string;         // e.g. "湯〜遊〜バス 約12分"
+  route?: string;         // e.g. "熱海銀座バス停 → サンビーチ前"
+  specs?: string[];       // e.g. ["運行：1時間に3〜4本（約15〜20分間隔）", "運賃200円（交通系IC可）"]
+}
+
 export interface TimelineStep {
   id?: string;
   leadHeading?: string;   // e.g. "サザンビーチで海を見ながら散歩"（体験アクション見出し）
+  areaLabel?: string;     // e.g. "海沿いエリア", "熱海銀座商店街"（場所イメージ補強用）
   duration?: string;      // e.g. "目安 75分", "ランチ 60分", "宿泊"
   time?: string;          // 後方互換用
   title: string;          // e.g. "熱海サンビーチ & 親水公園"
@@ -21,7 +28,10 @@ export interface TimelineStep {
   desc?: string;
   points?: string[];      // 箇条書きポイント（最大2〜3行）
   amenities?: SpotAmenity[]; // 設備情報
-  transit?: string;       // 移動情報（e.g. "徒歩 8分（平坦・歩道あり）"）
+  transit?: string;       // 移動情報メイン（e.g. "徒歩 約8分"）
+  transitRoute?: string;  // 移動区間・道のりイメージ（e.g. "サンビーチ海沿いデッキ → 熱海銀座アーケード"）
+  transitSpecs?: string[];// 運行本数・高低差・運賃などの実用ディテール
+  transitDetail?: TimelineTransitDetail;
   transitBadge?: string;
 
   // 横スワイプ候補（カルーセル）機能
@@ -83,6 +93,39 @@ function getWideImageUrl(url?: string, fallbackUrl?: string): string {
   }
   return target;
 }
+
+// 移動（トランジット）情報の正規化ヘルパー
+function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
+  if (step.transitDetail) {
+    return {
+      method: cleanText(step.transitDetail.method),
+      route: step.transitDetail.route,
+      specs: step.transitDetail.specs || [],
+    };
+  }
+  const rawMain = cleanText(step.transit || step.transitBadge);
+  if (!rawMain && !step.transitRoute && (!step.transitSpecs || step.transitSpecs.length === 0)) {
+    return null;
+  }
+
+  let method = rawMain;
+  const specs = step.transitSpecs ? [...step.transitSpecs] : [];
+
+  // 既存記事で "徒歩 8分（平坦・歩道あり）" のように括弧書きが含まれ、かつ transitSpecs 未指定の場合は自動分割
+  if (specs.length === 0 && rawMain) {
+    const match = rawMain.match(/^(.+?)[（(](.+?)[）)]$/);
+    if (match) {
+      method = match[1].trim();
+      specs.push(match[2].trim());
+    }
+  }
+
+  return {
+    method,
+    route: step.transitRoute,
+    specs,
+  };
+}
 ---
 
 <div class="tavinavi-timeline-wide">
@@ -100,6 +143,7 @@ function getWideImageUrl(url?: string, fallbackUrl?: string): string {
           const isLast = index === day.steps.length - 1;
           const hasAlternatives = step.alternatives && step.alternatives.length > 0;
           const allOptions = hasAlternatives ? [step, ...step.alternatives!] : [step];
+          const transitInfo = !isLast ? resolveTransitInfo(step) : null;
 
           return (
             <div class={`flow-step-item ${isLast ? 'is-last-step' : ''}`}>
@@ -131,6 +175,7 @@ function getWideImageUrl(url?: string, fallbackUrl?: string): string {
                     <div class="peeking-carousel-track" id={`wide-track-${index}`}>
                       {allOptions.map((opt, optIdx) => {
                         const heroImg = getWideImageUrl(opt.image, opt.spotData?.heroImage);
+                        const areaText = opt.areaLabel || step.areaLabel;
                         return (
                           <div class={`carousel-slide-item ${optIdx === 0 ? 'is-active-slide' : ''}`}>
                             <div
@@ -145,9 +190,14 @@ function getWideImageUrl(url?: string, fallbackUrl?: string): string {
                                 )}
                                 <div class="wide-photo-overlay">
                                   <div class="overlay-meta-top">
-                                    <span class="overlay-option-tag">
-                                      {cleanText(opt.alternativeLabel) || opt.categoryLabel || `候補 ${optIdx + 1}`}
-                                    </span>
+                                    <div class="overlay-meta-left">
+                                      <span class="overlay-option-tag">
+                                        {cleanText(opt.alternativeLabel) || opt.categoryLabel || `候補 ${optIdx + 1}`}
+                                      </span>
+                                      {areaText && (
+                                        <span class="overlay-area-label">{areaText}</span>
+                                      )}
+                                    </div>
                                     {(opt.duration || opt.time) && (
                                       <span class="overlay-duration">{opt.duration || opt.time}</span>
                                     )}
@@ -200,7 +250,12 @@ function getWideImageUrl(url?: string, fallbackUrl?: string): string {
                       )}
                       <div class="wide-photo-overlay">
                         <div class="overlay-meta-top">
-                          <span class="overlay-cat">{step.categoryLabel || '今夜の宿'}</span>
+                          <div class="overlay-meta-left">
+                            <span class="overlay-cat">{step.categoryLabel || '今夜の宿'}</span>
+                            {step.areaLabel && (
+                              <span class="overlay-area-label">· {step.areaLabel}</span>
+                            )}
+                          </div>
                           <span class="overlay-duration">{step.duration || 'チェックイン'}</span>
                         </div>
                         <div class="overlay-title-row">
@@ -264,9 +319,16 @@ function getWideImageUrl(url?: string, fallbackUrl?: string): string {
                       )}
                       <div class="wide-photo-overlay">
                         <div class="overlay-meta-top">
-                          {step.categoryLabel ? (
-                            <span class="overlay-cat">{step.categoryLabel}</span>
-                          ) : <span />}
+                          <div class="overlay-meta-left">
+                            {step.categoryLabel && (
+                              <span class="overlay-cat">{step.categoryLabel}</span>
+                            )}
+                            {step.areaLabel && (
+                              <span class="overlay-area-label">
+                                {step.categoryLabel ? `· ${step.areaLabel}` : step.areaLabel}
+                              </span>
+                            )}
+                          </div>
                           {(step.duration || step.time) && (
                             <span class="overlay-duration">{step.duration || step.time}</span>
                           )}
@@ -297,9 +359,38 @@ function getWideImageUrl(url?: string, fallbackUrl?: string): string {
                 )}
               </div>
 
-              {(step.transit || step.transitBadge) && !isLast && (
-                <div class="transit-divider-row">
-                  <span class="transit-divider-text">{cleanText(step.transit || step.transitBadge)}</span>
+              {transitInfo && (
+                <div class="transit-vector-block" aria-label="次のスポットへの移動">
+                  <div class="transit-vector-axis" aria-hidden="true">
+                    <span class="vector-origin-dot"></span>
+                    <span class="vector-stem-line"></span>
+                    <svg class="vector-arrow-head" viewBox="0 0 12 12" fill="none">
+                      <path
+                        d="M2.5 4.5L6 8L9.5 4.5"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
+
+                  <div class="transit-vector-content">
+                    <div class="transit-primary-row">
+                      <span class="transit-method-title">{transitInfo.method}</span>
+                      {transitInfo.route && (
+                        <span class="transit-route-flow">{transitInfo.route}</span>
+                      )}
+                    </div>
+
+                    {transitInfo.specs && transitInfo.specs.length > 0 && (
+                      <ul class="transit-specs-list">
+                        {transitInfo.specs.map((spec) => (
+                          <li>{spec}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
                 </div>
               )}
             </div>
@@ -592,14 +683,33 @@ function getWideImageUrl(url?: string, fallbackUrl?: string): string {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 0.15rem;
+    gap: 0.5rem;
+    margin-bottom: 0.18rem;
+  }
+
+  .overlay-meta-left {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-width: 0;
   }
 
   .overlay-cat {
     font-size: 0.7rem;
     font-weight: 700;
-    color: rgba(255, 255, 255, 0.82);
+    color: rgba(255, 255, 255, 0.88);
     letter-spacing: 0.04em;
+    flex-shrink: 0;
+  }
+
+  .overlay-area-label {
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.78);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .overlay-option-tag {
@@ -610,6 +720,7 @@ function getWideImageUrl(url?: string, fallbackUrl?: string): string {
     padding: 0.1rem 0.45rem;
     border-radius: 3px;
     letter-spacing: 0.02em;
+    flex-shrink: 0;
   }
 
   .overlay-duration {
@@ -792,29 +903,92 @@ function getWideImageUrl(url?: string, fallbackUrl?: string): string {
     font-size: 0.95rem;
   }
 
-  /* 移動手段（トランジット） */
-  .transit-divider-row {
+  /* 移動手段（縦ベクトル＋実用トランジットスペック） */
+  .transit-vector-block {
     display: flex;
+    align-items: stretch;
+    gap: 0.85rem;
+    margin: 1.25rem 0 1.45rem;
+    padding: 0.15rem 0 0.15rem 0.65rem;
+  }
+
+  .transit-vector-axis {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    margin: 1.35rem 0;
-    color: #6b7280;
+    width: 14px;
+    flex-shrink: 0;
+    padding: 0.15rem 0 0.05rem;
   }
 
-  .transit-divider-row::before,
-  .transit-divider-row::after {
-    content: "";
+  .vector-origin-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    background: #9ca3af;
+    flex-shrink: 0;
+  }
+
+  .vector-stem-line {
+    width: 1.5px;
     flex: 1;
-    height: 1px;
-    background: #e5e7eb;
+    min-height: 28px;
+    background: linear-gradient(to bottom, #9ca3af 0%, #111827 100%);
+    margin: 2px 0 -2px;
   }
 
-  .transit-divider-text {
-    font-size: 0.72rem;
+  .vector-arrow-head {
+    width: 13px;
+    height: 13px;
+    color: #111827;
+    flex-shrink: 0;
+  }
+
+  .transit-vector-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.25rem;
+    padding: 0.1rem 0;
+    min-width: 0;
+  }
+
+  .transit-primary-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.45rem;
+    line-height: 1.35;
+  }
+
+  .transit-method-title {
+    font-size: 0.84rem;
+    font-weight: 800;
+    color: #111827;
+    letter-spacing: 0.01em;
+  }
+
+  .transit-route-flow {
+    font-size: 0.74rem;
     font-weight: 600;
     color: #4b5563;
-    padding: 0 0.85rem;
-    letter-spacing: 0.03em;
-    white-space: nowrap;
+    letter-spacing: 0.01em;
+  }
+
+  .transit-specs-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.14rem;
+  }
+
+  .transit-specs-list li {
+    font-size: 0.74rem;
+    color: #4b5563;
+    line-height: 1.42;
+    letter-spacing: 0.01em;
   }
 
   /* 全画面スポットモーダルダイアログ */
