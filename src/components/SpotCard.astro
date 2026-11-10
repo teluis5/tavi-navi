@@ -29,7 +29,7 @@ const { spot, mode = 'modal-view' } = Astro.props;
 ---
 
 <div class={`spot-fullscreen-card ${mode}`} id={`spot-card-${spot.id}`}>
-  <div class="spot-bg-wrapper">
+  <div class="spot-bg-wrapper" data-close-modal>
     <img src={spot.heroImage} alt={spot.title} class="spot-bg-image" loading="lazy" />
     <div class="spot-bg-overlay"></div>
   </div>

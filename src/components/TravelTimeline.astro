@@ -6,24 +6,24 @@ export interface TimelineHotelData {
   reviewCount: string;    // e.g. "2,150"
   rakutenUrl: string;     // アフィリエイトURL
   priceText?: string;     // e.g. "2名1室 税込14,800円〜"
-  features?: string[];    // e.g. ["オーシャンビュー", "露天風呂"]
+  features?: string[];
 }
 
 export interface TimelineStep {
   id?: string;
-  time: string;           // e.g. "08:26" or "12:00 - 13:15"
-  title: string;          // e.g. "熱海銀座 おさかな食堂"
-  icon?: string;          // e.g. "📍", "🍴", "🚶", "🚌", "🏨"
-  categoryLabel?: string; // e.g. "ランチ", "絶景", "宿泊"
+  time: string;           // e.g. "10:30 - 11:45"
+  title: string;          // e.g. "熱海サンビーチ & 親水公園"
+  icon?: string;          // e.g. "📍", "🍴", "🚶", "🏨"
+  categoryLabel?: string; // e.g. "絶景・散策", "ランチ", "宿泊"
   image?: string;         // サムネイル画像URL
-  desc?: string;          // 説明文
+  desc?: string;
   points?: string[];      // 箇条書きポイント（最大2〜3行）
   amenities?: SpotAmenity[]; // ピクトグラムバッジ（🚻 🪑 👶 ☔ ♿）
-  transit?: string;       // 移動情報（e.g. "徒歩 約8分"）
-  transitBadge?: string;  // e.g. "湯〜遊〜バス 12分"
+  transit?: string;       // 移動情報（e.g. "🚶 徒歩 約8分"）
+  transitBadge?: string;
   
   // 横スワイプ候補（カルーセル）機能
-  alternativeLabel?: string; // e.g. "🍣 海鮮", "🥩 お肉", "🍜 麺"
+  alternativeLabel?: string; // e.g. "🍣 お魚派", "🥩 お肉派"
   alternatives?: TimelineStep[]; // スワイプで切り替え可能な代替候補たち
 
   // 全画面スポットカードポップアップ用
@@ -70,77 +70,78 @@ timelineDays.forEach(day => {
 });
 ---
 
-<div class="tavinavi-timeline-wrapper">
+<div class="tavinavi-timeline-stream">
   {timelineDays.map((day) => (
-    <div class="travel-timeline">
+    <div class="timeline-day-block">
       {day.title && (
-        <div class="timeline-day-header">
-          <span class="timeline-day-badge">
-            {day.dayNumber ? `DAY ${day.dayNumber}` : 'DAY'}
-          </span>
-          <div class="timeline-day-title-group">
-            <h3 class="timeline-day-title">{day.title}</h3>
-            {day.subtitle && <p class="timeline-day-subtitle">{day.subtitle}</p>}
-          </div>
+        <div class="day-header-row">
+          <span class="day-number-pill">DAY {day.dayNumber || 1}</span>
+          <h3 class="day-title-text">{day.title}</h3>
         </div>
       )}
 
-      <div class="timeline-steps">
+      <div class="step-flow-list">
         {day.steps && day.steps.map((step, index) => {
           const isLast = index === day.steps.length - 1;
           const hasAlternatives = step.alternatives && step.alternatives.length > 0;
           const allOptions = hasAlternatives ? [step, ...step.alternatives!] : [step];
 
           return (
-            <div class={`timeline-step ${isLast ? 'is-last' : ''} ${step.isHotel ? 'is-hotel-step' : ''}`}>
-              <div class="timeline-left">
-                <span class="timeline-time">{step.time}</span>
-                <div class={`timeline-node ${step.isHotel ? 'hotel-node' : ''}`}>
-                  <span class="timeline-node-icon">{step.icon || (step.isHotel ? '🏨' : '📍')}</span>
+            <div class={`flow-step-item ${isLast ? 'is-last-step' : ''}`}>
+              <!-- ① ステップ上部ヘッダー（時間 ＆ カテゴリ/タブピル） -->
+              <div class="step-meta-header">
+                <div class="step-time-badge">
+                  <span class="timeline-dot"></span>
+                  <span class="time-string">{step.time}</span>
                 </div>
-                {!isLast && <div class="timeline-line" />}
+
+                {hasAlternatives ? (
+                  <div class="swipe-tab-controls" data-track-id={`track-${index}`}>
+                    {allOptions.map((opt, optIdx) => (
+                      <button
+                        type="button"
+                        class={`swipe-tab-btn ${optIdx === 0 ? 'is-active' : ''}`}
+                        data-slide-index={optIdx}
+                      >
+                        {opt.alternativeLabel || `候補 ${optIdx + 1}`}
+                      </button>
+                    ))}
+                  </div>
+                ) : step.categoryLabel && (
+                  <span class="step-category-tag">{step.categoryLabel}</span>
+                )}
               </div>
 
-              <div class="timeline-content">
-                {hasAlternatives ? (
-                  <div class="swipe-container-outer">
-                    <div class="swipe-header-bar">
-                      <span class="swipe-hint-badge">👉 横スワイプで変更可</span>
-                      <div class="swipe-tabs">
-                        {allOptions.map((opt, optIdx) => (
-                          <span class={`swipe-tab-pill ${optIdx === 0 ? 'active' : ''}`} data-tab-for={`step-${index}-${optIdx}`}>
-                            {opt.alternativeLabel || `候補 ${optIdx + 1}`}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
+              <!-- ② カード本体エリア（横幅100%活用） -->
+              <div class="step-card-container">
+                {!isLast && <div class="timeline-vertical-line"></div>}
 
-                    <div class="swipe-carousel-track" data-track-id={`track-${index}`}>
+                {hasAlternatives ? (
+                  <!-- 横スワイプ カルーセル（Peeking 88%設計） -->
+                  <div class="peeking-carousel-wrapper">
+                    <div class="peeking-carousel-track" id={`track-${index}`}>
                       {allOptions.map((opt, optIdx) => (
-                        <div class="swipe-card-item" id={`step-${index}-${optIdx}`}>
-                          <div class="compact-spot-card">
+                        <div class="carousel-slide-item">
+                          <div
+                            class="stream-spot-card clickable-card"
+                            data-open-spot={opt.spotData?.id}
+                            role={opt.spotData ? "button" : undefined}
+                            tabindex={opt.spotData ? "0" : undefined}
+                          >
                             {opt.image && (
-                              <div
-                                class="compact-thumb-wrapper"
-                                data-open-spot={opt.spotData ? opt.spotData.id : undefined}
-                              >
-                                <img src={opt.image} alt={opt.title} class="compact-thumb-img" loading="lazy" />
-                                {opt.spotData && <span class="thumb-zoom-badge">🔍 詳細</span>}
+                              <div class="spot-card-thumb">
+                                <img src={opt.image} alt={opt.title} class="thumb-img" loading="lazy" />
                               </div>
                             )}
 
-                            <div class="compact-info-wrapper">
-                              <div class="compact-title-row">
-                                <h4 class="compact-title">{opt.title}</h4>
-                                {opt.categoryLabel && (
-                                  <span class="compact-category-tag">{opt.categoryLabel}</span>
-                                )}
+                            <div class="spot-card-main">
+                              <div class="spot-title-row">
+                                <h4 class="spot-heading">{opt.title}</h4>
+                                {opt.spotData && <span class="open-arrow-icon">›</span>}
                               </div>
 
-                              {opt.desc && <p class="compact-desc">{opt.desc}</p>}
-
                               {opt.points && opt.points.length > 0 && (
-                                <ul class="compact-points">
+                                <ul class="spot-summary-points">
                                   {opt.points.map((pt) => (
                                     <li>{pt}</li>
                                   ))}
@@ -148,9 +149,9 @@ timelineDays.forEach(day => {
                               )}
 
                               {opt.amenities && opt.amenities.length > 0 && (
-                                <div class="compact-amenity-bar">
+                                <div class="spot-amenity-chips">
                                   {opt.amenities.map((am) => (
-                                    <span class={`compact-amenity-chip ${am.type || 'info'}`}>
+                                    <span class={`amenity-chip ${am.type || 'info'}`}>
                                       {am.icon} {am.label}
                                     </span>
                                   ))}
@@ -162,78 +163,74 @@ timelineDays.forEach(day => {
                       ))}
                     </div>
 
-                    <div class="swipe-dots-bar">
+                    <!-- スワイプインジケーター（ドット） -->
+                    <div class="carousel-dots-row">
                       {allOptions.map((_, dotIdx) => (
-                        <span class={`swipe-dot ${dotIdx === 0 ? 'active' : ''}`} data-dot-for={dotIdx}></span>
+                        <span class={`indicator-dot ${dotIdx === 0 ? 'is-active' : ''}`} data-dot-index={dotIdx}></span>
                       ))}
                     </div>
                   </div>
                 ) : step.isHotel ? (
-                  <div class="timeline-hotel-card">
-                    <div class="hotel-header-badge">
-                      <span>🏨</span>
-                      <span>今夜の厳選宿・温泉ステイ</span>
-                    </div>
-
-                    <div class="hotel-body-grid">
+                  <!-- 宿アフィリエイト専用カード -->
+                  <div class="stream-hotel-card">
+                    <div class="hotel-card-inner">
                       {step.image && (
-                        <img src={step.image} alt={step.title} class="hotel-thumb" loading="lazy" />
+                        <img src={step.image} alt={step.title} class="hotel-main-thumb" loading="lazy" />
                       )}
-                      <div class="hotel-info">
-                        <h4 class="hotel-title">{step.title}</h4>
+                      <div class="hotel-card-details">
+                        <div class="hotel-label-pill">🏨 今夜の厳選宿</div>
+                        <h4 class="hotel-name">{step.title}</h4>
                         {step.hotelData && (
-                          <div class="hotel-rating-row">
-                            <span class="hotel-stars">★★★★☆</span>
-                            <span class="hotel-score">{step.hotelData.rating}</span>
-                            <span class="hotel-reviews">({step.hotelData.reviewCount}件)</span>
+                          <div class="hotel-rating-line">
+                            <span class="stars">★★★★☆</span>
+                            <span class="score">{step.hotelData.rating}</span>
+                            <span class="count">({step.hotelData.reviewCount}件)</span>
                           </div>
                         )}
                         {step.points && (
-                          <ul class="hotel-points">
-                            {step.points.map(pt => <li>{pt}</li>)}
+                          <ul class="hotel-summary-points">
+                            {step.points.map((pt) => (
+                              <li>{pt}</li>
+                            ))}
                           </ul>
                         )}
                       </div>
                     </div>
 
                     {step.hotelData?.rakutenUrl && (
-                      <div class="hotel-cta-row">
-                        <a
-                          href={step.hotelData.rakutenUrl}
-                          target="_blank"
-                          rel="noopener sponsored"
-                          class="rakuten-booking-btn"
-                        >
-                          <span class="rakuten-icon">🔴</span>
-                          <span class="rakuten-btn-text">楽天トラベルで今夜の空室を見る ▶</span>
-                        </a>
-                      </div>
+                      <a
+                        href={step.hotelData.rakutenUrl}
+                        target="_blank"
+                        rel="noopener sponsored"
+                        class="rakuten-action-btn"
+                      >
+                        <span class="rakuten-circle">🔴</span>
+                        <span class="btn-text">楽天トラベルで今夜の空室を見る ▶</span>
+                      </a>
                     )}
                   </div>
                 ) : (
-                  <div class="compact-spot-card">
+                  <!-- 通常スポットカード（横幅100%） -->
+                  <div
+                    class="stream-spot-card clickable-card"
+                    data-open-spot={step.spotData?.id}
+                    role={step.spotData ? "button" : undefined}
+                    tabindex={step.spotData ? "0" : undefined}
+                  >
                     {step.image && (
-                      <div
-                        class="compact-thumb-wrapper"
-                        data-open-spot={step.spotData ? step.spotData.id : undefined}
-                      >
-                        <img src={step.image} alt={step.title} class="compact-thumb-img" loading="lazy" />
-                        {step.spotData && <span class="thumb-zoom-badge">🔍 詳細</span>}
+                      <div class="spot-card-thumb">
+                        <img src={step.image} alt={step.title} class="thumb-img" loading="lazy" />
                       </div>
                     )}
 
-                    <div class="compact-info-wrapper">
-                      <div class="compact-title-row">
-                        <h4 class="compact-title">{step.title}</h4>
-                        {step.categoryLabel && (
-                          <span class="compact-category-tag">{step.categoryLabel}</span>
-                        )}
+                    <div class="spot-card-main">
+                      <div class="spot-title-row">
+                        <h4 class="spot-heading">{step.title}</h4>
+                        {step.spotData && <span class="open-arrow-icon">›</span>}
                       </div>
 
-                      {step.desc && <p class="compact-desc">{step.desc}</p>}
-
                       {step.points && step.points.length > 0 && (
-                        <ul class="compact-points">
+                        <ul class="spot-summary-points">
                           {step.points.map((pt) => (
                             <li>{pt}</li>
                           ))}
@@ -241,9 +238,9 @@ timelineDays.forEach(day => {
                       )}
 
                       {step.amenities && step.amenities.length > 0 && (
-                        <div class="compact-amenity-bar">
+                        <div class="spot-amenity-chips">
                           {step.amenities.map((am) => (
-                            <span class={`compact-amenity-chip ${am.type || 'info'}`}>
+                            <span class={`amenity-chip ${am.type || 'info'}`}>
                               {am.icon} {am.label}
                             </span>
                           ))}
@@ -252,14 +249,17 @@ timelineDays.forEach(day => {
                     </div>
                   </div>
                 )}
-
-                {(step.transit || step.transitBadge) && !isLast && (
-                  <div class="timeline-transit-badge">
-                    <span class="transit-arrow">↓</span>
-                    <span class="transit-text">{step.transit || step.transitBadge}</span>
-                  </div>
-                )}
               </div>
+
+              <!-- ③ 移動手段トランジット（カードとカードの間のライン上に配置） -->
+              {(step.transit || step.transitBadge) && !isLast && (
+                <div class="transit-stream-row">
+                  <div class="transit-line-pill">
+                    <span class="transit-icon">↓</span>
+                    <span class="transit-desc">{step.transit || step.transitBadge}</span>
+                  </div>
+                </div>
+              )}
             </div>
           );
         })}
@@ -267,7 +267,8 @@ timelineDays.forEach(day => {
     </div>
   ))}
 
-  {allModalSpots.map(spot => (
+  <!-- 全画面スポットカード用モーダルダイアログ群 -->
+  {allModalSpots.map((spot) => (
     <dialog class="tavinavi-spot-dialog" id={`dialog-${spot.id}`}>
       <SpotCard spot={spot} mode="modal-view" />
     </dialog>
@@ -275,24 +276,31 @@ timelineDays.forEach(day => {
 </div>
 
 <script>
-  // スポット全画面モーダル開閉ロジック
-  function initSpotModals() {
-    // 開くボタン
-    document.querySelectorAll('[data-open-spot]').forEach(el => {
-      el.addEventListener('click', () => {
-        const spotId = el.getAttribute('data-open-spot');
+  function initTimelineInteractions() {
+    // 1. スポット全画面ダイアログの開閉（カード全体のクリックで起動）
+    document.querySelectorAll('[data-open-spot]').forEach((card) => {
+      card.addEventListener('click', () => {
+        const spotId = card.getAttribute('data-open-spot');
         if (!spotId) return;
         const dialog = document.getElementById(`dialog-${spotId}`) as HTMLDialogElement | null;
         if (dialog) {
           dialog.showModal();
-          document.body.style.overflow = 'hidden'; // 背景スクロール停止
+          document.body.style.overflow = 'hidden';
+        }
+      });
+      // キーボードEnter/Space対応
+      card.addEventListener('keydown', (e: any) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          (card as HTMLElement).click();
         }
       });
     });
 
     // 閉じるボタン
-    document.querySelectorAll('[data-close-modal]').forEach(btn => {
-      btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-close-modal]').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
         const dialog = btn.closest('dialog') as HTMLDialogElement | null;
         if (dialog) {
           dialog.close();
@@ -301,15 +309,9 @@ timelineDays.forEach(day => {
       });
     });
 
-    // ダイアログ外側クリックで閉じる
-    document.querySelectorAll('.tavinavi-spot-dialog').forEach(dialog => {
+    // ダイアログ外側（背景）クリックで閉じる
+    document.querySelectorAll('.tavinavi-spot-dialog').forEach((dialog) => {
       dialog.addEventListener('click', (e) => {
-        const rect = dialog.getBoundingClientRect();
-        const isInDialog = (
-          rect.top <= e.clientY && e.clientY <= rect.top + rect.height &&
-          rect.left <= e.clientX && e.clientX <= rect.left + rect.width
-        );
-        // 背景クリック時
         if (e.target === dialog) {
           (dialog as HTMLDialogElement).close();
           document.body.style.overflow = '';
@@ -320,255 +322,269 @@ timelineDays.forEach(day => {
       });
     });
 
-    // カルーセルのスクロール監視でインジケータードットを連動
-    document.querySelectorAll('.swipe-carousel-track').forEach(track => {
+    // 2. カルーセルのタブボタンクリック連動（お魚派 ⇔ お肉派）
+    document.querySelectorAll('.swipe-tab-controls').forEach((controls) => {
+      const trackId = controls.getAttribute('data-track-id');
+      const track = document.getElementById(trackId || '');
+      if (!track) return;
+
+      controls.querySelectorAll('.swipe-tab-btn').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const slideIdx = parseInt(btn.getAttribute('data-slide-index') || '0', 10);
+          const slides = track.querySelectorAll('.carousel-slide-item');
+          if (slides[slideIdx]) {
+            const slideLeft = (slides[slideIdx] as HTMLElement).offsetLeft;
+            track.scrollTo({ left: slideLeft, behavior: 'smooth' });
+          }
+        });
+      });
+    });
+
+    // 3. カルーセルの横スクロール監視（タブボタン＆ドットをアクティブ同期）
+    document.querySelectorAll('.peeking-carousel-track').forEach((track) => {
       track.addEventListener('scroll', () => {
-        const itemWidth = track.clientWidth;
+        const itemWidth = track.clientWidth * 0.88;
         const scrollLeft = track.scrollLeft;
-        const activeIndex = Math.round(scrollLeft / itemWidth);
-        const container = track.closest('.swipe-container-outer');
-        if (container) {
-          // ドット更新
-          container.querySelectorAll('.swipe-dot').forEach((dot, idx) => {
-            dot.classList.toggle('active', idx === activeIndex);
+        const activeIdx = Math.round(scrollLeft / itemWidth);
+
+        const parent = track.closest('.flow-step-item');
+        if (parent) {
+          // タブボタン同期
+          parent.querySelectorAll('.swipe-tab-btn').forEach((btn, idx) => {
+            btn.classList.toggle('is-active', idx === activeIdx);
           });
-          // タブピル更新
-          container.querySelectorAll('.swipe-tab-pill').forEach((pill, idx) => {
-            pill.classList.toggle('active', idx === activeIndex);
+          // ドット同期
+          parent.querySelectorAll('.indicator-dot').forEach((dot, idx) => {
+            dot.classList.toggle('is-active', idx === activeIdx);
           });
         }
       }, { passive: true });
     });
   }
 
-  // 初回 & Astro View Transitions 対応
-  initSpotModals();
-  document.addEventListener('astro:page-load', initSpotModals);
+  initTimelineInteractions();
+  document.addEventListener('astro:page-load', initTimelineInteractions);
 </script>
 
 <style>
-  .tavinavi-timeline-wrapper {
-    margin: 1.5rem 0;
+  /* タイムライン全体のコンテナ：余計な囲み枠やパディングを全廃 */
+  .tavinavi-timeline-stream {
+    width: 100%;
+    margin: 1rem 0 2.5rem;
+    box-sizing: border-box;
   }
 
-  .travel-timeline {
-    background: #ffffff;
-    border: 1px solid var(--color-border, #e5e7eb);
-    border-radius: var(--radius-lg, 16px);
-    padding: 1.25rem 1rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+  .timeline-day-block {
+    margin-bottom: 2rem;
   }
 
-  .timeline-day-header {
+  /* DAY見出し行 */
+  .day-header-row {
     display: flex;
-    align-items: flex-start;
-    gap: 0.65rem;
-    padding-bottom: 0.85rem;
-    margin-bottom: 1rem;
-    border-bottom: 2px solid var(--color-border, #e5e7eb);
+    align-items: center;
+    gap: 0.6rem;
+    padding-bottom: 0.75rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 2px solid #e2e8f0;
   }
 
-  .timeline-day-badge {
-    background: var(--color-primary, #0ea5e9);
+  .day-number-pill {
+    background: #0284c7;
     color: #ffffff;
     font-size: 0.72rem;
     font-weight: 800;
-    padding: 0.2rem 0.5rem;
+    padding: 0.2rem 0.55rem;
     border-radius: 6px;
     letter-spacing: 0.05em;
-    flex-shrink: 0;
   }
 
-  .timeline-day-title-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-  }
-
-  .timeline-day-title {
+  .day-title-text {
     font-size: 1.05rem;
     font-weight: 800;
-    color: var(--color-text-main, #111827);
+    color: #0f172a;
     margin: 0;
     line-height: 1.35;
   }
 
-  .timeline-day-subtitle {
-    font-size: 0.78rem;
-    color: var(--color-text-muted, #6b7280);
-    margin: 0;
-  }
-
-  .timeline-steps {
+  /* ステップリスト */
+  .step-flow-list {
     display: flex;
     flex-direction: column;
   }
 
-  .timeline-step {
-    display: flex;
-    gap: 0.85rem;
+  .flow-step-item {
     position: relative;
-    padding-bottom: 1.25rem;
+    margin-bottom: 0.25rem;
   }
 
-  .timeline-step.is-last {
-    padding-bottom: 0;
-  }
-
-  /* 左側軸 */
-  .timeline-left {
+  /* ① ステップヘッダー行（時間 ＆ タブ/カテゴリ） */
+  .step-meta-header {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    width: 58px;
-    flex-shrink: 0;
-    position: relative;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.45rem;
+    padding-left: 0.2rem;
   }
 
-  .timeline-time {
-    font-size: 0.75rem;
+  .step-time-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .timeline-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 9999px;
+    background: #0284c7;
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.2);
+    flex-shrink: 0;
+  }
+
+  .time-string {
+    font-size: 0.88rem;
     font-weight: 800;
-    color: var(--color-primary, #0ea5e9);
-    margin-bottom: 0.3rem;
+    color: #0f172a;
     font-variant-numeric: tabular-nums;
-    text-align: center;
+  }
+
+  .step-category-tag {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #0369a1;
+    background: #f0f9ff;
+    padding: 0.15rem 0.5rem;
+    border-radius: 6px;
+    border: 1px solid #bae6fd;
+  }
+
+  /* スワイプ候補切り替えタブ（お魚 ⇔ お肉） */
+  .swipe-tab-controls {
+    display: flex;
+    gap: 0.3rem;
+  }
+
+  .swipe-tab-btn {
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.2rem 0.55rem;
+    border-radius: 9999px;
+    border: 1px solid #e2e8f0;
+    background: #f8fafc;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.15s;
     line-height: 1.2;
   }
 
-  .timeline-node {
-    width: 30px;
-    height: 30px;
-    border-radius: 9999px;
-    background: #f8fafc;
-    border: 2px solid var(--color-primary, #0ea5e9);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 2;
+  .swipe-tab-btn.is-active {
+    background: #0284c7;
+    border-color: #0284c7;
+    color: #ffffff;
+    box-shadow: 0 2px 6px rgba(2, 132, 199, 0.25);
   }
 
-  .timeline-node.hotel-node {
-    border-color: #f59e0b;
-    background: #fffbeb;
+  /* ② カード本体エリア */
+  .step-card-container {
+    position: relative;
+    padding-left: 1.15rem; /* 縦ラインを通すための最小余白 */
   }
 
-  .timeline-node-icon {
-    font-size: 0.85rem;
-    line-height: 1;
-  }
-
-  .timeline-line {
+  /* タイムラインの縦ライン（カードの左端を通る） */
+  .timeline-vertical-line {
     position: absolute;
-    top: 48px;
-    bottom: -6px;
+    top: -4px;
+    bottom: -12px;
+    left: 4px; /* .timeline-dot の真下を通る */
     width: 2px;
-    background: #e5e7eb;
+    background: #cbd5e1;
     z-index: 1;
   }
 
-  /* 右側コンテンツ */
-  .timeline-content {
-    flex: 1;
-    min-width: 0;
-    padding-top: 0.1rem;
-  }
-
-  /* コンパクトスポットカード（縦幅圧縮） */
-  .compact-spot-card {
+  /* スポットカード本体（横幅100%エッジ・トゥ・エッジ） */
+  .stream-spot-card {
+    position: relative;
+    z-index: 2;
     display: flex;
     gap: 0.75rem;
-    background: #f9fafb;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    padding: 0.65rem;
-    transition: border-color 0.15s;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 0.75rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    box-sizing: border-box;
+    width: 100%;
+    transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
   }
 
-  .compact-spot-card:hover {
-    border-color: #cbd5e1;
-  }
-
-  /* サムネイル（左寄せ 72x72px） */
-  .compact-thumb-wrapper {
-    position: relative;
-    width: 72px;
-    height: 72px;
-    flex-shrink: 0;
-    border-radius: 8px;
-    overflow: hidden;
+  .clickable-card {
     cursor: pointer;
   }
 
-  .compact-thumb-img {
+  .clickable-card:active {
+    transform: scale(0.99);
+    background: #f8fafc;
+  }
+
+  /* サムネイル（左寄せ 76px） */
+  .spot-card-thumb {
+    width: 76px;
+    height: 76px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #f1f5f9;
+  }
+
+  .thumb-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: transform 0.2s;
   }
 
-  .compact-thumb-wrapper:hover .compact-thumb-img {
-    transform: scale(1.06);
-  }
-
-  .thumb-zoom-badge {
-    position: absolute;
-    bottom: 2px;
-    right: 2px;
-    background: rgba(0, 0, 0, 0.7);
-    color: #ffffff;
-    font-size: 0.62rem;
-    font-weight: 700;
-    padding: 1px 4px;
-    border-radius: 4px;
-    backdrop-filter: blur(4px);
-  }
-
-  /* 右側情報 */
-  .compact-info-wrapper {
+  /* カード情報右側 */
+  .spot-card-main {
     flex: 1;
     min-width: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.3rem;
-  }
-
-  .compact-title-row {
-    display: flex;
-    align-items: center;
     justify-content: space-between;
-    gap: 0.4rem;
+    gap: 0.35rem;
   }
 
-  .compact-title {
-    font-size: 0.92rem;
+  .spot-title-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.35rem;
+  }
+
+  .spot-heading {
+    font-size: 0.95rem;
     font-weight: 800;
-    color: #111827;
+    color: #0f172a;
     margin: 0;
-    line-height: 1.3;
-    white-space: nowrap;
+    line-height: 1.35;
+    /* 2行まで綺麗に表示 */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
     overflow: hidden;
-    text-overflow: ellipsis;
   }
 
-  .compact-category-tag {
-    font-size: 0.68rem;
+  .open-arrow-icon {
+    font-size: 1.15rem;
     font-weight: 700;
-    background: #e0f2fe;
-    color: #0369a1;
-    padding: 0.15rem 0.4rem;
-    border-radius: 4px;
+    color: #94a3b8;
+    line-height: 1;
+    margin-top: -0.1rem;
     flex-shrink: 0;
   }
 
-  .compact-desc {
-    font-size: 0.78rem;
-    color: #4b5563;
-    margin: 0;
-    line-height: 1.4;
-  }
-
-  .compact-points {
+  .spot-summary-points {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -577,184 +593,133 @@ timelineDays.forEach(day => {
     gap: 0.15rem;
   }
 
-  .compact-points li {
-    font-size: 0.76rem;
-    color: #374151;
-    line-height: 1.35;
+  .spot-summary-points li {
+    font-size: 0.78rem;
+    color: #334155;
+    line-height: 1.4;
     display: flex;
     align-items: flex-start;
     gap: 0.25rem;
   }
 
-  .compact-points li::before {
+  .spot-summary-points li::before {
     content: "・";
-    color: var(--color-primary, #0ea5e9);
+    color: #0284c7;
     font-weight: 800;
   }
 
-  /* ピクトグラムバッジバー */
-  .compact-amenity-bar {
+  /* ピクトグラムチップ */
+  .spot-amenity-chips {
     display: flex;
     flex-wrap: wrap;
     gap: 0.3rem;
-    margin-top: 0.15rem;
+    margin-top: 0.1rem;
   }
 
-  .compact-amenity-chip {
+  .amenity-chip {
     font-size: 0.68rem;
     font-weight: 700;
-    padding: 0.15rem 0.35rem;
+    padding: 0.15rem 0.4rem;
     border-radius: 4px;
-    line-height: 1;
+    line-height: 1.1;
     display: inline-flex;
     align-items: center;
     gap: 0.2rem;
   }
 
-  .compact-amenity-chip.safe {
+  .amenity-chip.safe {
     background: #dcfce7;
-    color: #15803d;
+    color: #166534;
   }
 
-  .compact-amenity-chip.info {
-    background: #e0f2fe;
+  .amenity-chip.info {
+    background: #f0f9ff;
     color: #0369a1;
   }
 
-  .compact-amenity-chip.warning {
+  .amenity-chip.warning {
     background: #fef3c7;
-    color: #b45309;
+    color: #92400e;
   }
 
-  /* 横スワイプ（カルーセル）UI */
-  .swipe-container-outer {
-    background: #f8fafc;
-    border: 1.5px solid #cbd5e1;
-    border-radius: 14px;
-    padding: 0.6rem 0.6rem 0.4rem;
+  /* 横スワイプ カルーセル（Peeking UI: 幅88%で次のカードをチラ見せ） */
+  .peeking-carousel-wrapper {
+    position: relative;
+    z-index: 2;
+    width: 100%;
   }
 
-  .swipe-header-bar {
+  .peeking-carousel-track {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 0.5rem;
-    gap: 0.4rem;
-  }
-
-  .swipe-hint-badge {
-    font-size: 0.68rem;
-    font-weight: 800;
-    color: #0284c7;
-    background: #e0f2fe;
-    padding: 0.15rem 0.45rem;
-    border-radius: 9999px;
-  }
-
-  .swipe-tabs {
-    display: flex;
-    gap: 0.3rem;
-  }
-
-  .swipe-tab-pill {
-    font-size: 0.7rem;
-    font-weight: 700;
-    padding: 0.15rem 0.45rem;
-    border-radius: 9999px;
-    background: #e2e8f0;
-    color: #64748b;
-    transition: background-color 0.2s, color 0.2s;
-  }
-
-  .swipe-tab-pill.active {
-    background: #0ea5e9;
-    color: #ffffff;
-  }
-
-  /* カルーセルトラック（CSS Scroll Snap） */
-  .swipe-carousel-track {
-    display: flex;
+    gap: 0.65rem;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    gap: 0.75rem;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    border-radius: 10px;
+    padding-bottom: 0.25rem;
   }
 
-  .swipe-carousel-track::-webkit-scrollbar {
+  .peeking-carousel-track::-webkit-scrollbar {
     display: none;
   }
 
-  .swipe-card-item {
-    flex: 0 0 100%;
-    width: 100%;
+  .carousel-slide-item {
+    flex: 0 0 88%; /* 次のカードの左端が12%チラ見えする神UX */
+    width: 88%;
     scroll-snap-align: start;
     box-sizing: border-box;
   }
 
-  .swipe-card-item .compact-spot-card {
-    background: #ffffff;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  .carousel-slide-item .stream-spot-card {
+    height: 100%;
   }
 
-  /* スワイプドット */
-  .swipe-dots-bar {
+  /* カルーセルドット */
+  .carousel-dots-row {
     display: flex;
     justify-content: center;
     gap: 0.35rem;
-    margin-top: 0.4rem;
+    margin-top: 0.45rem;
   }
 
-  .swipe-dot {
+  .indicator-dot {
     width: 6px;
     height: 6px;
     border-radius: 9999px;
     background: #cbd5e1;
-    transition: background-color 0.2s, transform 0.2s;
+    transition: all 0.2s;
   }
 
-  .swipe-dot.active {
-    background: #0ea5e9;
-    transform: scale(1.25);
+  .indicator-dot.is-active {
+    width: 14px;
+    background: #0284c7;
   }
 
-  /* 宿アフィリエイトカード */
-  .timeline-hotel-card {
+  /* 宿アフィリエイト専用カード */
+  .stream-hotel-card {
+    position: relative;
+    z-index: 2;
     background: #fffdf5;
-    border: 2px solid #f59e0b;
-    border-radius: 12px;
-    padding: 0.75rem;
+    border: 1.5px solid #f59e0b;
+    border-radius: 14px;
+    padding: 0.85rem;
     box-shadow: 0 2px 8px rgba(245, 158, 11, 0.12);
   }
 
-  .hotel-header-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    background: #fef3c7;
-    color: #b45309;
-    font-size: 0.72rem;
-    font-weight: 800;
-    padding: 0.2rem 0.5rem;
-    border-radius: 6px;
-    margin-bottom: 0.5rem;
-  }
-
-  .hotel-body-grid {
+  .hotel-card-inner {
     display: flex;
     gap: 0.75rem;
   }
 
-  .hotel-thumb {
+  .hotel-main-thumb {
     width: 80px;
     height: 80px;
-    border-radius: 8px;
+    border-radius: 10px;
     object-fit: cover;
     flex-shrink: 0;
   }
 
-  .hotel-info {
+  .hotel-card-details {
     flex: 1;
     min-width: 0;
     display: flex;
@@ -762,35 +727,45 @@ timelineDays.forEach(day => {
     gap: 0.25rem;
   }
 
-  .hotel-title {
-    font-size: 0.95rem;
+  .hotel-label-pill {
+    align-self: flex-start;
+    background: #fef3c7;
+    color: #92400e;
+    font-size: 0.68rem;
     font-weight: 800;
-    color: #111827;
-    margin: 0;
-    line-height: 1.3;
+    padding: 0.15rem 0.45rem;
+    border-radius: 4px;
   }
 
-  .hotel-rating-row {
+  .hotel-name {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0;
+    line-height: 1.35;
+  }
+
+  .hotel-rating-line {
     display: flex;
     align-items: center;
     gap: 0.3rem;
     font-size: 0.74rem;
   }
 
-  .hotel-stars {
+  .stars {
     color: #f59e0b;
   }
 
-  .hotel-score {
+  .score {
     font-weight: 800;
-    color: #d97706;
+    color: #b45309;
   }
 
-  .hotel-reviews {
-    color: #6b7280;
+  .count {
+    color: #64748b;
   }
 
-  .hotel-points {
+  .hotel-summary-points {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -799,58 +774,62 @@ timelineDays.forEach(day => {
     gap: 0.15rem;
   }
 
-  .hotel-points li {
-    font-size: 0.75rem;
-    color: #4b5563;
+  .hotel-summary-points li {
+    font-size: 0.76rem;
+    color: #475569;
+    line-height: 1.35;
   }
 
-  .hotel-points li::before {
+  .hotel-summary-points li::before {
     content: "・";
     color: #f59e0b;
     font-weight: 800;
   }
 
-  .hotel-cta-row {
-    margin-top: 0.65rem;
-  }
-
-  .rakuten-booking-btn {
+  .rakuten-action-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.4rem;
+    gap: 0.45rem;
     background: linear-gradient(135deg, #bf0000 0%, #e60000 100%);
     color: #ffffff;
-    font-size: 0.82rem;
+    font-size: 0.85rem;
     font-weight: 800;
-    padding: 0.55rem 0.85rem;
+    padding: 0.65rem 1rem;
     border-radius: 9999px;
     text-decoration: none;
-    box-shadow: 0 3px 10px rgba(191, 0, 0, 0.3);
+    margin-top: 0.75rem;
+    box-shadow: 0 3px 10px rgba(191, 0, 0, 0.25);
     transition: transform 0.15s, opacity 0.15s;
   }
 
-  .rakuten-booking-btn:active {
+  .rakuten-action-btn:active {
     transform: scale(0.98);
   }
 
-  /* 移動バッジ */
-  .timeline-transit-badge {
+  /* ③ 移動手段トランジット（カード間の縦ライン上にスッキリ配置） */
+  .transit-stream-row {
+    position: relative;
+    padding-left: 1.15rem;
+    margin: 0.5rem 0;
+    z-index: 2;
+  }
+
+  .transit-line-pill {
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    background: #f1f5f9;
-    border: 1px dashed #cbd5e1;
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
     padding: 0.25rem 0.65rem;
     border-radius: 9999px;
     font-size: 0.74rem;
     font-weight: 700;
-    color: #64748b;
-    margin-top: 0.45rem;
+    color: #475569;
   }
 
-  .transit-arrow {
-    color: var(--color-primary, #0ea5e9);
+  .transit-icon {
+    color: #0284c7;
     font-weight: 900;
   }
 
@@ -868,11 +847,10 @@ timelineDays.forEach(day => {
   }
 
   .tavinavi-spot-dialog::backdrop {
-    background: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(6px);
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
   }
 
-  /* モーダル表示アニメーション */
   .tavinavi-spot-dialog[open] {
     animation: dialogSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
@@ -880,7 +858,7 @@ timelineDays.forEach(day => {
   @keyframes dialogSlideUp {
     from {
       opacity: 0;
-      transform: translateY(20px) scale(0.98);
+      transform: translateY(24px) scale(0.98);
     }
     to {
       opacity: 1;
@@ -888,26 +866,10 @@ timelineDays.forEach(day => {
     }
   }
 
-  @media (max-width: 480px) {
-    .travel-timeline {
-      padding: 1rem 0.75rem;
-    }
-    .timeline-left {
-      width: 48px;
-    }
-    .timeline-node {
-      width: 26px;
-      height: 26px;
-    }
-    .timeline-node-icon {
-      font-size: 0.78rem;
-    }
-    .timeline-line {
-      top: 44px;
-    }
-    .compact-thumb-wrapper {
-      width: 64px;
-      height: 64px;
+  @media (min-width: 641px) {
+    .carousel-slide-item {
+      flex: 0 0 75%;
+      width: 75%;
     }
   }
 </style>
