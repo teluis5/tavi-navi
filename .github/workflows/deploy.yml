@@ -18,35 +18,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout your repository using git
         uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - name: Install, build, and upload your site
+        uses: withastro/action@v3
         with:
-          node-version: 22
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build site
-        id: astro_build
-        run: |
-          npx astro build 2>&1 | tee build.log
-        continue-on-error: true
-
-      - name: Display build error if failed
-        if: steps.astro_build.outcome == 'failure'
-        run: |
-          echo "==================== ASTRO BUILD ERROR ===================="
-          cat build.log
-          echo "==========================================================="
-          exit 1
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./dist
+          path: .
+          package-manager: npm
+          node-version: 24
 
   deploy:
     needs: build
