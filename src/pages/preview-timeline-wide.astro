@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import TravelTimelineWide from '../components/TravelTimelineWide.astro';
-import type { TimelineStep } from '../components/TravelTimeline.astro';
+import TravelTimeline, { type TimelineStep } from '../components/TravelTimeline.astro';
 import { buildRakutenTravelUrl, getRakutenHotelImageUrl } from '../utils/affiliate';
 
 // 熱海サンビーチの全画面スポットデータ
@@ -157,15 +156,10 @@ const steps: TimelineStep[] = [
 ---
 
 <Layout
-  title="【案1：ワイドフォト型】熱海1泊2日モデルコース | tavi-navi"
-  description="横幅100%のワイド写真と白抜きタイポグラフィを重ねたハイインパクトなモデルコースUIプレビュー。"
+  title="【熱海・車なし】1泊2日モデルコース（新幹線45分） | tavi-navi"
+  description="東京駅から新幹線で45分！車なし・電車とバスだけで巡る熱海王道1泊2日モデルコース。横スワイプで選べるランチや全画面スポットカード、宿情報まで完全網羅。"
 >
   <div class="preview-page-container">
-    <nav class="design-switch-bar" aria-label="デザイン案切り替え">
-      <a href="/preview-timeline/" class="switch-link">コンパクト型（左サムネ）</a>
-      <a href="/preview-timeline-wide/" class="switch-link is-current">案1：ワイドフォト型（全幅写真）</a>
-    </nav>
-
     <div class="preview-header">
       <span class="preview-badge">MODEL COURSE · ATAMI</span>
       <h1>熱海 1泊2日モデルコース（車なし・新幹線45分）</h1>
@@ -174,7 +168,7 @@ const steps: TimelineStep[] = [
       </p>
     </div>
 
-    <TravelTimelineWide
+    <TravelTimeline
       dayTitle="海沿いプロムナード散策 — 熱海銀座ランチ — 絶景温泉宿"
       steps={steps}
     />
@@ -185,41 +179,13 @@ const steps: TimelineStep[] = [
   .preview-page-container {
     max-width: 640px;
     margin: 0 auto;
-    padding: 1.25rem 1rem 3.5rem;
+    padding: 1.5rem 1rem 3.5rem;
   }
 
   @media (max-width: 480px) {
     .preview-page-container {
-      padding: 1rem 0.85rem 3rem;
+      padding: 1.25rem 0.85rem 3rem;
     }
-  }
-
-  .design-switch-bar {
-    display: flex;
-    gap: 0.4rem;
-    background: #f3f4f6;
-    padding: 0.25rem;
-    border-radius: 8px;
-    margin-bottom: 1.5rem;
-  }
-
-  .switch-link {
-    flex: 1;
-    text-align: center;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: #6b7280;
-    text-decoration: none;
-    padding: 0.45rem 0.5rem;
-    border-radius: 6px;
-    transition: all 0.15s;
-  }
-
-  .switch-link.is-current {
-    background: #ffffff;
-    color: #111827;
-    font-weight: 800;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
   }
 
   .preview-header {

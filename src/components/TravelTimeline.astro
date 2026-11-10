@@ -16,15 +16,15 @@ export interface TimelineStep {
   title: string;          // e.g. "熱海サンビーチ & 親水公園"
   icon?: string;
   categoryLabel?: string; // e.g. "絶景・散策", "ランチ", "宿泊"
-  image?: string;         // サムネイル画像URL
+  image?: string;         // サムネイル・ワイド画像URL
   desc?: string;
   points?: string[];      // 箇条書きポイント（最大2〜3行）
   amenities?: SpotAmenity[]; // 設備情報
   transit?: string;       // 移動情報（e.g. "徒歩 8分（平坦・歩道あり）"）
   transitBadge?: string;
-  
+
   // 横スワイプ候補（カルーセル）機能
-  alternativeLabel?: string; // e.g. "魚：海鮮丼", "肉：静岡牛バーガー"
+  alternativeLabel?: string; // e.g. "魚：おさかな食堂", "肉：静岡牛バーガー"
   alternatives?: TimelineStep[]; // スワイプで切り替え可能な代替候補たち
 
   // 全画面スポットカードポップアップ用
@@ -50,7 +50,6 @@ interface Props {
 
 const { dayTitle, steps, days: rawDays } = Astro.props;
 
-// 正規化
 const timelineDays: TimelineDay[] = rawDays || (steps ? [{
   dayNumber: 1,
   title: dayTitle || '',
@@ -70,19 +69,27 @@ timelineDays.forEach(day => {
   });
 });
 
-// 先頭の装飾絵文字を除去してミニマルに整えるヘルパー
 function cleanText(text?: string): string {
   if (!text) return '';
   return text.replace(/^[\p{Emoji_Presentation}\p{Extended_Pictographic}\s]+/u, '').trim() || text;
 }
+
+// Unsplash等の小サイズ画像パラメータをシネマワイド用高解像度(w=1080)へ自動最適化
+function getWideImageUrl(url?: string, fallbackUrl?: string): string {
+  const target = fallbackUrl || url || '';
+  if (target.includes('images.unsplash.com')) {
+    return target.replace(/w=\d+/, 'w=1080').replace(/q=\d+/, 'q=85');
+  }
+  return target;
+}
 ---
 
-<div class="tavinavi-timeline-editorial">
+<div class="tavinavi-timeline-wide">
   {timelineDays.map((day) => (
     <div class="timeline-day-block">
       {day.title && (
-        <div class="day-header-row">
-          <span class="day-number-label">DAY {String(day.dayNumber || 1).padStart(2, '0')}</span>
+        <div class="day-header-banner">
+          <span class="day-number-pill">DAY {String(day.dayNumber || 1).padStart(2, '0')}</span>
           <h3 class="day-title-text">{day.title}</h3>
         </div>
       )}
@@ -97,7 +104,7 @@ function cleanText(text?: string): string {
           return (
             <div class={`flow-step-item ${isLast ? 'is-last-step' : ''}`}>
               {hasAlternatives && (
-                <div class="swipe-tab-bar" data-track-id={`track-${index}`}>
+                <div class="swipe-tab-bar" data-track-id={`wide-track-${index}`}>
                   <span class="step-num-inline">{stepNum}</span>
                   <div class="swipe-tab-controls">
                     {allOptions.map((opt, optIdx) => (
@@ -116,35 +123,41 @@ function cleanText(text?: string): string {
               <div class="step-content-area">
                 {hasAlternatives ? (
                   <div class="peeking-carousel-wrapper">
-                    <div class="peeking-carousel-track" id={`track-${index}`}>
-                      {allOptions.map((opt) => (
-                        <div class="carousel-slide-item">
-                          <div
-                            class="editorial-spot-unit clickable-unit"
-                            data-open-spot={opt.spotData?.id}
-                            role={opt.spotData ? "button" : undefined}
-                            tabindex={opt.spotData ? "0" : undefined}
-                          >
-                            <div class="spot-header-line">
-                              <h4 class="spot-heading">{opt.title}</h4>
-                              <div class="spot-meta-right">
-                                {(opt.duration || opt.time) && (
-                                  <span class="spot-duration-text">{opt.duration || opt.time}</span>
+                    <div class="peeking-carousel-track" id={`wide-track-${index}`}>
+                      {allOptions.map((opt) => {
+                        const heroImg = getWideImageUrl(opt.image, opt.spotData?.heroImage);
+                        return (
+                          <div class="carousel-slide-item">
+                            <div
+                              class="wide-spot-unit clickable-unit"
+                              data-open-spot={opt.spotData?.id}
+                              role={opt.spotData ? "button" : undefined}
+                              tabindex={opt.spotData ? "0" : undefined}
+                            >
+                              <div class="wide-photo-container">
+                                {heroImg && (
+                                  <img src={heroImg} alt={opt.title} class="wide-photo-img" loading="lazy" />
                                 )}
-                                {opt.spotData && <span class="open-chevron">›</span>}
-                              </div>
-                            </div>
-
-                            <div class="spot-body-grid">
-                              {opt.image && (
-                                <div class="spot-thumb-box">
-                                  <img src={opt.image} alt={opt.title} class="thumb-img" loading="lazy" />
+                                <div class="wide-photo-overlay">
+                                  <div class="overlay-meta-top">
+                                    <span class="overlay-step-num">
+                                      {stepNum}
+                                      {opt.categoryLabel && <span class="overlay-cat"> — {opt.categoryLabel}</span>}
+                                    </span>
+                                    {(opt.duration || opt.time) && (
+                                      <span class="overlay-duration">{opt.duration || opt.time}</span>
+                                    )}
+                                  </div>
+                                  <div class="overlay-title-row">
+                                    <h4 class="overlay-heading">{opt.title}</h4>
+                                    {opt.spotData && <span class="overlay-chevron">›</span>}
+                                  </div>
                                 </div>
-                              )}
+                              </div>
 
-                              <div class="spot-details-col">
+                              <div class="wide-spot-body">
                                 {opt.points && opt.points.length > 0 && (
-                                  <ul class="spot-points-list">
+                                  <ul class="wide-points-list">
                                     {opt.points.map((pt) => (
                                       <li>{pt}</li>
                                     ))}
@@ -152,15 +165,15 @@ function cleanText(text?: string): string {
                                 )}
 
                                 {opt.amenities && opt.amenities.length > 0 && (
-                                  <p class="spot-amenities-text">
+                                  <p class="wide-amenities-line">
                                     {opt.amenities.map((am) => am.label).join(' · ')}
                                   </p>
                                 )}
                               </div>
                             </div>
                           </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
 
                     <div class="carousel-dots-row">
@@ -170,98 +183,103 @@ function cleanText(text?: string): string {
                     </div>
                   </div>
                 ) : step.isHotel ? (
-                  <div class="editorial-hotel-unit">
-                    <div class="spot-header-line">
-                      <div class="spot-title-left">
-                        <span class="step-num">{stepNum}</span>
-                        <h4 class="spot-heading">{step.title}</h4>
-                      </div>
-                      <div class="spot-meta-right">
-                        <span class="spot-duration-text">{step.duration || step.categoryLabel || '宿泊'}</span>
-                      </div>
-                    </div>
-
-                    <div class="spot-body-grid">
+                  <div class="wide-hotel-unit">
+                    <div class="wide-photo-container">
                       {step.image && (
-                        <div class="spot-thumb-box">
-                          <img src={step.image} alt={step.title} class="thumb-img" loading="lazy" />
-                        </div>
+                        <img src={step.image} alt={step.title} class="wide-photo-img" loading="lazy" />
                       )}
-
-                      <div class="spot-details-col">
+                      <div class="wide-photo-overlay">
+                        <div class="overlay-meta-top">
+                          <span class="overlay-step-num">
+                            {stepNum}
+                            <span class="overlay-cat"> — {step.categoryLabel || '今夜の宿'}</span>
+                          </span>
+                          <span class="overlay-duration">{step.duration || 'チェックイン'}</span>
+                        </div>
+                        <div class="overlay-title-row">
+                          <h4 class="overlay-heading">{step.title}</h4>
+                        </div>
                         {step.hotelData && (
-                          <div class="hotel-meta-line">
-                            <span class="hotel-rating">★ {step.hotelData.rating}</span>
-                            <span class="hotel-reviews">({step.hotelData.reviewCount}件)</span>
+                          <div class="overlay-hotel-rating">
+                            <span class="rating-star">★ {step.hotelData.rating}</span>
+                            <span class="rating-count">({step.hotelData.reviewCount}件)</span>
                             {step.hotelData.priceText && (
-                              <span class="hotel-price">· {step.hotelData.priceText}</span>
+                              <span class="rating-price">· {step.hotelData.priceText}</span>
                             )}
                           </div>
                         )}
-                        {step.points && (
-                          <ul class="spot-points-list">
-                            {step.points.map((pt) => (
-                              <li>{pt}</li>
-                            ))}
-                          </ul>
-                        )}
                       </div>
                     </div>
 
-                    {step.hotelData?.rakutenUrl && (
-                      <a
-                        href={step.hotelData.rakutenUrl}
-                        target="_blank"
-                        rel="noopener sponsored"
-                        class="minimal-hotel-btn"
-                      >
-                        <span>楽天トラベルで空室・プランを見る</span>
-                        <span class="btn-arrow">→</span>
-                      </a>
-                    )}
+                    <div class="wide-spot-body">
+                      {step.points && (
+                        <ul class="wide-points-list">
+                          {step.points.map((pt) => (
+                            <li>{pt}</li>
+                          ))}
+                        </ul>
+                      )}
+
+                      {step.hotelData?.rakutenUrl && (
+                        <a
+                          href={step.hotelData.rakutenUrl}
+                          target="_blank"
+                          rel="noopener sponsored"
+                          class="wide-hotel-cta"
+                        >
+                          <span>楽天トラベルで空室・料金プランを見る</span>
+                          <span class="cta-arrow">→</span>
+                        </a>
+                      )}
+                    </div>
                   </div>
                 ) : (
                   <div
-                    class="editorial-spot-unit clickable-unit"
+                    class="wide-spot-unit clickable-unit"
                     data-open-spot={step.spotData?.id}
                     role={step.spotData ? "button" : undefined}
                     tabindex={step.spotData ? "0" : undefined}
                   >
-                    <div class="spot-header-line">
-                      <div class="spot-title-left">
-                        <span class="step-num">{stepNum}</span>
-                        <h4 class="spot-heading">{step.title}</h4>
-                      </div>
-                      <div class="spot-meta-right">
-                        {(step.duration || step.time) && (
-                          <span class="spot-duration-text">{step.duration || step.time}</span>
-                        )}
-                        {step.spotData && <span class="open-chevron">›</span>}
+                    <div class="wide-photo-container">
+                      {step.image && (
+                        <img
+                          src={getWideImageUrl(step.image, step.spotData?.heroImage)}
+                          alt={step.title}
+                          class="wide-photo-img"
+                          loading="lazy"
+                        />
+                      )}
+                      <div class="wide-photo-overlay">
+                        <div class="overlay-meta-top">
+                          <span class="overlay-step-num">
+                            {stepNum}
+                            {step.categoryLabel && <span class="overlay-cat"> — {step.categoryLabel}</span>}
+                          </span>
+                          {(step.duration || step.time) && (
+                            <span class="overlay-duration">{step.duration || step.time}</span>
+                          )}
+                        </div>
+                        <div class="overlay-title-row">
+                          <h4 class="overlay-heading">{step.title}</h4>
+                          {step.spotData && <span class="overlay-chevron">›</span>}
+                        </div>
                       </div>
                     </div>
 
-                    <div class="spot-body-grid">
-                      {step.image && (
-                        <div class="spot-thumb-box">
-                          <img src={step.image} alt={step.title} class="thumb-img" loading="lazy" />
-                        </div>
+                    <div class="wide-spot-body">
+                      {step.points && step.points.length > 0 && (
+                        <ul class="wide-points-list">
+                          {step.points.map((pt) => (
+                            <li>{pt}</li>
+                          ))}
+                        </ul>
                       )}
 
-                      <div class="spot-details-col">
-                        {step.points && step.points.length > 0 && (
-                          <ul class="spot-points-list">
-                            {step.points.map((pt) => (
-                              <li>{pt}</li>
-                            ))}
-                          </ul>
-                        )}
-
-                        {step.amenities && step.amenities.length > 0 && (
-                          <p class="spot-amenities-text">
-                            {step.amenities.map((am) => am.label).join(' · ')}
-                          </p>
-                        )}
-                      </div>
+                      {step.amenities && step.amenities.length > 0 && (
+                        <p class="wide-amenities-line">
+                          {step.amenities.map((am) => am.label).join(' · ')}
+                        </p>
+                      )}
                     </div>
                   </div>
                 )}
@@ -287,7 +305,7 @@ function cleanText(text?: string): string {
 </div>
 
 <script>
-  function initTimelineInteractions() {
+  function initWideTimelineInteractions() {
     // 1. スポット全画面ダイアログの開閉
     document.querySelectorAll('[data-open-spot]').forEach((card) => {
       card.addEventListener('click', () => {
@@ -351,10 +369,10 @@ function cleanText(text?: string): string {
       });
     });
 
-    // 3. カルーセルの横スクロール監視（タブ＆ドット同期）
+    // 3. カルーセルの横スクロール監視
     document.querySelectorAll('.peeking-carousel-track').forEach((track) => {
       track.addEventListener('scroll', () => {
-        const itemWidth = track.clientWidth * 0.88;
+        const itemWidth = track.clientWidth * 0.9;
         const scrollLeft = track.scrollLeft;
         const activeIdx = Math.round(scrollLeft / itemWidth);
 
@@ -371,51 +389,53 @@ function cleanText(text?: string): string {
     });
   }
 
-  initTimelineInteractions();
-  document.addEventListener('astro:page-load', initTimelineInteractions);
+  initWideTimelineInteractions();
+  document.addEventListener('astro:page-load', initWideTimelineInteractions);
 </script>
 
 <style>
-  /* 全体コンテナ：モノトーン・エディトリアル調 */
-  .tavinavi-timeline-editorial {
+  /* 全体コンテナ */
+  .tavinavi-timeline-wide {
     width: 100%;
-    margin: 1rem 0 2.5rem;
+    margin: 1rem 0 3rem;
     box-sizing: border-box;
     color: #111827;
   }
 
   .timeline-day-block {
-    margin-bottom: 2.5rem;
+    margin-bottom: 3rem;
   }
 
-  /* DAY見出し：ミニマルな黒ライン */
-  .day-header-row {
+  /* DAY見出し：黒のソリッドピル＋ボールドラインで画面を引き締める */
+  .day-header-banner {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     gap: 0.65rem;
-    padding-bottom: 0.6rem;
-    margin-bottom: 1.25rem;
-    border-bottom: 1.5px solid #111827;
+    padding-bottom: 0.7rem;
+    margin-bottom: 1.35rem;
+    border-bottom: 2px solid #111827;
   }
 
-  .day-number-label {
-    font-size: 0.75rem;
+  .day-number-pill {
+    background: #111827;
+    color: #ffffff;
+    font-size: 0.72rem;
     font-weight: 800;
     letter-spacing: 0.08em;
-    color: #111827;
+    padding: 0.22rem 0.55rem;
+    border-radius: 4px;
     font-variant-numeric: tabular-nums;
     flex-shrink: 0;
   }
 
   .day-title-text {
     font-size: 0.95rem;
-    font-weight: 700;
-    color: #374151;
+    font-weight: 800;
+    color: #111827;
     margin: 0;
-    line-height: 1.4;
+    line-height: 1.35;
   }
 
-  /* ステップリスト */
   .step-flow-list {
     display: flex;
     flex-direction: column;
@@ -429,15 +449,15 @@ function cleanText(text?: string): string {
   .swipe-tab-bar {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 0.65rem;
-    border-bottom: 1px solid #f3f4f6;
+    justify-content: space-between;
+    margin-bottom: 0.55rem;
+    border-bottom: 1px solid #e5e7eb;
   }
 
   .step-num-inline {
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: #9ca3af;
+    font-size: 0.85rem;
+    font-weight: 900;
+    color: #111827;
     font-variant-numeric: tabular-nums;
     letter-spacing: 0.04em;
     padding-bottom: 0.4rem;
@@ -451,9 +471,9 @@ function cleanText(text?: string): string {
   .swipe-tab-btn {
     background: transparent;
     border: none;
-    border-bottom: 2px solid transparent;
+    border-bottom: 2.5px solid transparent;
     padding: 0 0 0.4rem 0;
-    font-size: 0.8rem;
+    font-size: 0.82rem;
     font-weight: 600;
     color: #9ca3af;
     cursor: pointer;
@@ -466,112 +486,145 @@ function cleanText(text?: string): string {
     border-bottom-color: #111827;
   }
 
-  /* スポット本体（枠線ゼロ・雑誌エディトリアル構成） */
-  .editorial-spot-unit,
-  .editorial-hotel-unit {
+  /* ワイドフォト・スポットユニット */
+  .wide-spot-unit,
+  .wide-hotel-unit {
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
-    padding: 0.25rem 0;
+    gap: 0.65rem;
     width: 100%;
     box-sizing: border-box;
   }
 
   .clickable-unit {
     cursor: pointer;
-    transition: opacity 0.15s;
   }
 
-  .clickable-unit:active {
-    opacity: 0.75;
+  .clickable-unit:active .wide-photo-img {
+    transform: scale(1.02);
   }
 
-  /* ① 上部：番号 ＋ タイトル ＆ 所要時間 */
-  .spot-header-line {
+  /* ① 横幅100% シネマ風 2:1 ワイド写真＋グラデーション文字オーバーレイ */
+  .wide-photo-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 2 / 1;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #1f2937;
+  }
+
+  .wide-photo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .wide-photo-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(10, 14, 23, 0.9) 0%,
+      rgba(10, 14, 23, 0.48) 52%,
+      rgba(10, 14, 23, 0.04) 100%
+    );
     display: flex;
-    align-items: baseline;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0.75rem 0.95rem;
+    color: #ffffff;
+  }
+
+  .overlay-meta-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.15rem;
+  }
+
+  .overlay-step-num {
+    font-size: 0.82rem;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    color: #ffffff;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .overlay-cat {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.82);
+    letter-spacing: 0.02em;
+  }
+
+  .overlay-duration {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.92);
+    background: rgba(255, 255, 255, 0.16);
+    backdrop-filter: blur(4px);
+    padding: 0.1rem 0.45rem;
+    border-radius: 4px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .overlay-title-row {
+    display: flex;
+    align-items: flex-end;
     justify-content: space-between;
     gap: 0.5rem;
   }
 
-  .spot-title-left {
-    display: flex;
-    align-items: baseline;
-    gap: 0.5rem;
-    min-width: 0;
+  .overlay-heading {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0;
+    line-height: 1.28;
+    letter-spacing: -0.01em;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
   }
 
-  .step-num {
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: #9ca3af;
-    font-variant-numeric: tabular-nums;
-    letter-spacing: 0.04em;
+  .overlay-chevron {
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1;
     flex-shrink: 0;
   }
 
-  .spot-heading {
-    font-size: 1rem;
-    font-weight: 800;
-    color: #111827;
-    margin: 0;
-    line-height: 1.35;
-    letter-spacing: -0.01em;
-  }
-
-  .spot-meta-right {
+  .overlay-hotel-rating {
     display: flex;
     align-items: baseline;
     gap: 0.35rem;
-    flex-shrink: 0;
-  }
-
-  .spot-duration-text {
     font-size: 0.75rem;
-    font-weight: 500;
-    color: #6b7280;
-    font-variant-numeric: tabular-nums;
+    margin-top: 0.2rem;
+    color: rgba(255, 255, 255, 0.9);
   }
 
-  .open-chevron {
-    font-size: 1rem;
-    font-weight: 400;
-    color: #9ca3af;
-    line-height: 1;
+  .rating-star {
+    font-weight: 800;
+    color: #fbbf24;
   }
 
-  /* ② 下部：左に画像（88px）、右に説明 */
-  .spot-body-grid {
-    display: flex;
-    gap: 0.85rem;
-    align-items: flex-start;
+  .rating-count,
+  .rating-price {
+    color: rgba(255, 255, 255, 0.82);
   }
 
-  .spot-thumb-box {
-    width: 88px;
-    height: 88px;
-    flex-shrink: 0;
-    border-radius: 6px;
-    overflow: hidden;
-    background: #f3f4f6;
-  }
-
-  .thumb-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  .spot-details-col {
-    flex: 1;
-    min-width: 0;
+  /* ② 写真下の説明エリア */
+  .wide-spot-body {
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
+    padding: 0 0.1rem;
   }
 
-  .spot-points-list {
+  .wide-points-list {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -580,32 +633,31 @@ function cleanText(text?: string): string {
     gap: 0.2rem;
   }
 
-  .spot-points-list li {
-    font-size: 0.8rem;
-    color: #374151;
-    line-height: 1.45;
+  .wide-points-list li {
+    font-size: 0.82rem;
+    color: #1f2937;
+    line-height: 1.48;
     position: relative;
-    padding-left: 0.65rem;
+    padding-left: 0.7rem;
   }
 
-  .spot-points-list li::before {
+  .wide-points-list li::before {
     content: "·";
     position: absolute;
     left: 0;
-    color: #9ca3af;
+    color: #6b7280;
     font-weight: 900;
   }
 
-  /* 設備情報：色付きバッジを廃し1行のドット区切りテキストへ */
-  .spot-amenities-text {
-    margin: 0.1rem 0 0;
+  .wide-amenities-line {
+    margin: 0.05rem 0 0;
     font-size: 0.72rem;
     color: #6b7280;
     line-height: 1.35;
     letter-spacing: 0.01em;
   }
 
-  /* 横スワイプ カルーセル（枠線なしPeeking UI） */
+  /* 横スワイプ カルーセル（2:1ワイド写真が隣にチラ見えするダイナミックUI） */
   .peeking-carousel-wrapper {
     position: relative;
     width: 100%;
@@ -613,7 +665,7 @@ function cleanText(text?: string): string {
 
   .peeking-carousel-track {
     display: flex;
-    gap: 1rem;
+    gap: 0.75rem;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
@@ -625,93 +677,66 @@ function cleanText(text?: string): string {
   }
 
   .carousel-slide-item {
-    flex: 0 0 88%;
-    width: 88%;
+    flex: 0 0 90%;
+    width: 90%;
     scroll-snap-align: start;
     box-sizing: border-box;
-    padding-right: 0.75rem;
-    border-right: 1px solid #f3f4f6;
   }
 
-  .carousel-slide-item:last-child {
-    border-right: none;
-    padding-right: 0;
-  }
-
-  /* カルーセルインジケーター（極小モノトーン） */
   .carousel-dots-row {
     display: flex;
     justify-content: center;
     gap: 0.35rem;
-    margin-top: 0.5rem;
+    margin-top: 0.55rem;
   }
 
   .indicator-dot {
     width: 5px;
     height: 5px;
     border-radius: 9999px;
-    background: #e5e7eb;
+    background: #d1d5db;
     transition: all 0.2s;
   }
 
   .indicator-dot.is-active {
-    width: 14px;
+    width: 16px;
     background: #111827;
   }
 
-  /* 宿セクション：黄色枠や赤グラデを廃止しモノトーン統一 */
-  .hotel-meta-line {
-    display: flex;
-    align-items: baseline;
-    gap: 0.3rem;
-    font-size: 0.76rem;
-    margin-bottom: 0.1rem;
-  }
-
-  .hotel-rating {
-    font-weight: 800;
-    color: #111827;
-  }
-
-  .hotel-reviews,
-  .hotel-price {
-    color: #6b7280;
-  }
-
-  .minimal-hotel-btn {
+  /* 宿予約ボタン：漆黒ソリッドのハイコントラストCTA */
+  .wide-hotel-cta {
     display: flex;
     align-items: center;
     justify-content: space-between;
     background: #111827;
     color: #ffffff;
-    font-size: 0.8rem;
+    font-size: 0.82rem;
     font-weight: 700;
-    padding: 0.65rem 1rem;
+    padding: 0.7rem 1.05rem;
     border-radius: 6px;
     text-decoration: none;
-    margin-top: 0.35rem;
+    margin-top: 0.3rem;
     letter-spacing: 0.02em;
     transition: opacity 0.15s;
   }
 
-  .minimal-hotel-btn:hover {
+  .wide-hotel-cta:hover {
     opacity: 0.88;
   }
 
-  .minimal-hotel-btn:active {
+  .wide-hotel-cta:active {
     opacity: 0.75;
   }
 
-  .btn-arrow {
-    font-size: 0.9rem;
-    font-weight: 400;
+  .cta-arrow {
+    font-size: 0.95rem;
   }
 
-  /* 移動手段（トランジット）：極細水平ライン＋中央テキスト */
+  /* 移動手段（トランジット） */
   .transit-divider-row {
     display: flex;
     align-items: center;
-    margin: 1.25rem 0;
+    margin: 1.35rem 0;
     color: #6b7280;
   }
 
@@ -725,8 +750,8 @@ function cleanText(text?: string): string {
 
   .transit-divider-text {
     font-size: 0.72rem;
-    font-weight: 500;
-    color: #6b7280;
+    font-weight: 600;
+    color: #4b5563;
     padding: 0 0.85rem;
     letter-spacing: 0.03em;
     white-space: nowrap;
@@ -762,13 +787,6 @@ function cleanText(text?: string): string {
     to {
       opacity: 1;
       transform: translateY(0) scale(1);
-    }
-  }
-
-  @media (min-width: 641px) {
-    .carousel-slide-item {
-      flex: 0 0 80%;
-      width: 80%;
     }
   }
 </style>
