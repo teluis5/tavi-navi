@@ -15,6 +15,14 @@ import ProblemBox from '../../components/ProblemBox.astro';
 import ConclusionBox from '../../components/ConclusionBox.astro';
 import TravelTimeline from '../../components/TravelTimeline.astro';
 
+import photoKiritanpo from '../../assets/photos/akita_compressed/kiritanpo-pot.webp';
+import photoInaniwa from '../../assets/photos/akita_compressed/01稲庭うどん製造体験.webp';
+import photoTatsuko from '../../assets/photos/akita_compressed/tazawako-tatsuko.webp';
+import photoTsurunoyu from '../../assets/photos/akita_compressed/nyuto-tsurunoyu-snow.webp';
+import photoTaenoyu from '../../assets/photos/akita_compressed/01乳頭温泉郷　妙乃湯.webp';
+import photoTazawako from '../../assets/photos/akita_compressed/tazawako.webp';
+import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
+
 <ProblemBox>
 - 「どこかにビューン！で田沢湖駅が当たったけど、車の運転なしで観光できる？」
 - 「路線バスだけで田沢湖と乳頭温泉郷を1泊2日で効率よく回れる？」
@@ -56,7 +64,8 @@ JR東日本「どこかにビューン！」で秋田新幹線**「田沢湖駅�
           title: "田沢湖駅到着 ＆ 駅前ランチ",
           categoryLabel: "ご当地グルメ",
           duration: "ランチ 60分",
-          image: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=1080&q=85",
+          image: photoKiritanpo,
+          imageCredit: "秋田県観光連盟",
           points: [
             "東京駅から「こまち」で約2時間50分。乗り換えなしで田沢湖駅に直行",
             "駅舎内の観光情報センター「フォレイク」でバス時刻表と観光マップを入手",
@@ -68,7 +77,8 @@ JR東日本「どこかにビューン！」で秋田新幹線**「田沢湖駅�
               title: "駅前食堂の比内地鶏きりたんぽ鍋",
               categoryLabel: "秋田名物",
               areaLabel: "田沢湖駅前",
-              image: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1080&q=85",
+              image: photoKiritanpo,
+              imageCredit: "秋田県観光連盟",
               points: [
                 "比内地鶏の濃厚なガラ出汁が染み込んだもちもちのきりたんぽ",
                 "舞茸やセリの香りが食欲をそそる秋田の冬の王道グルメ",
@@ -80,7 +90,8 @@ JR東日本「どこかにビューン！」で秋田新幹線**「田沢湖駅�
               title: "本場・稲庭ざるうどん＆山菜天ぷら",
               categoryLabel: "のど越し麺",
               areaLabel: "田沢湖駅前",
-              image: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=1080&q=85",
+              image: photoInaniwa,
+              imageCredit: "秋田県観光連盟",
               points: [
                 "日本三大うどんのひとつ、平打ちの滑らかなのど越し",
                 "地元採れたての山菜やきのこ天ぷらと一緒にさっぱり味わう",
@@ -104,7 +115,8 @@ JR東日本「どこかにビューン！」で秋田新幹線**「田沢湖駅�
           title: "たつこ像 ＆ 漢槎宮（浮木神社）",
           categoryLabel: "絶景・パワースポット",
           duration: "観光停車 20分",
-          image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1080&q=85",
+          image: photoTatsuko,
+          imageCredit: "秋田県観光連盟",
           points: [
             "日本一深い水深423.4mが生み出す、息をのむほど深い瑠璃色（ラピスラズリ）の湖面",
             "永遠の美を求めて龍になった伝説の乙女「たつこ姫」の黄金像",
@@ -125,7 +137,8 @@ JR東日本「どこかにビューン！」で秋田新幹線**「田沢湖駅�
           title: "乳頭温泉郷 鶴の湯温泉（チェックイン）",
           categoryLabel: "秘湯・温泉宿泊",
           duration: "宿泊",
-          image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1080&q=85",
+          image: photoTsurunoyu,
+          imageCredit: "秋田県観光連盟",
           points: [
             "田沢湖駅から直通の「乳頭線」バスで約35分、「アルパこまくさ」または「鶴の湯温泉入口」へ",
             "茅葺屋根の長屋本陣が並ぶ、江戸時代からの歴史を色濃く残す秘湯の宿",
@@ -136,7 +149,7 @@ JR東日本「どこかにビューン！」で秋田新幹線**「田沢湖駅�
             title: "鶴の湯温泉",
             prefName: "秋田",
             prefSlug: "akita",
-            heroImage: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1080&q=85",
+            heroImage: photoTsurunoyu.src,
             amenities: [
               { icon: "♨", label: "乳白色の自噴泉", type: "safe" },
               { icon: "🚌", label: "バス停から送迎あり（要予約）", type: "warning" },
@@ -162,7 +175,8 @@ JR東日本「どこかにビューン！」で秋田新幹線**「田沢湖駅�
           title: "妙乃湯 ＆ 渓流露天風呂めぐり",
           categoryLabel: "日帰り温泉",
           duration: "滞在 90分",
-          image: "https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&w=1080&q=85",
+          image: photoTaenoyu,
+          imageCredit: "秋田県観光連盟",
           points: [
             "宿泊者限定の巡回バス「湯めぐり号」を活用して近隣の宿へ",
             "渓流のせせらぎを間近に臨む「金の湯」「銀の湯」の2つの源泉を持つモダンな名宿・妙乃湯",
@@ -183,7 +197,8 @@ JR東日本「どこかにビューン！」で秋田新幹線**「田沢湖駅�
           title: "田沢湖共栄パレス ＆ 湖畔レストハウス",
           categoryLabel: "お土産・カフェ",
           duration: "買い物 45分",
-          image: "https://images.unsplash.com/photo-1528164344705-475426879c0d?auto=format&fit=crop&w=1080&q=85",
+          image: photoTazawako,
+          imageCredit: "秋田県観光連盟",
           points: [
             "秋田犬の見学コーナー（本物の秋田犬に出会える！）",
             "炭火で香ばしく焼き上げた名物「みそたんぽ」や地ビール「田沢湖ビール」を購入",
@@ -204,7 +219,8 @@ JR東日本「どこかにビューン！」で秋田新幹線**「田沢湖駅�
           title: "田沢湖駅発（こまち乗車）",
           categoryLabel: "新幹線帰路",
           duration: "移動 約2時間50分",
-          image: "https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=1080&q=85",
+          image: photoKomachi,
+          imageCredit: "秋田県観光連盟",
           points: [
             "駅舎内でお土産（いぶりがっこ、バター餅、稲庭うどん）を最終チェック",
             "全車指定席の「こまち」に乗り込み、夕方の車窓を眺めながら東京へ",
