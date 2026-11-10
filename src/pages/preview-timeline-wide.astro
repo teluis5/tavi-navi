@@ -1,0 +1,253 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TravelTimelineWide from '../components/TravelTimelineWide.astro';
+import type { TimelineStep } from '../components/TravelTimeline.astro';
+import { buildRakutenTravelUrl, getRakutenHotelImageUrl } from '../utils/affiliate';
+
+// 熱海サンビーチの全画面スポットデータ
+const atamiBeachSpot = {
+  id: "atami-sunbeach",
+  title: "熱海サンビーチ & 親水公園",
+  catchphrase: "ヤシ並木が続く南国風プロムナードと青い海",
+  prefName: "静岡",
+  prefSlug: "shizuoka",
+  category: "絶景・ビーチ",
+  heroImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1080&q=85",
+  amenities: [
+    { icon: "🚻", label: "トイレ完備", type: "safe" as const },
+    { icon: "🪑", label: "ベンチ多数", type: "info" as const },
+    { icon: "👶", label: "授乳室近く", type: "safe" as const },
+    { icon: "♿", label: "段差ゼロ", type: "safe" as const },
+    { icon: "☀️", label: "晴天推奨", type: "warning" as const },
+  ],
+  points: [
+    "朝8:00前の無人状態がプロムナードの撮影ベスト",
+    "親水公園第1デッキから熱海城と海を同時に望む絶景",
+    "砂浜沿いは全面ウッドデッキでベビーカーも段差ゼロ"
+  ],
+  caution: "日陰が少ないため夏場は日傘必須 / 最寄公衆トイレは親水公園中央棟",
+  googleMapsUrl: "https://maps.google.com/?q=熱海サンビーチ",
+};
+
+// ランチの魚スポット詳細
+const fishLunchSpot = {
+  id: "osakana-shokudo",
+  title: "熱海銀座 おさかな食堂",
+  catchphrase: "行列必至！朝獲れ地魚てっぺん丼と金目鯛出汁茶漬け",
+  prefName: "静岡",
+  prefSlug: "shizuoka",
+  category: "ご当地海鮮ランチ",
+  heroImage: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=1080&q=85",
+  amenities: [
+    { icon: "🍴", label: "海鮮処", type: "info" as const },
+    { icon: "☔", label: "雨天OK", type: "safe" as const },
+    { icon: "💳", label: "カード可", type: "info" as const },
+  ],
+  points: [
+    "11:00オープン前の店頭整理券発券が待ち時間短縮の鍵",
+    "最後の一口は無料の金目鯛特製濃厚出汁をかけて絶品茶漬けに",
+    "テイクアウト専用窓口もあり、サンビーチで食べるのも最高"
+  ],
+  caution: "ランチピーク時（12:00〜13:30）は40分〜1時間待ちの可能性あり",
+  googleMapsUrl: "https://maps.google.com/?q=熱海銀座おさかな食堂",
+};
+
+// ランチのお肉スポット詳細（スワイプ候補）
+const meatLunchSpot = {
+  id: "cafe-roca-burger",
+  title: "CAFE RoCA (静岡牛バーガー)",
+  catchphrase: "静岡そだち牛100%！肉汁あふれる贅沢ご当地バーガー",
+  prefName: "静岡",
+  prefSlug: "shizuoka",
+  category: "お肉・バーガー",
+  heroImage: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1080&q=85",
+  amenities: [
+    { icon: "🥩", label: "お肉料理", type: "info" as const },
+    { icon: "🪑", label: "テラス席あり", type: "safe" as const },
+    { icon: "👶", label: "子連れ歓迎", type: "safe" as const },
+    { icon: "☔", label: "雨天OK", type: "safe" as const },
+  ],
+  points: [
+    "魚が苦手な人や子どもに大好評のジューシーな静岡牛パティ",
+    "広々としたレトロモダンな店内でベビーカー横付け可能",
+    "自家製レモネードと揚げたてポテトのセットが相性抜群"
+  ],
+  caution: "数量限定パティのため14:00以降は売り切れになる場合あり",
+  googleMapsUrl: "https://maps.google.com/?q=熱海CAFERoCA",
+};
+
+const steps: TimelineStep[] = [
+  {
+    duration: "目安 75分",
+    title: "熱海サンビーチ & 親水公園",
+    categoryLabel: "絶景・散策",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1080&q=85",
+    points: [
+      "青い海とヤシの木の南国風プロムナード",
+      "親水公園第1デッキからの熱海城ビュー",
+      "砂浜沿いは段差ゼロでベビーカーも快適"
+    ],
+    amenities: [
+      { icon: "🚻", label: "トイレ完備", type: "safe" },
+      { icon: "🪑", label: "ベンチ多数", type: "info" },
+      { icon: "👶", label: "授乳室近く", type: "safe" },
+      { icon: "☀️", label: "晴天推奨", type: "warning" },
+    ],
+    spotData: atamiBeachSpot,
+    transit: "徒歩 8分（平坦・歩道あり）"
+  },
+  {
+    duration: "目安 60分",
+    title: "熱海銀座 おさかな食堂",
+    categoryLabel: "ランチ",
+    alternativeLabel: "魚：おさかな食堂",
+    image: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=1080&q=85",
+    points: [
+      "朝獲れ地魚がどっさり乗った海鮮てっぺん丼",
+      "最後は濃厚な金目鯛の特製出汁茶漬けで締める",
+      "商店街アーケード内で雨でも濡れずに入店可能"
+    ],
+    amenities: [
+      { icon: "🍴", label: "海鮮処", type: "info" },
+      { icon: "☔", label: "雨天OK", type: "safe" },
+      { icon: "💳", label: "カード可", type: "info" },
+    ],
+    spotData: fishLunchSpot,
+    transit: "湯〜遊〜バス 12分（1回200円）",
+    alternatives: [
+      {
+        duration: "目安 50分",
+        title: "CAFE RoCA (静岡牛バーガー)",
+        categoryLabel: "ランチ",
+        alternativeLabel: "肉：静岡牛バーガー",
+        image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1080&q=85",
+        points: [
+          "静岡そだち牛100%パティの肉厚ジューシーバーガー",
+          "テラス席あり、魚が苦手な子どもでも安心",
+          "ベビーカー横付けOKでゆったりくつろげる"
+        ],
+        amenities: [
+          { icon: "🥩", label: "お肉料理", type: "info" },
+          { icon: "🪑", label: "テラス席あり", type: "safe" },
+          { icon: "👶", label: "子連れ歓迎", type: "safe" },
+        ],
+        spotData: meatLunchSpot,
+      }
+    ]
+  },
+  {
+    duration: "チェックイン",
+    title: "熱海温泉 ホテルミクラス",
+    categoryLabel: "今夜の宿",
+    image: getRakutenHotelImageUrl("67295"),
+    isHotel: true,
+    points: [
+      "熱海サンビーチ目の前、最上階オーシャンビュー展望露天風呂",
+      "熱海駅より路線バスで約5分・タクシー1メーターの好アクセス",
+      "夕食は地元静岡食材をふんだんに使用したフレンチコース"
+    ],
+    hotelData: {
+      rating: "4.4",
+      reviewCount: "2,150",
+      rakutenUrl: buildRakutenTravelUrl({ hotelNo: "67295", keyword: "熱海温泉 ホテルミクラス" }),
+      priceText: "2名1室 15,400円〜/人"
+    }
+  }
+];
+---
+
+<Layout
+  title="【案1：ワイドフォト型】熱海1泊2日モデルコース | tavi-navi"
+  description="横幅100%のワイド写真と白抜きタイポグラフィを重ねたハイインパクトなモデルコースUIプレビュー。"
+>
+  <div class="preview-page-container">
+    <nav class="design-switch-bar" aria-label="デザイン案切り替え">
+      <a href="/preview-timeline/" class="switch-link">コンパクト型（左サムネ）</a>
+      <a href="/preview-timeline-wide/" class="switch-link is-current">案1：ワイドフォト型（全幅写真）</a>
+    </nav>
+
+    <div class="preview-header">
+      <span class="preview-badge">MODEL COURSE · ATAMI</span>
+      <h1>熱海 1泊2日モデルコース（車なし・新幹線45分）</h1>
+      <p class="preview-lead">
+        徒歩と周遊バスだけで巡る海沿いプラン。写真をタップすると全画面ガイドが開き、ランチは横スワイプでワイド写真ごと候補を切り替えられます。
+      </p>
+    </div>
+
+    <TravelTimelineWide
+      dayTitle="海沿いプロムナード散策 — 熱海銀座ランチ — 絶景温泉宿"
+      steps={steps}
+    />
+  </div>
+</Layout>
+
+<style>
+  .preview-page-container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 1.25rem 1rem 3.5rem;
+  }
+
+  @media (max-width: 480px) {
+    .preview-page-container {
+      padding: 1rem 0.85rem 3rem;
+    }
+  }
+
+  .design-switch-bar {
+    display: flex;
+    gap: 0.4rem;
+    background: #f3f4f6;
+    padding: 0.25rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+  }
+
+  .switch-link {
+    flex: 1;
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #6b7280;
+    text-decoration: none;
+    padding: 0.45rem 0.5rem;
+    border-radius: 6px;
+    transition: all 0.15s;
+  }
+
+  .switch-link.is-current {
+    background: #ffffff;
+    color: #111827;
+    font-weight: 800;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  }
+
+  .preview-header {
+    margin-bottom: 1.75rem;
+  }
+
+  .preview-badge {
+    display: inline-block;
+    color: #6b7280;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.35rem;
+  }
+
+  .preview-header h1 {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #111827;
+    margin: 0 0 0.5rem;
+    line-height: 1.35;
+    letter-spacing: -0.02em;
+  }
+
+  .preview-lead {
+    font-size: 0.82rem;
+    color: #6b7280;
+    line-height: 1.6;
+    margin: 0;
+  }
+</style>

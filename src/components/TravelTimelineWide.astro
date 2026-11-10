@@ -1,0 +1,751 @@
+---
+import SpotCard, { type SpotData } from './SpotCard.astro';
+import type { TimelineStep, TimelineDay } from './TravelTimeline.astro';
+
+interface Props {
+  dayTitle?: string;
+  steps?: TimelineStep[];
+  days?: TimelineDay[];
+}
+
+const { dayTitle, steps, days: rawDays } = Astro.props;
+
+const timelineDays: TimelineDay[] = rawDays || (steps ? [{
+  dayNumber: 1,
+  title: dayTitle || '',
+  steps: steps
+}] : []);
+
+// 全ステップからモーダル用のspotDataを収集
+const allModalSpots: SpotData[] = [];
+timelineDays.forEach(day => {
+  day.steps.forEach(step => {
+    if (step.spotData) allModalSpots.push(step.spotData);
+    if (step.alternatives) {
+      step.alternatives.forEach(alt => {
+        if (alt.spotData) allModalSpots.push(alt.spotData);
+      });
+    }
+  });
+});
+
+function cleanText(text?: string): string {
+  if (!text) return '';
+  return text.replace(/^[\p{Emoji_Presentation}\p{Extended_Pictographic}\s]+/u, '').trim() || text;
+}
+
+// UnsplashのサムネイルURL(w=200等)を高解像度ワイド用(w=1000)へ自動アップグレード
+function getWideImageUrl(url?: string, fallbackUrl?: string): string {
+  const target = fallbackUrl || url || '';
+  if (target.includes('images.unsplash.com')) {
+    return target.replace(/w=\d+/, 'w=1080').replace(/q=\d+/, 'q=85');
+  }
+  return target;
+}
+---
+
+<div class="tavinavi-timeline-wide">
+  {timelineDays.map((day) => (
+    <div class="timeline-day-block">
+      {day.title && (
+        <div class="day-header-banner">
+          <span class="day-number-pill">DAY {String(day.dayNumber || 1).padStart(2, '0')}</span>
+          <h3 class="day-title-text">{day.title}</h3>
+        </div>
+      )}
+
+      <div class="step-flow-list">
+        {day.steps && day.steps.map((step, index) => {
+          const isLast = index === day.steps.length - 1;
+          const stepNum = String(index + 1).padStart(2, '0');
+          const hasAlternatives = step.alternatives && step.alternatives.length > 0;
+          const allOptions = hasAlternatives ? [step, ...step.alternatives!] : [step];
+
+          return (
+            <div class={`flow-step-item ${isLast ? 'is-last-step' : ''}`}>
+              {hasAlternatives && (
+                <div class="swipe-tab-bar" data-track-id={`wide-track-${index}`}>
+                  <span class="step-num-inline">{stepNum}</span>
+                  <div class="swipe-tab-controls">
+                    {allOptions.map((opt, optIdx) => (
+                      <button
+                        type="button"
+                        class={`swipe-tab-btn ${optIdx === 0 ? 'is-active' : ''}`}
+                        data-slide-index={optIdx}
+                      >
+                        {cleanText(opt.alternativeLabel) || `候補 ${optIdx + 1}`}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <div class="step-content-area">
+                {hasAlternatives ? (
+                  <div class="peeking-carousel-wrapper">
+                    <div class="peeking-carousel-track" id={`wide-track-${index}`}>
+                      {allOptions.map((opt) => {
+                        const heroImg = getWideImageUrl(opt.image, opt.spotData?.heroImage);
+                        return (
+                          <div class="carousel-slide-item">
+                            <div
+                              class="wide-spot-unit clickable-unit"
+                              data-open-spot={opt.spotData?.id}
+                              role={opt.spotData ? "button" : undefined}
+                              tabindex={opt.spotData ? "0" : undefined}
+                            >
+                              <div class="wide-photo-container">
+                                {heroImg && (
+                                  <img src={heroImg} alt={opt.title} class="wide-photo-img" loading="lazy" />
+                                )}
+                                <div class="wide-photo-overlay">
+                                  <div class="overlay-meta-top">
+                                    <span class="overlay-step-num">
+                                      {stepNum}
+                                      {opt.categoryLabel && <span class="overlay-cat"> — {opt.categoryLabel}</span>}
+                                    </span>
+                                    {(opt.duration || opt.time) && (
+                                      <span class="overlay-duration">{opt.duration || opt.time}</span>
+                                    )}
+                                  </div>
+                                  <div class="overlay-title-row">
+                                    <h4 class="overlay-heading">{opt.title}</h4>
+                                    {opt.spotData && <span class="overlay-chevron">›</span>}
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="wide-spot-body">
+                                {opt.points && opt.points.length > 0 && (
+                                  <ul class="wide-points-list">
+                                    {opt.points.map((pt) => (
+                                      <li>{pt}</li>
+                                    ))}
+                                  </ul>
+                                )}
+
+                                {opt.amenities && opt.amenities.length > 0 && (
+                                  <p class="wide-amenities-line">
+                                    {opt.amenities.map((am) => am.label).join(' · ')}
+                                  </p>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    <div class="carousel-dots-row">
+                      {allOptions.map((_, dotIdx) => (
+                        <span class={`indicator-dot ${dotIdx === 0 ? 'is-active' : ''}`} data-dot-index={dotIdx}></span>
+                      ))}
+                    </div>
+                  </div>
+                ) : step.isHotel ? (
+                  <div class="wide-hotel-unit">
+                    <div class="wide-photo-container">
+                      {step.image && (
+                        <img src={step.image} alt={step.title} class="wide-photo-img" loading="lazy" />
+                      )}
+                      <div class="wide-photo-overlay">
+                        <div class="overlay-meta-top">
+                          <span class="overlay-step-num">
+                            {stepNum}
+                            <span class="overlay-cat"> — {step.categoryLabel || '今夜の宿'}</span>
+                          </span>
+                          <span class="overlay-duration">{step.duration || 'チェックイン'}</span>
+                        </div>
+                        <div class="overlay-title-row">
+                          <h4 class="overlay-heading">{step.title}</h4>
+                        </div>
+                        {step.hotelData && (
+                          <div class="overlay-hotel-rating">
+                            <span class="rating-star">★ {step.hotelData.rating}</span>
+                            <span class="rating-count">({step.hotelData.reviewCount}件)</span>
+                            {step.hotelData.priceText && (
+                              <span class="rating-price">· {step.hotelData.priceText}</span>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    <div class="wide-spot-body">
+                      {step.points && (
+                        <ul class="wide-points-list">
+                          {step.points.map((pt) => (
+                            <li>{pt}</li>
+                          ))}
+                        </ul>
+                      )}
+
+                      {step.hotelData?.rakutenUrl && (
+                        <a
+                          href={step.hotelData.rakutenUrl}
+                          target="_blank"
+                          rel="noopener sponsored"
+                          class="wide-hotel-cta"
+                        >
+                          <span>楽天トラベルで空室・料金プランを見る</span>
+                          <span class="cta-arrow">→</span>
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                ) : (
+                  <div
+                    class="wide-spot-unit clickable-unit"
+                    data-open-spot={step.spotData?.id}
+                    role={step.spotData ? "button" : undefined}
+                    tabindex={step.spotData ? "0" : undefined}
+                  >
+                    <div class="wide-photo-container">
+                      {step.image && (
+                        <img
+                          src={getWideImageUrl(step.image, step.spotData?.heroImage)}
+                          alt={step.title}
+                          class="wide-photo-img"
+                          loading="lazy"
+                        />
+                      )}
+                      <div class="wide-photo-overlay">
+                        <div class="overlay-meta-top">
+                          <span class="overlay-step-num">
+                            {stepNum}
+                            {step.categoryLabel && <span class="overlay-cat"> — {step.categoryLabel}</span>}
+                          </span>
+                          {(step.duration || step.time) && (
+                            <span class="overlay-duration">{step.duration || step.time}</span>
+                          )}
+                        </div>
+                        <div class="overlay-title-row">
+                          <h4 class="overlay-heading">{step.title}</h4>
+                          {step.spotData && <span class="overlay-chevron">›</span>}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="wide-spot-body">
+                      {step.points && step.points.length > 0 && (
+                        <ul class="wide-points-list">
+                          {step.points.map((pt) => (
+                            <li>{pt}</li>
+                          ))}
+                        </ul>
+                      )}
+
+                      {step.amenities && step.amenities.length > 0 && (
+                        <p class="wide-amenities-line">
+                          {step.amenities.map((am) => am.label).join(' · ')}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {(step.transit || step.transitBadge) && !isLast && (
+                <div class="transit-divider-row">
+                  <span class="transit-divider-text">{cleanText(step.transit || step.transitBadge)}</span>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  ))}
+
+  {allModalSpots.map((spot) => (
+    <dialog class="tavinavi-spot-dialog" id={`dialog-${spot.id}`}>
+      <SpotCard spot={spot} mode="modal-view" />
+    </dialog>
+  ))}
+</div>
+
+<script>
+  function initWideTimelineInteractions() {
+    // 1. スポット全画面ダイアログの開閉
+    document.querySelectorAll('[data-open-spot]').forEach((card) => {
+      card.addEventListener('click', () => {
+        const spotId = card.getAttribute('data-open-spot');
+        if (!spotId) return;
+        const dialog = document.getElementById(`dialog-${spotId}`) as HTMLDialogElement | null;
+        if (dialog) {
+          dialog.showModal();
+          document.body.style.overflow = 'hidden';
+        }
+      });
+      card.addEventListener('keydown', (e: any) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          (card as HTMLElement).click();
+        }
+      });
+    });
+
+    // 閉じるボタン
+    document.querySelectorAll('[data-close-modal]').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const dialog = btn.closest('dialog') as HTMLDialogElement | null;
+        if (dialog) {
+          dialog.close();
+          document.body.style.overflow = '';
+        }
+      });
+    });
+
+    // ダイアログ外側クリックで閉じる
+    document.querySelectorAll('.tavinavi-spot-dialog').forEach((dialog) => {
+      dialog.addEventListener('click', (e) => {
+        if (e.target === dialog) {
+          (dialog as HTMLDialogElement).close();
+          document.body.style.overflow = '';
+        }
+      });
+      dialog.addEventListener('close', () => {
+        document.body.style.overflow = '';
+      });
+    });
+
+    // 2. カルーセルのタブクリック連動
+    document.querySelectorAll('.swipe-tab-bar').forEach((bar) => {
+      const trackId = bar.getAttribute('data-track-id');
+      const track = document.getElementById(trackId || '');
+      if (!track) return;
+
+      bar.querySelectorAll('.swipe-tab-btn').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const slideIdx = parseInt(btn.getAttribute('data-slide-index') || '0', 10);
+          const slides = track.querySelectorAll('.carousel-slide-item');
+          if (slides[slideIdx]) {
+            const slideLeft = (slides[slideIdx] as HTMLElement).offsetLeft;
+            track.scrollTo({ left: slideLeft, behavior: 'smooth' });
+          }
+        });
+      });
+    });
+
+    // 3. カルーセルの横スクロール監視
+    document.querySelectorAll('.peeking-carousel-track').forEach((track) => {
+      track.addEventListener('scroll', () => {
+        const itemWidth = track.clientWidth * 0.9;
+        const scrollLeft = track.scrollLeft;
+        const activeIdx = Math.round(scrollLeft / itemWidth);
+
+        const parent = track.closest('.flow-step-item');
+        if (parent) {
+          parent.querySelectorAll('.swipe-tab-btn').forEach((btn, idx) => {
+            btn.classList.toggle('is-active', idx === activeIdx);
+          });
+          parent.querySelectorAll('.indicator-dot').forEach((dot, idx) => {
+            dot.classList.toggle('is-active', idx === activeIdx);
+          });
+        }
+      }, { passive: true });
+    });
+  }
+
+  initWideTimelineInteractions();
+  document.addEventListener('astro:page-load', initWideTimelineInteractions);
+</script>
+
+<style>
+  /* 全体コンテナ */
+  .tavinavi-timeline-wide {
+    width: 100%;
+    margin: 1rem 0 3rem;
+    box-sizing: border-box;
+    color: #111827;
+  }
+
+  .timeline-day-block {
+    margin-bottom: 3rem;
+  }
+
+  /* DAY見出し：黒のソリッドピル＋ボールドラインで画面を引き締める */
+  .day-header-banner {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding-bottom: 0.7rem;
+    margin-bottom: 1.35rem;
+    border-bottom: 2px solid #111827;
+  }
+
+  .day-number-pill {
+    background: #111827;
+    color: #ffffff;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    padding: 0.22rem 0.55rem;
+    border-radius: 4px;
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+  }
+
+  .day-title-text {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #111827;
+    margin: 0;
+    line-height: 1.35;
+  }
+
+  .step-flow-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .flow-step-item {
+    position: relative;
+  }
+
+  /* スワイプ候補用のアンダーラインタブバー */
+  .swipe-tab-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.6rem;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .step-num-inline {
+    font-size: 0.85rem;
+    font-weight: 900;
+    color: #111827;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.04em;
+    padding-bottom: 0.45rem;
+  }
+
+  .swipe-tab-controls {
+    display: flex;
+    gap: 1.25rem;
+  }
+
+  .swipe-tab-btn {
+    background: transparent;
+    border: none;
+    border-bottom: 2.5px solid transparent;
+    padding: 0 0 0.45rem 0;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #9ca3af;
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  .swipe-tab-btn.is-active {
+    color: #111827;
+    font-weight: 800;
+    border-bottom-color: #111827;
+  }
+
+  /* ワイドフォト・スポットユニット */
+  .wide-spot-unit,
+  .wide-hotel-unit {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .clickable-unit {
+    cursor: pointer;
+  }
+
+  .clickable-unit:active .wide-photo-img {
+    transform: scale(1.02);
+  }
+
+  /* ① 横幅100% ワイド写真＋グラデーション文字オーバーレイ */
+  .wide-photo-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #1f2937;
+  }
+
+  .wide-photo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .wide-photo-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(10, 14, 23, 0.9) 0%,
+      rgba(10, 14, 23, 0.5) 45%,
+      rgba(10, 14, 23, 0.05) 100%
+    );
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0.9rem 1rem;
+    color: #ffffff;
+  }
+
+  .overlay-meta-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.2rem;
+  }
+
+  .overlay-step-num {
+    font-size: 0.85rem;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    color: #ffffff;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .overlay-cat {
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+    letter-spacing: 0.02em;
+  }
+
+  .overlay-duration {
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.16);
+    backdrop-filter: blur(4px);
+    padding: 0.12rem 0.5rem;
+    border-radius: 4px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .overlay-title-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .overlay-heading {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
+  }
+
+  .overlay-chevron {
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .overlay-hotel-rating {
+    display: flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    font-size: 0.78rem;
+    margin-top: 0.25rem;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .rating-star {
+    font-weight: 800;
+    color: #fbbf24;
+  }
+
+  .rating-count,
+  .rating-price {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  /* ② 写真下の説明エリア */
+  .wide-spot-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    padding: 0 0.15rem;
+  }
+
+  .wide-points-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.22rem;
+  }
+
+  .wide-points-list li {
+    font-size: 0.84rem;
+    color: #1f2937;
+    line-height: 1.5;
+    position: relative;
+    padding-left: 0.75rem;
+  }
+
+  .wide-points-list li::before {
+    content: "·";
+    position: absolute;
+    left: 0;
+    color: #6b7280;
+    font-weight: 900;
+  }
+
+  .wide-amenities-line {
+    margin: 0.1rem 0 0;
+    font-size: 0.74rem;
+    color: #6b7280;
+    line-height: 1.4;
+    letter-spacing: 0.01em;
+  }
+
+  /* 横スワイプ カルーセル（ワイド写真が隣にチラ見えするダイナミックUI） */
+  .peeking-carousel-wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  .peeking-carousel-track {
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .peeking-carousel-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .carousel-slide-item {
+    flex: 0 0 90%;
+    width: 90%;
+    scroll-snap-align: start;
+    box-sizing: border-box;
+  }
+
+  .carousel-dots-row {
+    display: flex;
+    justify-content: center;
+    gap: 0.35rem;
+    margin-top: 0.6rem;
+  }
+
+  .indicator-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 9999px;
+    background: #d1d5db;
+    transition: all 0.2s;
+  }
+
+  .indicator-dot.is-active {
+    width: 16px;
+    background: #111827;
+  }
+
+  /* 宿予約ボタン：漆黒ソリッドのハイコントラストCTA */
+  .wide-hotel-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #111827;
+    color: #ffffff;
+    font-size: 0.84rem;
+    font-weight: 700;
+    padding: 0.75rem 1.1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    margin-top: 0.35rem;
+    letter-spacing: 0.02em;
+    transition: opacity 0.15s;
+  }
+
+  .wide-hotel-cta:hover {
+    opacity: 0.88;
+  }
+
+  .wide-hotel-cta:active {
+    opacity: 0.75;
+  }
+
+  .cta-arrow {
+    font-size: 0.95rem;
+  }
+
+  /* 移動手段（トランジット） */
+  .transit-divider-row {
+    display: flex;
+    align-items: center;
+    margin: 1.5rem 0;
+    color: #6b7280;
+  }
+
+  .transit-divider-row::before,
+  .transit-divider-row::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #e5e7eb;
+  }
+
+  .transit-divider-text {
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: #4b5563;
+    padding: 0 0.85rem;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+  }
+
+  /* 全画面スポットモーダルダイアログ */
+  .tavinavi-spot-dialog {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    width: 100vw;
+    height: 100dvh;
+    max-width: 100vw;
+    max-height: 100dvh;
+    overflow: hidden;
+  }
+
+  .tavinavi-spot-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+  }
+
+  .tavinavi-spot-dialog[open] {
+    animation: dialogSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes dialogSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(24px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+</style>
