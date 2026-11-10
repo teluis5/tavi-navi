@@ -30,7 +30,18 @@ jobs:
         run: npm install
 
       - name: Build site
-        run: npx astro build
+        id: astro_build
+        run: |
+          npx astro build 2>&1 | tee build.log
+        continue-on-error: true
+
+      - name: Display build error if failed
+        if: steps.astro_build.outcome == 'failure'
+        run: |
+          echo "==================== ASTRO BUILD ERROR ===================="
+          cat build.log
+          echo "==========================================================="
+          exit 1
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
