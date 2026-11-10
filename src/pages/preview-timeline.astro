@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import TravelTimeline, { type TimelineStep } from '../components/TravelTimeline.astro';
-import { buildRakutenTravelUrl } from '../utils/affiliate';
+import { buildRakutenTravelUrl, getRakutenHotelImageUrl } from '../utils/affiliate';
 
 // 熱海サンビーチの全画面スポットデータ
 const atamiBeachSpot = {
@@ -139,7 +139,7 @@ const steps: TimelineStep[] = [
     time: "16:30 チェックイン",
     title: "熱海温泉 ホテルミクラス",
     categoryLabel: "今夜の宿",
-    image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=200&q=80",
+    image: getRakutenHotelImageUrl("67295"),
     isHotel: true,
     points: [
       "熱海サンビーチ目の前！最上階オーシャンビュー展望露天風呂",
