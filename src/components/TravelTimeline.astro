@@ -93,7 +93,7 @@ timelineDays.forEach(day => {
 
           return (
             <div class={`timeline-step ${isLast ? 'is-last' : ''} ${step.isHotel ? 'is-hotel-step' : ''}`}>
-              <!-- 左側タイムライン軸（時間とアイコン） -->
+              {/* 左側タイムライン軸（時間とアイコン） */}
               <div class="timeline-left">
                 <span class="timeline-time">{step.time}</span>
                 <div class={`timeline-node ${step.isHotel ? 'hotel-node' : ''}`}>
@@ -102,11 +102,11 @@ timelineDays.forEach(day => {
                 {!isLast && <div class="timeline-line" />}
               </div>
 
-              <!-- 右側コンテンツ（横スワイプカルーセル対応） -->
+              {/* 右側コンテンツ（横スワイプカルーセル対応） */}
               <div class="timeline-content">
                 {hasAlternatives ? (
                   <div class="swipe-container-outer">
-                    <!-- スワイプ案内＆カテゴリピル -->
+                    {/* スワイプ案内＆カテゴリピル */}
                     <div class="swipe-header-bar">
                       <span class="swipe-hint-badge">👉 横スワイプで変更可</span>
                       <div class="swipe-tabs">
@@ -118,11 +118,11 @@ timelineDays.forEach(day => {
                       </div>
                     </div>
 
-                    <!-- CSS Scroll-Snap カルーセル -->
+                    {/* CSS Scroll-Snap カルーセル */}
                     <div class="swipe-carousel-track" data-track-id={`track-${index}`}>
                       {allOptions.map((opt, optIdx) => (
                         <div class="swipe-card-item" id={`step-${index}-${optIdx}`}>
-                          <!-- コンパクトカード本体 -->
+                          {/* コンパクトカード本体 */}
                           <div class="compact-spot-card">
                             {opt.image && (
                               <div
@@ -167,7 +167,7 @@ timelineDays.forEach(day => {
                       ))}
                     </div>
 
-                    <!-- スワイプインジケーター（ドット） -->
+                    {/* スワイプインジケーター（ドット） */}
                     <div class="swipe-dots-bar">
                       {allOptions.map((_, dotIdx) => (
                         <span class={`swipe-dot ${dotIdx === 0 ? 'active' : ''}`} data-dot-for={dotIdx}></span>
@@ -175,7 +175,7 @@ timelineDays.forEach(day => {
                     </div>
                   </div>
                 ) : step.isHotel ? (
-                  <!-- 宿アフィリエイト専用カード -->
+                  {/* 宿アフィリエイト専用カード */}
                   <div class="timeline-hotel-card">
                     <div class="hotel-header-badge">
                       <span>🏨</span>
@@ -218,7 +218,7 @@ timelineDays.forEach(day => {
                     )}
                   </div>
                 ) : (
-                  <!-- 通常の単独コンパクトスポットカード -->
+                  {/* 通常の単独コンパクトスポットカード */}
                   <div class="compact-spot-card">
                     {step.image && (
                       <div
@@ -261,7 +261,7 @@ timelineDays.forEach(day => {
                   </div>
                 )}
 
-                <!-- 移動トランジット線＆バッジ -->
+                {/* 移動トランジット線＆バッジ */}
                 {(step.transit || step.transitBadge) && !isLast && (
                   <div class="timeline-transit-badge">
                     <span class="transit-arrow">↓</span>
@@ -276,7 +276,7 @@ timelineDays.forEach(day => {
     </div>
   ))}
 
-  <!-- 全画面スポットカード用モーダルダイアログ群 -->
+  {/* 全画面スポットカード用モーダルダイアログ群 */}
   {allModalSpots.map(spot => (
     <dialog class="tavinavi-spot-dialog" id={`dialog-${spot.id}`}>
       <SpotCard spot={spot} mode="modal-view" />

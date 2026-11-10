@@ -29,13 +29,13 @@ const { spot, mode = 'modal-view' } = Astro.props;
 ---
 
 <div class={`spot-fullscreen-card ${mode}`} id={`spot-card-${spot.id}`}>
-  <!-- 背景全面写真 -->
+  {/* 背景全面写真 */}
   <div class="spot-bg-wrapper">
     <img src={spot.heroImage} alt={spot.title} class="spot-bg-image" loading="lazy" />
     <div class="spot-bg-overlay"></div>
   </div>
 
-  <!-- 上部ヘッダーバー -->
+  {/* 上部ヘッダーバー */}
   <div class="spot-card-topbar">
     {mode === 'modal-view' ? (
       <button type="button" class="spot-close-btn" data-close-modal aria-label="閉じる">
@@ -56,7 +56,7 @@ const { spot, mode = 'modal-view' } = Astro.props;
     )}
   </div>
 
-  <!-- 下部フロストガラス（100dvh内下部に吸着） -->
+  {/* 下部フロストガラス（100dvh内下部に吸着） */}
   <div class="spot-bottom-sheet">
     <div class="sheet-handle"></div>
 
@@ -65,7 +65,7 @@ const { spot, mode = 'modal-view' } = Astro.props;
       {spot.catchphrase && <p class="spot-sheet-catch">{spot.catchphrase}</p>}
     </div>
 
-    <!-- ピクトグラム設備バー -->
+    {/* ピクトグラム設備バー */}
     {spot.amenities && spot.amenities.length > 0 && (
       <div class="spot-amenity-row">
         {spot.amenities.map((am) => (
@@ -77,7 +77,7 @@ const { spot, mode = 'modal-view' } = Astro.props;
       </div>
     )}
 
-    <!-- 厳選見どころ（箇条書き3行） -->
+    {/* 厳選見どころ（箇条書き3行） */}
     {spot.points && spot.points.length > 0 && (
       <ul class="spot-golden-points">
         {spot.points.map((pt) => (
@@ -89,7 +89,7 @@ const { spot, mode = 'modal-view' } = Astro.props;
       </ul>
     )}
 
-    <!-- 注意事項（もしあれば） -->
+    {/* 注意事項（もしあれば） */}
     {spot.caution && (
       <div class="spot-caution-box">
         <span class="caution-icon">⚠️</span>
@@ -97,7 +97,7 @@ const { spot, mode = 'modal-view' } = Astro.props;
       </div>
     )}
 
-    <!-- 下部アクションボタン群 -->
+    {/* 下部アクションボタン群 */}
     <div class="spot-action-buttons">
       {spot.googleMapsUrl && (
         <a
