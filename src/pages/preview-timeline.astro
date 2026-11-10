@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import TravelTimeline, { type TimelineStep } from '../components/TravelTimeline.astro';
+import { buildRakutenTravelUrl } from '../utils/affiliate';
 
 // 熱海サンビーチの全画面スポットデータ
 const atamiBeachSpot = {
@@ -148,7 +149,7 @@ const steps: TimelineStep[] = [
     hotelData: {
       rating: "4.4",
       reviewCount: "2,150",
-      rakutenUrl: "https://travel.rakuten.co.jp/search/?f_keyword=%E7%86%B1%E6%B5%B7%E6%B8%A9%E6%B3%89%20%E3%83%9B%E3%83%86%E3%83%AB%E3%83%9F%E3%82%AF%E3%83%A9%E3%82%B9",
+      rakutenUrl: buildRakutenTravelUrl({ hotelNo: "67295", keyword: "熱海温泉 ホテルミクラス" }),
       priceText: "2名1室 税込15,400円〜 / 人"
     }
   }

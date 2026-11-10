@@ -1,4 +1,6 @@
 ---
+import { buildRakutenTravelUrl } from '../utils/affiliate';
+
 interface Props {
   destination?: string;    // e.g. "熱海・三島" or "Atami & Mishima"
   station?: string;        // e.g. "熱海駅" or "Atami Station"
@@ -25,8 +27,7 @@ const destination = propDest || prefName || '観光地';
 const searchKeyword = propKeyword || `${destination} 温泉`;
 
 // Build search URLs
-const rakutenKeyword = encodeURIComponent(searchKeyword);
-const rakutenUrl = `https://travel.rakuten.co.jp/search/?f_keyword=${rakutenKeyword}`;
+const rakutenUrl = buildRakutenTravelUrl({ keyword: searchKeyword });
 
 const asoviewArea = encodeURIComponent(destination);
 const asoviewUrl = `https://www.asoview.com/leisure/?keyword=${asoviewArea}`;
