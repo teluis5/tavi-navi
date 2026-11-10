@@ -28,7 +28,7 @@ const atamiBeachSpot = {
   googleMapsUrl: "https://maps.google.com/?q=熱海サンビーチ",
 };
 
-// ランチの魚スポット詳細
+// ランチ候補1：海鮮丼
 const fishLunchSpot = {
   id: "osakana-shokudo",
   title: "熱海銀座 おさかな食堂",
@@ -51,7 +51,7 @@ const fishLunchSpot = {
   googleMapsUrl: "https://maps.google.com/?q=熱海銀座おさかな食堂",
 };
 
-// ランチのお肉スポット詳細（スワイプ候補）
+// ランチ候補2：静岡牛バーガー
 const meatLunchSpot = {
   id: "cafe-roca-burger",
   title: "CAFE RoCA (静岡牛バーガー)",
@@ -73,6 +73,52 @@ const meatLunchSpot = {
   ],
   caution: "数量限定パティのため14:00以降は売り切れになる場合あり",
   googleMapsUrl: "https://maps.google.com/?q=熱海CAFERoCA",
+};
+
+// ランチ候補3：海辺のイタリアン
+const pastaLunchSpot = {
+  id: "monsoon-italian",
+  title: "トラットリア テンポドーロ",
+  catchphrase: "駿河湾の桜えびとしらすを使った本格窯焼きピッツァ＆パスタ",
+  prefName: "静岡",
+  prefSlug: "shizuoka",
+  category: "イタリアン",
+  heroImage: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=1080&q=85",
+  amenities: [
+    { icon: "🍝", label: "パスタ・ピザ", type: "info" as const },
+    { icon: "👶", label: "キッズチェア有", type: "safe" as const },
+    { icon: "💳", label: "カード可", type: "info" as const },
+  ],
+  points: [
+    "駿河湾産の釜揚げしらすと桜えびを贅沢に乗せたペペロンチーノ",
+    "石窯で焼き上げるモチモチのマルゲリータはシェアに最適",
+    "事前ネット予約が可能で、行列を回避してスマートに入店できる"
+  ],
+  caution: "週末の窓側席は前日までの予約推奨",
+  googleMapsUrl: "https://maps.google.com/?q=熱海テンポドーロ",
+};
+
+// ランチ候補4：レトロ洋食
+const yoshokuLunchSpot = {
+  id: "scott-yoshoku",
+  title: "レストラン スコット本店",
+  catchphrase: "創業1946年！文豪も愛した黒毛和牛タンシチュー＆ハンバーグ",
+  prefName: "静岡",
+  prefSlug: "shizuoka",
+  category: "老舗洋食",
+  heroImage: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1080&q=85",
+  amenities: [
+    { icon: "🍛", label: "老舗洋食", type: "info" as const },
+    { icon: "☔", label: "雨天OK", type: "safe" as const },
+    { icon: "🪑", label: "落ち着く店内", type: "safe" as const },
+  ],
+  points: [
+    "1週間かけて仕込むデミグラスソースの特製ハンバーグ＆シチュー",
+    "サンビーチから徒歩3分、クラシックで落ち着いた大人の空間",
+    "騒がしい行列店を避けてゆっくり食事を楽しみたい方に最適"
+  ],
+  caution: "木曜定休・ランチラストオーダー14:00",
+  googleMapsUrl: "https://maps.google.com/?q=熱海スコット",
 };
 
 const steps: TimelineStep[] = [
@@ -99,7 +145,7 @@ const steps: TimelineStep[] = [
     duration: "目安 60分",
     title: "熱海銀座 おさかな食堂",
     categoryLabel: "ランチ",
-    alternativeLabel: "魚：おさかな食堂",
+    alternativeLabel: "海鮮丼",
     image: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=1080&q=85",
     points: [
       "朝獲れ地魚がどっさり乗った海鮮てっぺん丼",
@@ -118,7 +164,7 @@ const steps: TimelineStep[] = [
         duration: "目安 50分",
         title: "CAFE RoCA (静岡牛バーガー)",
         categoryLabel: "ランチ",
-        alternativeLabel: "肉：静岡牛バーガー",
+        alternativeLabel: "静岡牛",
         image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1080&q=85",
         points: [
           "静岡そだち牛100%パティの肉厚ジューシーバーガー",
@@ -131,6 +177,42 @@ const steps: TimelineStep[] = [
           { icon: "👶", label: "子連れ歓迎", type: "safe" },
         ],
         spotData: meatLunchSpot,
+      },
+      {
+        duration: "目安 60分",
+        title: "トラットリア テンポドーロ",
+        categoryLabel: "ランチ",
+        alternativeLabel: "イタリアン",
+        image: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=1080&q=85",
+        points: [
+          "駿河湾産の釜揚げしらすと桜えびのペペロンチーノ",
+          "石窯で焼き上げるモチモチのナポリピッツァ",
+          "事前予約対応で待ち時間なくスマートに入店可能"
+        ],
+        amenities: [
+          { icon: "🍝", label: "パスタ・ピザ", type: "info" },
+          { icon: "👶", label: "キッズ席あり", type: "safe" },
+          { icon: "💳", label: "予約可", type: "safe" },
+        ],
+        spotData: pastaLunchSpot,
+      },
+      {
+        duration: "目安 65分",
+        title: "レストラン スコット本店",
+        categoryLabel: "ランチ",
+        alternativeLabel: "老舗洋食",
+        image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1080&q=85",
+        points: [
+          "創業1946年、文豪も愛した特製デミグラスハンバーグ",
+          "サンビーチから徒歩3分の落ち着いたクラシック空間",
+          "混雑を避けてゆったり食事を楽しみたい方に最適"
+        ],
+        amenities: [
+          { icon: "🍛", label: "老舗洋食", type: "info" },
+          { icon: "☔", label: "雨天OK", type: "safe" },
+          { icon: "🪑", label: "ゆったり席", type: "safe" },
+        ],
+        spotData: yoshokuLunchSpot,
       }
     ]
   },
@@ -164,7 +246,7 @@ const steps: TimelineStep[] = [
       <span class="preview-badge">MODEL COURSE · ATAMI</span>
       <h1>熱海 1泊2日モデルコース（車なし・新幹線45分）</h1>
       <p class="preview-lead">
-        徒歩と周遊バスだけで巡る海沿いプラン。写真をタップすると全画面ガイドが開き、ランチは横スワイプでワイド写真ごと候補を切り替えられます。
+        徒歩と周遊バスだけで巡る海沿いプラン。写真をタップすると全画面ガイドが開き、ランチは横スワイプで4つの候補を切り替えられます。
       </p>
     </div>
 
