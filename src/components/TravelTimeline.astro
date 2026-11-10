@@ -147,216 +147,218 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
 
           return (
             <div class={`flow-step-item ${isLast ? 'is-last-step' : ''}`}>
-              {hasAlternatives && (
-                <div class="carousel-section-header" data-track-id={`wide-track-${index}`}>
-                  {step.leadHeading && (
-                    <div class="step-lead-heading">
-                      <h3 class="step-lead-text">{step.leadHeading}</h3>
-                    </div>
-                  )}
+              <div class="step-place-surface">
+                {hasAlternatives && (
+                  <div class="carousel-section-header" data-track-id={`wide-track-${index}`}>
+                    {step.leadHeading && (
+                      <div class="step-lead-heading">
+                        <h3 class="step-lead-text">{step.leadHeading}</h3>
+                      </div>
+                    )}
 
-                  <div class="swipe-tab-scroll">
-                    {allOptions.map((opt, optIdx) => (
-                      <button
-                        type="button"
-                        class={`swipe-tab-btn ${optIdx === 0 ? 'is-active' : ''}`}
-                        data-slide-index={optIdx}
-                      >
-                        {cleanText(opt.alternativeLabel) || `候補${optIdx + 1}`}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              <div class="step-content-area">
-                {hasAlternatives ? (
-                  <div class="peeking-carousel-wrapper">
-                    <div class="peeking-carousel-track" id={`wide-track-${index}`}>
-                      {allOptions.map((opt, optIdx) => {
-                        const heroImg = getWideImageUrl(opt.image, opt.spotData?.heroImage);
-                        const areaText = opt.areaLabel || step.areaLabel;
-                        return (
-                          <div class={`carousel-slide-item ${optIdx === 0 ? 'is-active-slide' : ''}`}>
-                            <div
-                              class="wide-spot-unit clickable-unit"
-                              data-open-spot={opt.spotData?.id}
-                              role={opt.spotData ? "button" : undefined}
-                              tabindex={opt.spotData ? "0" : undefined}
-                            >
-                              <div class="wide-photo-container">
-                                {heroImg && (
-                                  <img src={heroImg} alt={opt.title} class="wide-photo-img" loading="lazy" />
-                                )}
-                                <div class="wide-photo-overlay">
-                                  <div class="overlay-meta-top">
-                                    <div class="overlay-meta-left">
-                                      <span class="overlay-option-tag">
-                                        {cleanText(opt.alternativeLabel) || opt.categoryLabel || `候補 ${optIdx + 1}`}
-                                      </span>
-                                      {areaText && (
-                                        <span class="overlay-area-label">{areaText}</span>
-                                      )}
-                                    </div>
-                                    {(opt.duration || opt.time) && (
-                                      <span class="overlay-duration">{opt.duration || opt.time}</span>
-                                    )}
-                                  </div>
-                                  <div class="overlay-title-row">
-                                    <h4 class="overlay-heading">{opt.title}</h4>
-                                    {opt.spotData && <span class="overlay-chevron">›</span>}
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div class="wide-spot-body">
-                                {opt.points && opt.points.length > 0 && (
-                                  <ul class="wide-points-list">
-                                    {opt.points.map((pt) => (
-                                      <li>{pt}</li>
-                                    ))}
-                                  </ul>
-                                )}
-
-                                {opt.amenities && opt.amenities.length > 0 && (
-                                  <p class="wide-amenities-line">
-                                    {opt.amenities.map((am) => am.label).join(' · ')}
-                                  </p>
-                                )}
-                              </div>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-
-                    <div class="carousel-dots-row">
-                      {allOptions.map((_, dotIdx) => (
-                        <span class={`indicator-dot ${dotIdx === 0 ? 'is-active' : ''}`} data-dot-index={dotIdx}></span>
+                    <div class="swipe-tab-scroll">
+                      {allOptions.map((opt, optIdx) => (
+                        <button
+                          type="button"
+                          class={`swipe-tab-btn ${optIdx === 0 ? 'is-active' : ''}`}
+                          data-slide-index={optIdx}
+                        >
+                          {cleanText(opt.alternativeLabel) || `候補${optIdx + 1}`}
+                        </button>
                       ))}
                     </div>
                   </div>
-                ) : step.isHotel ? (
-                  <div class="wide-hotel-unit">
-                    {step.leadHeading && (
-                      <div class="step-lead-heading">
-                        <h3 class="step-lead-text">{step.leadHeading}</h3>
-                      </div>
-                    )}
+                )}
 
-                    <div class="wide-photo-container">
-                      {step.image && (
-                        <img src={step.image} alt={step.title} class="wide-photo-img" loading="lazy" />
+                <div class="step-content-area">
+                  {hasAlternatives ? (
+                    <div class="peeking-carousel-wrapper">
+                      <div class="peeking-carousel-track" id={`wide-track-${index}`}>
+                        {allOptions.map((opt, optIdx) => {
+                          const heroImg = getWideImageUrl(opt.image, opt.spotData?.heroImage);
+                          const areaText = opt.areaLabel || step.areaLabel;
+                          return (
+                            <div class={`carousel-slide-item ${optIdx === 0 ? 'is-active-slide' : ''}`}>
+                              <div
+                                class="wide-spot-unit clickable-unit"
+                                data-open-spot={opt.spotData?.id}
+                                role={opt.spotData ? "button" : undefined}
+                                tabindex={opt.spotData ? "0" : undefined}
+                              >
+                                <div class="wide-photo-container">
+                                  {heroImg && (
+                                    <img src={heroImg} alt={opt.title} class="wide-photo-img" loading="lazy" />
+                                  )}
+                                  <div class="wide-photo-overlay">
+                                    <div class="overlay-meta-top">
+                                      <div class="overlay-meta-left">
+                                        <span class="overlay-option-tag">
+                                          {cleanText(opt.alternativeLabel) || opt.categoryLabel || `候補 ${optIdx + 1}`}
+                                        </span>
+                                        {areaText && (
+                                          <span class="overlay-area-label">{areaText}</span>
+                                        )}
+                                      </div>
+                                      {(opt.duration || opt.time) && (
+                                        <span class="overlay-duration">{opt.duration || opt.time}</span>
+                                      )}
+                                    </div>
+                                    <div class="overlay-title-row">
+                                      <h4 class="overlay-heading">{opt.title}</h4>
+                                      {opt.spotData && <span class="overlay-chevron">›</span>}
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="wide-spot-body">
+                                  {opt.points && opt.points.length > 0 && (
+                                    <ul class="wide-points-list">
+                                      {opt.points.map((pt) => (
+                                        <li>{pt}</li>
+                                      ))}
+                                    </ul>
+                                  )}
+
+                                  {opt.amenities && opt.amenities.length > 0 && (
+                                    <p class="wide-amenities-line">
+                                      {opt.amenities.map((am) => am.label).join(' · ')}
+                                    </p>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+
+                      <div class="carousel-dots-row">
+                        {allOptions.map((_, dotIdx) => (
+                          <span class={`indicator-dot ${dotIdx === 0 ? 'is-active' : ''}`} data-dot-index={dotIdx}></span>
+                        ))}
+                      </div>
+                    </div>
+                  ) : step.isHotel ? (
+                    <div class="wide-hotel-unit">
+                      {step.leadHeading && (
+                        <div class="step-lead-heading">
+                          <h3 class="step-lead-text">{step.leadHeading}</h3>
+                        </div>
                       )}
-                      <div class="wide-photo-overlay">
-                        <div class="overlay-meta-top">
-                          <div class="overlay-meta-left">
-                            <span class="overlay-cat">{step.categoryLabel || '今夜の宿'}</span>
-                            {step.areaLabel && (
-                              <span class="overlay-area-label">· {step.areaLabel}</span>
-                            )}
+
+                      <div class="wide-photo-container">
+                        {step.image && (
+                          <img src={step.image} alt={step.title} class="wide-photo-img" loading="lazy" />
+                        )}
+                        <div class="wide-photo-overlay">
+                          <div class="overlay-meta-top">
+                            <div class="overlay-meta-left">
+                              <span class="overlay-cat">{step.categoryLabel || '今夜の宿'}</span>
+                              {step.areaLabel && (
+                                <span class="overlay-area-label">· {step.areaLabel}</span>
+                              )}
+                            </div>
+                            <span class="overlay-duration">{step.duration || 'チェックイン'}</span>
                           </div>
-                          <span class="overlay-duration">{step.duration || 'チェックイン'}</span>
-                        </div>
-                        <div class="overlay-title-row">
-                          <h4 class="overlay-heading">{step.title}</h4>
-                        </div>
-                        {step.hotelData && (
-                          <div class="overlay-hotel-rating">
-                            <span class="rating-star">★ {step.hotelData.rating}</span>
-                            <span class="rating-count">({step.hotelData.reviewCount}件)</span>
-                            {step.hotelData.priceText && (
-                              <span class="rating-price">· {step.hotelData.priceText}</span>
-                            )}
+                          <div class="overlay-title-row">
+                            <h4 class="overlay-heading">{step.title}</h4>
                           </div>
+                          {step.hotelData && (
+                            <div class="overlay-hotel-rating">
+                              <span class="rating-star">★ {step.hotelData.rating}</span>
+                              <span class="rating-count">({step.hotelData.reviewCount}件)</span>
+                              {step.hotelData.priceText && (
+                                <span class="rating-price">· {step.hotelData.priceText}</span>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      <div class="wide-spot-body">
+                        {step.points && (
+                          <ul class="wide-points-list">
+                            {step.points.map((pt) => (
+                              <li>{pt}</li>
+                            ))}
+                          </ul>
+                        )}
+
+                        {step.hotelData?.rakutenUrl && (
+                          <a
+                            href={step.hotelData.rakutenUrl}
+                            target="_blank"
+                            rel="noopener sponsored"
+                            class="wide-hotel-cta"
+                          >
+                            <span>楽天トラベルで空室・料金プランを見る</span>
+                            <span class="cta-arrow">→</span>
+                          </a>
                         )}
                       </div>
                     </div>
-
-                    <div class="wide-spot-body">
-                      {step.points && (
-                        <ul class="wide-points-list">
-                          {step.points.map((pt) => (
-                            <li>{pt}</li>
-                          ))}
-                        </ul>
+                  ) : (
+                    <div
+                      class="wide-spot-unit clickable-unit"
+                      data-open-spot={step.spotData?.id}
+                      role={step.spotData ? "button" : undefined}
+                      tabindex={step.spotData ? "0" : undefined}
+                    >
+                      {step.leadHeading && (
+                        <div class="step-lead-heading">
+                          <h3 class="step-lead-text">{step.leadHeading}</h3>
+                        </div>
                       )}
 
-                      {step.hotelData?.rakutenUrl && (
-                        <a
-                          href={step.hotelData.rakutenUrl}
-                          target="_blank"
-                          rel="noopener sponsored"
-                          class="wide-hotel-cta"
-                        >
-                          <span>楽天トラベルで空室・料金プランを見る</span>
-                          <span class="cta-arrow">→</span>
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                ) : (
-                  <div
-                    class="wide-spot-unit clickable-unit"
-                    data-open-spot={step.spotData?.id}
-                    role={step.spotData ? "button" : undefined}
-                    tabindex={step.spotData ? "0" : undefined}
-                  >
-                    {step.leadHeading && (
-                      <div class="step-lead-heading">
-                        <h3 class="step-lead-text">{step.leadHeading}</h3>
-                      </div>
-                    )}
-
-                    <div class="wide-photo-container">
-                      {step.image && (
-                        <img
-                          src={getWideImageUrl(step.image, step.spotData?.heroImage)}
-                          alt={step.title}
-                          class="wide-photo-img"
-                          loading="lazy"
-                        />
-                      )}
-                      <div class="wide-photo-overlay">
-                        <div class="overlay-meta-top">
-                          <div class="overlay-meta-left">
-                            {step.categoryLabel && (
-                              <span class="overlay-cat">{step.categoryLabel}</span>
-                            )}
-                            {step.areaLabel && (
-                              <span class="overlay-area-label">
-                                {step.categoryLabel ? `· ${step.areaLabel}` : step.areaLabel}
-                              </span>
+                      <div class="wide-photo-container">
+                        {step.image && (
+                          <img
+                            src={getWideImageUrl(step.image, step.spotData?.heroImage)}
+                            alt={step.title}
+                            class="wide-photo-img"
+                            loading="lazy"
+                          />
+                        )}
+                        <div class="wide-photo-overlay">
+                          <div class="overlay-meta-top">
+                            <div class="overlay-meta-left">
+                              {step.categoryLabel && (
+                                <span class="overlay-cat">{step.categoryLabel}</span>
+                              )}
+                              {step.areaLabel && (
+                                <span class="overlay-area-label">
+                                  {step.categoryLabel ? `· ${step.areaLabel}` : step.areaLabel}
+                                </span>
+                              )}
+                            </div>
+                            {(step.duration || step.time) && (
+                              <span class="overlay-duration">{step.duration || step.time}</span>
                             )}
                           </div>
-                          {(step.duration || step.time) && (
-                            <span class="overlay-duration">{step.duration || step.time}</span>
-                          )}
-                        </div>
-                        <div class="overlay-title-row">
-                          <h4 class="overlay-heading">{step.title}</h4>
-                          {step.spotData && <span class="overlay-chevron">›</span>}
+                          <div class="overlay-title-row">
+                            <h4 class="overlay-heading">{step.title}</h4>
+                            {step.spotData && <span class="overlay-chevron">›</span>}
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    <div class="wide-spot-body">
-                      {step.points && step.points.length > 0 && (
-                        <ul class="wide-points-list">
-                          {step.points.map((pt) => (
-                            <li>{pt}</li>
-                          ))}
-                        </ul>
-                      )}
+                      <div class="wide-spot-body">
+                        {step.points && step.points.length > 0 && (
+                          <ul class="wide-points-list">
+                            {step.points.map((pt) => (
+                              <li>{pt}</li>
+                            ))}
+                          </ul>
+                        )}
 
-                      {step.amenities && step.amenities.length > 0 && (
-                        <p class="wide-amenities-line">
-                          {step.amenities.map((am) => am.label).join(' · ')}
-                        </p>
-                      )}
+                        {step.amenities && step.amenities.length > 0 && (
+                          <p class="wide-amenities-line">
+                            {step.amenities.map((am) => am.label).join(' · ')}
+                          </p>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
 
               {transitInfo && (
@@ -570,6 +572,21 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
     position: relative;
   }
 
+  /* 場所（スポット）セクションの淡色背景（枠線なし） */
+  .step-place-surface {
+    background: #f4f5f7;
+    border: none;
+    border-radius: 12px;
+    padding: 1rem 0.95rem 0.95rem;
+    box-sizing: border-box;
+  }
+
+  @media (max-width: 480px) {
+    .step-place-surface {
+      padding: 0.9rem 0.8rem 0.85rem;
+    }
+  }
+
   /* 体験アクション見出し（写真の直上に配置） */
   .step-lead-heading {
     margin-bottom: 0.45rem;
@@ -607,13 +624,13 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
   }
 
   .swipe-tab-btn {
-    background: #f3f4f6;
-    border: 1px solid transparent;
+    background: #ffffff;
+    border: none;
     border-radius: 9999px;
-    padding: 0.22rem 0.65rem;
+    padding: 0.24rem 0.68rem;
     font-size: 0.72rem;
     font-weight: 600;
-    color: #6b7280;
+    color: #4b5563;
     cursor: pointer;
     flex-shrink: 0;
     line-height: 1.3;
