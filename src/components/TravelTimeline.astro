@@ -103,7 +103,19 @@ function getWideImageUrl(url?: string, fallbackUrl?: string): string {
           return (
             <div class={`flow-step-item ${isLast ? 'is-last-step' : ''}`}>
               {hasAlternatives && (
-                <div class="swipe-tab-bar" data-track-id={`wide-track-${index}`}>
+                <div class="carousel-section-header" data-track-id={`wide-track-${index}`}>
+                  <div class="carousel-title-bar">
+                    <div class="carousel-title-left">
+                      <span class="carousel-category-title">{step.categoryLabel || 'スポット選択'}</span>
+                      <span class="carousel-sub-hint">スワイプで{allOptions.length}候補から比較</span>
+                    </div>
+                    <div class="carousel-nav-controls">
+                      <button type="button" class="carousel-arrow-btn" data-carousel-prev aria-label="前の候補">‹</button>
+                      <span class="swipe-count-badge" data-count-display>1 / {allOptions.length}</span>
+                      <button type="button" class="carousel-arrow-btn" data-carousel-next aria-label="次の候補">›</button>
+                    </div>
+                  </div>
+
                   <div class="swipe-tab-scroll">
                     {allOptions.map((opt, optIdx) => (
                       <button
@@ -115,9 +127,6 @@ function getWideImageUrl(url?: string, fallbackUrl?: string): string {
                       </button>
                     ))}
                   </div>
-                  <span class="swipe-count-badge" data-count-display>
-                    1 / {allOptions.length}
-                  </span>
                 </div>
               )}
 
@@ -125,10 +134,10 @@ function getWideImageUrl(url?: string, fallbackUrl?: string): string {
                 {hasAlternatives ? (
                   <div class="peeking-carousel-wrapper">
                     <div class="peeking-carousel-track" id={`wide-track-${index}`}>
-                      {allOptions.map((opt) => {
+                      {allOptions.map((opt, optIdx) => {
                         const heroImg = getWideImageUrl(opt.image, opt.spotData?.heroImage);
                         return (
-                          <div class="carousel-slide-item">
+                          <div class={`carousel-slide-item ${optIdx === 0 ? 'is-active-slide' : ''}`}>
                             <div
                               class="wide-spot-unit clickable-unit"
                               data-open-spot={opt.spotData?.id}
@@ -141,9 +150,9 @@ function getWideImageUrl(url?: string, fallbackUrl?: string): string {
                                 )}
                                 <div class="wide-photo-overlay">
                                   <div class="overlay-meta-top">
-                                    {opt.categoryLabel ? (
-                                      <span class="overlay-cat">{opt.categoryLabel}</span>
-                                    ) : <span />}
+                                    <span class="overlay-option-tag">
+                                      {cleanText(opt.alternativeLabel) || opt.categoryLabel || `候補 ${optIdx + 1}`}
+                                    </span>
                                     {(opt.duration || opt.time) && (
                                       <span class="overlay-duration">{opt.duration || opt.time}</span>
                                     )}
@@ -346,36 +355,64 @@ function getWideImageUrl(url?: string, fallbackUrl?: string): string {
       });
     });
 
-    // 2. カルーセルのタブクリック連動
-    document.querySelectorAll('.swipe-tab-bar').forEach((bar) => {
-      const trackId = bar.getAttribute('data-track-id');
+    // スライド移動ヘルパー
+    function scrollToSlide(track: HTMLElement, slideIdx: number) {
+      const slides = track.querySelectorAll('.carousel-slide-item');
+      if (!slides.length) return;
+      const targetIdx = Math.max(0, Math.min(slides.length - 1, slideIdx));
+      const slideLeft = (slides[targetIdx] as HTMLElement).offsetLeft;
+      track.scrollTo({ left: slideLeft, behavior: 'smooth' });
+    }
+
+    // 2. カルーセルのタブ＆前後矢印ボタン連動
+    document.querySelectorAll('.carousel-section-header').forEach((header) => {
+      const trackId = header.getAttribute('data-track-id');
       const track = document.getElementById(trackId || '');
       if (!track) return;
 
-      bar.querySelectorAll('.swipe-tab-btn').forEach((btn) => {
+      header.querySelectorAll('.swipe-tab-btn').forEach((btn) => {
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
           const slideIdx = parseInt(btn.getAttribute('data-slide-index') || '0', 10);
-          const slides = track.querySelectorAll('.carousel-slide-item');
-          if (slides[slideIdx]) {
-            const slideLeft = (slides[slideIdx] as HTMLElement).offsetLeft;
-            track.scrollTo({ left: slideLeft, behavior: 'smooth' });
-          }
+          scrollToSlide(track, slideIdx);
         });
+      });
+
+      const prevBtn = header.querySelector('[data-carousel-prev]');
+      const nextBtn = header.querySelector('[data-carousel-next]');
+
+      prevBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const slides = track.querySelectorAll('.carousel-slide-item');
+        const itemWidth = (slides[0] as HTMLElement)?.offsetWidth || track.clientWidth * 0.82;
+        const currentIdx = Math.round(track.scrollLeft / itemWidth);
+        scrollToSlide(track, currentIdx - 1);
+      });
+
+      nextBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const slides = track.querySelectorAll('.carousel-slide-item');
+        const itemWidth = (slides[0] as HTMLElement)?.offsetWidth || track.clientWidth * 0.82;
+        const currentIdx = Math.round(track.scrollLeft / itemWidth);
+        scrollToSlide(track, currentIdx + 1);
       });
     });
 
-    // 3. カルーセルの横スクロール監視（タブの横スクロール自動追従＆カウンタ更新）
+    // 3. カルーセルの横スクロール監視（タブ自動追従＆アクティブ強調＆カウンタ更新）
     document.querySelectorAll('.peeking-carousel-track').forEach((track) => {
       track.addEventListener('scroll', () => {
         const slides = track.querySelectorAll('.carousel-slide-item');
         if (!slides.length) return;
-        const itemWidth = (slides[0] as HTMLElement).offsetWidth || track.clientWidth * 0.9;
+        const itemWidth = (slides[0] as HTMLElement).offsetWidth || track.clientWidth * 0.82;
         const scrollLeft = track.scrollLeft;
         const activeIdx = Math.min(
           slides.length - 1,
           Math.max(0, Math.round(scrollLeft / itemWidth))
         );
+
+        slides.forEach((slide, idx) => {
+          slide.classList.toggle('is-active-slide', idx === activeIdx);
+        });
 
         const parent = track.closest('.flow-step-item');
         if (parent) {
@@ -459,13 +496,78 @@ function getWideImageUrl(url?: string, fallbackUrl?: string): string {
     position: relative;
   }
 
-  /* 多候補対応・省スペース横スクロールタブバー */
-  .swipe-tab-bar {
+  /* カルーセル専用ヘッダー（何の選択肢か＋矢印インジケーター＋ジャンルタブ） */
+  .carousel-section-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    margin-bottom: 0.55rem;
+  }
+
+  .carousel-title-bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 0.5rem;
-    margin-bottom: 0.45rem;
+  }
+
+  .carousel-title-left {
+    display: flex;
+    align-items: baseline;
+    gap: 0.45rem;
+    min-width: 0;
+  }
+
+  .carousel-category-title {
+    font-size: 0.92rem;
+    font-weight: 800;
+    color: #111827;
+    letter-spacing: -0.01em;
+  }
+
+  .carousel-sub-hint {
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #6b7280;
+  }
+
+  .carousel-nav-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    flex-shrink: 0;
+  }
+
+  .carousel-arrow-btn {
+    width: 22px;
+    height: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #d1d5db;
+    background: #ffffff;
+    color: #374151;
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    line-height: 1;
+    padding: 0;
+    cursor: pointer;
+    transition: background-color 0.15s, border-color 0.15s;
+  }
+
+  .carousel-arrow-btn:active {
+    background: #111827;
+    border-color: #111827;
+    color: #ffffff;
+  }
+
+  .swipe-count-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #4b5563;
+    font-variant-numeric: tabular-nums;
+    min-width: 2.2rem;
+    text-align: center;
   }
 
   .swipe-tab-scroll {
@@ -476,8 +578,6 @@ function getWideImageUrl(url?: string, fallbackUrl?: string): string {
     white-space: nowrap;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    flex: 1;
-    min-width: 0;
   }
 
   .swipe-tab-scroll::-webkit-scrollbar {
@@ -486,30 +586,22 @@ function getWideImageUrl(url?: string, fallbackUrl?: string): string {
 
   .swipe-tab-btn {
     background: #f3f4f6;
-    border: none;
-    border-radius: 4px;
-    padding: 0.22rem 0.55rem;
+    border: 1px solid transparent;
+    border-radius: 9999px;
+    padding: 0.22rem 0.65rem;
     font-size: 0.72rem;
     font-weight: 600;
     color: #6b7280;
     cursor: pointer;
     flex-shrink: 0;
     line-height: 1.3;
-    transition: background-color 0.15s, color 0.15s;
+    transition: all 0.15s;
   }
 
   .swipe-tab-btn.is-active {
     background: #111827;
     color: #ffffff;
     font-weight: 700;
-  }
-
-  .swipe-count-badge {
-    font-size: 0.68rem;
-    font-weight: 600;
-    color: #9ca3af;
-    font-variant-numeric: tabular-nums;
-    flex-shrink: 0;
   }
 
   /* ワイドフォト・スポットユニット */
@@ -577,6 +669,16 @@ function getWideImageUrl(url?: string, fallbackUrl?: string): string {
     font-weight: 700;
     color: rgba(255, 255, 255, 0.82);
     letter-spacing: 0.04em;
+  }
+
+  .overlay-option-tag {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #111827;
+    background: rgba(255, 255, 255, 0.92);
+    padding: 0.1rem 0.45rem;
+    border-radius: 3px;
+    letter-spacing: 0.02em;
   }
 
   .overlay-duration {
@@ -675,7 +777,7 @@ function getWideImageUrl(url?: string, fallbackUrl?: string): string {
     letter-spacing: 0.01em;
   }
 
-  /* 横スワイプ カルーセル（2:1ワイド写真が隣にチラ見えするダイナミックUI） */
+  /* 横スワイプ カルーセル（幅82%＋非アクティブ半透明でカルーセル感を明確化） */
   .peeking-carousel-wrapper {
     position: relative;
     width: 100%;
@@ -695,10 +797,19 @@ function getWideImageUrl(url?: string, fallbackUrl?: string): string {
   }
 
   .carousel-slide-item {
-    flex: 0 0 90%;
-    width: 90%;
+    flex: 0 0 82%;
+    width: 82%;
     scroll-snap-align: start;
     box-sizing: border-box;
+    opacity: 0.55;
+    transform: scale(0.97);
+    transform-origin: left top;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  .carousel-slide-item.is-active-slide {
+    opacity: 1;
+    transform: scale(1);
   }
 
   .carousel-dots-row {
@@ -721,7 +832,7 @@ function getWideImageUrl(url?: string, fallbackUrl?: string): string {
     background: #111827;
   }
 
-  /* 宿予約ボタン：漆黒ソリッドのハイコントラストCTA */
+  /* 宿予約ボタン */
   .wide-hotel-cta {
     display: flex;
     align-items: center;
