@@ -11,7 +11,8 @@ export interface TimelineHotelData {
 
 export interface TimelineStep {
   id?: string;
-  time: string;           // e.g. "10:30 - 11:45"
+  duration?: string;      // e.g. "目安 75分", "ランチ 60分", "宿泊"
+  time?: string;          // 後方互換用
   title: string;          // e.g. "熱海サンビーチ & 親水公園"
   icon?: string;          // e.g. "📍", "🍴", "🚶", "🏨"
   categoryLabel?: string; // e.g. "絶景・散策", "ランチ", "宿泊"
@@ -89,10 +90,12 @@ timelineDays.forEach(day => {
           return (
             <div class={`flow-step-item ${isLast ? 'is-last-step' : ''}`}>
               <div class="step-meta-header">
-                <div class="step-time-badge">
-                  <span class="timeline-dot"></span>
-                  <span class="time-string">{step.time}</span>
-                </div>
+                {(step.duration || step.time) && (
+                  <div class="step-time-badge">
+                    <span class="timeline-dot"></span>
+                    <span class="duration-badge">⏱️ {step.duration || step.time}</span>
+                  </div>
+                )}
 
                 {hasAlternatives ? (
                   <div class="swipe-tab-controls" data-track-id={`track-${index}`}>
@@ -427,19 +430,23 @@ timelineDays.forEach(day => {
   }
 
   .timeline-dot {
-    width: 10px;
-    height: 10px;
+    width: 9px;
+    height: 9px;
     border-radius: 9999px;
     background: #0284c7;
     box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.2);
     flex-shrink: 0;
   }
 
-  .time-string {
-    font-size: 0.88rem;
-    font-weight: 800;
-    color: #0f172a;
+  .duration-badge {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #0369a1;
+    background: #f0f9ff;
+    padding: 0.15rem 0.55rem;
+    border-radius: 9999px;
     font-variant-numeric: tabular-nums;
+    line-height: 1.3;
   }
 
   .step-category-tag {
