@@ -1,120 +1,411 @@
 ---
+import SpotCard, { type SpotData, type SpotAmenity } from './SpotCard.astro';
+
+export interface TimelineHotelData {
+  rating: string;         // e.g. "4.4"
+  reviewCount: string;    // e.g. "2,150"
+  rakutenUrl: string;     // アフィリエイトURL
+  priceText?: string;     // e.g. "2名1室 税込14,800円〜"
+  features?: string[];    // e.g. ["オーシャンビュー", "露天風呂"]
+}
+
 export interface TimelineStep {
-  time: string;           // e.g. "08:26"
-  title: string;          // e.g. "東京駅発"
-  icon?: string;          // e.g. "🚅", "🚶", "🚌", "☕", "♨️"
-  transit?: string;       // e.g. "東海道新幹線「こだま」で約50分"
-  transitBadge?: string;  // e.g. "新幹線 約3時間05分"
+  id?: string;
+  time: string;           // e.g. "08:26" or "12:00 - 13:15"
+  title: string;          // e.g. "熱海銀座 おさかな食堂"
+  icon?: string;          // e.g. "📍", "🍴", "🚶", "🚌", "🏨"
+  categoryLabel?: string; // e.g. "ランチ", "絶景", "宿泊"
+  image?: string;         // サムネイル画像URL
   desc?: string;          // 説明文
-  points?: string[];      // 箇条書きポイント
+  points?: string[];      // 箇条書きポイント（最大2〜3行）
+  amenities?: SpotAmenity[]; // ピクトグラムバッジ（🚻 🪑 👶 ☔ ♿）
+  transit?: string;       // 移動情報（e.g. "徒歩 約8分"）
+  transitBadge?: string;  // e.g. "湯〜遊〜バス 12分"
+  
+  // 横スワイプ候補（カルーセル）機能
+  alternativeLabel?: string; // e.g. "🍣 海鮮", "🥩 お肉", "🍜 麺"
+  alternatives?: TimelineStep[]; // スワイプで切り替え可能な代替候補たち
+
+  // 全画面スポットカードポップアップ用
+  spotData?: SpotData;
+
+  // 宿アフィリエイト用
+  isHotel?: boolean;
+  hotelData?: TimelineHotelData;
 }
 
 export interface TimelineDay {
   dayNumber?: number;
   title: string;
+  subtitle?: string;
   steps: TimelineStep[];
 }
 
 interface Props {
-  dayTitle?: string;      // e.g. "【1日目】三島富士山パノラマ ➔ 熱海温泉街"
+  dayTitle?: string;
   steps?: TimelineStep[];
   days?: TimelineDay[];
 }
 
 const { dayTitle, steps, days: rawDays } = Astro.props;
 
-// days または dayTitle/steps のいずれでもレンダリングできるよう正規化
+// 正規化
 const timelineDays: TimelineDay[] = rawDays || (steps ? [{
   dayNumber: 1,
   title: dayTitle || '',
   steps: steps
 }] : []);
+
+// 全ステップからモーダル用のspotDataを収集
+const allModalSpots: SpotData[] = [];
+timelineDays.forEach(day => {
+  day.steps.forEach(step => {
+    if (step.spotData) allModalSpots.push(step.spotData);
+    if (step.alternatives) {
+      step.alternatives.forEach(alt => {
+        if (alt.spotData) allModalSpots.push(alt.spotData);
+      });
+    }
+  });
+});
 ---
 
-{timelineDays.map((day) => (
-  <div class="travel-timeline">
-    {day.title && (
-      <div class="timeline-day-header">
-        <span class="timeline-day-badge">
-          {day.dayNumber ? `DAY ${day.dayNumber}` : 'DAY'}
-        </span>
-        <h3 class="timeline-day-title">{day.title}</h3>
-      </div>
-    )}
-
-    <div class="timeline-steps">
-      {day.steps && day.steps.map((step, index) => {
-        const isLast = index === day.steps.length - 1;
-        return (
-          <div class={`timeline-step ${isLast ? 'is-last' : ''}`}>
-            <div class="timeline-left">
-              <span class="timeline-time">{step.time}</span>
-              <div class="timeline-node">
-                <span class="timeline-node-icon">{step.icon || '📍'}</span>
-              </div>
-              {!isLast && <div class="timeline-line" />}
-            </div>
-
-            <div class="timeline-content">
-              <h4 class="timeline-step-title">{step.title}</h4>
-              
-              {step.desc && <p class="timeline-step-desc">{step.desc}</p>}
-
-              {step.points && step.points.length > 0 && (
-                <ul class="timeline-step-points">
-                  {step.points.map((pt) => (
-                    <li>{pt}</li>
-                  ))}
-                </ul>
-              )}
-
-              {(step.transit || step.transitBadge) && !isLast && (
-                <div class="timeline-transit-badge">
-                  <span class="transit-arrow">↓</span>
-                  <span class="transit-text">{step.transit || step.transitBadge}</span>
-                </div>
-              )}
-            </div>
+<div class="tavinavi-timeline-wrapper">
+  {timelineDays.map((day) => (
+    <div class="travel-timeline">
+      {day.title && (
+        <div class="timeline-day-header">
+          <span class="timeline-day-badge">
+            {day.dayNumber ? `DAY ${day.dayNumber}` : 'DAY'}
+          </span>
+          <div class="timeline-day-title-group">
+            <h3 class="timeline-day-title">{day.title}</h3>
+            {day.subtitle && <p class="timeline-day-subtitle">{day.subtitle}</p>}
           </div>
-        );
-      })}
+        </div>
+      )}
+
+      <div class="timeline-steps">
+        {day.steps && day.steps.map((step, index) => {
+          const isLast = index === day.steps.length - 1;
+          const hasAlternatives = step.alternatives && step.alternatives.length > 0;
+          const allOptions = hasAlternatives ? [step, ...step.alternatives!] : [step];
+
+          return (
+            <div class={`timeline-step ${isLast ? 'is-last' : ''} ${step.isHotel ? 'is-hotel-step' : ''}`}>
+              <!-- 左側タイムライン軸（時間とアイコン） -->
+              <div class="timeline-left">
+                <span class="timeline-time">{step.time}</span>
+                <div class={`timeline-node ${step.isHotel ? 'hotel-node' : ''}`}>
+                  <span class="timeline-node-icon">{step.icon || (step.isHotel ? '🏨' : '📍')}</span>
+                </div>
+                {!isLast && <div class="timeline-line" />}
+              </div>
+
+              <!-- 右側コンテンツ（横スワイプカルーセル対応） -->
+              <div class="timeline-content">
+                {hasAlternatives ? (
+                  <div class="swipe-container-outer">
+                    <!-- スワイプ案内＆カテゴリピル -->
+                    <div class="swipe-header-bar">
+                      <span class="swipe-hint-badge">👉 横スワイプで変更可</span>
+                      <div class="swipe-tabs">
+                        {allOptions.map((opt, optIdx) => (
+                          <span class={`swipe-tab-pill ${optIdx === 0 ? 'active' : ''}`} data-tab-for={`step-${index}-${optIdx}`}>
+                            {opt.alternativeLabel || `候補 ${optIdx + 1}`}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <!-- CSS Scroll-Snap カルーセル -->
+                    <div class="swipe-carousel-track" data-track-id={`track-${index}`}>
+                      {allOptions.map((opt, optIdx) => (
+                        <div class="swipe-card-item" id={`step-${index}-${optIdx}`}>
+                          <!-- コンパクトカード本体 -->
+                          <div class="compact-spot-card">
+                            {opt.image && (
+                              <div
+                                class="compact-thumb-wrapper"
+                                data-open-spot={opt.spotData ? opt.spotData.id : undefined}
+                              >
+                                <img src={opt.image} alt={opt.title} class="compact-thumb-img" loading="lazy" />
+                                {opt.spotData && <span class="thumb-zoom-badge">🔍 詳細</span>}
+                              </div>
+                            )}
+
+                            <div class="compact-info-wrapper">
+                              <div class="compact-title-row">
+                                <h4 class="compact-title">{opt.title}</h4>
+                                {opt.categoryLabel && (
+                                  <span class="compact-category-tag">{opt.categoryLabel}</span>
+                                )}
+                              </div>
+
+                              {opt.desc && <p class="compact-desc">{opt.desc}</p>}
+
+                              {opt.points && opt.points.length > 0 && (
+                                <ul class="compact-points">
+                                  {opt.points.map((pt) => (
+                                    <li>{pt}</li>
+                                  ))}
+                                </ul>
+                              )}
+
+                              {opt.amenities && opt.amenities.length > 0 && (
+                                <div class="compact-amenity-bar">
+                                  {opt.amenities.map((am) => (
+                                    <span class={`compact-amenity-chip ${am.type || 'info'}`}>
+                                      {am.icon} {am.label}
+                                    </span>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <!-- スワイプインジケーター（ドット） -->
+                    <div class="swipe-dots-bar">
+                      {allOptions.map((_, dotIdx) => (
+                        <span class={`swipe-dot ${dotIdx === 0 ? 'active' : ''}`} data-dot-for={dotIdx}></span>
+                      ))}
+                    </div>
+                  </div>
+                ) : step.isHotel ? (
+                  <!-- 宿アフィリエイト専用カード -->
+                  <div class="timeline-hotel-card">
+                    <div class="hotel-header-badge">
+                      <span>🏨</span>
+                      <span>今夜の厳選宿・温泉ステイ</span>
+                    </div>
+
+                    <div class="hotel-body-grid">
+                      {step.image && (
+                        <img src={step.image} alt={step.title} class="hotel-thumb" loading="lazy" />
+                      )}
+                      <div class="hotel-info">
+                        <h4 class="hotel-title">{step.title}</h4>
+                        {step.hotelData && (
+                          <div class="hotel-rating-row">
+                            <span class="hotel-stars">★★★★☆</span>
+                            <span class="hotel-score">{step.hotelData.rating}</span>
+                            <span class="hotel-reviews">({step.hotelData.reviewCount}件)</span>
+                          </div>
+                        )}
+                        {step.points && (
+                          <ul class="hotel-points">
+                            {step.points.map(pt => <li>{pt}</li>)}
+                          </ul>
+                        )}
+                      </div>
+                    </div>
+
+                    {step.hotelData?.rakutenUrl && (
+                      <div class="hotel-cta-row">
+                        <a
+                          href={step.hotelData.rakutenUrl}
+                          target="_blank"
+                          rel="noopener sponsored"
+                          class="rakuten-booking-btn"
+                        >
+                          <span class="rakuten-icon">🔴</span>
+                          <span class="rakuten-btn-text">楽天トラベルで今夜の空室を見る ▶</span>
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <!-- 通常の単独コンパクトスポットカード -->
+                  <div class="compact-spot-card">
+                    {step.image && (
+                      <div
+                        class="compact-thumb-wrapper"
+                        data-open-spot={step.spotData ? step.spotData.id : undefined}
+                      >
+                        <img src={step.image} alt={step.title} class="compact-thumb-img" loading="lazy" />
+                        {step.spotData && <span class="thumb-zoom-badge">🔍 詳細</span>}
+                      </div>
+                    )}
+
+                    <div class="compact-info-wrapper">
+                      <div class="compact-title-row">
+                        <h4 class="compact-title">{step.title}</h4>
+                        {step.categoryLabel && (
+                          <span class="compact-category-tag">{step.categoryLabel}</span>
+                        )}
+                      </div>
+
+                      {step.desc && <p class="compact-desc">{step.desc}</p>}
+
+                      {step.points && step.points.length > 0 && (
+                        <ul class="compact-points">
+                          {step.points.map((pt) => (
+                            <li>{pt}</li>
+                          ))}
+                        </ul>
+                      )}
+
+                      {step.amenities && step.amenities.length > 0 && (
+                        <div class="compact-amenity-bar">
+                          {step.amenities.map((am) => (
+                            <span class={`compact-amenity-chip ${am.type || 'info'}`}>
+                              {am.icon} {am.label}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                <!-- 移動トランジット線＆バッジ -->
+                {(step.transit || step.transitBadge) && !isLast && (
+                  <div class="timeline-transit-badge">
+                    <span class="transit-arrow">↓</span>
+                    <span class="transit-text">{step.transit || step.transitBadge}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
-  </div>
-))}
+  ))}
+
+  <!-- 全画面スポットカード用モーダルダイアログ群 -->
+  {allModalSpots.map(spot => (
+    <dialog class="tavinavi-spot-dialog" id={`dialog-${spot.id}`}>
+      <SpotCard spot={spot} mode="modal-view" />
+    </dialog>
+  ))}
+</div>
+
+<script>
+  // スポット全画面モーダル開閉ロジック
+  function initSpotModals() {
+    // 開くボタン
+    document.querySelectorAll('[data-open-spot]').forEach(el => {
+      el.addEventListener('click', () => {
+        const spotId = el.getAttribute('data-open-spot');
+        if (!spotId) return;
+        const dialog = document.getElementById(`dialog-${spotId}`) as HTMLDialogElement | null;
+        if (dialog) {
+          dialog.showModal();
+          document.body.style.overflow = 'hidden'; // 背景スクロール停止
+        }
+      });
+    });
+
+    // 閉じるボタン
+    document.querySelectorAll('[data-close-modal]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const dialog = btn.closest('dialog') as HTMLDialogElement | null;
+        if (dialog) {
+          dialog.close();
+          document.body.style.overflow = '';
+        }
+      });
+    });
+
+    // ダイアログ外側クリックで閉じる
+    document.querySelectorAll('.tavinavi-spot-dialog').forEach(dialog => {
+      dialog.addEventListener('click', (e) => {
+        const rect = dialog.getBoundingClientRect();
+        const isInDialog = (
+          rect.top <= e.clientY && e.clientY <= rect.top + rect.height &&
+          rect.left <= e.clientX && e.clientX <= rect.left + rect.width
+        );
+        // 背景クリック時
+        if (e.target === dialog) {
+          (dialog as HTMLDialogElement).close();
+          document.body.style.overflow = '';
+        }
+      });
+      dialog.addEventListener('close', () => {
+        document.body.style.overflow = '';
+      });
+    });
+
+    // カルーセルのスクロール監視でインジケータードットを連動
+    document.querySelectorAll('.swipe-carousel-track').forEach(track => {
+      track.addEventListener('scroll', () => {
+        const itemWidth = track.clientWidth;
+        const scrollLeft = track.scrollLeft;
+        const activeIndex = Math.round(scrollLeft / itemWidth);
+        const container = track.closest('.swipe-container-outer');
+        if (container) {
+          // ドット更新
+          container.querySelectorAll('.swipe-dot').forEach((dot, idx) => {
+            dot.classList.toggle('active', idx === activeIndex);
+          });
+          // タブピル更新
+          container.querySelectorAll('.swipe-tab-pill').forEach((pill, idx) => {
+            pill.classList.toggle('active', idx === activeIndex);
+          });
+        }
+      }, { passive: true });
+    });
+  }
+
+  // 初回 & Astro View Transitions 対応
+  initSpotModals();
+  document.addEventListener('astro:page-load', initSpotModals);
+</script>
 
 <style>
+  .tavinavi-timeline-wrapper {
+    margin: 1.5rem 0;
+  }
+
   .travel-timeline {
     background: #ffffff;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    padding: 1.5rem;
-    margin: 1.75rem 0;
-    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--color-border, #e5e7eb);
+    border-radius: var(--radius-lg, 16px);
+    padding: 1.25rem 1rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
   }
 
   .timeline-day-header {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 0.65rem;
-    padding-bottom: 1rem;
-    margin-bottom: 1.25rem;
-    border-bottom: 2px solid var(--color-border);
+    padding-bottom: 0.85rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--color-border, #e5e7eb);
   }
 
   .timeline-day-badge {
-    background: var(--color-primary);
+    background: var(--color-primary, #0ea5e9);
     color: #ffffff;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 800;
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
     letter-spacing: 0.05em;
-    padding: 0.2rem 0.55rem;
-    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+  }
+
+  .timeline-day-title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
   }
 
   .timeline-day-title {
-    font-size: 1.15rem;
+    font-size: 1.05rem;
     font-weight: 800;
-    color: var(--color-text-main);
+    color: var(--color-text-main, #111827);
+    margin: 0;
+    line-height: 1.35;
+  }
+
+  .timeline-day-subtitle {
+    font-size: 0.78rem;
+    color: var(--color-text-muted, #6b7280);
     margin: 0;
   }
 
@@ -125,140 +416,508 @@ const timelineDays: TimelineDay[] = rawDays || (steps ? [{
 
   .timeline-step {
     display: flex;
-    gap: 1.25rem;
+    gap: 0.85rem;
     position: relative;
-    padding-bottom: 1.5rem;
+    padding-bottom: 1.25rem;
   }
 
   .timeline-step.is-last {
     padding-bottom: 0;
   }
 
+  /* 左側軸 */
   .timeline-left {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 65px;
+    width: 58px;
     flex-shrink: 0;
     position: relative;
   }
 
   .timeline-time {
-    font-size: 0.82rem;
+    font-size: 0.75rem;
     font-weight: 800;
-    color: var(--color-primary);
-    margin-bottom: 0.35rem;
+    color: var(--color-primary, #0ea5e9);
+    margin-bottom: 0.3rem;
     font-variant-numeric: tabular-nums;
+    text-align: center;
+    line-height: 1.2;
   }
 
   .timeline-node {
-    width: 34px;
-    height: 34px;
-    border-radius: var(--radius-full);
-    background: var(--color-bg-alt);
-    border: 2px solid var(--color-primary);
+    width: 30px;
+    height: 30px;
+    border-radius: 9999px;
+    background: #f8fafc;
+    border: 2px solid var(--color-primary, #0ea5e9);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 2;
   }
 
+  .timeline-node.hotel-node {
+    border-color: #f59e0b;
+    background: #fffbeb;
+  }
+
   .timeline-node-icon {
-    font-size: 1rem;
+    font-size: 0.85rem;
     line-height: 1;
   }
 
   .timeline-line {
     position: absolute;
-    top: 54px;
-    bottom: -8px;
+    top: 48px;
+    bottom: -6px;
     width: 2px;
-    background: var(--color-border);
+    background: #e5e7eb;
     z-index: 1;
   }
 
+  /* 右側コンテンツ */
   .timeline-content {
     flex: 1;
-    padding-top: 0.15rem;
+    min-width: 0;
+    padding-top: 0.1rem;
   }
 
-  .timeline-step-title {
-    font-size: 1.05rem;
+  /* コンパクトスポットカード（縦幅圧縮） */
+  .compact-spot-card {
+    display: flex;
+    gap: 0.75rem;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 0.65rem;
+    transition: border-color 0.15s;
+  }
+
+  .compact-spot-card:hover {
+    border-color: #cbd5e1;
+  }
+
+  /* サムネイル（左寄せ 72x72px） */
+  .compact-thumb-wrapper {
+    position: relative;
+    width: 72px;
+    height: 72px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .compact-thumb-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.2s;
+  }
+
+  .compact-thumb-wrapper:hover .compact-thumb-img {
+    transform: scale(1.06);
+  }
+
+  .thumb-zoom-badge {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    background: rgba(0, 0, 0, 0.7);
+    color: #ffffff;
+    font-size: 0.62rem;
+    font-weight: 700;
+    padding: 1px 4px;
+    border-radius: 4px;
+    backdrop-filter: blur(4px);
+  }
+
+  /* 右側情報 */
+  .compact-info-wrapper {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .compact-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.4rem;
+  }
+
+  .compact-title {
+    font-size: 0.92rem;
     font-weight: 800;
-    color: var(--color-text-main);
-    margin: 0 0 0.4rem 0;
+    color: #111827;
+    margin: 0;
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .compact-category-tag {
+    font-size: 0.68rem;
+    font-weight: 700;
+    background: #e0f2fe;
+    color: #0369a1;
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  .compact-desc {
+    font-size: 0.78rem;
+    color: #4b5563;
+    margin: 0;
     line-height: 1.4;
   }
 
-  .timeline-step-desc {
-    font-size: 0.9rem;
-    line-height: 1.6;
-    color: var(--color-text-main);
-    margin: 0 0 0.5rem 0;
-  }
-
-  .timeline-step-points {
+  .compact-points {
     list-style: none;
     padding: 0;
-    margin: 0 0 0.65rem 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .compact-points li {
+    font-size: 0.76rem;
+    color: #374151;
+    line-height: 1.35;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .compact-points li::before {
+    content: "・";
+    color: var(--color-primary, #0ea5e9);
+    font-weight: 800;
+  }
+
+  /* ピクトグラムバッジバー */
+  .compact-amenity-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-top: 0.15rem;
+  }
+
+  .compact-amenity-chip {
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 0.15rem 0.35rem;
+    border-radius: 4px;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+  }
+
+  .compact-amenity-chip.safe {
+    background: #dcfce7;
+    color: #15803d;
+  }
+
+  .compact-amenity-chip.info {
+    background: #e0f2fe;
+    color: #0369a1;
+  }
+
+  .compact-amenity-chip.warning {
+    background: #fef3c7;
+    color: #b45309;
+  }
+
+  /* 横スワイプ（カルーセル）UI */
+  .swipe-container-outer {
+    background: #f8fafc;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 14px;
+    padding: 0.6rem 0.6rem 0.4rem;
+  }
+
+  .swipe-header-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    gap: 0.4rem;
+  }
+
+  .swipe-hint-badge {
+    font-size: 0.68rem;
+    font-weight: 800;
+    color: #0284c7;
+    background: #e0f2fe;
+    padding: 0.15rem 0.45rem;
+    border-radius: 9999px;
+  }
+
+  .swipe-tabs {
+    display: flex;
+    gap: 0.3rem;
+  }
+
+  .swipe-tab-pill {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.15rem 0.45rem;
+    border-radius: 9999px;
+    background: #e2e8f0;
+    color: #64748b;
+    transition: background-color 0.2s, color 0.2s;
+  }
+
+  .swipe-tab-pill.active {
+    background: #0ea5e9;
+    color: #ffffff;
+  }
+
+  /* カルーセルトラック（CSS Scroll Snap） */
+  .swipe-carousel-track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 0.75rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    border-radius: 10px;
+  }
+
+  .swipe-carousel-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .swipe-card-item {
+    flex: 0 0 100%;
+    width: 100%;
+    scroll-snap-align: start;
+    box-sizing: border-box;
+  }
+
+  .swipe-card-item .compact-spot-card {
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  /* スワイプドット */
+  .swipe-dots-bar {
+    display: flex;
+    justify-content: center;
+    gap: 0.35rem;
+    margin-top: 0.4rem;
+  }
+
+  .swipe-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    background: #cbd5e1;
+    transition: background-color 0.2s, transform 0.2s;
+  }
+
+  .swipe-dot.active {
+    background: #0ea5e9;
+    transform: scale(1.25);
+  }
+
+  /* 宿アフィリエイトカード */
+  .timeline-hotel-card {
+    background: #fffdf5;
+    border: 2px solid #f59e0b;
+    border-radius: 12px;
+    padding: 0.75rem;
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.12);
+  }
+
+  .hotel-header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: #fef3c7;
+    color: #b45309;
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+  }
+
+  .hotel-body-grid {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .hotel-thumb {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .hotel-info {
+    flex: 1;
+    min-width: 0;
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
   }
 
-  .timeline-step-points li {
-    font-size: 0.88rem;
-    line-height: 1.55;
-    color: var(--color-text-main);
-    display: flex;
-    align-items: flex-start;
-    gap: 0.4rem;
+  .hotel-title {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #111827;
+    margin: 0;
+    line-height: 1.3;
   }
 
-  .timeline-step-points li::before {
+  .hotel-rating-row {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.74rem;
+  }
+
+  .hotel-stars {
+    color: #f59e0b;
+  }
+
+  .hotel-score {
+    font-weight: 800;
+    color: #d97706;
+  }
+
+  .hotel-reviews {
+    color: #6b7280;
+  }
+
+  .hotel-points {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .hotel-points li {
+    font-size: 0.75rem;
+    color: #4b5563;
+  }
+
+  .hotel-points li::before {
     content: "・";
-    color: var(--color-primary);
+    color: #f59e0b;
     font-weight: 800;
   }
 
+  .hotel-cta-row {
+    margin-top: 0.65rem;
+  }
+
+  .rakuten-booking-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    background: linear-gradient(135deg, #bf0000 0%, #e60000 100%);
+    color: #ffffff;
+    font-size: 0.82rem;
+    font-weight: 800;
+    padding: 0.55rem 0.85rem;
+    border-radius: 9999px;
+    text-decoration: none;
+    box-shadow: 0 3px 10px rgba(191, 0, 0, 0.3);
+    transition: transform 0.15s, opacity 0.15s;
+  }
+
+  .rakuten-booking-btn:active {
+    transform: scale(0.98);
+  }
+
+  /* 移動バッジ */
   .timeline-transit-badge {
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    background: var(--color-bg-alt);
-    border: 1px dashed var(--color-border);
-    padding: 0.3rem 0.75rem;
-    border-radius: var(--radius-full);
-    font-size: 0.8rem;
+    background: #f1f5f9;
+    border: 1px dashed #cbd5e1;
+    padding: 0.25rem 0.65rem;
+    border-radius: 9999px;
+    font-size: 0.74rem;
     font-weight: 700;
-    color: var(--color-text-muted);
-    margin-top: 0.35rem;
+    color: #64748b;
+    margin-top: 0.45rem;
   }
 
   .transit-arrow {
-    color: var(--color-accent);
+    color: var(--color-primary, #0ea5e9);
     font-weight: 900;
   }
 
-  @media (max-width: 640px) {
+  /* 全画面スポットモーダルダイアログ */
+  .tavinavi-spot-dialog {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    width: 100vw;
+    height: 100dvh;
+    max-width: 100vw;
+    max-height: 100dvh;
+    overflow: hidden;
+  }
+
+  .tavinavi-spot-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(6px);
+  }
+
+  /* モーダル表示アニメーション */
+  .tavinavi-spot-dialog[open] {
+    animation: dialogSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes dialogSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @media (max-width: 480px) {
     .travel-timeline {
-      padding: 1.15rem 0.85rem;
+      padding: 1rem 0.75rem;
     }
     .timeline-left {
-      width: 52px;
+      width: 48px;
     }
     .timeline-node {
-      width: 28px;
-      height: 28px;
+      width: 26px;
+      height: 26px;
     }
     .timeline-node-icon {
-      font-size: 0.85rem;
+      font-size: 0.78rem;
     }
     .timeline-line {
-      top: 48px;
+      top: 44px;
     }
-    .timeline-step-title {
-      font-size: 0.98rem;
+    .compact-thumb-wrapper {
+      width: 64px;
+      height: 64px;
     }
   }
 </style>
