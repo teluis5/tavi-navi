@@ -45,7 +45,7 @@ export interface TimelineStep {
   image?: string | ImageMetadata; // サムネイル・ワイド画像URLまたはインポート画像
   imageCredit?: string;   // 写真クレジット提供元（例: "秋田県観光連盟"）
   images?: (string | ImageMetadata | TimelinePhotoItem)[]; // 単一箇所での複数写真
-  imageLayout?: 'carousel' | 'grid-2' | 'grid-3'; // 写真のレイアウト形式（省略時: 複数あればcarousel）
+  imageLayout?: 'carousel' | 'grid-2' | 'grid-3' | 'pip'; // 写真のレイアウト形式（pip: ピクチャーインピクチャ、メイン大＋右上に子写真小）
   desc?: string;
   points?: string[];      // 箇条書きポイント（最大2〜3行）
   amenities?: SpotAmenity[]; // 設備情報
@@ -138,9 +138,9 @@ function isAllowedHotelCategory(cat?: string): string | null {
   return null;
 }
 
-// グリッドレイアウト用の複数クレジット合成表示ヘルパー
-function formatGridCredits(photos: TimelinePhotoItem[], defaultCredit?: string, layout?: 'grid-2' | 'grid-3'): string {
-  const count = layout === 'grid-2' ? 2 : 3;
+// グリッド・PiPレイアウト用の複数クレジット合成表示ヘルパー
+function formatGridCredits(photos: TimelinePhotoItem[], defaultCredit?: string, layout?: 'grid-2' | 'grid-3' | 'pip'): string {
+  const count = layout === 'grid-2' || layout === 'pip' ? 2 : 3;
   const targetPhotos = photos.slice(0, count);
   const credits = targetPhotos.map(p => p.imageCredit || defaultCredit || '').filter(Boolean);
 
@@ -153,17 +153,16 @@ function formatGridCredits(photos: TimelinePhotoItem[], defaultCredit?: string, 
   }
 
   // 異なる提供元が含まれる場合
-  // 2分割: 左、右
-  // 3分割: 左、右上、右下
-  const labels = layout === 'grid-2'
-    ? ['左', '右']
-    : ['左', '右上', '右下'];
+  const labels = layout === 'pip'
+    ? ['背景', '小枠']
+    : layout === 'grid-2'
+      ? ['左', '右']
+      : ['左', '右上', '右下'];
 
   const parts: string[] = [];
   targetPhotos.forEach((p, idx) => {
     const cred = p.imageCredit || defaultCredit;
     if (cred) {
-      // "秋田県観光連盟(左)" のように整形
       parts.push(`${cred}(${labels[idx] || `位置${idx + 1}`})`);
     }
   });
@@ -444,7 +443,28 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                           </div>
                         )}
 
-                        {layout === 'grid-2' && isMulti ? (
+                        {layout === 'pip' && isMulti ? (
+                          /* ピクチャーインピクチャ（PiP）レイアウト：メイン写真（背景全面）＋右上にサブ写真（小枠） */
+                          <div class="wide-photo-container photo-pip-container">
+                            <img src={getWideImageUrl(photoItems[0].image)} alt={step.title} class="wide-photo-img" loading="lazy" />
+
+                            <div class="pip-inset-frame">
+                              <img src={getWideImageUrl(photoItems[1].image)} alt={photoItems[1].caption || step.title} class="pip-inset-img" loading="lazy" />
+                            </div>
+
+                            <div class="wide-photo-overlay pointer-events-none">
+                              <div class="overlay-title-row align-left">
+                                <h4 class="overlay-heading single-line-heading">{step.title}</h4>
+                                {step.spotData && <span class="overlay-chevron">›</span>}
+                              </div>
+                              <div class="overlay-bottom-bar">
+                                <div class="overlay-meta-right">
+                                  <span class="photo-credit-tag tiny-credit">{formatGridCredits(photoItems, step.imageCredit, 'pip')}</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        ) : layout === 'grid-2' && isMulti ? (
                           /* 2分割グリッドレイアウト（写真は2分割、文字・タイトルは全体に1つだけ固定オーバーレイ） */
                           <div class="wide-photo-container photo-grid-wrapper">
                             <div class="photo-gallery-grid-2">
@@ -1133,7 +1153,36 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
     gap: 0.35rem;
     flex-shrink: 0;
   }
-    flex-shrink: 0;
+
+  /* ピクチャーインピクチャ（PiP）スタイル */
+  .photo-pip-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .pip-inset-frame {
+    position: absolute;
+    top: 0.65rem;
+    right: 0.75rem;
+    width: 32%;
+    aspect-ratio: 16 / 9;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+    z-index: 4;
+    background: #1f2937;
+  }
+
+  .pip-inset-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
   }
 
   .photo-grid-wrapper {
