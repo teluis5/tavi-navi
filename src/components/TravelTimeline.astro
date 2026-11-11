@@ -141,19 +141,26 @@ function isAllowedHotelCategory(cat?: string): string | null {
 }
 
 // ホテルの楽天トラベル予約URL解決ヘルパー
-function resolveHotelBookingUrl(step: TimelineStep): string | null {
-  if (step.hotelData?.rakutenUrl) {
-    return step.hotelData.rakutenUrl;
-  }
+function resolveHotelBookingUrl(step: TimelineStep): { url: string; label: string } | null {
   const isHotelStep = step.isHotel || !!isAllowedHotelCategory(step.categoryLabel);
-  if (!isHotelStep) {
+  if (!isHotelStep && !step.hotelData?.rakutenUrl) {
     return null;
   }
+
+  // 「他の宿を探す」カードなどのカスタム判定
+  const isSearchMore = step.title.includes('他の宿') || step.title.includes('宿を探す') || step.title.includes('ホテル一覧');
+  const label = isSearchMore
+    ? '楽天トラベルでこのエリアの宿を探す'
+    : '楽天トラベルでこのホテルを予約する';
+
+  if (step.hotelData?.rakutenUrl) {
+    return { url: step.hotelData.rakutenUrl, label };
+  }
   if (step.hotelData?.hotelNo) {
-    return buildRakutenTravelUrl({ hotelNo: step.hotelData.hotelNo });
+    return { url: buildRakutenTravelUrl({ hotelNo: step.hotelData.hotelNo }), label };
   }
   if (step.title) {
-    return buildRakutenTravelUrl({ keyword: step.title });
+    return { url: buildRakutenTravelUrl({ keyword: step.title }), label };
   }
   return null;
 }
@@ -474,12 +481,12 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
 
                                   {optBookingUrl && (
                                     <a
-                                      href={optBookingUrl}
+                                      href={optBookingUrl.url}
                                       target="_blank"
                                       rel="noopener sponsored"
                                       class="wide-hotel-cta"
                                     >
-                                      <span>楽天トラベルでこのホテルを予約する</span>
+                                      <span>{optBookingUrl.label}</span>
                                       <span class="cta-arrow">→</span>
                                     </a>
                                   )}
@@ -549,12 +556,12 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
 
                         {resolveHotelBookingUrl(step) && (
                           <a
-                            href={resolveHotelBookingUrl(step)!}
+                            href={resolveHotelBookingUrl(step)!.url}
                             target="_blank"
                             rel="noopener sponsored"
                             class="wide-hotel-cta"
                           >
-                            <span>楽天トラベルでこのホテルを予約する</span>
+                            <span>{resolveHotelBookingUrl(step)!.label}</span>
                             <span class="cta-arrow">→</span>
                           </a>
                         )}
@@ -722,12 +729,12 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
 
                           {resolveHotelBookingUrl(step) && (
                             <a
-                              href={resolveHotelBookingUrl(step)!}
+                              href={resolveHotelBookingUrl(step)!.url}
                               target="_blank"
                               rel="noopener sponsored"
                               class="wide-hotel-cta"
                             >
-                              <span>楽天トラベルでこのホテルを予約する</span>
+                              <span>{resolveHotelBookingUrl(step)!.label}</span>
                               <span class="cta-arrow">→</span>
                             </a>
                           )}
