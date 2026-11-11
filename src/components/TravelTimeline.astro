@@ -8,6 +8,7 @@ export interface TimelineHotelData {
   reviewCount?: string;   // e.g. "2,150"
   rakutenUrl?: string;    // アフィリエイトURL（未指定時はホテル名等から自動生成）
   hotelNo?: string | number; // 楽天トラベルの施設番号
+  areaUrl?: string;       // エリア一覧検索URL（例: "https://search.travel.rakuten.co.jp/ds/hotellist/Japan-Akita-Semboku-Tazawako"）
   priceText?: string;     // e.g. "2名1室 税込14,800円〜"
   features?: string[];
 }
@@ -158,6 +159,9 @@ function resolveHotelBookingUrl(step: TimelineStep): { url: string; label: strin
   }
   if (step.hotelData?.hotelNo) {
     return { url: buildRakutenTravelUrl({ hotelNo: step.hotelData.hotelNo }), label };
+  }
+  if (step.hotelData?.areaUrl) {
+    return { url: buildRakutenTravelUrl({ areaUrl: step.hotelData.areaUrl }), label };
   }
   if (step.title) {
     return { url: buildRakutenTravelUrl({ keyword: step.title }), label };
