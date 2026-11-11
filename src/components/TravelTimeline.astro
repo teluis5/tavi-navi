@@ -722,19 +722,33 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
           const maxScroll = (total - 1) * slideWidth;
           const currentScroll = track.scrollLeft;
 
-          // 最後のスライドにいる状態で左スワイプ（totalWalk < -30 または currentScroll >= maxScroll）した場合、最初（0）へループ
-          if (startScrollLeft >= maxScroll - 10 && totalWalk < -30) {
+          // 最後のスライドにいる状態でわずかでも左スワイプ（totalWalk < -10）した場合、最初（0）へループ
+          if (startScrollLeft >= maxScroll - 15 && totalWalk < -10) {
             currentIdx = 0;
             track.scrollTo({
               left: 0,
               behavior: 'smooth',
             });
           }
-          // 最初のスライドにいる状態で右スワイプ（totalWalk > 30）した場合、最後へループ
-          else if (startScrollLeft <= 10 && totalWalk > 30) {
+          // 最初のスライドにいる状態でわずかでも右スワイプ（totalWalk > 10）した場合、最後へループ
+          else if (startScrollLeft <= 15 && totalWalk > 10) {
             currentIdx = total - 1;
             track.scrollTo({
               left: (total - 1) * slideWidth,
+              behavior: 'smooth',
+            });
+          }
+          // 通常スワイプ時：少しのフリック（|totalWalk| > 20）でも確実に前後の写真へめくる
+          else if (totalWalk < -20 && currentIdx < total - 1) {
+            currentIdx++;
+            track.scrollTo({
+              left: currentIdx * slideWidth,
+              behavior: 'smooth',
+            });
+          } else if (totalWalk > 20 && currentIdx > 0) {
+            currentIdx--;
+            track.scrollTo({
+              left: currentIdx * slideWidth,
               behavior: 'smooth',
             });
           }
