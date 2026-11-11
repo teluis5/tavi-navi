@@ -294,8 +294,16 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                     <div class="peeking-carousel-wrapper">
                       <div class="peeking-carousel-track" id={`wide-track-${index}`}>
                         {allOptions.map((opt, optIdx) => {
+                          const optPhotos = resolvePhotos(opt);
+                          const isOptMulti = optPhotos.length > 1;
+                          const optLayout = opt.imageLayout || (isOptMulti ? 'carousel' : 'single');
                           const heroImg = getWideImageUrl(opt.image, opt.spotData?.heroImage);
                           const areaText = opt.areaLabel || step.areaLabel;
+                          const optPill = isAllowedHotelCategory(opt.categoryLabel) || cleanText(opt.alternativeLabel);
+                          const optCreditText = (optLayout === 'grid-2' || optLayout === 'grid-3' || optLayout === 'pip') && isOptMulti
+                            ? formatGridCredits(optPhotos, opt.imageCredit || step.imageCredit, optLayout)
+                            : formatCredit(opt.imageCredit || step.imageCredit, opt.isImageSample || step.isImageSample);
+
                           return (
                             <div class={`carousel-slide-item ${optIdx === 0 ? 'is-active-slide' : ''}`}>
                               <div
@@ -304,35 +312,129 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                                 role={opt.spotData ? "button" : undefined}
                                 tabindex={opt.spotData ? "0" : undefined}
                               >
-                                <div class="wide-photo-container">
-                                  {heroImg && (
-                                    <img src={heroImg} alt={opt.title} class="wide-photo-img" loading="lazy" />
-                                  )}
-                                  <div class="wide-photo-overlay">
-                                    <div class="overlay-title-column align-left">
-                                      {(isAllowedHotelCategory(opt.categoryLabel) || cleanText(opt.alternativeLabel)) && (
-                                        <div class="overlay-tag-above-title">
-                                          <span class="photo-category-pill">
-                                            {isAllowedHotelCategory(opt.categoryLabel) || cleanText(opt.alternativeLabel)}
-                                          </span>
-                                        </div>
-                                      )}
-                                      <div class="overlay-title-row">
-                                        <h4 class="overlay-heading single-line-heading">{opt.title}</h4>
-                                        {opt.spotData && <span class="overlay-chevron">›</span>}
-                                      </div>
+                                {optLayout === 'pip' && isOptMulti ? (
+                                  /* カルーセル内PiP */
+                                  <div class="wide-photo-container photo-pip-container">
+                                    <img src={getWideImageUrl(optPhotos[0].image)} alt={opt.title} class="wide-photo-img" loading="lazy" />
+                                    <div class="pip-inset-frame">
+                                      <img src={getWideImageUrl(optPhotos[1].image)} alt={optPhotos[1].caption || opt.title} class="pip-inset-img" loading="lazy" />
                                     </div>
-                                    <div class="overlay-bottom-bar">
-                                      <div class="overlay-meta-right">
-                                        {((opt.imageCredit || step.imageCredit) || opt.isImageSample || step.isImageSample) && (
-                                          <span class="photo-credit-tag tiny-credit">
-                                            {formatCredit(opt.imageCredit || step.imageCredit, opt.isImageSample || step.isImageSample)}
-                                          </span>
+                                    <div class="wide-photo-overlay pointer-events-none">
+                                      <div class="overlay-title-column align-left">
+                                        {optPill && (
+                                          <div class="overlay-tag-above-title">
+                                            <span class="photo-category-pill">{optPill}</span>
+                                          </div>
                                         )}
+                                        <div class="overlay-title-row">
+                                          <h4 class="overlay-heading single-line-heading">{opt.title}</h4>
+                                          {opt.spotData && <span class="overlay-chevron">›</span>}
+                                        </div>
+                                      </div>
+                                      <div class="overlay-bottom-bar">
+                                        <div class="overlay-meta-right">
+                                          {optCreditText && (
+                                            <span class="photo-credit-tag tiny-credit">{optCreditText}</span>
+                                          )}
+                                        </div>
                                       </div>
                                     </div>
                                   </div>
-                                </div>
+                                ) : optLayout === 'grid-2' && isOptMulti ? (
+                                  /* カルーセル内2分割グリッド */
+                                  <div class="wide-photo-container photo-grid-wrapper">
+                                    <div class="photo-gallery-grid-2">
+                                      {optPhotos.slice(0, 2).map((photo) => (
+                                        <div class="grid-cell-photo-container">
+                                          <img src={getWideImageUrl(photo.image)} alt={opt.title} class="grid-cell-img" loading="lazy" />
+                                        </div>
+                                      ))}
+                                    </div>
+                                    <div class="wide-photo-overlay pointer-events-none">
+                                      <div class="overlay-title-column align-left">
+                                        {optPill && (
+                                          <div class="overlay-tag-above-title">
+                                            <span class="photo-category-pill">{optPill}</span>
+                                          </div>
+                                        )}
+                                        <div class="overlay-title-row">
+                                          <h4 class="overlay-heading single-line-heading">{opt.title}</h4>
+                                          {opt.spotData && <span class="overlay-chevron">›</span>}
+                                        </div>
+                                      </div>
+                                      <div class="overlay-bottom-bar">
+                                        <div class="overlay-meta-right">
+                                          {optCreditText && (
+                                            <span class="photo-credit-tag tiny-credit">{optCreditText}</span>
+                                          )}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                ) : optLayout === 'grid-3' && isOptMulti ? (
+                                  /* カルーセル内3分割グリッド */
+                                  <div class="wide-photo-container photo-grid-wrapper">
+                                    <div class="photo-gallery-grid-3">
+                                      <div class="grid-3-main-cell">
+                                        <img src={getWideImageUrl(optPhotos[0].image)} alt={opt.title} class="grid-cell-img" loading="lazy" />
+                                      </div>
+                                      <div class="grid-3-sub-column">
+                                        {optPhotos.slice(1, 3).map((photo) => (
+                                          <div class="grid-3-sub-cell">
+                                            <img src={getWideImageUrl(photo.image)} alt={opt.title} class="grid-cell-img" loading="lazy" />
+                                          </div>
+                                        ))}
+                                      </div>
+                                    </div>
+                                    <div class="wide-photo-overlay pointer-events-none">
+                                      <div class="overlay-title-column align-left">
+                                        {optPill && (
+                                          <div class="overlay-tag-above-title">
+                                            <span class="photo-category-pill">{optPill}</span>
+                                          </div>
+                                        )}
+                                        <div class="overlay-title-row">
+                                          <h4 class="overlay-heading single-line-heading">{opt.title}</h4>
+                                          {opt.spotData && <span class="overlay-chevron">›</span>}
+                                        </div>
+                                      </div>
+                                      <div class="overlay-bottom-bar">
+                                        <div class="overlay-meta-right">
+                                          {optCreditText && (
+                                            <span class="photo-credit-tag tiny-credit">{optCreditText}</span>
+                                          )}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                ) : (
+                                  /* 通常1枚写真 */
+                                  <div class="wide-photo-container">
+                                    {heroImg && (
+                                      <img src={heroImg} alt={opt.title} class="wide-photo-img" loading="lazy" />
+                                    )}
+                                    <div class="wide-photo-overlay">
+                                      <div class="overlay-title-column align-left">
+                                        {optPill && (
+                                          <div class="overlay-tag-above-title">
+                                            <span class="photo-category-pill">{optPill}</span>
+                                          </div>
+                                        )}
+                                        <div class="overlay-title-row">
+                                          <h4 class="overlay-heading single-line-heading">{opt.title}</h4>
+                                          {opt.spotData && <span class="overlay-chevron">›</span>}
+                                        </div>
+                                      </div>
+                                      <div class="overlay-bottom-bar">
+                                        <div class="overlay-meta-right">
+                                          {optCreditText && (
+                                            <span class="photo-credit-tag tiny-credit">{optCreditText}</span>
+                                          )}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                )}
 
                                 <div class="wide-spot-body">
                                   {opt.points && opt.points.length > 0 && (
