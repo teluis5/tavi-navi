@@ -1,0 +1,50 @@
+---
+import Layout from '../../layouts/Layout.astro';
+const title = 'ダイナミックレールパックで巡る旅｜新幹線と宿のモデルコース';
+const description = 'JR東日本びゅうダイナミックレールパックで列車と宿を組み合わせる旅。予約前の注意点と車なしモデルコースを紹介します。';
+---
+<Layout title={title} description={description}>
+  <article class="rail-page">
+    <nav class="crumb" aria-label="パンくずリスト"><a href="/">トップ</a> / ダイナミックレールパック特集</nav>
+    <header class="hero">
+      <p class="label">TRAIN &amp; STAY</p>
+      <h1>新幹線と宿を選んで、<br />自分らしい旅へ。</h1>
+      <p>JR東日本びゅうダイナミックレールパックで巡る、車なしの旅を紹介します。</p>
+    </header>
+    <section class="section">
+      <h2>モデルコースから探す</h2>
+      <a class="course" href="/akita/dynamic-rail-tazawako-no-car/">
+        <span class="tag">秋田県 · 1泊2日</span>
+        <strong>田沢湖・乳頭温泉を車なしで巡る</strong>
+        <span>こまちで出発。たつこ像と温泉を楽しむ旅へ →</span>
+      </a>
+    </section>
+    <section class="section guide">
+      <h2>予約する前に</h2>
+      <p>ダイナミックレールパックは、JRと宿泊施設などを組み合わせる旅行商品です。料金は需要や申込時期によって変動します。</p>
+      <p>乗車日の1カ月より前は希望列車の申込となり、手配結果が出るまで列車は確定しません。対象施設・列車の空き、変更・取消条件も確認しましょう。</p>
+      <a href="https://www.jre-travel.com/drp/" target="_blank" rel="noopener noreferrer">JR東日本びゅう 公式サイトで確認する ↗</a>
+    </section>
+    <section class="section guide">
+      <h2>行き先をおまかせするなら</h2>
+      <p>行き先候補から旅先が決まる「どこかにビューーン！」も紹介しています。</p>
+      <a href="/special/dokokanibyun/">どこかにビューーン！特集を見る →</a>
+    </section>
+  </article>
+</Layout>
+<style>
+  .rail-page { max-width: 720px; margin: 0 auto; padding: 0 20px 64px; color: #172b3a; }
+  .crumb { padding: 16px 0; font-size: 12px; color: #526676; }
+  .crumb a, .guide a { color: #12627c; }
+  .hero { padding: 32px 24px; background: #eaf4f7; border-radius: 12px; }
+  .label { margin: 0 0 8px; color: #12627c; font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+  h1 { margin: 0 0 16px; color: #123d50; font-size: clamp(25px, 6vw, 36px); line-height: 1.35; }
+  .hero > p:last-child, .guide p { font-size: 14px; line-height: 1.8; }
+  .section { padding-top: 40px; }
+  h2 { font-size: 22px; margin: 0 0 16px; }
+  .course { display: flex; flex-direction: column; gap: 8px; padding: 24px; border-radius: 8px; background: #f1f5f8; color: #172b3a; text-decoration: none; }
+  .course strong { font-size: 19px; }
+  .course span { font-size: 13px; line-height: 1.6; }
+  .tag { color: #12627c; font-weight: 700; }
+  .guide a { font-weight: 700; }
+</style>
