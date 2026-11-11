@@ -1,0 +1,84 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+import { DOKOKANI_LINES, stationUrl } from '../../../../data/dokokanibyun-lines';
+
+export function getStaticPaths() {
+  return DOKOKANI_LINES.flatMap((line) => line.items.map((station, index) => ({
+    params: { id: station.id },
+    props: { station, line, previous: line.items[index - 1], next: line.items[index + 1] },
+  })));
+}
+
+const { station, line, previous, next } = Astro.props;
+const title = `${station.name}駅の旅ガイド｜どこかにビューン！`;
+const description = `${station.name}駅からの旅を計画。${station.highlight}。見どころや車なし旅行のヒントを紹介します。`;
+---
+
+<Layout title={title} description={description}>
+  <article class="page">
+    <nav class="breadcrumbs" aria-label="パンくずリスト"><a href="/">トップ</a><span aria-hidden="true"> / </span><a href="/special/dokokanibyun/">駅一覧</a><span aria-hidden="true"> / </span><span>{station.name}駅</span></nav>
+    <a class="return-link" href={`/special/dokokanibyun/#line-${line.id}`}>← {line.name}新幹線の駅一覧</a>
+    <header class="hero">
+      <p class="eyebrow">{station.prefName} · {line.name}新幹線</p>
+      <h1>{station.name}<small>駅</small></h1>
+      <p>{station.highlight}</p>
+    </header>
+
+    <section class="section">
+      <p class="eyebrow">HIGHLIGHTS</p>
+      <h2>{station.name}駅からの見どころ</h2>
+      <p class="spot">{station.bestSpot}</p>
+      <p class="note">観光地によって駅からの距離や交通手段は異なります。営業時間や移動方法を事前にご確認ください。</p>
+    </section>
+
+    <section class="section travel">
+      <p class="eyebrow">TRAVEL TIPS</p>
+      <h2>車なしで旅するなら</h2>
+      <p>{station.noCarRating.startsWith('◎') ? '駅周辺の散策を中心に、行きたい場所への交通手段も合わせて確認しましょう。' : station.noCarRating.startsWith('◯') ? '駅から先はバスや鉄道などへの乗り継ぎを確認しましょう。行き先や季節によって運行日・本数が異なります。' : '見どころが広い範囲に点在する場合があります。公共交通の便と、必要に応じてレンタカーも含めて検討しましょう。'}</p>
+      <p class="note">移動の目安は目的地や旅行時期によって変わります。最新の時刻表をご確認ください。</p>
+    </section>
+
+    {(station.courseUrl || station.targetClusterId) && <section class="section related">
+      <p class="eyebrow">PLAN YOUR TRIP</p>
+      <h2>旅の計画に役立つ記事</h2>
+      {station.courseUrl && <a href={station.courseUrl}><span><strong>車なしで巡るモデルコース</strong><small>田沢湖と乳頭温泉郷の1泊2日</small></span><span aria-hidden="true">›</span></a>}
+      {station.targetClusterId && <a href={`/cluster/${station.targetClusterId}/`}><span><strong>乳頭温泉郷の宿を探す</strong><small>温泉宿の情報を見る</small></span><span aria-hidden="true">›</span></a>}
+    </section>}
+
+    <nav class="nearby" aria-label="同じ路線の掲載駅">
+      <h2>{line.name}新幹線のほかの駅</h2>
+      <div>{previous && <a href={stationUrl(previous.id)}><small>← 東京方面</small><strong>{previous.name}駅</strong></a>}{next && <a href={stationUrl(next.id)}><small>終点方面 →</small><strong>{next.name}駅</strong></a>}</div>
+      <a class="all-link" href={`/special/dokokanibyun/#line-${line.id}`}>駅一覧に戻る</a>
+    </nav>
+  </article>
+</Layout>
+
+<style>
+  .page { max-width: 720px; margin: 0 auto; padding: 0 20px 64px; color: #172b3a; }
+  .breadcrumbs { padding: 16px 0; font-size: 12px; color: #526676; }
+  .breadcrumbs a, .return-link { color: #17627a; }
+  .return-link { display: inline-block; margin: 0 0 16px; font-size: 13px; font-weight: 700; }
+  .hero { padding: 32px 24px; background: #eaf4f7; border-radius: 12px; }
+  .eyebrow { margin: 0 0 8px; color: #12627c; font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+  .hero h1 { margin: 0 0 12px; color: #123d50; font-size: 36px; line-height: 1.3; }
+  .hero h1 small { font-size: 18px; }
+  .hero > p:last-child { margin: 0; font-size: 15px; line-height: 1.8; }
+  .section { margin-top: 40px; }
+  .section h2, .nearby h2 { margin: 0 0 16px; font-size: 20px; line-height: 1.3; }
+  .section p:not(.eyebrow) { font-size: 15px; line-height: 1.8; }
+  .spot { margin: 0; padding: 16px; background: #f2f6f7; border-radius: 8px; font-weight: 700; }
+  .section .note { color: #526676; font-size: 13px !important; }
+  .travel { padding-top: 24px; border-top: 1px solid #dce5e9; }
+  .related a { display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 72px; padding: 12px 4px; border-bottom: 1px solid #dce5e9; color: #15546c; text-decoration: none; }
+  .related a > span:last-child { font-size: 28px; }
+  .related small { display: block; color: #526676; font-size: 13px; margin-top: 4px; }
+  .nearby { margin-top: 48px; }
+  .nearby > div { display: flex; gap: 8px; }
+  .nearby > div a { flex: 1; padding: 16px; background: #edf5f8; border-radius: 8px; color: #15546c; text-decoration: none; }
+  .nearby small, .nearby strong { display: block; }
+  .nearby small { margin-bottom: 4px; font-size: 12px; }
+  .all-link { display: inline-block; margin-top: 20px; color: #17627a; font-weight: 700; }
+  a:focus-visible { outline: 3px solid #12627c; outline-offset: 3px; }
+  a:hover { text-decoration: underline; }
+  @media (min-width: 600px) { .hero { padding: 48px; } }
+</style>

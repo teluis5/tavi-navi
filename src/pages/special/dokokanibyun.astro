@@ -1,649 +1,88 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import ProblemBox from '../../components/ProblemBox.astro';
-import ConclusionBox from '../../components/ConclusionBox.astro';
-import { DOKOKANI_STATIONS } from '../../data/dokokanibyun';
-import { clusters } from '../../data/spots';
+import { DOKOKANI_LINES, stationUrl } from '../../data/dokokanibyun-lines';
 
-const title = "【どこかにビューン！攻略】行き先4駅の選び方＆当たった駅の車なし旅・モデルコース一覧";
-const description = "JRE POINT 6,000ptで新幹線往復できるJR東日本『どこかにビューン！』完全攻略ガイド。後悔しない4駅候補の選び方や再検索テクニックから、田沢湖・角館・越後湯沢・飯山など対象駅の車なしアクセス度、温泉宿、モデルコースまで徹底解説。";
-
-// 路線ごとのグループ化
-const lines = ['東北', '秋田', '山形', '上越', '北陸'] as const;
-// 東京方面から終点方面への路線順（掲載駅のみ）
-const stationOrder: Record<string, string[]> = {
-  '東北': ['koriyama', 'fukushima', 'sendai', 'ichinoseki', 'shinhanamaki', 'morioka', 'hachinohe', 'shinaomori'],
-  '秋田': ['shizukuishi', 'tazawako', 'kakunodate', 'omagari', 'akita'],
-  '山形': ['yonezawa', 'kaminoyama-onsen', 'yamagata', 'oishida', 'shinjo'],
-  '上越': ['jomorekogen', 'echigoyuzawa', 'tsubamesanjo', 'niigata'],
-  '北陸': ['karuizawa', 'sakudaira', 'ueda', 'nagano', 'iiyama', 'joetsumyoko'],
-};
+const title = 'どこかにビューン！駅別ガイド｜行き先から旅を探す';
+const description = 'どこかにビューン！の候補駅を新幹線の路線別に紹介。駅ごとの見どころや車なし旅行のヒント、モデルコースを探せます。';
 ---
 
 <Layout title={title} description={description}>
-  <article class="dokokani-special-page">
-    <nav class="crumbs" aria-label="パンくず">
-      <a href="/">トップ</a>
-      <span>›</span>
-      <span>特集</span>
-      <span>›</span>
-      <span>どこかにビューン！攻略ガイド</span>
-    </nav>
-
-    <header class="special-hero">
-      <div class="hero-badge">新幹線の旅 特集</div>
-      <h1>どこかにビューン！完全攻略<br class="sp-br" />行き先ガチャの選び方＆駅別ガイド</h1>
-      <p class="hero-catch">
-        JRE POINT <strong>6,000pt</strong>で新幹線往復！<br />
-        候補4駅の再検索テクニックから、当たった駅の「車なし観光＆名湯宿」まで丸ごとナビ。
-      </p>
+  <article class="page">
+    <nav class="breadcrumbs" aria-label="パンくずリスト"><a href="/">トップ</a><span aria-hidden="true"> / </span><span>どこかにビューン！駅別ガイド</span></nav>
+    <header class="hero">
+      <p class="eyebrow">新幹線で、どこへ行こう。</p>
+      <h1>どこかにビューン！<br />駅から探す旅ガイド</h1>
+      <p>候補に出た駅も、行き先が決まった駅も。<br />見どころをチェックして、旅の準備を始めよう。</p>
     </header>
 
-    <nav class="quick-nav" aria-label="ページ内メニュー">
-      <p>旅の準備に合わせて探す</p>
-      <div class="quick-links">
-        <a href="#all-stations"><strong>駅から探す</strong><span>路線別の駅一覧へ →</span></a>
-        <a href="#recommended"><strong>おすすめ駅を見る</strong><span>車なしの旅のヒント →</span></a>
-        <a href="#tips"><strong>候補駅の選び方</strong><span>申し込み前のポイント →</span></a>
-        <a href="#after-selection"><strong>行き先が決まったら</strong><span>出発までの準備 →</span></a>
+    <section class="finder" id="all-stations" aria-labelledby="finder-title">
+      <div class="section-heading">
+        <p class="eyebrow">STATION GUIDE</p>
+        <h2 id="finder-title">路線から駅を探す</h2>
+        <p>駅名をタップすると、見どころや旅のヒントを確認できます。</p>
       </div>
-    </nav>
-
-    <div class="intro-section">
-      <ProblemBox>
-        <ul>
-          <li>「候補の4駅が微妙…どうやって引き直せばいい？」</li>
-          <li>「車がないと楽しめない駅が当たったらどうしよう」</li>
-          <li>「行き先が決まった後、駅周辺で何をしてどこに泊まればいい？」</li>
-        </ul>
-      </ProblemBox>
-
-      <p class="lead-text">
-        JR東日本の大人気サービス<strong>「どこかにビューン！」</strong>は、東京・上野・大宮発着なら往復わずか<strong>6,000 JRE POINT</strong>（1ポイント＝1円換算なら実質6,000円相当）でJR東日本管轄の新幹線駅どこかへ旅立てる夢のガチャ旅行です。<br /><br />
-        しかし、「申し込んだ後に後悔したくない」「車なしでも満喫できる駅にしたい」という不安もつきもの。本特集では、<strong>4候補の厳選テクニック</strong>から、<strong>当たった駅ごとの車なしアクセス度＆即効モデルコース</strong>まで分かりやすくナビゲートします！
-      </p>
-    </div>
-
-    <!-- 1. 攻略法：4駅選びの鉄則 -->
-    <section class="guide-block" id="tips">
-      <div class="section-title-wrap">
-        <span class="step-num">TIP 01</span>
-        <h2>後悔しない！4つの候補駅「再検索」の鉄則</h2>
-      </div>
-
-      <div class="tip-card-grid">
-        <div class="tip-card">
-          <div class="tip-icon">🔄</div>
-          <h3>納得いくまで何度でも再検索する</h3>
-          <p>
-            「どこかにビューン！」は申し込みボタンを押す前であれば、<strong>1日最大100回まで候補4駅を引き直し可能</strong>です。少しでも「行きたくない駅」「車がないと移動が厳しい駅」が含まれている場合は、妥協せず再検索しましょう。
-          </p>
-        </div>
-
-        <div class="tip-card">
-          <div class="tip-icon">🎯</div>
-          <h3>「4駅すべてが行きたい駅」になるまで粘る</h3>
-          <p>
-            「3駅は行きたいけど1駅だけハズレ」の状態で申し込むと、不思議とその1駅が当たってしまいがち。<strong>「どれが当たっても大満足！」と思える4駅</strong>の組み合わせが出現するまで回すのが最大の勝率アップ術です。
-          </p>
-        </div>
-
-        <div class="tip-card">
-          <div class="tip-icon">⏰</div>
-          <h3>時間帯（往路発・復路着）を微調整してみる</h3>
-          <p>
-            検索時の「出発時間帯」や「到着時間帯」の組み合わせを変えると、出現する4駅の候補パターンがガラリと変化します。お目当ての駅（例: 田沢湖や越後湯沢）が出にくい時は、時間を1枠ずらして再検索するのがコツです。
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 2. 車なし安心おすすめ駅ピックアップ -->
-    <section class="guide-block" id="recommended">
-      <div class="section-title-wrap">
-        <span class="step-num">TIP 02</span>
-        <h2>車なしでも120%楽しい！おすすめ鉄板駅</h2>
-      </div>
-
-      <div class="highlight-stations-grid">
-        <div class="station-feature-card">
-          <div class="card-tag rank-gold">駅ナカ＆温泉街直結</div>
-          <h3>越後湯沢駅（新潟県 / 上越新幹線）</h3>
-          <p class="feature-lead">東京から最短70分！駅直結の日本酒天国「ぽんしゅ館」＆徒歩圏温泉</p>
-          <ul class="feature-bullets">
-            <li>改札を出てすぐ「ぽんしゅ館」で新潟銘酒の500円コイン利き酒＆爆弾おにぎり</li>
-            <li>西口を出ればすぐに温泉街。共同浴場や足湯、日帰り温泉が徒歩圏に点在</li>
-            <li>冬は新幹線改札直結の「GALA湯沢」で手ぶらスキー・スノーボードも可能</li>
-          </ul>
-        </div>
-
-        <div class="station-feature-card">
-          <div class="card-tag rank-blue">秘湯温泉郷直行</div>
-          <h3>田沢湖駅（秋田県 / 秋田新幹線）</h3>
-          <p class="feature-lead">神秘の湖から乳白色の名湯「乳頭温泉郷」へ直通路線バスで直行</p>
-          <ul class="feature-bullets">
-            <li>駅前バスターミナルから路線バス「乳頭線」で憧れの乳頭温泉郷へ一本</li>
-            <li>鶴の湯・黒湯など、全国屈指の秘湯温泉宿でゆったり湯治ステイ</li>
-            <li>日本一の深さを誇るエメラルドグリーンの田沢湖周遊バスも駅前発着</li>
-          </ul>
-          <div class="card-link-box">
-            <a href="/akita/dokokanibyun-tazawako-no-car/" class="inner-cluster-link" style="color: #059669; margin-bottom: 0.35rem; display: inline-block;">
-              🚅 【モデルコース】路線バスで巡る田沢湖一周＆乳頭温泉郷1泊2日 →
-            </a><br />
-            <a href="/cluster/nyuto-onsen-inns/" class="inner-cluster-link">
-              ♨ 田沢湖駅から行ける「乳頭温泉郷の温泉宿まとめ」を見る →
-            </a>
-          </div>
-        </div>
-
-        <div class="station-feature-card">
-          <div class="card-tag rank-green">歩いて観光・歴史街</div>
-          <h3>角館駅（秋田県 / 秋田新幹線）</h3>
-          <p class="feature-lead">駅から徒歩15分で江戸情緒漂う「みちのくの小京都」武家屋敷通りへ</p>
-          <ul class="feature-bullets">
-            <li>駅前から続く一本道を歩くだけで、黒板塀が連なる武家屋敷通りに到着</li>
-            <li>名物「比内地鶏の親子丼」や「稲庭うどん」の老舗名店が散策ルート沿いに充実</li>
-            <li>春のしだれ桜、秋の紅葉、冬の雪景色と四季折々の散策が車なしで完結</li>
-          </ul>
-        </div>
-
-        <div class="station-feature-card">
-          <div class="card-tag rank-purple">門前町グルメ＆名刹</div>
-          <h3>長野駅（長野県 / 北陸新幹線）</h3>
-          <p class="feature-lead">国宝・善光寺参道と信州そば・おやき。駅ビルMIDORIも超充実</p>
-          <ul class="feature-bullets">
-            <li>長野駅善光寺口から善光寺本堂まで、頻発する路線バスで約10〜15分</li>
-            <li>参道には名物「八幡屋礒五郎」の七味カフェや信州名店そば屋がずらり</li>
-            <li>駅ビル「MIDORI長野」で信州りんごスイーツや地酒のお土産も全部揃う</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- 3. 当たった駅別！全47対象駅ナビゲーション -->
-    <section class="guide-block" id="all-stations">
-      <div class="section-title-wrap">
-        <span class="step-num">CATALOG</span>
-        <h2>当たった駅をチェック！新幹線方面別ガイド</h2>
-      </div>
-      <p class="catalog-lead">
-        掲載駅を路線ごとに東京方面から順に紹介します。「車なし度」と見どころを確認し、旅の計画にお役立てください。対象駅や運行条件は公式サイトでもご確認ください。
-      </p>
-
-      <nav class="line-nav" aria-label="路線から駅を探す">
-        {lines.map((lineName) => <a href={`#line-${lineName}`}>{lineName}新幹線</a>)}
+      <nav class="line-nav" aria-label="路線一覧">
+        {DOKOKANI_LINES.map((line) => <a href={`#line-${line.id}`}>{line.name}<span>新幹線</span></a>)}
       </nav>
-
-      {lines.map((lineName) => {
-        const stationsInLine = DOKOKANI_STATIONS.filter((s) => s.line === lineName).sort((a, b) => stationOrder[lineName].indexOf(a.id) - stationOrder[lineName].indexOf(b.id));
-        if (stationsInLine.length === 0) return null;
-
-        return (
-          <div class="line-group" id={`line-${lineName}`}>
-            <div class="line-header">
-              <h3 class="line-badge">{lineName}新幹線</h3>
-              <span class="line-count">{stationsInLine.length}駅</span>
-            </div>
-
-            <div class="stations-table-list">
-              {stationsInLine.map((station) => (
-                <div class="station-item-card">
-                  <div class="station-header-row">
-                    <div class="station-name-box">
-                      <span class="station-pref">{station.prefName}</span>
-                      <strong class="station-title">{station.name}駅</strong>
-                    </div>
-                    <div class="station-badges">
-                      <span class={`car-badge ${station.noCarRating.includes('◎') ? 'car-good' : station.noCarRating.includes('◯') ? 'car-fair' : 'car-rent'}`}>
-                        {station.noCarRating}
-                      </span>
-                      <span class="time-badge">{station.travelTimeFromTokyo}</span>
-                    </div>
-                  </div>
-
-                  <p class="station-highlight">{station.highlight}</p>
-
-                  <div class="station-meta-footer">
-                    <span class="spot-tag">注目の見どころ: <strong>{station.bestSpot}</strong></span>
-                    <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
-                      {station.courseUrl && (
-                        <a href={station.courseUrl} class="station-cluster-btn" style="color: #059669;">
-                          🚅 モデルコースを見る →
-                        </a>
-                      )}
-                      {station.targetClusterId && (
-                        <a href={`/cluster/${station.targetClusterId}/`} class="station-cluster-btn">
-                          ♨ 温泉宿まとめ →
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <a class="back-to-lines" href="#all-stations">↑ 路線一覧に戻る</a>
-          </div>
-        );
-      })}
+      <p class="order-note">掲載駅は東京方面からの順です。すべての対象駅を掲載しているわけではありません。</p>
+      {DOKOKANI_LINES.map((line) => (
+        <section class="line" id={`line-${line.id}`} aria-labelledby={`heading-${line.id}`}>
+          <div class="line-heading"><h3 id={`heading-${line.id}`}>{line.name}新幹線</h3><span>{line.items.length}駅</span></div>
+          <ul class="station-list">
+            {line.items.map((station) => (
+              <li><a class="station" href={stationUrl(station.id)}>
+                <span class="station-copy"><span class="station-name">{station.name}<small>駅</small><span class="pref">{station.prefName}</span></span><span class="station-place">{station.bestSpot}</span></span>
+                <span class="arrow" aria-hidden="true">›</span>
+              </a></li>
+            ))}
+          </ul>
+          <a class="back" href="#all-stations">↑ 路線一覧へ</a>
+        </section>
+      ))}
     </section>
 
-    <!-- 4. 行き先が決まった後のアクション -->
-    <section class="guide-block" id="after-selection">
-      <div class="section-title-wrap">
-        <span class="step-num">ACTION</span>
-        <h2>行き先決定通知が来たら！すぐやるべき2つのこと</h2>
-      </div>
-
-      <div class="action-steps-box">
-        <div class="action-step">
-          <div class="action-num">1</div>
-          <div class="action-content">
-            <h3>まずは宿泊宿（ホテル・旅館）を即座に確保する</h3>
-            <p>
-              「どこかにビューン！」で行き先が確定するのは<strong>出発日の数日前（約3日前前後）</strong>です。人気温泉地や週末・三連休にかかる日程の場合、人気の宿から次々と埋まっていきます。確定メールが届いたら、迷わず即日で楽天トラベル等の空室をチェックしましょう。
-            </p>
-          </div>
-        </div>
-
-        <div class="action-step">
-          <div class="action-num">2</div>
-          <div class="action-content">
-            <h3>新幹線の発着時刻・乗り遅れリスクを確認</h3>
-            <p>
-              指定された新幹線の普通車指定席は、<strong>列車変更が一切できません</strong>。万が一乗り遅れた場合、後続列車の自由席利用も不可となり、乗車券・特急券を買い直す必要があります。駅へは余裕を持って30分前には到着しておきましょう。
-            </p>
-          </div>
-        </div>
-      </div>
+    <section class="guide" id="tips">
+      <p class="eyebrow">BEFORE YOU GO</p>
+      <h2>申し込み前にチェック</h2>
+      <p>4つの候補駅のどこに決まっても楽しめるか、見どころと現地の移動手段を確認しましょう。</p>
+      <p>対象駅や必要ポイント、申し込み・変更の条件は、出発日や発着地によって異なる場合があります。最新情報は公式サイトで確認してください。</p>
+      <a class="official" href="https://dokokani-eki-net.com/" target="_blank" rel="noopener noreferrer">どこかにビューン！公式サイトを見る <span aria-hidden="true">↗</span></a>
     </section>
-
-    <ConclusionBox>
-      <ul>
-        <li><strong>妥協は禁物</strong>：納得いくまで1日100回の再検索を活用し、「4駅すべて行きたい組み合わせ」で申し込む</li>
-        <li><strong>車なしでも安心</strong>：越後湯沢・角館・長野など、駅前や直通バスだけで極上体験ができる駅が多数</li>
-        <li><strong>確定後は即行動</strong>：数日前の決定だからこそ、宿泊宿の予約とタイムスケジュールの確認を最優先で行う</li>
-      </ul>
-    </ConclusionBox>
   </article>
 </Layout>
 
 <style>
-  .quick-nav { margin: 0 0 32px; }
-  .quick-nav p { margin: 0 0 12px; font-weight: 700; color: #0f172a; }
-  .quick-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
-  .quick-links a { display: flex; flex-direction: column; gap: 4px; padding: 16px; background: #eff6fa; border-radius: 8px; color: #075985; text-decoration: none; }
-  .quick-links span { font-size: 0.8rem; color: #334155; }
-  .quick-links a:hover, .line-nav a:hover { background: #dceef7; }
-  .quick-links a:focus-visible, .line-nav a:focus-visible, .back-to-lines:focus-visible { outline: 3px solid #075985; outline-offset: 3px; }
-  .line-nav { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 32px; }
-  .line-nav a { padding: 12px 16px; background: #eff6fa; border-radius: 8px; color: #075985; font-weight: 700; text-decoration: none; }
-  .line-group, .guide-block { scroll-margin-top: 24px; }
-  .back-to-lines { display: inline-block; padding: 12px 0; color: #075985; font-weight: 700; }
-  .line-badge { margin: 0; }
-  @media (max-width: 380px) { .quick-links { grid-template-columns: 1fr; } }
-
-  .dokokani-special-page {
-    max-width: 820px;
-    margin: 0 auto;
-    padding: 1rem 1rem 4rem;
-  }
-
-  .crumbs {
-    font-size: 0.8rem;
-    color: #64748b;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem;
-    margin-bottom: 1rem;
-  }
-  .crumbs a {
-    color: inherit;
-    text-decoration: none;
-  }
-  .crumbs a:hover {
-    text-decoration: underline;
-  }
-
-  /* ヒーローヘッダー */
-  .special-hero {
-    background: linear-gradient(135deg, #0284c7 0%, #0369a1 50%, #075985 100%);
-    color: #ffffff;
-    border-radius: 16px;
-    padding: 2.2rem 1.4rem;
-    box-shadow: 0 4px 20px rgba(2, 132, 199, 0.18);
-    margin-bottom: 2rem;
-  }
-  .hero-badge {
-    display: inline-block;
-    background: #f97316;
-    color: #ffffff;
-    font-size: 0.75rem;
-    font-weight: 800;
-    padding: 0.2rem 0.75rem;
-    border-radius: 999px;
-    margin-bottom: 0.8rem;
-    letter-spacing: 0.05em;
-  }
-  .special-hero h1 {
-    font-size: 1.65rem;
-    line-height: 1.35;
-    margin: 0 0 0.8rem;
-    font-weight: 800;
-  }
-  .sp-br {
-    display: none;
-  }
-  @media (max-width: 640px) {
-    .sp-br {
-      display: inline;
-    }
-    .special-hero h1 {
-      font-size: 1.4rem;
-    }
-  }
-  .hero-catch {
-    margin: 0;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    opacity: 0.95;
-  }
-
-  .lead-text {
-    line-height: 1.85;
-    color: #334155;
-    font-size: 0.96rem;
-    margin: 1.5rem 0 2.5rem;
-  }
-
-  /* セクション見出し */
-  .guide-block {
-    margin-top: 3rem;
-  }
-  .section-title-wrap {
-    margin-bottom: 1.2rem;
-  }
-  .step-num {
-    display: block;
-    font-size: 0.75rem;
-    font-weight: 900;
-    color: #0284c7;
-    letter-spacing: 0.1em;
-  }
-  .section-title-wrap h2 {
-    font-size: 1.35rem;
-    color: #0f172a;
-    margin: 0.2rem 0 0;
-    font-weight: 800;
-  }
-
-  /* TIP 1: 再検索の鉄則カード */
-  .tip-card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1rem;
-  }
-  .tip-card {
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 1.2rem 1rem;
-  }
-  .tip-icon {
-    font-size: 1.8rem;
-    margin-bottom: 0.4rem;
-  }
-  .tip-card h3 {
-    font-size: 0.98rem;
-    font-weight: 800;
-    color: #0f172a;
-    margin: 0 0 0.5rem;
-  }
-  .tip-card p {
-    font-size: 0.88rem;
-    color: #475569;
-    line-height: 1.65;
-    margin: 0;
-  }
-
-  /* TIP 2: 車なしおすすめ駅 */
-  .highlight-stations-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.2rem;
-  }
-  .station-feature-card {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 14px;
-    padding: 1.3rem 1.1rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    display: flex;
-    flex-direction: column;
-  }
-  .card-tag {
-    align-self: flex-start;
-    font-size: 0.72rem;
-    font-weight: 800;
-    padding: 0.15rem 0.6rem;
-    border-radius: 4px;
-    margin-bottom: 0.6rem;
-  }
-  .rank-gold {
-    background: #fef3c7;
-    color: #92400e;
-  }
-  .rank-blue {
-    background: #e0f2fe;
-    color: #0369a1;
-  }
-  .rank-green {
-    background: #dcfce7;
-    color: #166534;
-  }
-  .rank-purple {
-    background: #f3e8ff;
-    color: #6b21a8;
-  }
-
-  .station-feature-card h3 {
-    font-size: 1.1rem;
-    font-weight: 800;
-    margin: 0 0 0.4rem;
-    color: #0f172a;
-  }
-  .feature-lead {
-    font-size: 0.88rem;
-    color: #64748b;
-    margin: 0 0 0.8rem;
-    line-height: 1.5;
-  }
-  .feature-bullets {
-    margin: 0;
-    padding-left: 1.15rem;
-    font-size: 0.88rem;
-    color: #334155;
-    line-height: 1.7;
-    flex-grow: 1;
-  }
-  .card-link-box {
-    margin-top: 1rem;
-    padding-top: 0.8rem;
-    border-top: 1px dashed #cbd5e1;
-  }
-  .inner-cluster-link {
-    display: inline-block;
-    color: #0284c7;
-    font-weight: 700;
-    font-size: 0.85rem;
-    text-decoration: none;
-  }
-  .inner-cluster-link:hover {
-    text-decoration: underline;
-  }
-
-  /* カタログセクション */
-  .catalog-lead {
-    font-size: 0.92rem;
-    color: #475569;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-  }
-  .line-group {
-    margin-bottom: 2rem;
-  }
-  .line-header {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    margin-bottom: 0.8rem;
-    padding-bottom: 0.4rem;
-    border-bottom: 2px solid #0284c7;
-  }
-  .line-badge {
-    background: #0284c7;
-    color: #fff;
-    font-size: 0.82rem;
-    font-weight: 800;
-    padding: 0.15rem 0.6rem;
-    border-radius: 4px;
-  }
-  .line-count {
-    font-size: 0.82rem;
-    color: #64748b;
-  }
-
-  .stations-table-list {
-    display: grid;
-    gap: 0.75rem;
-  }
-  .station-item-card {
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    border-radius: 10px;
-    padding: 0.9rem 1rem;
-    transition: transform 0.15s ease;
-  }
-  .station-item-card:hover {
-    border-color: #cbd5e1;
-    background: #ffffff;
-  }
-  .station-header-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 0.35rem;
-  }
-  .station-name-box {
-    display: flex;
-    align-items: baseline;
-    gap: 0.5rem;
-  }
-  .station-pref {
-    font-size: 0.75rem;
-    color: #64748b;
-    font-weight: 700;
-  }
-  .station-title {
-    font-size: 1.05rem;
-    color: #0f172a;
-  }
-  .station-badges {
-    display: flex;
-    gap: 0.4rem;
-    align-items: center;
-    font-size: 0.75rem;
-  }
-  .car-badge {
-    font-weight: 700;
-    padding: 0.1rem 0.5rem;
-    border-radius: 999px;
-  }
-  .car-good {
-    background: #dcfce7;
-    color: #15803d;
-  }
-  .car-fair {
-    background: #e0f2fe;
-    color: #0369a1;
-  }
-  .car-rent {
-    background: #fef3c7;
-    color: #b45309;
-  }
-  .time-badge {
-    background: #e2e8f0;
-    color: #475569;
-    padding: 0.1rem 0.5rem;
-    border-radius: 4px;
-  }
-  .station-highlight {
-    font-size: 0.88rem;
-    color: #334155;
-    line-height: 1.5;
-    margin: 0.2rem 0 0.5rem;
-  }
-  .station-meta-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    font-size: 0.8rem;
-    color: #64748b;
-    padding-top: 0.4rem;
-    border-top: 1px dashed #e2e8f0;
-  }
-  .spot-tag strong {
-    color: #0f172a;
-  }
-  .station-cluster-btn {
-    color: #0284c7;
-    font-weight: 700;
-    text-decoration: none;
-  }
-  .station-cluster-btn:hover {
-    text-decoration: underline;
-  }
-
-  /* アクションセクション */
-  .action-steps-box {
-    display: grid;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-  .action-step {
-    display: flex;
-    gap: 1rem;
-    background: #f8fafc;
-    border-left: 4px solid #0284c7;
-    border-radius: 0 10px 10px 0;
-    padding: 1rem 1.2rem;
-  }
-  .action-num {
-    background: #0284c7;
-    color: #fff;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
-    font-size: 0.9rem;
-    flex-shrink: 0;
-  }
-  .action-content h3 {
-    margin: 0 0 0.4rem;
-    font-size: 1rem;
-    color: #0f172a;
-    font-weight: 800;
-  }
-  .action-content p {
-    margin: 0;
-    font-size: 0.88rem;
-    color: #475569;
-    line-height: 1.6;
-  }
+  .page { max-width: 720px; margin: 0 auto; padding: 0 20px 64px; color: #172b3a; }
+  .breadcrumbs { padding: 16px 0; font-size: 12px; color: #526676; }
+  .breadcrumbs a { color: #35647a; }
+  .hero { padding: 32px 24px; background: #eaf4f7; border-radius: 12px; }
+  .eyebrow { margin: 0 0 8px; color: #12627c; font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+  .hero h1 { margin: 0 0 16px; color: #123d50; font-size: clamp(25px, 6vw, 36px); line-height: 1.35; }
+  .hero > p:last-child { margin: 0; font-size: 14px; line-height: 1.8; }
+  .finder { padding-top: 40px; scroll-margin-top: 80px; }
+  .section-heading h2, .guide h2 { margin: 0 0 8px; font-size: 22px; line-height: 1.3; }
+  .section-heading > p:last-child, .order-note { margin: 0; color: #526676; font-size: 13px; line-height: 1.7; }
+  .line-nav { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 20px 0 16px; }
+  .line-nav a { min-height: 48px; display: flex; align-items: center; justify-content: center; color: #15546c; background: #edf5f8; border-radius: 8px; font-size: 15px; font-weight: 700; text-decoration: none; }
+  .line-nav a span { font-size: 11px; }
+  .line { padding-top: 32px; scroll-margin-top: 72px; }
+  .line-heading { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 12px; border-bottom: 2px solid #1d718c; }
+  .line-heading h3 { margin: 0; font-size: 18px; line-height: 1.3; }
+  .line-heading > span { color: #526676; font-size: 12px; }
+  .station-list { margin: 0; padding: 0; list-style: none; }
+  .station-list li { border-bottom: 1px solid #dce5e9; }
+  .station { display: flex; align-items: center; justify-content: space-between; min-height: 72px; gap: 16px; padding: 12px 4px; color: inherit; text-decoration: none; }
+  .station-copy { display: block; min-width: 0; }
+  .station-name { display: block; font-size: 17px; font-weight: 700; line-height: 1.4; }
+  .station-name small { font-size: 12px; }
+  .pref { margin-left: 8px; color: #526676; font-size: 12px; font-weight: 400; }
+  .station-place { display: block; margin-top: 4px; color: #526676; font-size: 13px; line-height: 1.5; }
+  .arrow { flex: none; color: #176781; font-size: 28px; line-height: 1; }
+  .back { display: inline-block; padding: 12px 0; color: #17627a; font-size: 13px; font-weight: 700; }
+  .guide { margin-top: 40px; padding: 24px; background: #f2f6f7; border-radius: 12px; scroll-margin-top: 80px; }
+  .guide p:not(.eyebrow) { margin: 12px 0 0; font-size: 14px; line-height: 1.8; }
+  .official { display: inline-block; margin-top: 16px; color: #125c75; font-size: 14px; font-weight: 700; }
+  a:focus-visible { outline: 3px solid #12627c; outline-offset: 3px; }
+  .station:hover, .line-nav a:hover { background: #e7f2f5; }
+  @media (min-width: 600px) { .hero { padding: 48px; } .line-nav { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
 </style>
