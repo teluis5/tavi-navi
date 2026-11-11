@@ -22,6 +22,16 @@ export interface TimelinePhotoItem {
   imageCredit?: string;
 }
 
+export type HotelCategory =
+  | '温泉旅館'
+  | '天然温泉ホテル'
+  | '大浴場付きホテル'
+  | 'ラグジュアリー'
+  | 'シティホテル'
+  | 'ビジネスホテル'
+  | 'リゾートホテル'
+  | 'ゲストハウス';
+
 export interface TimelineStep {
   id?: string;
   leadHeading?: string;   // e.g. "サザンビーチで海を見ながら散歩"（体験アクション見出し）
@@ -30,7 +40,7 @@ export interface TimelineStep {
   time?: string;          // 後方互換用
   title: string;          // e.g. "熱海サンビーチ & 親水公園"
   icon?: string;
-  categoryLabel?: string; // e.g. "絶景・散策", "ランチ", "宿泊"
+  categoryLabel?: HotelCategory | string; // 宿の場合は8大カテゴリ（温泉旅館/天然温泉ホテル/大浴場付きホテル/ラグジュアリー/シティホテル/ビジネスホテル/リゾートホテル/ゲストハウス）
   image?: string | ImageMetadata; // サムネイル・ワイド画像URLまたはインポート画像
   imageCredit?: string;   // 写真クレジット提供元（例: "秋田県観光連盟"）
   images?: (string | ImageMetadata | TimelinePhotoItem)[]; // 単一箇所での複数写真
@@ -108,6 +118,23 @@ function getWideImageUrl(url?: string | ImageMetadata, fallbackUrl?: string | Im
     return target.replace(/w=\d+/, 'w=1080').replace(/q=\d+/, 'q=85');
   }
   return target;
+}
+
+function isAllowedHotelCategory(cat?: string): string | null {
+  const allowed = [
+    '温泉旅館',
+    '天然温泉ホテル',
+    '大浴場付きホテル',
+    'ラグジュアリー',
+    'シティホテル',
+    'ビジネスホテル',
+    'リゾートホテル',
+    'ゲストハウス',
+  ];
+  if (cat && allowed.includes(cat.trim())) {
+    return cat.trim();
+  }
+  return null;
 }
 
 // 移動（トランジット）情報の正規化ヘルパー
@@ -243,6 +270,11 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                                     <img src={heroImg} alt={opt.title} class="wide-photo-img" loading="lazy" />
                                   )}
                                   <div class="wide-photo-overlay">
+                                    {isAllowedHotelCategory(opt.categoryLabel) && (
+                                      <div class="overlay-badge-top-left">
+                                        <span class="hotel-category-badge">{isAllowedHotelCategory(opt.categoryLabel)}</span>
+                                      </div>
+                                    )}
                                     <div class="overlay-title-row align-right">
                                       <h4 class="overlay-heading single-line-heading">{opt.title}</h4>
                                       {opt.spotData && <span class="overlay-chevron">›</span>}
@@ -297,6 +329,11 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                           <img src={getWideImageUrl(step.image)} alt={step.title} class="wide-photo-img" loading="lazy" />
                         )}
                         <div class="wide-photo-overlay">
+                          {isAllowedHotelCategory(step.categoryLabel) && (
+                            <div class="overlay-badge-top-left">
+                              <span class="hotel-category-badge">{isAllowedHotelCategory(step.categoryLabel)}</span>
+                            </div>
+                          )}
                           <div class="overlay-title-row align-right">
                             <h4 class="overlay-heading single-line-heading">{step.title}</h4>
                           </div>
@@ -957,6 +994,27 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
     gap: 0.4rem;
     width: 100%;
     text-align: right;
+  }
+
+  /* 宿の8大カテゴリバッジ（左上配置） */
+  .overlay-badge-top-left {
+    position: absolute;
+    top: 0.65rem;
+    left: 0.75rem;
+  }
+
+  .hotel-category-badge {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #ffffff;
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0.18rem 0.55rem;
+    border-radius: 4px;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+    display: inline-block;
   }
 
   /* 場所の名前：右寄せ・スマホ1行収まり */
