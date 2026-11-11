@@ -847,7 +847,7 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
         isDragging = false;
         const slides = htmlTrack.querySelectorAll('.carousel-slide-item');
         if (!slides.length) return;
-        const itemWidth = (slides[0] as HTMLElement).offsetWidth || htmlTrack.clientWidth * 0.82;
+        const itemWidth = (slides[0] as HTMLElement).offsetWidth || htmlTrack.clientWidth * 0.92;
         const currentIdx = Math.max(0, Math.min(slides.length - 1, Math.round(htmlTrack.scrollLeft / itemWidth)));
         const targetSlide = slides[currentIdx] as HTMLElement;
         if (targetSlide) {
@@ -861,7 +861,7 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
       htmlTrack.addEventListener('scroll', () => {
         const slides = htmlTrack.querySelectorAll('.carousel-slide-item');
         if (!slides.length) return;
-        const itemWidth = (slides[0] as HTMLElement).offsetWidth || htmlTrack.clientWidth * 0.82;
+        const itemWidth = (slides[0] as HTMLElement).offsetWidth || htmlTrack.clientWidth * 0.92;
         const scrollLeft = htmlTrack.scrollLeft;
         const activeIdx = Math.min(
           slides.length - 1,
@@ -1529,7 +1529,7 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
 
   .peeking-carousel-track {
     display: flex;
-    gap: 0.65rem;
+    gap: 0.5rem;
     overflow-x: scroll;
     overflow-y: hidden;
     touch-action: pan-x pan-y pinch-zoom;
@@ -1548,13 +1548,14 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
     display: none;
   }
 
+  /* 見えているもの92%：次の見切れ8%（比率 92 : 8） */
   .carousel-slide-item {
-    flex: 0 0 82%;
-    width: 82%;
+    flex: 0 0 92%;
+    width: 92%;
     scroll-snap-align: start;
     box-sizing: border-box;
-    opacity: 0.55;
-    transform: scale(0.97);
+    opacity: 0.65;
+    transform: scale(0.985);
     transform-origin: left top;
     transition: opacity 0.25s ease, transform 0.25s ease;
   }
