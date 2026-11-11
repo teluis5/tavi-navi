@@ -706,38 +706,7 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
         }, 6000);
       };
 
-      // 水平スワイプ開始時に縦スクロールをロックし、斜め移動による意図しない縦揺れ・画面スクロールを抑止
-      let startX = 0;
-      let startY = 0;
-      let isHorizontalSwipe = false;
-
-      track.addEventListener('touchstart', (e: TouchEvent) => {
-        pauseAutoPlay();
-        const touch = e.touches[0];
-        startX = touch.clientX;
-        startY = touch.clientY;
-        isHorizontalSwipe = false;
-      }, { passive: true });
-
-      track.addEventListener('touchmove', (e: TouchEvent) => {
-        const touch = e.touches[0];
-        const diffX = Math.abs(touch.clientX - startX);
-        const diffY = Math.abs(touch.clientY - startY);
-
-        // わずかでも横方向の移動が優勢（diffX > diffY かつ diffX > 5px）なら横スワイプ確定として縦スクロールを防止
-        if (!isHorizontalSwipe && diffX > 5 && diffX > diffY) {
-          isHorizontalSwipe = true;
-        }
-
-        if (isHorizontalSwipe && e.cancelable) {
-          e.preventDefault();
-        }
-      }, { passive: false });
-
-      track.addEventListener('touchend', () => {
-        isHorizontalSwipe = false;
-      }, { passive: true });
-
+      track.addEventListener('touchstart', pauseAutoPlay, { passive: true });
       track.addEventListener('mousedown', pauseAutoPlay, { passive: true });
 
       startAutoPlay();
@@ -1097,9 +1066,8 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
     height: 100%;
     overflow-x: auto;
     overflow-y: hidden;
-    touch-action: pan-x;
+    touch-action: pan-y pinch-zoom;
     overscroll-behavior-x: contain;
-    overscroll-behavior-y: auto;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
     -ms-overflow-style: none;
