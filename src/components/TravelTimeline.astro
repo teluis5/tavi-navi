@@ -157,7 +157,10 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
         {day.steps && day.steps.map((step, index) => {
           const isLast = index === day.steps.length - 1;
           const hasAlternatives = step.alternatives && step.alternatives.length > 0;
-          const allOptions = hasAlternatives ? [step, ...step.alternatives!] : [step];
+          // 親ステップにalternativeLabelがある場合は親自身も第1候補とし、ない場合はalternatives自体を全候補とする
+          const allOptions = hasAlternatives
+            ? (step.alternativeLabel ? [step, ...step.alternatives!] : step.alternatives!)
+            : [step];
           const transitInfo = !isLast ? resolveTransitInfo(step) : null;
 
           return (
@@ -596,19 +599,42 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
     position: relative;
   }
 
-  /* 場所（スポット）セクションの淡色背景（枠線なし） */
+  /* 場所（スポット）セクションの淡色背景（PCは角丸カード、スマホは横画面いっぱいのフルブリード） */
   .step-place-surface {
     background: #e3e7ed;
     border: none;
     border-radius: 12px;
-    padding: 0;
+    padding: 1.15rem 1.1rem;
     box-sizing: border-box;
+    width: 100%;
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: 800px) {
     .step-place-surface {
-      padding: 0;
+      margin-left: -1rem;
+      margin-right: -1rem;
+      width: calc(100% + 2rem);
+      border-radius: 0;
+      padding: 1.15rem 1rem;
     }
+  }
+
+  /* .prose からの見出しスタイル干渉（下線・左縦線・下青バー::after）を強制リセット */
+  :global(.prose) .step-place-surface h3,
+  :global(.prose) .step-place-surface h4,
+  :global(.prose) .day-header-banner h3 {
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    position: static !important;
+  }
+
+  :global(.prose) .step-place-surface h3::after,
+  :global(.prose) .step-place-surface h4::after,
+  :global(.prose) .day-header-banner h3::after {
+    content: none !important;
+    display: none !important;
   }
 
   /* 体験アクション見出し（写真の直上に配置） */
