@@ -1,7 +1,8 @@
 ---
-title: "【どこかにビューン！田沢湖駅】路線バスで巡る田沢湖一周＆乳頭温泉郷1泊2日モデルコース（車なし完全攻略）"
+title: "どこかにビューン！田沢湖駅から車なし1泊2日｜湖一周と乳頭温泉"
 description: "JR東日本『どこかにビューン！』で田沢湖駅が当たった人必見！レンタカー不要・路線バスだけで神秘の田沢湖一周と憧れの乳頭温泉郷（鶴の湯・妙乃湯）を満喫する1泊2日の王道旅。たつこ像20分観光停車の活用法や乗り継ぎダイヤまで徹底解説。"
 pubDate: 2026-11-10
+updatedDate: 2026-11-11
 lang: "ja"
 pref: "akita"
 category: "モデルコース"
@@ -16,7 +17,7 @@ import ConclusionBox from '../../components/ConclusionBox.astro';
 import TravelTimeline from '../../components/TravelTimeline.astro';
 
 import photoKiritanpo from '../../assets/photos/akita_compressed/kiritanpo-pot.webp';
-import photoInaniwa from '../../assets/photos/akita_compressed/01稲庭うどん製造体験.webp';
+import photoInaniwa from '../../assets/photos/akita/01稲庭うどん.jpg';
 import photoTatsuko from '../../assets/photos/akita_compressed/tazawako-tatsuko.webp';
 import photoUkiki from '../../assets/photos/akita_compressed/tazawako-ukiki-shrine.webp';
 import photoPanorama from '../../assets/photos/akita_compressed/tazawako-winter-panorama.webp';
@@ -25,10 +26,16 @@ import photoTsurunoyuHonjin from '../../assets/photos/akita_compressed/nyuto-tsu
 import photoTsurunoyuNight from '../../assets/photos/akita_compressed/nyuto-tsurunoyu-night.webp';
 import photoTsurunoyuIcicle from '../../assets/photos/akita_compressed/nyuto-tsurunoyu-icicle.webp';
 import photoTaenoyu from '../../assets/photos/akita_compressed/01乳頭温泉郷　妙乃湯.webp';
-import photoTazawako from '../../assets/photos/akita_compressed/tazawako.webp';
 import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
+import photoKamenoiExterior from '../../assets/photos/akita/01亀の井ホテル　田沢湖.jpg';
+import photoKamenoiOpenAir from '../../assets/photos/akita/02亀の井ホテル　田沢湖.jpg';
+import photoKamenoiBath from '../../assets/photos/akita/03亀の井ホテル　田沢湖.jpg';
 
-田沢湖駅は、路線バス2路線（田沢湖一周線・乳頭線）だけで**車なし100%満喫できる大当たり駅**です。たつこ像前で20分待機してくれる「観光停車バス」を活用し、満室の超人気宿は「昼の日帰り入浴」で攻略する、現地実走に基づく1泊2日タイムラインをお届けします。
+田沢湖駅からは、路線バスで湖畔と乳頭温泉郷を巡れます。湖一周と鶴の湯の日帰り入浴を同日に組む場合は、乗り継ぎと送迎の事前確認が必要です。
+
+この記事は羽後交通と温泉施設の公式情報をもとにした行程案です（2026年11月11日確認）。時刻や営業状況は出発前にご確認ください。
+
+**先に確認したいこと：** 田沢湖一周線の観光停車付き便は駅前10:45・13:25・15:25発です。鶴の湯の日帰り入浴を同日に予定する場合は、早い便を選び、送迎の利用条件と接続を施設へ確認してください。[羽後交通の時刻表](https://ugokotsu.co.jp/wp-content/jikoku/latest/tazawa2026.pdf)・[鶴の湯の交通案内](https://www.tsurunoyu.com/FONDMENT/t-ko-tu.html)
 
 <TravelTimeline
   days={[
@@ -37,7 +44,7 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
       title: "田沢湖駅到着 ➔ 名物ランチ ➔ 湖畔一周 ➔ 秘湯めぐり＆宿泊",
       steps: [
         {
-          leadHeading: "秋田新幹線こまちで田沢湖駅へ！まずは駅前ランチ",
+          leadHeading: "田沢湖駅に到着！時間に余裕があれば駅周辺で食事",
           areaLabel: "田沢湖駅前",
           title: "駅前ご当地ランチ（2大名物から選択）",
           categoryLabel: "ご当地グルメ",
@@ -53,12 +60,12 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
               isImageSample: true,
               points: [
                 "比内地鶏の濃厚ダシが染み込んだもちもちのきりたんぽ",
-                "駅から徒歩1分圏内に老舗郷土料理店が点在"
+                "駅周辺で昼食を取る場合は、営業時間とバスの発車時刻を確認"
               ]
             },
             {
               alternativeLabel: "稲庭手綯うどん",
-              title: "本場・稲庭ざるうどん＆山菜天ぷら",
+              title: "秋田名物・稲庭うどん",
               categoryLabel: "のど越し麺",
               areaLabel: "田沢湖駅前",
               image: photoInaniwa,
@@ -66,7 +73,7 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
               isImageSample: true,
               points: [
                 "平打ちで滑らかな極上ののど越し",
-                "提供が早くバスの待ち時間にもぴったり"
+                "写真は稲庭うどんのイメージ。提供メニューは店舗ごとに確認"
               ]
             }
           ],
@@ -74,7 +81,7 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
             method: "羽後交通 田沢湖一周線（バス約30分）",
             route: "田沢湖駅前（1番のりば） ➔ 潟尻（たつこ像前）",
             specs: [
-              "運行：1日6便（田沢湖を時計回りに周遊する観光路線）",
+              "観光停車付きは田沢湖駅前10:45・13:25・15:25発（2026年4月改正）",
               "乗車時に整理券を取り降車時に精算（一周乗車券も販売あり）"
             ]
           }
@@ -93,14 +100,14 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
           ],
           points: [
             "日本一深い水深423.4mが生み出す瑠璃色の湖面",
-            "バスが20分待機してくれるため荷物を持たずに見学可能"
+            "観光停車付きの便は潟尻で20分停車。手荷物の扱いは乗務員に確認"
           ],
           transitDetail: {
-            method: "同じバスで田沢湖駅へ戻り、乳頭線へ乗り換え（約45分）",
-            route: "潟尻 ➔ 御座の石神社（10分停車） ➔ 田沢湖駅前 ➔ 乳頭温泉郷",
+            method: "田沢湖駅へ戻り、乳頭線・送迎またはタクシーへ乗り換え",
+            route: "潟尻 ➔ 御座の石神社 ➔ 田沢湖駅前 ➔ アルパこまくさ ➔ 鶴の湯",
             specs: [
-              "御座の石神社でも10分間観光停車あり",
-              "駅前で「乳頭線」に乗り換えて鶴の湯の日帰り受付（15時迄）へ直行"
+              "10:45発の周遊便は12:16に駅着。乳頭線12:25発まで9分と短いため、遅延に注意",
+              "鶴の湯への送迎は日帰り利用の可否を含め施設へ事前確認。接続できない場合は別日に変更"
             ]
           }
         },
@@ -111,21 +118,21 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
           categoryLabel: "秘湯・日帰り温泉",
           imageLayout: "carousel",
           images: [
-            { image: photoTsurunoyu, caption: "白濁混浴露天風呂", imageCredit: "秋田県観光連盟" },
+            { image: photoTsurunoyu, caption: "雪に包まれた鶴の湯", imageCredit: "秋田県観光連盟" },
             { image: photoTsurunoyuHonjin, caption: "茅葺本陣雪景色", imageCredit: "秋田県観光連盟" },
             { image: photoTsurunoyuNight, caption: "雪夜の幻想的な灯篭", imageCredit: "秋田県観光連盟" },
-            { image: photoTsurunoyuIcicle, caption: "茅葺屋根の巨大氷柱", imageCredit: "秋田県観光連盟" }
+            { image: photoTsurunoyuIcicle, caption: "雪景色の鶴の湯周辺", imageCredit: "秋田県観光連盟" }
           ],
           points: [
-            "【攻略】3週間前で宿泊満室でも、日帰り（10〜15時/600円）なら誰でも入れる！",
+            "日帰り入浴は大人700円。月曜休み（祝日の場合は清掃日変更）",
             "足元から湧き出る名物「白濁混浴露天風呂」と茅葺本陣の原風景"
           ],
           transitDetail: {
-            method: "路線バスで宿泊エリアへ移動（約10〜15分）",
-            route: "アルパこまくさ / 鶴の湯入口 ➔ 田沢湖高原 または 水沢温泉郷",
+            method: "施設からの移動方法を確認し、宿泊先へ",
+            route: "鶴の湯 ➔ アルパこまくさ ➔ 予約した宿",
             specs: [
-              "乳頭温泉郷の手前エリアならバス1本でアクセス抜群",
-              "直前でも部屋数が多く空室を抑えやすい現実的拠点へ"
+              "送迎の利用条件と帰りのバス便を事前に確認",
+              "宿ごとに最寄り停留所・送迎・チェックイン時刻が異なる"
             ]
           }
         },
@@ -140,12 +147,12 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
               title: "プラザホテル山麓荘",
               categoryLabel: "温泉旅館",
               areaLabel: "田沢湖高原",
-              image: photoTaenoyu,
+              image: photoPanorama,
               imageCredit: "秋田県観光連盟",
+              isImageSample: true,
               points: [
-                "乳頭温泉郷の手前に位置しバスで10〜15分",
-                "客室数が多く直前でも予約を取りやすい安心拠点",
-                "乳頭温泉郷と同じく濃厚な白濁硫黄泉を満喫"
+                "水沢温泉郷の宿。写真は田沢湖のイメージ",
+                "空室とバス停からのアクセスは予約前に確認"
               ]
             },
             {
@@ -153,7 +160,13 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
               title: "亀の井ホテル 田沢湖",
               categoryLabel: "天然温泉ホテル",
               areaLabel: "田沢湖高原",
-              image: "https://img.travel.rakuten.co.jp/share/HOTEL/11222/11222.jpg",
+              imageLayout: "grid-3",
+              imageCredit: "一般社団法人 秋田県観光連盟「あきたファン」",
+              images: [
+                { image: photoKamenoiExterior, caption: "亀の井ホテル 田沢湖の外観" },
+                { image: photoKamenoiOpenAir, caption: "秋の露天風呂" },
+                { image: photoKamenoiBath, caption: "秋の大浴場" }
+              ],
               hotelData: {
                 hotelNo: "11222",
                 rating: "4.1"
@@ -202,10 +215,10 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
     },
     {
       dayNumber: 2,
-      title: "渓流露天風呂 ➔ 田沢湖畔お土産 ➔ 新幹線こまちで帰路へ",
+      title: "妙乃湯の日帰り入浴 ➔ 田沢湖畔 ➔ 新幹線こまちで帰路へ",
       steps: [
         {
-          leadHeading: "乳頭温泉郷のもう一つの名宿！金の湯・銀の湯で朝風呂",
+          leadHeading: "金の湯・銀の湯を楽しむ妙乃湯の日帰り入浴",
           areaLabel: "乳頭温泉郷",
           title: "乳頭温泉郷 妙乃湯",
           categoryLabel: "日帰り温泉",
@@ -213,7 +226,7 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
           imageCredit: "秋田県観光連盟",
           points: [
             "渓流の滝を間近に臨む絶景露天風呂（混浴・女性専用あり）",
-            "金の湯（茶褐色・マグネシウム泉）と銀の湯（無色透明）の2源泉"
+            "日帰りは10:30〜15:00（受付14:00まで）、火曜休み。大人1,000円"
           ],
           transitDetail: {
             method: "羽後交通 乳頭線（バス約30分）",
@@ -225,15 +238,16 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
           }
         },
         {
-          leadHeading: "田沢湖畔でお土産探し＆本物の秋田犬に会う！",
+          leadHeading: "田沢湖畔でお土産探し",
           areaLabel: "田沢湖畔",
           title: "田沢湖共栄パレス",
           categoryLabel: "お土産・カフェ",
-          image: photoTazawako,
+          image: photoPanorama,
           imageCredit: "秋田県観光連盟",
+          isImageSample: true,
           points: [
-            "モフモフで愛らしい秋田犬の見学コーナーあり",
-            "香ばしい「みそたんぽ」や地ビール「田沢湖ビール」を購入"
+            "湖畔で秋田土産を探す。店舗の営業時間は事前に確認",
+            "写真は田沢湖周辺のイメージ"
           ],
           transitDetail: {
             method: "羽後交通路線バス（約12分）",
@@ -263,15 +277,21 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
 
 ---
 
+## 出発前に確認したい交通と温泉の情報
+
+- [羽後交通の時刻表一覧](https://ugokotsu.co.jp/rosen/timetable/index/)で、田沢湖一周線と乳頭線の運行日・帰りの便を確認。大雪などによる運休にも注意してください。
+- [鶴の湯の日帰り入浴](https://www.tsurunoyu.com/FONDMENT/t-onsen.html)は月曜休みです。入浴時間とアルパこまくさからの日帰り客の送迎可否を施設へ確認してください。
+- [妙乃湯の日帰り入浴](https://taenoyu.com/bath/)は火曜休み、受付は14時までです。宿から妙乃湯までの朝のバスと荷物の扱いも確認してください。
+
 ## ♨ 田沢湖駅から行ける乳頭温泉郷の宿まとめ
 
-乳頭温泉郷の7つの名宿（鶴の湯・妙乃湯・黒湯・蟹場・大釜・孫六・休暇村）の泉質・特徴・日帰り入浴情報は、以下の詳細比較ガイドにまとめています。
+乳頭温泉郷の7つの宿について、泉質や日帰り入浴情報を比較しています。
 
 👉 **[乳頭温泉郷の温泉宿まとめ（比較ガイド）を見る](/cluster/nyuto-onsen-inns/)**
 
 ---
 
 <ConclusionBox>
-- **車なし完全攻略**: 「田沢湖一周線（観光停車付き）」と「乳頭線」の路線バス2本だけで、運転なしでも100%大満足の周遊が可能
-- **直前でも焦らない**: 鶴の湯などの超人気宿は「昼の日帰り入浴」で満喫し、夜は田沢湖高原やリゾートの直前割・空室戻りを確保するのが鉄則
+- **湖畔は観光停車付き便で**: 田沢湖駅前10:45・13:25・15:25発の便は、たつこ像前と御座の石神社で散策できます。
+- **温泉と宿は先に確認**: 鶴の湯への送迎条件、日帰り入浴の休業日、宿までの帰りの交通を予約前に確認してください。
 </ConclusionBox>
