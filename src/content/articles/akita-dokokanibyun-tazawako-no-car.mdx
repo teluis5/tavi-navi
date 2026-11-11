@@ -18,7 +18,10 @@ import TravelTimeline from '../../components/TravelTimeline.astro';
 import photoKiritanpo from '../../assets/photos/akita_compressed/kiritanpo-pot.webp';
 import photoInaniwa from '../../assets/photos/akita_compressed/01稲庭うどん製造体験.webp';
 import photoTatsuko from '../../assets/photos/akita_compressed/tazawako-tatsuko.webp';
+import photoUkiki from '../../assets/photos/akita_compressed/tazawako-ukiki-shrine.webp';
+import photoPanorama from '../../assets/photos/akita_compressed/tazawako-winter-panorama.webp';
 import photoTsurunoyu from '../../assets/photos/akita_compressed/nyuto-tsurunoyu-snow.webp';
+import photoTsurunoyuHonjin from '../../assets/photos/akita_compressed/nyuto-tsurunoyu-honjin-snow.webp';
 import photoTaenoyu from '../../assets/photos/akita_compressed/01乳頭温泉郷　妙乃湯.webp';
 import photoTazawako from '../../assets/photos/akita_compressed/tazawako.webp';
 import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
@@ -83,8 +86,12 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
           title: "たつこ像 ＆ 漢槎宮（浮木神社）",
           categoryLabel: "絶景・パワースポット",
           duration: "観光停車 20分",
-          image: photoTatsuko,
-          imageCredit: "秋田県観光連盟",
+          imageLayout: "grid-3",
+          images: [
+            { image: photoTatsuko, caption: "黄金のたつこ像", imageCredit: "秋田県観光連盟" },
+            { image: photoUkiki, caption: "浮木神社（漢槎宮）", imageCredit: "秋田県観光連盟" },
+            { image: photoPanorama, caption: "冬のコバルトブルー田沢湖", imageCredit: "秋田県観光連盟" }
+          ],
           points: [
             "日本一深い水深423.4mが生み出す瑠璃色の湖面",
             "バスが20分待機してくれるため荷物を持たずに見学可能"
@@ -104,8 +111,11 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
           title: "鶴の湯温泉（日帰り入浴で名湯堪能）",
           categoryLabel: "秘湯・日帰り温泉",
           duration: "入浴 60分",
-          image: photoTsurunoyu,
-          imageCredit: "秋田県観光連盟",
+          imageLayout: "grid-2",
+          images: [
+            { image: photoTsurunoyu, caption: "白濁混浴露天風呂", imageCredit: "秋田県観光連盟" },
+            { image: photoTsurunoyuHonjin, caption: "茅葺屋根の本陣雪景色", imageCredit: "秋田県観光連盟" }
+          ],
           points: [
             "【攻略】3週間前で宿泊満室でも、日帰り（10〜15時/600円）なら誰でも入れる！",
             "足元から湧き出る名物「白濁混浴露天風呂」と茅葺本陣の原風景"

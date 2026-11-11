@@ -16,6 +16,12 @@ export interface TimelineTransitDetail {
   specs?: string[];       // e.g. ["運行：1時間に3〜4本（約15〜20分間隔）", "運賃200円（交通系IC可）"]
 }
 
+export interface TimelinePhotoItem {
+  image: string | ImageMetadata;
+  caption?: string;
+  imageCredit?: string;
+}
+
 export interface TimelineStep {
   id?: string;
   leadHeading?: string;   // e.g. "サザンビーチで海を見ながら散歩"（体験アクション見出し）
@@ -27,6 +33,8 @@ export interface TimelineStep {
   categoryLabel?: string; // e.g. "絶景・散策", "ランチ", "宿泊"
   image?: string | ImageMetadata; // サムネイル・ワイド画像URLまたはインポート画像
   imageCredit?: string;   // 写真クレジット提供元（例: "秋田県観光連盟"）
+  images?: (string | ImageMetadata | TimelinePhotoItem)[]; // 単一箇所での複数写真
+  imageLayout?: 'carousel' | 'grid-2' | 'grid-3'; // 写真のレイアウト形式（省略時: 複数あればcarousel）
   desc?: string;
   points?: string[];      // 箇条書きポイント（最大2〜3行）
   amenities?: SpotAmenity[]; // 設備情報
@@ -108,6 +116,33 @@ function formatCredit(credit?: string): string {
   return credit.startsWith('写真提供') || credit.startsWith('©') || credit.startsWith('Photo')
     ? credit
     : `写真提供：${credit}`;
+}
+
+// 単一スポット内の複数写真（ギャラリー・カルーセル・グリッド）の正規化
+function resolvePhotos(step: TimelineStep): TimelinePhotoItem[] {
+  if (step.images && step.images.length > 0) {
+    return step.images.map((item) => {
+      if (typeof item === 'object' && item !== null && 'image' in item) {
+        const photoObj = item as TimelinePhotoItem;
+        return {
+          image: photoObj.image,
+          caption: photoObj.caption,
+          imageCredit: photoObj.imageCredit || step.imageCredit,
+        };
+      }
+      return {
+        image: item as string | ImageMetadata,
+        imageCredit: step.imageCredit,
+      };
+    });
+  }
+  if (step.image) {
+    return [{
+      image: step.image,
+      imageCredit: step.imageCredit,
+    }];
+  }
+  return [];
 }
 
 function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
@@ -207,9 +242,6 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                                   {heroImg && (
                                     <img src={heroImg} alt={opt.title} class="wide-photo-img" loading="lazy" />
                                   )}
-                                  {(opt.imageCredit || step.imageCredit) && (
-                                    <span class="photo-credit-tag">{formatCredit(opt.imageCredit || step.imageCredit)}</span>
-                                  )}
                                   <div class="wide-photo-overlay">
                                     <div class="overlay-meta-top">
                                       <div class="overlay-meta-left">
@@ -220,9 +252,14 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                                           <span class="overlay-area-label">{areaText}</span>
                                         )}
                                       </div>
-                                      {(opt.duration || opt.time) && (
-                                        <span class="overlay-duration">{opt.duration || opt.time}</span>
-                                      )}
+                                      <div class="overlay-meta-right">
+                                        {(opt.imageCredit || step.imageCredit) && (
+                                          <span class="photo-credit-tag">{formatCredit(opt.imageCredit || step.imageCredit)}</span>
+                                        )}
+                                        {(opt.duration || opt.time) && (
+                                          <span class="overlay-duration">{opt.duration || opt.time}</span>
+                                        )}
+                                      </div>
                                     </div>
                                     <div class="overlay-title-row">
                                       <h4 class="overlay-heading">{opt.title}</h4>
@@ -270,9 +307,6 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                         {step.image && (
                           <img src={getWideImageUrl(step.image)} alt={step.title} class="wide-photo-img" loading="lazy" />
                         )}
-                        {step.imageCredit && (
-                          <span class="photo-credit-tag">{formatCredit(step.imageCredit)}</span>
-                        )}
                         <div class="wide-photo-overlay">
                           <div class="overlay-meta-top">
                             <div class="overlay-meta-left">
@@ -281,7 +315,12 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                                 <span class="overlay-area-label">· {step.areaLabel}</span>
                               )}
                             </div>
-                            <span class="overlay-duration">{step.duration || 'チェックイン'}</span>
+                            <div class="overlay-meta-right">
+                              {step.imageCredit && (
+                                <span class="photo-credit-tag">{formatCredit(step.imageCredit)}</span>
+                              )}
+                              <span class="overlay-duration">{step.duration || 'チェックイン'}</span>
+                            </div>
                           </div>
                           <div class="overlay-title-row">
                             <h4 class="overlay-heading">{step.title}</h4>
@@ -320,71 +359,180 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                         )}
                       </div>
                     </div>
-                  ) : (
-                    <div
-                      class="wide-spot-unit clickable-unit"
-                      data-open-spot={step.spotData?.id}
-                      role={step.spotData ? "button" : undefined}
-                      tabindex={step.spotData ? "0" : undefined}
-                    >
-                      {step.leadHeading && (
-                        <div class="step-lead-heading">
-                          <h3 class="step-lead-text">{step.leadHeading}</h3>
-                        </div>
-                      )}
+                  ) : (() => {
+                    const photoItems = resolvePhotos(step);
+                    const isMulti = photoItems.length > 1;
+                    const layout = step.imageLayout || (isMulti ? 'carousel' : 'single');
 
-                      <div class="wide-photo-container">
-                        {step.image && (
-                          <img
-                            src={getWideImageUrl(step.image, step.spotData?.heroImage)}
-                            alt={step.title}
-                            class="wide-photo-img"
-                            loading="lazy"
-                          />
-                        )}
-                        {step.imageCredit && (
-                          <span class="photo-credit-tag">{formatCredit(step.imageCredit)}</span>
-                        )}
-                        <div class="wide-photo-overlay">
-                          <div class="overlay-meta-top">
-                            <div class="overlay-meta-left">
-                              {step.categoryLabel && (
-                                <span class="overlay-cat">{step.categoryLabel}</span>
-                              )}
-                              {step.areaLabel && (
-                                <span class="overlay-area-label">
-                                  {step.categoryLabel ? `· ${step.areaLabel}` : step.areaLabel}
-                                </span>
-                              )}
-                            </div>
-                            {(step.duration || step.time) && (
-                              <span class="overlay-duration">{step.duration || step.time}</span>
-                            )}
+                    return (
+                      <div
+                        class="wide-spot-unit clickable-unit"
+                        data-open-spot={step.spotData?.id}
+                        role={step.spotData ? "button" : undefined}
+                        tabindex={step.spotData ? "0" : undefined}
+                      >
+                        {step.leadHeading && (
+                          <div class="step-lead-heading">
+                            <h3 class="step-lead-text">{step.leadHeading}</h3>
                           </div>
-                          <div class="overlay-title-row">
-                            <h4 class="overlay-heading">{step.title}</h4>
-                            {step.spotData && <span class="overlay-chevron">›</span>}
-                          </div>
-                        </div>
-                      </div>
+                        )}
 
-                      <div class="wide-spot-body">
-                        {step.points && step.points.length > 0 && (
-                          <ul class="wide-points-list">
-                            {step.points.map((pt) => (
-                              <li>{pt}</li>
+                        {layout === 'grid-2' && isMulti ? (
+                          /* 2分割グリッドレイアウト */
+                          <div class="photo-gallery-grid-2">
+                            {photoItems.slice(0, 2).map((photo, pIdx) => (
+                              <div class="grid-cell-photo-container">
+                                <img src={getWideImageUrl(photo.image)} alt={photo.caption || step.title} class="grid-cell-img" loading="lazy" />
+                                <div class="grid-cell-overlay">
+                                  <div class="grid-overlay-top">
+                                    {pIdx === 0 && step.categoryLabel && (
+                                      <span class="overlay-cat">{step.categoryLabel}</span>
+                                    )}
+                                    {photo.imageCredit && (
+                                      <span class="photo-credit-tag">{formatCredit(photo.imageCredit)}</span>
+                                    )}
+                                  </div>
+                                  <div class="grid-overlay-bottom">
+                                    <span class="grid-cell-caption">{photo.caption || (pIdx === 0 ? step.title : '')}</span>
+                                  </div>
+                                </div>
+                              </div>
                             ))}
-                          </ul>
+                          </div>
+                        ) : layout === 'grid-3' && isMulti ? (
+                          /* 3分割グリッドレイアウト */
+                          <div class="photo-gallery-grid-3">
+                            <div class="grid-3-main-cell">
+                              <img src={getWideImageUrl(photoItems[0].image)} alt={photoItems[0].caption || step.title} class="grid-cell-img" loading="lazy" />
+                              <div class="grid-cell-overlay">
+                                <div class="grid-overlay-top">
+                                  {step.categoryLabel && <span class="overlay-cat">{step.categoryLabel}</span>}
+                                  {photoItems[0].imageCredit && (
+                                    <span class="photo-credit-tag">{formatCredit(photoItems[0].imageCredit)}</span>
+                                  )}
+                                </div>
+                                <div class="grid-overlay-bottom">
+                                  <span class="grid-cell-caption">{photoItems[0].caption || step.title}</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="grid-3-sub-column">
+                              {photoItems.slice(1, 3).map((photo) => (
+                                <div class="grid-3-sub-cell">
+                                  <img src={getWideImageUrl(photo.image)} alt={photo.caption || step.title} class="grid-cell-img" loading="lazy" />
+                                  <div class="grid-cell-overlay">
+                                    <div class="grid-overlay-top">
+                                      {photo.imageCredit && (
+                                        <span class="photo-credit-tag">{formatCredit(photo.imageCredit)}</span>
+                                      )}
+                                    </div>
+                                    {photo.caption && (
+                                      <div class="grid-overlay-bottom">
+                                        <span class="grid-cell-caption">{photo.caption}</span>
+                                      </div>
+                                    )}
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        ) : isMulti ? (
+                          /* 写真カルーセル（単一スポット内で複数写真を横スワイプ可能） */
+                          <div class="spot-photo-carousel-wrapper">
+                            <div class="spot-photo-carousel-track">
+                              {photoItems.map((photo, pIdx) => (
+                                <div class="spot-photo-slide-item">
+                                  <div class="wide-photo-container">
+                                    <img src={getWideImageUrl(photo.image)} alt={photo.caption || step.title} class="wide-photo-img" loading="lazy" />
+                                    <div class="wide-photo-overlay">
+                                      <div class="overlay-meta-top">
+                                        <div class="overlay-meta-left">
+                                          {pIdx === 0 && step.categoryLabel && (
+                                            <span class="overlay-cat">{step.categoryLabel}</span>
+                                          )}
+                                          {photo.caption ? (
+                                            <span class="overlay-photo-caption">📷 {photo.caption}</span>
+                                          ) : (
+                                            step.areaLabel && <span class="overlay-area-label">{step.areaLabel}</span>
+                                          )}
+                                        </div>
+                                        <div class="overlay-meta-right">
+                                          {photo.imageCredit && (
+                                            <span class="photo-credit-tag">{formatCredit(photo.imageCredit)}</span>
+                                          )}
+                                          {pIdx === 0 && (step.duration || step.time) && (
+                                            <span class="overlay-duration">{step.duration || step.time}</span>
+                                          )}
+                                        </div>
+                                      </div>
+                                      <div class="overlay-title-row">
+                                        <h4 class="overlay-heading">{photo.caption ? `${step.title}（${photo.caption}）` : step.title}</h4>
+                                        <span class="gallery-counter-pill">{pIdx + 1} / {photoItems.length}</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        ) : (
+                          /* 単一写真（従来の1枚写真・クレジットは右上配置でタイトルと完全分離） */
+                          <div class="wide-photo-container">
+                            {photoItems[0] && (
+                              <img
+                                src={getWideImageUrl(photoItems[0].image, step.spotData?.heroImage)}
+                                alt={step.title}
+                                class="wide-photo-img"
+                                loading="lazy"
+                              />
+                            )}
+                            <div class="wide-photo-overlay">
+                              <div class="overlay-meta-top">
+                                <div class="overlay-meta-left">
+                                  {step.categoryLabel && (
+                                    <span class="overlay-cat">{step.categoryLabel}</span>
+                                  )}
+                                  {step.areaLabel && (
+                                    <span class="overlay-area-label">
+                                      {step.categoryLabel ? `· ${step.areaLabel}` : step.areaLabel}
+                                    </span>
+                                  )}
+                                </div>
+                                <div class="overlay-meta-right">
+                                  {photoItems[0]?.imageCredit && (
+                                    <span class="photo-credit-tag">{formatCredit(photoItems[0].imageCredit)}</span>
+                                  )}
+                                  {(step.duration || step.time) && (
+                                    <span class="overlay-duration">{step.duration || step.time}</span>
+                                  )}
+                                </div>
+                              </div>
+                              <div class="overlay-title-row">
+                                <h4 class="overlay-heading">{step.title}</h4>
+                                {step.spotData && <span class="overlay-chevron">›</span>}
+                              </div>
+                            </div>
+                          </div>
                         )}
 
-                        {step.amenities && step.amenities.length > 0 && (
-                          <p class="wide-amenities-line">
-                            {step.amenities.map((am) => am.label).join(' · ')}
-                          </p>
-                        )}
+                        <div class="wide-spot-body">
+                          {step.points && step.points.length > 0 && (
+                            <ul class="wide-points-list">
+                              {step.points.map((pt) => (
+                                <li>{pt}</li>
+                              ))}
+                            </ul>
+                          )}
+
+                          {step.amenities && step.amenities.length > 0 && (
+                            <p class="wide-amenities-line">
+                              {step.amenities.map((am) => am.label).join(' · ')}
+                            </p>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    );
+                  })()}
                 </div>
               </div>
 
@@ -721,22 +869,180 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
     background: #1f2937;
   }
 
-  /* 写真提供元クレジットバッジ（写真右下の極小ピル） */
+  /* 写真提供元クレジットバッジ（上部メタバー右側、またはグリッドセル上部配置） */
   .photo-credit-tag {
-    position: absolute;
-    bottom: 6px;
-    right: 8px;
-    z-index: 5;
     font-size: 0.62rem;
     line-height: 1.2;
-    color: rgba(255, 255, 255, 0.92);
-    background: rgba(15, 23, 42, 0.55);
-    backdrop-filter: blur(2px);
-    padding: 2px 6px;
-    border-radius: 3px;
-    pointer-events: none;
+    color: rgba(255, 255, 255, 0.95);
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(4px);
+    padding: 0.12rem 0.45rem;
+    border-radius: 4px;
     letter-spacing: 0.02em;
     font-weight: 500;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .overlay-meta-right {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    flex-shrink: 0;
+  }
+
+  /* 単一スポット内の複数写真ギャラリー：2分割グリッド */
+  .photo-gallery-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  /* 単一スポット内の複数写真ギャラリー：3分割グリッド（左メイン1枚 ＋ 右サブ2枚縦積み） */
+  .photo-gallery-grid-3 {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 6px;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .grid-3-main-cell {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #1f2937;
+  }
+
+  .grid-3-sub-column {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 6px;
+    width: 100%;
+    height: 100%;
+  }
+
+  .grid-3-sub-cell {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #1f2937;
+  }
+
+  .grid-cell-photo-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #1f2937;
+  }
+
+  .grid-cell-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .grid-cell-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(10, 14, 23, 0.88) 0%,
+      rgba(10, 14, 23, 0.3) 50%,
+      rgba(10, 14, 23, 0.05) 100%
+    );
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0.5rem 0.65rem;
+    color: #ffffff;
+    box-sizing: border-box;
+  }
+
+  .grid-overlay-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.35rem;
+  }
+
+  .grid-overlay-bottom {
+    display: flex;
+    align-items: baseline;
+  }
+
+  .grid-cell-caption {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.25;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* 単一スポット内写真カルーセル（横スワイプ） */
+  .spot-photo-carousel-wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  .spot-photo-carousel-track {
+    display: flex;
+    gap: 0.65rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .spot-photo-carousel-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .spot-photo-slide-item {
+    flex: 0 0 90%;
+    width: 90%;
+    scroll-snap-align: start;
+    box-sizing: border-box;
+  }
+
+  .overlay-photo-caption {
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .gallery-counter-pill {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.95);
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(4px);
+    padding: 0.12rem 0.45rem;
+    border-radius: 9999px;
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+    letter-spacing: 0.04em;
   }
 
   .wide-photo-img {
