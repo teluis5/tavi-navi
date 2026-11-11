@@ -378,62 +378,80 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                         )}
 
                         {layout === 'grid-2' && isMulti ? (
-                          /* 2分割グリッドレイアウト */
-                          <div class="photo-gallery-grid-2">
-                            {photoItems.slice(0, 2).map((photo, pIdx) => (
-                              <div class="grid-cell-photo-container">
-                                <img src={getWideImageUrl(photo.image)} alt={photo.caption || step.title} class="grid-cell-img" loading="lazy" />
-                                <div class="grid-cell-overlay">
-                                  <div class="grid-overlay-top">
-                                    {pIdx === 0 && step.categoryLabel && (
-                                      <span class="overlay-cat">{step.categoryLabel}</span>
-                                    )}
-                                    {photo.imageCredit && (
-                                      <span class="photo-credit-tag">{formatCredit(photo.imageCredit)}</span>
-                                    )}
-                                  </div>
-                                  <div class="grid-overlay-bottom">
-                                    <span class="grid-cell-caption">{photo.caption || (pIdx === 0 ? step.title : '')}</span>
-                                  </div>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        ) : layout === 'grid-3' && isMulti ? (
-                          /* 3分割グリッドレイアウト */
-                          <div class="photo-gallery-grid-3">
-                            <div class="grid-3-main-cell">
-                              <img src={getWideImageUrl(photoItems[0].image)} alt={photoItems[0].caption || step.title} class="grid-cell-img" loading="lazy" />
-                              <div class="grid-cell-overlay">
-                                <div class="grid-overlay-top">
-                                  {step.categoryLabel && <span class="overlay-cat">{step.categoryLabel}</span>}
-                                  {photoItems[0].imageCredit && (
-                                    <span class="photo-credit-tag">{formatCredit(photoItems[0].imageCredit)}</span>
-                                  )}
-                                </div>
-                                <div class="grid-overlay-bottom">
-                                  <span class="grid-cell-caption">{photoItems[0].caption || step.title}</span>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="grid-3-sub-column">
-                              {photoItems.slice(1, 3).map((photo) => (
-                                <div class="grid-3-sub-cell">
-                                  <img src={getWideImageUrl(photo.image)} alt={photo.caption || step.title} class="grid-cell-img" loading="lazy" />
-                                  <div class="grid-cell-overlay">
-                                    <div class="grid-overlay-top">
-                                      {photo.imageCredit && (
-                                        <span class="photo-credit-tag">{formatCredit(photo.imageCredit)}</span>
-                                      )}
-                                    </div>
-                                    {photo.caption && (
-                                      <div class="grid-overlay-bottom">
-                                        <span class="grid-cell-caption">{photo.caption}</span>
-                                      </div>
-                                    )}
-                                  </div>
+                          /* 2分割グリッドレイアウト（写真は2分割、文字・タイトルは全体に1つだけ固定オーバーレイ） */
+                          <div class="wide-photo-container photo-grid-wrapper">
+                            <div class="photo-gallery-grid-2">
+                              {photoItems.slice(0, 2).map((photo) => (
+                                <div class="grid-cell-photo-container">
+                                  <img src={getWideImageUrl(photo.image)} alt={step.title} class="grid-cell-img" loading="lazy" />
                                 </div>
                               ))}
+                            </div>
+
+                            <div class="wide-photo-overlay pointer-events-none">
+                              <div class="overlay-meta-top">
+                                <div class="overlay-meta-left">
+                                  {step.categoryLabel && (
+                                    <span class="overlay-cat">{step.categoryLabel}</span>
+                                  )}
+                                  {step.areaLabel && (
+                                    <span class="overlay-area-label">
+                                      {step.categoryLabel ? `· ${step.areaLabel}` : step.areaLabel}
+                                    </span>
+                                  )}
+                                </div>
+                                <div class="overlay-meta-right">
+                                  <span class="photo-credit-tag">{formatCredit(photoItems[0]?.imageCredit || step.imageCredit)}</span>
+                                  {(step.duration || step.time) && (
+                                    <span class="overlay-duration">{step.duration || step.time}</span>
+                                  )}
+                                </div>
+                              </div>
+                              <div class="overlay-title-row">
+                                <h4 class="overlay-heading">{step.title}</h4>
+                                {step.spotData && <span class="overlay-chevron">›</span>}
+                              </div>
+                            </div>
+                          </div>
+                        ) : layout === 'grid-3' && isMulti ? (
+                          /* 3分割グリッドレイアウト（左大型1枚＋右サブ2枚、文字・タイトルは全体に1つだけ固定オーバーレイ） */
+                          <div class="wide-photo-container photo-grid-wrapper">
+                            <div class="photo-gallery-grid-3">
+                              <div class="grid-3-main-cell">
+                                <img src={getWideImageUrl(photoItems[0].image)} alt={step.title} class="grid-cell-img" loading="lazy" />
+                              </div>
+                              <div class="grid-3-sub-column">
+                                {photoItems.slice(1, 3).map((photo) => (
+                                  <div class="grid-3-sub-cell">
+                                    <img src={getWideImageUrl(photo.image)} alt={step.title} class="grid-cell-img" loading="lazy" />
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+
+                            <div class="wide-photo-overlay pointer-events-none">
+                              <div class="overlay-meta-top">
+                                <div class="overlay-meta-left">
+                                  {step.categoryLabel && (
+                                    <span class="overlay-cat">{step.categoryLabel}</span>
+                                  )}
+                                  {step.areaLabel && (
+                                    <span class="overlay-area-label">
+                                      {step.categoryLabel ? `· ${step.areaLabel}` : step.areaLabel}
+                                    </span>
+                                  )}
+                                </div>
+                                <div class="overlay-meta-right">
+                                  <span class="photo-credit-tag">{formatCredit(photoItems[0]?.imageCredit || step.imageCredit)}</span>
+                                  {(step.duration || step.time) && (
+                                    <span class="overlay-duration">{step.duration || step.time}</span>
+                                  )}
+                                </div>
+                              </div>
+                              <div class="overlay-title-row">
+                                <h4 class="overlay-heading">{step.title}</h4>
+                                {step.spotData && <span class="overlay-chevron">›</span>}
+                              </div>
                             </div>
                           </div>
                         ) : isMulti ? (
@@ -1004,26 +1022,30 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
     flex-shrink: 0;
   }
 
-  /* 単一スポット内の複数写真ギャラリー：2分割グリッド */
-  .photo-gallery-grid-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6px;
+  .photo-grid-wrapper {
+    position: relative;
     width: 100%;
     aspect-ratio: 16 / 9;
     border-radius: 8px;
     overflow: hidden;
   }
 
+  /* 単一スポット内の複数写真ギャラリー：2分割グリッド */
+  .photo-gallery-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    width: 100%;
+    height: 100%;
+  }
+
   /* 単一スポット内の複数写真ギャラリー：3分割グリッド（左メイン1枚 ＋ 右サブ2枚縦積み） */
   .photo-gallery-grid-3 {
     display: grid;
     grid-template-columns: 1.4fr 1fr;
-    gap: 6px;
+    gap: 4px;
     width: 100%;
-    aspect-ratio: 16 / 9;
-    border-radius: 8px;
-    overflow: hidden;
+    height: 100%;
   }
 
   .grid-3-main-cell {
