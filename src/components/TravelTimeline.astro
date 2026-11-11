@@ -437,42 +437,48 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                             </div>
                           </div>
                         ) : isMulti ? (
-                          /* 写真カルーセル（単一スポット内で複数写真を横スワイプ可能） */
-                          <div class="spot-photo-carousel-wrapper">
-                            <div class="spot-photo-carousel-track">
+                          /* 写真カルーセル（画像だけが横スワイプし、文字・タイトル・オーバーレイは固定） */
+                          <div class="wide-photo-container spot-photo-slider-container">
+                            <div class="spot-photo-only-track">
                               {photoItems.map((photo, pIdx) => (
-                                <div class="spot-photo-slide-item">
-                                  <div class="wide-photo-container">
-                                    <img src={getWideImageUrl(photo.image)} alt={photo.caption || step.title} class="wide-photo-img" loading="lazy" />
-                                    <div class="wide-photo-overlay">
-                                      <div class="overlay-meta-top">
-                                        <div class="overlay-meta-left">
-                                          {pIdx === 0 && step.categoryLabel && (
-                                            <span class="overlay-cat">{step.categoryLabel}</span>
-                                          )}
-                                          {photo.caption ? (
-                                            <span class="overlay-photo-caption">📷 {photo.caption}</span>
-                                          ) : (
-                                            step.areaLabel && <span class="overlay-area-label">{step.areaLabel}</span>
-                                          )}
-                                        </div>
-                                        <div class="overlay-meta-right">
-                                          {photo.imageCredit && (
-                                            <span class="photo-credit-tag">{formatCredit(photo.imageCredit)}</span>
-                                          )}
-                                          {pIdx === 0 && (step.duration || step.time) && (
-                                            <span class="overlay-duration">{step.duration || step.time}</span>
-                                          )}
-                                        </div>
-                                      </div>
-                                      <div class="overlay-title-row">
-                                        <h4 class="overlay-heading">{photo.caption ? `${step.title}（${photo.caption}）` : step.title}</h4>
-                                        <span class="gallery-counter-pill">{pIdx + 1} / {photoItems.length}</span>
-                                      </div>
-                                    </div>
-                                  </div>
+                                <div class="spot-photo-only-slide">
+                                  <img
+                                    src={getWideImageUrl(photo.image)}
+                                    alt={photo.caption || step.title}
+                                    class="wide-photo-img"
+                                    loading="lazy"
+                                  />
                                 </div>
                               ))}
+                            </div>
+
+                            <div class="wide-photo-overlay pointer-events-none">
+                              <div class="overlay-meta-top">
+                                <div class="overlay-meta-left">
+                                  {step.categoryLabel && (
+                                    <span class="overlay-cat">{step.categoryLabel}</span>
+                                  )}
+                                  {step.areaLabel && (
+                                    <span class="overlay-area-label">
+                                      {step.categoryLabel ? `· ${step.areaLabel}` : step.areaLabel}
+                                    </span>
+                                  )}
+                                  <span class="spot-photo-live-caption" data-slider-caption style="display: none;"></span>
+                                </div>
+                                <div class="overlay-meta-right">
+                                  <span class="photo-credit-tag" data-slider-credit>{formatCredit(photoItems[0]?.imageCredit)}</span>
+                                  {(step.duration || step.time) && (
+                                    <span class="overlay-duration">{step.duration || step.time}</span>
+                                  )}
+                                </div>
+                              </div>
+                              <div class="overlay-title-row">
+                                <h4 class="overlay-heading">{step.title}</h4>
+                                <div class="slider-counter-cluster">
+                                  <span class="gallery-counter-pill" data-slider-counter>1 / {photoItems.length}</span>
+                                  {step.spotData && <span class="overlay-chevron">›</span>}
+                                </div>
+                              </div>
                             </div>
                           </div>
                         ) : (
@@ -654,7 +660,23 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
       });
     });
 
-    // 3. カルーセルの横スクロール監視（タブ自動追従＆アクティブ強調＆カウンタ更新）
+    // 4. 写真のみカルーセル（画像だけ横スワイプ、文字は固定）のカウンタ同期
+    document.querySelectorAll('.spot-photo-slider-container').forEach((container) => {
+      const track = container.querySelector('.spot-photo-only-track');
+      const counterEl = container.querySelector('[data-slider-counter]');
+      const creditEl = container.querySelector('[data-slider-credit]');
+      if (!track || !counterEl) return;
+
+      const slides = track.querySelectorAll('.spot-photo-only-slide');
+      const total = slides.length;
+      if (total <= 1) return;
+
+      track.addEventListener('scroll', () => {
+        const itemWidth = (slides[0] as HTMLElement).offsetWidth || container.clientWidth;
+        const currentIdx = Math.min(total - 1, Math.max(0, Math.round(track.scrollLeft / itemWidth)));
+        counterEl.textContent = `${currentIdx + 1} / ${total}`;
+      }, { passive: true });
+    });
     document.querySelectorAll('.peeking-carousel-track').forEach((track) => {
       track.addEventListener('scroll', () => {
         const slides = track.querySelectorAll('.carousel-slide-item');
@@ -995,15 +1017,19 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
     text-overflow: ellipsis;
   }
 
-  /* 単一スポット内写真カルーセル（横スワイプ） */
-  .spot-photo-carousel-wrapper {
+  /* 単一スポット内写真カルーセル（画像だけ横スワイプ、文字は固定オーバーレイ） */
+  .spot-photo-slider-container {
     position: relative;
     width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+    overflow: hidden;
   }
 
-  .spot-photo-carousel-track {
+  .spot-photo-only-track {
     display: flex;
-    gap: 0.65rem;
+    width: 100%;
+    height: 100%;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
@@ -1011,25 +1037,28 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
     -webkit-overflow-scrolling: touch;
   }
 
-  .spot-photo-carousel-track::-webkit-scrollbar {
+  .spot-photo-only-track::-webkit-scrollbar {
     display: none;
   }
 
-  .spot-photo-slide-item {
-    flex: 0 0 90%;
-    width: 90%;
+  .spot-photo-only-slide {
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
     scroll-snap-align: start;
     box-sizing: border-box;
+    position: relative;
   }
 
-  .overlay-photo-caption {
-    font-size: 0.68rem;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.9);
-    letter-spacing: 0.02em;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  .slider-counter-cluster {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    flex-shrink: 0;
+  }
+
+  .pointer-events-none {
+    pointer-events: none;
   }
 
   .gallery-counter-pill {
