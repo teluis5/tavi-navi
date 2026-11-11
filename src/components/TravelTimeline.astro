@@ -137,6 +137,39 @@ function isAllowedHotelCategory(cat?: string): string | null {
   return null;
 }
 
+// グリッドレイアウト用の複数クレジット合成表示ヘルパー
+function formatGridCredits(photos: TimelinePhotoItem[], defaultCredit?: string, layout?: 'grid-2' | 'grid-3'): string {
+  const count = layout === 'grid-2' ? 2 : 3;
+  const targetPhotos = photos.slice(0, count);
+  const credits = targetPhotos.map(p => p.imageCredit || defaultCredit || '').filter(Boolean);
+
+  if (credits.length === 0) return '';
+
+  // 全て同じ提供元の場合 ➔ 「写真提供：秋田県観光連盟」
+  const allSame = credits.every(c => c === credits[0]);
+  if (allSame) {
+    return formatCredit(credits[0]);
+  }
+
+  // 異なる提供元が含まれる場合
+  // 2分割: 左、右
+  // 3分割: 左、右上、右下
+  const labels = layout === 'grid-2'
+    ? ['左', '右']
+    : ['左', '右上', '右下'];
+
+  const parts: string[] = [];
+  targetPhotos.forEach((p, idx) => {
+    const cred = p.imageCredit || defaultCredit;
+    if (cred) {
+      // "秋田県観光連盟(左)" のように整形
+      parts.push(`${cred}(${labels[idx] || `位置${idx + 1}`})`);
+    }
+  });
+
+  return `写真提供：${parts.join('、')}`;
+}
+
 // 移動（トランジット）情報の正規化ヘルパー
 function formatCredit(credit?: string): string {
   if (!credit) return '';
@@ -416,7 +449,7 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                               </div>
                               <div class="overlay-bottom-bar">
                                 <div class="overlay-meta-right">
-                                  <span class="photo-credit-tag tiny-credit">{formatCredit(photoItems[0]?.imageCredit || step.imageCredit)}</span>
+                                  <span class="photo-credit-tag tiny-credit">{formatGridCredits(photoItems, step.imageCredit, 'grid-2')}</span>
                                 </div>
                               </div>
                             </div>
@@ -444,7 +477,7 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                               </div>
                               <div class="overlay-bottom-bar">
                                 <div class="overlay-meta-right">
-                                  <span class="photo-credit-tag tiny-credit">{formatCredit(photoItems[0]?.imageCredit || step.imageCredit)}</span>
+                                  <span class="photo-credit-tag tiny-credit">{formatGridCredits(photoItems, step.imageCredit, 'grid-3')}</span>
                                 </div>
                               </div>
                             </div>
