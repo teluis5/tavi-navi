@@ -311,6 +311,7 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                         <button
                           type="button"
                           class={`swipe-tab-btn ${optIdx === 0 ? 'is-active' : ''}`}
+                          aria-pressed={optIdx === 0 ? 'true' : 'false'}
                           data-slide-index={optIdx}
                         >
                           {cleanText(opt.alternativeLabel) || `候補${optIdx + 1}`}
@@ -323,7 +324,7 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                 <div class="step-content-area">
                   {hasAlternatives ? (
                     <div class="peeking-carousel-wrapper">
-                      <div class="peeking-carousel-track" id={`wide-track-${index}`}>
+                      <div class="peeking-carousel-track" tabindex="0" role="region" aria-label="候補一覧。左右の矢印キーで移動できます">
                         {allOptions.map((opt, optIdx) => {
                           const optPhotos = resolvePhotos(opt);
                           const isOptMulti = optPhotos.length > 1;
@@ -664,7 +665,7 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                         ) : isMulti ? (
                           /* 写真カルーセル（画像だけが横スワイプし、文字・タイトル・オーバーレイは固定） */
                           <div class="wide-photo-container spot-photo-slider-container">
-                            <div class="spot-photo-only-track">
+                            <div class="spot-photo-only-track" tabindex="0" role="region" aria-label="写真一覧。左右の矢印キーで移動できます">
                               {photoItems.map((photo, pIdx) => (
                                 <div class="spot-photo-only-slide">
                                   <img
@@ -799,6 +800,18 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
 
 <script>
   function initWideTimelineInteractions() {
+    document.querySelectorAll('.spot-photo-only-track, .peeking-carousel-track').forEach((element) => {
+      const track = element as HTMLElement;
+      if (track.dataset.keyboardReady) return;
+      track.dataset.keyboardReady = 'true';
+      track.addEventListener('keydown', (event) => {
+        if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+        event.preventDefault();
+        const slide = track.firstElementChild as HTMLElement | null;
+        const distance = slide?.offsetWidth || track.clientWidth;
+        track.scrollBy({ left: (event.key === 'ArrowRight' ? 1 : -1) * distance, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+      });
+    });
     // 1. スポット全画面ダイアログの開閉
     document.querySelectorAll('[data-open-spot]').forEach((card) => {
       card.addEventListener('click', () => {
@@ -849,13 +862,12 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
       if (!slides.length) return;
       const targetIdx = Math.max(0, Math.min(slides.length - 1, slideIdx));
       const slideLeft = (slides[targetIdx] as HTMLElement).offsetLeft;
-      track.scrollTo({ left: slideLeft, behavior: 'smooth' });
+      track.scrollTo({ left: slideLeft, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
     }
 
     // 2. カルーセルのタブクリック連動
     document.querySelectorAll('.carousel-section-header').forEach((header) => {
-      const trackId = header.getAttribute('data-track-id');
-      const track = document.getElementById(trackId || '');
+      const track = header.closest('.flow-step-item')?.querySelector('.peeking-carousel-track') as HTMLElement | null;
       if (!track) return;
 
       header.querySelectorAll('.swipe-tab-btn').forEach((btn) => {
@@ -976,7 +988,7 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
 
       track.addEventListener('mousedown', pauseAuto, { passive: true });
 
-      startAutoPlay();
+      // 自動再生を行わず、読者が操作するまで写真を固定する。
     });
     // 5. 並列場所カルーセル（横スワイプ操作 ＋ 10秒自動スクロール、ユーザー操作で自動スクロール完全無効化）
     document.querySelectorAll('.peeking-carousel-track').forEach((track) => {
@@ -1061,7 +1073,7 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
         });
       }
 
-      startAuto();
+      // 自動再生を行わず、読者が操作するまで候補を固定する。
 
       htmlTrack.addEventListener('scroll', () => {
         const slides = htmlTrack.querySelectorAll('.carousel-slide-item');
@@ -1083,10 +1095,11 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
           parent.querySelectorAll('.swipe-tab-btn').forEach((btn, idx) => {
             const isActive = idx === activeIdx;
             btn.classList.toggle('is-active', isActive);
+            btn.setAttribute('aria-pressed', String(isActive));
             if (isActive && tabScroll) {
               const btnEl = btn as HTMLElement;
               const targetScroll = btnEl.offsetLeft - tabScroll.clientWidth / 2 + btnEl.clientWidth / 2;
-              tabScroll.scrollTo({ left: Math.max(0, targetScroll), behavior: 'smooth' });
+              tabScroll.scrollTo({ left: Math.max(0, targetScroll), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
             }
           });
 
