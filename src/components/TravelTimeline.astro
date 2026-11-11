@@ -303,16 +303,18 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                                     <img src={heroImg} alt={opt.title} class="wide-photo-img" loading="lazy" />
                                   )}
                                   <div class="wide-photo-overlay">
-                                    {(isAllowedHotelCategory(opt.categoryLabel) || cleanText(opt.alternativeLabel)) && (
-                                      <div class="overlay-badge-top-left">
-                                        <span class="photo-category-pill">
-                                          {isAllowedHotelCategory(opt.categoryLabel) || cleanText(opt.alternativeLabel)}
-                                        </span>
+                                    <div class="overlay-title-column align-left">
+                                      {(isAllowedHotelCategory(opt.categoryLabel) || cleanText(opt.alternativeLabel)) && (
+                                        <div class="overlay-tag-above-title">
+                                          <span class="photo-category-pill">
+                                            {isAllowedHotelCategory(opt.categoryLabel) || cleanText(opt.alternativeLabel)}
+                                          </span>
+                                        </div>
+                                      )}
+                                      <div class="overlay-title-row">
+                                        <h4 class="overlay-heading single-line-heading">{opt.title}</h4>
+                                        {opt.spotData && <span class="overlay-chevron">›</span>}
                                       </div>
-                                    )}
-                                    <div class="overlay-title-row align-left">
-                                      <h4 class="overlay-heading single-line-heading">{opt.title}</h4>
-                                      {opt.spotData && <span class="overlay-chevron">›</span>}
                                     </div>
                                     <div class="overlay-bottom-bar">
                                       <div class="overlay-meta-right">
@@ -364,13 +366,15 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                           <img src={getWideImageUrl(step.image)} alt={step.title} class="wide-photo-img" loading="lazy" />
                         )}
                         <div class="wide-photo-overlay">
-                          {isAllowedHotelCategory(step.categoryLabel) && (
-                            <div class="overlay-badge-top-left">
-                              <span class="photo-category-pill">{isAllowedHotelCategory(step.categoryLabel)}</span>
+                          <div class="overlay-title-column align-left">
+                            {isAllowedHotelCategory(step.categoryLabel) && (
+                              <div class="overlay-tag-above-title">
+                                <span class="photo-category-pill">{isAllowedHotelCategory(step.categoryLabel)}</span>
+                              </div>
+                            )}
+                            <div class="overlay-title-row">
+                              <h4 class="overlay-heading single-line-heading">{step.title}</h4>
                             </div>
-                          )}
-                          <div class="overlay-title-row align-left">
-                            <h4 class="overlay-heading single-line-heading">{step.title}</h4>
                           </div>
                           <div class="overlay-bottom-bar">
                             <div class="overlay-meta-right">
@@ -1022,36 +1026,41 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
     margin-top: 0.2rem;
   }
 
-  .overlay-title-row.align-left {
+  /* メニュー名・宿カテゴリ（白地に黒文字・場所名の上に表示） */
+  .overlay-title-column.align-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+    width: 100%;
+  }
+
+  .overlay-tag-above-title {
+    display: flex;
+    align-items: center;
+  }
+
+  .photo-category-pill {
+    font-size: 0.66rem;
+    font-weight: 700;
+    color: #111827;
+    background: #ffffff;
+    border: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    letter-spacing: 0.03em;
+    line-height: 1.25;
+    display: inline-block;
+  }
+
+  .overlay-title-row {
     display: flex;
     align-items: baseline;
     justify-content: flex-start;
     gap: 0.4rem;
     width: 100%;
     text-align: left;
-  }
-
-  /* メニュー名・宿カテゴリの白抜き枠バッジ（写真左上配置） */
-  .overlay-badge-top-left {
-    position: absolute;
-    top: 0.65rem;
-    left: 0.75rem;
-    z-index: 5;
-  }
-
-  .photo-category-pill {
-    font-size: 0.68rem;
-    font-weight: 700;
-    color: #ffffff;
-    background: rgba(15, 23, 42, 0.45);
-    backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, 0.85);
-    padding: 0.15rem 0.55rem;
-    border-radius: 4px;
-    letter-spacing: 0.04em;
-    line-height: 1.25;
-    display: inline-block;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
   }
 
   /* 場所の名前：左寄せ・スマホ1行収まり */
