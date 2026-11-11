@@ -10,6 +10,14 @@ const description = "JRE POINT 6,000ptで新幹線往復できるJR東日本『�
 
 // 路線ごとのグループ化
 const lines = ['東北', '秋田', '山形', '上越', '北陸'] as const;
+// 東京方面から終点方面への路線順（掲載駅のみ）
+const stationOrder: Record<string, string[]> = {
+  '東北': ['koriyama', 'fukushima', 'sendai', 'ichinoseki', 'shinhanamaki', 'morioka', 'hachinohe', 'shinaomori'],
+  '秋田': ['shizukuishi', 'tazawako', 'kakunodate', 'omagari', 'akita'],
+  '山形': ['yonezawa', 'kaminoyama-onsen', 'yamagata', 'oishida', 'shinjo'],
+  '上越': ['jomorekogen', 'echigoyuzawa', 'tsubamesanjo', 'niigata'],
+  '北陸': ['karuizawa', 'sakudaira', 'ueda', 'nagano', 'iiyama', 'joetsumyoko'],
+};
 ---
 
 <Layout title={title} description={description}>
@@ -23,13 +31,23 @@ const lines = ['東北', '秋田', '山形', '上越', '北陸'] as const;
     </nav>
 
     <header class="special-hero">
-      <div class="hero-badge">JR東日本公認企画 特集</div>
+      <div class="hero-badge">新幹線の旅 特集</div>
       <h1>どこかにビューン！完全攻略<br class="sp-br" />行き先ガチャの選び方＆駅別ガイド</h1>
       <p class="hero-catch">
         JRE POINT <strong>6,000pt</strong>で新幹線往復！<br />
         候補4駅の再検索テクニックから、当たった駅の「車なし観光＆名湯宿」まで丸ごとナビ。
       </p>
     </header>
+
+    <nav class="quick-nav" aria-label="ページ内メニュー">
+      <p>旅の準備に合わせて探す</p>
+      <div class="quick-links">
+        <a href="#all-stations"><strong>駅から探す</strong><span>路線別の駅一覧へ →</span></a>
+        <a href="#recommended"><strong>おすすめ駅を見る</strong><span>車なしの旅のヒント →</span></a>
+        <a href="#tips"><strong>候補駅の選び方</strong><span>申し込み前のポイント →</span></a>
+        <a href="#after-selection"><strong>行き先が決まったら</strong><span>出発までの準備 →</span></a>
+      </div>
+    </nav>
 
     <div class="intro-section">
       <ProblemBox>
@@ -47,7 +65,7 @@ const lines = ['東北', '秋田', '山形', '上越', '北陸'] as const;
     </div>
 
     <!-- 1. 攻略法：4駅選びの鉄則 -->
-    <section class="guide-block">
+    <section class="guide-block" id="tips">
       <div class="section-title-wrap">
         <span class="step-num">TIP 01</span>
         <h2>後悔しない！4つの候補駅「再検索」の鉄則</h2>
@@ -81,7 +99,7 @@ const lines = ['東北', '秋田', '山形', '上越', '北陸'] as const;
     </section>
 
     <!-- 2. 車なし安心おすすめ駅ピックアップ -->
-    <section class="guide-block">
+    <section class="guide-block" id="recommended">
       <div class="section-title-wrap">
         <span class="step-num">TIP 02</span>
         <h2>車なしでも120%楽しい！おすすめ鉄板駅</h2>
@@ -149,17 +167,21 @@ const lines = ['東北', '秋田', '山形', '上越', '北陸'] as const;
         <h2>当たった駅をチェック！新幹線方面別ガイド</h2>
       </div>
       <p class="catalog-lead">
-        どこかにビューン！で当たる可能性がある全エリアの新幹線駅です。「車なし度（◎・◯・△）」と駅周辺の代表スポットを確認して、旅の計画にお役立てください。
+        掲載駅を路線ごとに東京方面から順に紹介します。「車なし度」と見どころを確認し、旅の計画にお役立てください。対象駅や運行条件は公式サイトでもご確認ください。
       </p>
 
+      <nav class="line-nav" aria-label="路線から駅を探す">
+        {lines.map((lineName) => <a href={`#line-${lineName}`}>{lineName}新幹線</a>)}
+      </nav>
+
       {lines.map((lineName) => {
-        const stationsInLine = DOKOKANI_STATIONS.filter((s) => s.line === lineName);
+        const stationsInLine = DOKOKANI_STATIONS.filter((s) => s.line === lineName).sort((a, b) => stationOrder[lineName].indexOf(a.id) - stationOrder[lineName].indexOf(b.id));
         if (stationsInLine.length === 0) return null;
 
         return (
-          <div class="line-group">
+          <div class="line-group" id={`line-${lineName}`}>
             <div class="line-header">
-              <span class="line-badge">{lineName}新幹線</span>
+              <h3 class="line-badge">{lineName}新幹線</h3>
               <span class="line-count">{stationsInLine.length}駅</span>
             </div>
 
@@ -199,13 +221,14 @@ const lines = ['東北', '秋田', '山形', '上越', '北陸'] as const;
                 </div>
               ))}
             </div>
+            <a class="back-to-lines" href="#all-stations">↑ 路線一覧に戻る</a>
           </div>
         );
       })}
     </section>
 
     <!-- 4. 行き先が決まった後のアクション -->
-    <section class="guide-block">
+    <section class="guide-block" id="after-selection">
       <div class="section-title-wrap">
         <span class="step-num">ACTION</span>
         <h2>行き先決定通知が来たら！すぐやるべき2つのこと</h2>
@@ -245,6 +268,20 @@ const lines = ['東北', '秋田', '山形', '上越', '北陸'] as const;
 </Layout>
 
 <style>
+  .quick-nav { margin: 0 0 32px; }
+  .quick-nav p { margin: 0 0 12px; font-weight: 700; color: #0f172a; }
+  .quick-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .quick-links a { display: flex; flex-direction: column; gap: 4px; padding: 16px; background: #eff6fa; border-radius: 8px; color: #075985; text-decoration: none; }
+  .quick-links span { font-size: 0.8rem; color: #334155; }
+  .quick-links a:hover, .line-nav a:hover { background: #dceef7; }
+  .quick-links a:focus-visible, .line-nav a:focus-visible, .back-to-lines:focus-visible { outline: 3px solid #075985; outline-offset: 3px; }
+  .line-nav { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 32px; }
+  .line-nav a { padding: 12px 16px; background: #eff6fa; border-radius: 8px; color: #075985; font-weight: 700; text-decoration: none; }
+  .line-group, .guide-block { scroll-margin-top: 24px; }
+  .back-to-lines { display: inline-block; padding: 12px 0; color: #075985; font-weight: 700; }
+  .line-badge { margin: 0; }
+  @media (max-width: 380px) { .quick-links { grid-template-columns: 1fr; } }
+
   .dokokani-special-page {
     max-width: 820px;
     margin: 0 auto;
