@@ -270,17 +270,19 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                                     <img src={heroImg} alt={opt.title} class="wide-photo-img" loading="lazy" />
                                   )}
                                   <div class="wide-photo-overlay">
-                                    {isAllowedHotelCategory(opt.categoryLabel) && (
+                                    {(isAllowedHotelCategory(opt.categoryLabel) || cleanText(opt.alternativeLabel)) && (
                                       <div class="overlay-badge-top-left">
-                                        <span class="hotel-category-badge">{isAllowedHotelCategory(opt.categoryLabel)}</span>
+                                        <span class="photo-category-pill">
+                                          {isAllowedHotelCategory(opt.categoryLabel) || cleanText(opt.alternativeLabel)}
+                                        </span>
                                       </div>
                                     )}
-                                    <div class="overlay-title-row align-right">
+                                    <div class="overlay-title-row align-left">
                                       <h4 class="overlay-heading single-line-heading">{opt.title}</h4>
                                       {opt.spotData && <span class="overlay-chevron">›</span>}
                                     </div>
                                     <div class="overlay-bottom-bar">
-                                      <div class="overlay-meta-left">
+                                      <div class="overlay-meta-right">
                                         {(opt.imageCredit || step.imageCredit) && (
                                           <span class="photo-credit-tag tiny-credit">{formatCredit(opt.imageCredit || step.imageCredit)}</span>
                                         )}
@@ -331,14 +333,14 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                         <div class="wide-photo-overlay">
                           {isAllowedHotelCategory(step.categoryLabel) && (
                             <div class="overlay-badge-top-left">
-                              <span class="hotel-category-badge">{isAllowedHotelCategory(step.categoryLabel)}</span>
+                              <span class="photo-category-pill">{isAllowedHotelCategory(step.categoryLabel)}</span>
                             </div>
                           )}
-                          <div class="overlay-title-row align-right">
+                          <div class="overlay-title-row align-left">
                             <h4 class="overlay-heading single-line-heading">{step.title}</h4>
                           </div>
                           <div class="overlay-bottom-bar">
-                            <div class="overlay-meta-left">
+                            <div class="overlay-meta-right">
                               {step.imageCredit && (
                                 <span class="photo-credit-tag tiny-credit">{formatCredit(step.imageCredit)}</span>
                               )}
@@ -408,12 +410,12 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                             </div>
 
                             <div class="wide-photo-overlay pointer-events-none">
-                              <div class="overlay-title-row align-right">
+                              <div class="overlay-title-row align-left">
                                 <h4 class="overlay-heading single-line-heading">{step.title}</h4>
                                 {step.spotData && <span class="overlay-chevron">›</span>}
                               </div>
                               <div class="overlay-bottom-bar">
-                                <div class="overlay-meta-left">
+                                <div class="overlay-meta-right">
                                   <span class="photo-credit-tag tiny-credit">{formatCredit(photoItems[0]?.imageCredit || step.imageCredit)}</span>
                                 </div>
                               </div>
@@ -436,12 +438,12 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                             </div>
 
                             <div class="wide-photo-overlay pointer-events-none">
-                              <div class="overlay-title-row align-right">
+                              <div class="overlay-title-row align-left">
                                 <h4 class="overlay-heading single-line-heading">{step.title}</h4>
                                 {step.spotData && <span class="overlay-chevron">›</span>}
                               </div>
                               <div class="overlay-bottom-bar">
-                                <div class="overlay-meta-left">
+                                <div class="overlay-meta-right">
                                   <span class="photo-credit-tag tiny-credit">{formatCredit(photoItems[0]?.imageCredit || step.imageCredit)}</span>
                                 </div>
                               </div>
@@ -464,19 +466,19 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                             </div>
 
                             <div class="wide-photo-overlay pointer-events-none">
-                              <div class="overlay-title-row align-right">
+                              <div class="overlay-title-row align-left">
                                 <h4 class="overlay-heading single-line-heading">{step.title}</h4>
                                 {step.spotData && <span class="overlay-chevron">›</span>}
                               </div>
                               <div class="overlay-bottom-bar">
-                                <div class="overlay-meta-left">
+                                <div class="overlay-meta-right">
                                   <span class="photo-credit-tag tiny-credit">{formatCredit(photoItems[0]?.imageCredit || step.imageCredit)}</span>
                                 </div>
                               </div>
                             </div>
                           </div>
                         ) : (
-                          /* 単一写真（従来の1枚写真・クレジットは最も左下、タイトルは右寄せ） */
+                          /* 単一写真（従来の1枚写真・場所名は左寄せ、クレジットは最も右下） */
                           <div class="wide-photo-container">
                             {photoItems[0] && (
                               <img
@@ -487,12 +489,12 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                               />
                             )}
                             <div class="wide-photo-overlay">
-                              <div class="overlay-title-row align-right">
+                              <div class="overlay-title-row align-left">
                                 <h4 class="overlay-heading single-line-heading">{step.title}</h4>
                                 {step.spotData && <span class="overlay-chevron">›</span>}
                               </div>
                               <div class="overlay-bottom-bar">
-                                <div class="overlay-meta-left">
+                                <div class="overlay-meta-right">
                                   {photoItems[0]?.imageCredit && (
                                     <span class="photo-credit-tag tiny-credit">{formatCredit(photoItems[0].imageCredit)}</span>
                                   )}
@@ -987,37 +989,39 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
     margin-top: 0.2rem;
   }
 
-  .overlay-title-row.align-right {
+  .overlay-title-row.align-left {
     display: flex;
     align-items: baseline;
-    justify-content: flex-end;
+    justify-content: flex-start;
     gap: 0.4rem;
     width: 100%;
-    text-align: right;
+    text-align: left;
   }
 
-  /* 宿の8大カテゴリバッジ（左上配置） */
+  /* メニュー名・宿カテゴリの白抜き枠バッジ（写真左上配置） */
   .overlay-badge-top-left {
     position: absolute;
     top: 0.65rem;
     left: 0.75rem;
+    z-index: 5;
   }
 
-  .hotel-category-badge {
+  .photo-category-pill {
     font-size: 0.68rem;
     font-weight: 700;
     color: #ffffff;
-    background: rgba(15, 23, 42, 0.75);
+    background: rgba(15, 23, 42, 0.45);
     backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 0.18rem 0.55rem;
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    padding: 0.15rem 0.55rem;
     border-radius: 4px;
     letter-spacing: 0.04em;
-    line-height: 1.2;
+    line-height: 1.25;
     display: inline-block;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
   }
 
-  /* 場所の名前：右寄せ・スマホ1行収まり */
+  /* 場所の名前：左寄せ・スマホ1行収まり */
   .overlay-heading.single-line-heading {
     font-size: clamp(0.92rem, 3.8vw, 1.25rem);
     font-weight: 800;
@@ -1030,12 +1034,17 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 100%;
+    text-align: left;
   }
 
   .overlay-meta-right {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
+    width: 100%;
     gap: 0.35rem;
+    flex-shrink: 0;
+  }
     flex-shrink: 0;
   }
 
