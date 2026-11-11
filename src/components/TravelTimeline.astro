@@ -1,11 +1,13 @@
 ---
 import type { ImageMetadata } from 'astro';
 import SpotCard, { type SpotData, type SpotAmenity } from './SpotCard.astro';
+import { buildRakutenTravelUrl } from '../utils/affiliate';
 
 export interface TimelineHotelData {
-  rating: string;         // e.g. "4.4"
-  reviewCount: string;    // e.g. "2,150"
-  rakutenUrl: string;     // アフィリエイトURL
+  rating?: string;        // e.g. "4.4"
+  reviewCount?: string;   // e.g. "2,150"
+  rakutenUrl?: string;    // アフィリエイトURL（未指定時はホテル名等から自動生成）
+  hotelNo?: string | number; // 楽天トラベルの施設番号
   priceText?: string;     // e.g. "2名1室 税込14,800円〜"
   features?: string[];
 }
@@ -134,6 +136,24 @@ function isAllowedHotelCategory(cat?: string): string | null {
   ];
   if (cat && allowed.includes(cat.trim())) {
     return cat.trim();
+  }
+  return null;
+}
+
+// ホテルの楽天トラベル予約URL解決ヘルパー
+function resolveHotelBookingUrl(step: TimelineStep): string | null {
+  if (step.hotelData?.rakutenUrl) {
+    return step.hotelData.rakutenUrl;
+  }
+  const isHotelStep = step.isHotel || !!isAllowedHotelCategory(step.categoryLabel);
+  if (!isHotelStep) {
+    return null;
+  }
+  if (step.hotelData?.hotelNo) {
+    return buildRakutenTravelUrl({ hotelNo: step.hotelData.hotelNo });
+  }
+  if (step.title) {
+    return buildRakutenTravelUrl({ keyword: step.title });
   }
   return null;
 }
@@ -303,6 +323,7 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                           const optCreditText = (optLayout === 'grid-2' || optLayout === 'grid-3' || optLayout === 'pip') && isOptMulti
                             ? formatGridCredits(optPhotos, opt.imageCredit || step.imageCredit, optLayout)
                             : formatCredit(opt.imageCredit || step.imageCredit, opt.isImageSample || step.isImageSample);
+                          const optBookingUrl = resolveHotelBookingUrl(opt);
 
                           return (
                             <div class={`carousel-slide-item ${optIdx === 0 ? 'is-active-slide' : ''}`}>
@@ -450,6 +471,18 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                                       {opt.amenities.map((am) => am.label).join(' · ')}
                                     </p>
                                   )}
+
+                                  {optBookingUrl && (
+                                    <a
+                                      href={optBookingUrl}
+                                      target="_blank"
+                                      rel="noopener sponsored"
+                                      class="wide-hotel-cta"
+                                    >
+                                      <span>楽天トラベルでこのホテルを予約する</span>
+                                      <span class="cta-arrow">→</span>
+                                    </a>
+                                  )}
                                 </div>
                               </div>
                             </div>
@@ -514,14 +547,14 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                           </ul>
                         )}
 
-                        {step.hotelData?.rakutenUrl && (
+                        {resolveHotelBookingUrl(step) && (
                           <a
-                            href={step.hotelData.rakutenUrl}
+                            href={resolveHotelBookingUrl(step)!}
                             target="_blank"
                             rel="noopener sponsored"
                             class="wide-hotel-cta"
                           >
-                            <span>楽天トラベルで空室・料金プランを見る</span>
+                            <span>楽天トラベルでこのホテルを予約する</span>
                             <span class="cta-arrow">→</span>
                           </a>
                         )}
@@ -685,6 +718,18 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                             <p class="wide-amenities-line">
                               {step.amenities.map((am) => am.label).join(' · ')}
                             </p>
+                          )}
+
+                          {resolveHotelBookingUrl(step) && (
+                            <a
+                              href={resolveHotelBookingUrl(step)!}
+                              target="_blank"
+                              rel="noopener sponsored"
+                              class="wide-hotel-cta"
+                            >
+                              <span>楽天トラベルでこのホテルを予約する</span>
+                              <span class="cta-arrow">→</span>
+                            </a>
                           )}
                         </div>
                       </div>
@@ -1739,24 +1784,31 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: #111827;
+    background: #bf0000;
     color: #ffffff;
-    font-size: 0.82rem;
+    font-size: 0.84rem;
     font-weight: 700;
-    padding: 0.7rem 1.05rem;
+    padding: 0.75rem 1.1rem;
     border-radius: 6px;
     text-decoration: none;
-    margin-top: 0.3rem;
+    margin-top: 0.75rem;
     letter-spacing: 0.02em;
-    transition: opacity 0.15s;
+    box-shadow: 0 2px 6px rgba(191, 0, 0, 0.2);
+    transition: background-color 0.15s ease, opacity 0.15s ease, transform 0.15s ease;
   }
 
   .wide-hotel-cta:hover {
-    opacity: 0.88;
+    background: #a60000;
+    opacity: 0.95;
+    transform: translateY(-1px);
+    color: #ffffff;
   }
 
   .wide-hotel-cta:active {
-    opacity: 0.75;
+    background: #8c0000;
+    transform: translateY(0);
+    opacity: 0.9;
+    color: #ffffff;
   }
 
   .cta-arrow {
