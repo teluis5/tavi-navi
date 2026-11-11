@@ -693,36 +693,59 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
         }, 5000);
       };
 
-      // タッチ・ドラッグによる手動スワイプ実装（あらゆるスマホブラウザで確実に横スワイプ可能）
+      // タッチ・ドラッグによる手動スワイプ実装（最後の写真からさらにスワイプで最初へループ）
       let startX = 0;
       let startScrollLeft = 0;
       let isDragging = false;
+      let totalWalk = 0;
 
       track.addEventListener('touchstart', (e: TouchEvent) => {
         pauseAuto();
         isDragging = true;
         startX = e.touches[0].pageX;
         startScrollLeft = track.scrollLeft;
+        totalWalk = 0;
       }, { passive: true });
 
       track.addEventListener('touchmove', (e: TouchEvent) => {
         if (!isDragging) return;
         const x = e.touches[0].pageX;
-        const walk = x - startX;
-        track.scrollLeft = startScrollLeft - walk;
+        totalWalk = x - startX;
+        track.scrollLeft = startScrollLeft - totalWalk;
       }, { passive: true });
 
       track.addEventListener('touchend', () => {
         if (!isDragging) return;
         isDragging = false;
-        // 最寄りのスライドへスムーズにスナップ
         const slideWidth = track.clientWidth;
         if (slideWidth > 0) {
-          currentIdx = Math.round(track.scrollLeft / slideWidth);
-          track.scrollTo({
-            left: currentIdx * slideWidth,
-            behavior: 'smooth',
-          });
+          const maxScroll = (total - 1) * slideWidth;
+          const currentScroll = track.scrollLeft;
+
+          // 最後のスライドにいる状態で左スワイプ（totalWalk < -30 または currentScroll >= maxScroll）した場合、最初（0）へループ
+          if (startScrollLeft >= maxScroll - 10 && totalWalk < -30) {
+            currentIdx = 0;
+            track.scrollTo({
+              left: 0,
+              behavior: 'smooth',
+            });
+          }
+          // 最初のスライドにいる状態で右スワイプ（totalWalk > 30）した場合、最後へループ
+          else if (startScrollLeft <= 10 && totalWalk > 30) {
+            currentIdx = total - 1;
+            track.scrollTo({
+              left: (total - 1) * slideWidth,
+              behavior: 'smooth',
+            });
+          }
+          // 通常の最寄りスライドスナップ
+          else {
+            currentIdx = Math.max(0, Math.min(total - 1, Math.round(currentScroll / slideWidth)));
+            track.scrollTo({
+              left: currentIdx * slideWidth,
+              behavior: 'smooth',
+            });
+          }
         }
       }, { passive: true });
 
