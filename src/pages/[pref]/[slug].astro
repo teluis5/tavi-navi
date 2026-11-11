@@ -214,17 +214,80 @@ if (props.pageType === 'article') {
           <ContentComponent />
         </div>
 
-        <!-- 読了後の回遊用：この先4シーズンの旬タイムライン（タブ切り替え） -->
-        <div style="margin-top: 3.5rem;">
-          <SeasonalTabs
-            prefId={prefSlug}
-            prefName={prefName}
-            region={prefRegion}
-            lang="ja"
-            articles={prefArticles}
-            targetMonth={articleMonth}
-          />
-        </div>
+        <!-- 読了後の回遊用：秋田県トップ案内 ＆ 類似・関連モデルコース -->
+        <section class="related-pref-section" style="margin-top: 3.5rem; padding-top: 2rem; border-top: 2px solid var(--border-color);">
+          <!-- 都道府県ハブ導線バナー -->
+          <a
+            href={`/${prefSlug}/`}
+            class="pref-hub-banner"
+            style="display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 100%); border: 1px solid #bae6fd; border-radius: 8px; padding: 1.25rem 1.5rem; text-decoration: none; margin-bottom: 2rem; transition: transform 0.15s ease, box-shadow 0.15s ease;"
+          >
+            <div>
+              <span style="font-size: 0.78rem; font-weight: 800; color: #0284c7; letter-spacing: 0.05em; text-transform: uppercase;">PREFECTURE GUIDE</span>
+              <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--text-main); margin: 0.25rem 0 0.15rem;">
+                📍 {prefName}の旅情報・モデルコース一覧を見る
+              </h3>
+              <p style="font-size: 0.85rem; color: var(--text-light); margin: 0;">
+                {prefName}の最新観光ガイド、旬のイベント、車なしモデルコースをまとめてチェック
+              </p>
+            </div>
+            <span style="font-size: 1.4rem; color: #0284c7; margin-left: 1rem; font-weight: 700;">&rarr;</span>
+          </a>
+
+          <!-- 同一都道府県の類似・おすすめ記事 -->
+          {(() => {
+            const relatedArticles = prefArticles
+              .filter((a) => a.id !== article!.id)
+              .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+              .slice(0, 3);
+
+            if (relatedArticles.length === 0) return null;
+
+            return (
+              <div>
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                  <h3 style="font-size: 1.1rem; font-weight: 800; color: var(--text-main); margin: 0; display: flex; align-items: center; gap: 0.4rem;">
+                    <span>🧭</span> {prefName}のあわせて読みたい人気モデルコース
+                  </h3>
+                  <a href={`/${prefSlug}/`} style="font-size: 0.82rem; font-weight: 700; color: var(--theme-accent); text-decoration: none;">
+                    すべて見る &rarr;
+                  </a>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem;">
+                  {relatedArticles.map((rel) => {
+                    const relSlug = getArticleSlug(rel.id, rel.data.pref);
+                    return (
+                      <a
+                        href={`/${prefSlug}/${relSlug}/`}
+                        style="display: flex; flex-direction: column; background: #ffffff; border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem; text-decoration: none; color: inherit; transition: transform 0.15s ease, box-shadow 0.15s ease;"
+                        class="related-article-card"
+                      >
+                        <div style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.72rem; color: var(--text-light); margin-bottom: 0.5rem;">
+                          <span style="background: var(--bg-main); padding: 0.15rem 0.45rem; border-radius: 4px; font-weight: 700; color: var(--text-main);">
+                            {rel.data.category}
+                          </span>
+                          {rel.data.duration && (
+                            <span>· {rel.data.duration}</span>
+                          )}
+                        </div>
+                        <h4 style="font-size: 0.92rem; font-weight: 800; line-height: 1.45; color: var(--text-main); margin: 0 0 0.5rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                          {rel.data.title}
+                        </h4>
+                        <p style="font-size: 0.8rem; line-height: 1.5; color: var(--text-light); margin: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                          {rel.data.description}
+                        </p>
+                        <span style="font-size: 0.78rem; font-weight: 700; color: var(--theme-accent); margin-top: auto; padding-top: 0.75rem;">
+                          記事を読む &rarr;
+                        </span>
+                      </a>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })()}
+        </section>
 
         <footer style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color);">
           <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;">
