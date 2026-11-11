@@ -41,6 +41,7 @@ export interface TimelineStep {
   title: string;          // e.g. "熱海サンビーチ & 親水公園"
   icon?: string;
   categoryLabel?: HotelCategory | string; // 宿の場合は8大カテゴリ（温泉旅館/天然温泉ホテル/大浴場付きホテル/ラグジュアリー/シティホテル/ビジネスホテル/リゾートホテル/ゲストハウス）
+  isImageSample?: boolean; // 食事等で実際の店舗メニューでない場合の「※写真はイメージです」表記
   image?: string | ImageMetadata; // サムネイル・ワイド画像URLまたはインポート画像
   imageCredit?: string;   // 写真クレジット提供元（例: "秋田県観光連盟"）
   images?: (string | ImageMetadata | TimelinePhotoItem)[]; // 単一箇所での複数写真
@@ -171,11 +172,17 @@ function formatGridCredits(photos: TimelinePhotoItem[], defaultCredit?: string, 
 }
 
 // 移動（トランジット）情報の正規化ヘルパー
-function formatCredit(credit?: string): string {
-  if (!credit) return '';
-  return credit.startsWith('写真提供') || credit.startsWith('©') || credit.startsWith('Photo')
-    ? credit
-    : `写真提供：${credit}`;
+function formatCredit(credit?: string, isImageSample?: boolean): string {
+  let text = '';
+  if (credit) {
+    text = credit.startsWith('写真提供') || credit.startsWith('©') || credit.startsWith('Photo')
+      ? credit
+      : `写真提供：${credit}`;
+  }
+  if (isImageSample) {
+    return text ? `${text}（イメージ写真）` : '※写真はイメージです';
+  }
+  return text;
 }
 
 // 単一スポット内の複数写真（ギャラリー・カルーセル・グリッド）の正規化
@@ -318,8 +325,10 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                                     </div>
                                     <div class="overlay-bottom-bar">
                                       <div class="overlay-meta-right">
-                                        {(opt.imageCredit || step.imageCredit) && (
-                                          <span class="photo-credit-tag tiny-credit">{formatCredit(opt.imageCredit || step.imageCredit)}</span>
+                                        {((opt.imageCredit || step.imageCredit) || opt.isImageSample || step.isImageSample) && (
+                                          <span class="photo-credit-tag tiny-credit">
+                                            {formatCredit(opt.imageCredit || step.imageCredit, opt.isImageSample || step.isImageSample)}
+                                          </span>
                                         )}
                                       </div>
                                     </div>
@@ -532,8 +541,8 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                               </div>
                               <div class="overlay-bottom-bar">
                                 <div class="overlay-meta-right">
-                                  {photoItems[0]?.imageCredit && (
-                                    <span class="photo-credit-tag tiny-credit">{formatCredit(photoItems[0].imageCredit)}</span>
+                                  {((photoItems[0]?.imageCredit || step.imageCredit) || step.isImageSample) && (
+                                    <span class="photo-credit-tag tiny-credit">{formatCredit(photoItems[0]?.imageCredit || step.imageCredit, step.isImageSample)}</span>
                                   )}
                                 </div>
                               </div>
