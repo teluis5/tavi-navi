@@ -10,11 +10,16 @@ season: "通年"
 departure: "tokyo"
 duration: "1泊2日"
 cities: ["senboku"]
-heroImage: "/thumbnails/akita-dokokanibyun-tazawako-real-v5.png"
+heroImage: "/thumbnails/akita-course-onsen-v1.png"
 tags: ["どこかにビューン", "田沢湖", "秋田", "秋田新幹線", "乳頭温泉郷", "鶴の湯温泉", "車なしプランあり", "モデルコース", "温泉"]
 ---
 import ConclusionBox from '../../components/ConclusionBox.astro';
 import TravelTimeline from '../../components/TravelTimeline.astro';
+import photoKomachiOutbound from '../blog/tazawako-shared/komachi-outbound.jpg';
+import photoSouvenirPot from '../blog/tazawako-shared/kiritanpo-nabe.webp';
+import photoSouvenirPickles from '../blog/tazawako-shared/iburigakko.jpg';
+import photoOgama from '../blog/tazawako-shared/ogama.jpg';
+
 
 import photoTaenoyu from '../../assets/photos/akita_compressed/01乳頭温泉郷　妙乃湯.webp';
 import photoGaniba from '../../assets/photos/akita_compressed/07乳頭温泉郷　蟹場温泉.webp';
@@ -46,7 +51,7 @@ import photoKamenoiOpenAir from '../../assets/photos/akita/02亀の井ホテル�
           areaLabel: "東京駅 ➔ 田沢湖駅",
           title: "秋田新幹線こまち",
           categoryLabel: "新幹線",
-          image: photoKomachi,
+          image: photoKomachiOutbound,
           imageCredit: "Akita Prefecture",
           points: ["指定された到着時刻に合わせて宿行きのバス・送迎を確認"]
         },
@@ -59,7 +64,11 @@ import photoKamenoiOpenAir from '../../assets/photos/akita/02亀の井ホテル�
               alternativeLabel: "露天風呂 水沢温泉",
               title: "露天風呂 水沢温泉",
               categoryLabel: "日帰り温泉",
+              image: photoKamenoiOpenAir,
+              imageCredit: "Akita Prefecture",
+              isImageSample: true,
               points: [
+                "写真は田沢湖高原の温泉（亀の井ホテル）のイメージ",
                 "白濁した湯と深さ約1mの露天風呂。ニフティ温泉4.2点（33件）",
                 "10:00〜20:00受付、21:00閉館。乳頭線「水沢温泉郷」から徒歩約1分",
                 "田沢湖駅17:20発の乳頭線は水沢温泉郷17:43着（2026年4月改正）"
@@ -69,7 +78,11 @@ import photoKamenoiOpenAir from '../../assets/photos/akita/02亀の井ホテル�
               alternativeLabel: "セルリアン AONI",
               title: "セルリアンリゾートAONI",
               categoryLabel: "日帰り温泉",
+              image: photoKamenoiOpenAir,
+              imageCredit: "Akita Prefecture",
+              isImageSample: true,
               points: [
+                "写真は田沢湖高原の温泉（亀の井ホテル）のイメージ",
                 "源泉かけ流しとサウナが魅力。口コミには湯の白濁が少ない日もあったとの声",
                 "公式サイト内で日帰り受付時間が異なるため、利用当日の時間と休業日を施設へ確認",
                 "乳頭線「水沢温泉郷」から徒歩約5分。宿泊先と同じ施設を選ばないよう確認"
@@ -169,6 +182,8 @@ import photoKamenoiOpenAir from '../../assets/photos/akita/02亀の井ホテル�
               alternativeLabel: "大釜温泉",
               title: "乳頭温泉郷 大釜温泉",
               categoryLabel: "日帰り温泉",
+              image: photoOgama,
+              imageCredit: "Akita Prefecture",
               points: [
                 "薄緑色の濁り湯。ニフティ温泉4.0点（48件）",
                 "露天風呂のある源泉かけ流しの温泉。妙乃湯温泉前から徒歩約2分",
@@ -187,10 +202,12 @@ import photoKamenoiOpenAir from '../../assets/photos/akita/02亀の井ホテル�
           areaLabel: "田沢湖駅前",
           title: "駅前物産館 田沢湖市（いち）",
           categoryLabel: "お土産",
-          image: photoKomachi,
+          imageLayout: "grid-2",
+          images: [photoSouvenirPot, photoSouvenirPickles],
           imageCredit: "Akita Prefecture",
           isImageSample: true,
           points: [
+            "写真はきりたんぽ鍋・いぶりがっこのイメージ。取扱商品は店舗で確認",
             "田沢湖駅から徒歩約1分。地酒やお菓子、地元の特産品が並ぶ",
             "営業時間は10:00〜18:00が目安。最新情報は事前に確認"
           ],

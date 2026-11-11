@@ -8,10 +8,15 @@ category: "モデルコース"
 season: "通年"
 departure: "tokyo"
 duration: "1泊2日"
+heroImage: "/thumbnails/akita-course-railpack-v1.png"
 cities: ["senboku"]
 tags: ["ダイナミックレールパック", "田沢湖", "乳頭温泉郷", "車なしプランあり"]
 ---
 import TravelTimeline from '../../components/TravelTimeline.astro';
+import photoKomachiOutbound from '../blog/tazawako-shared/komachi-outbound.jpg';
+import photoSouvenirPot from '../blog/tazawako-shared/kiritanpo-nabe.webp';
+import photoSouvenirPickles from '../blog/tazawako-shared/iburigakko.jpg';
+
 import ConclusionBox from '../../components/ConclusionBox.astro';
 import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
 import photoTatsuko from '../../assets/photos/akita_compressed/tazawako-tatsuko.webp';
@@ -24,13 +29,13 @@ import photoHotel from '../../assets/photos/akita/02亀の井ホテル　田沢�
 
 <TravelTimeline days={[
   { dayNumber: 1, title: "こまち ➔ 田沢湖一周 ➔ 温泉宿", steps: [
-    { leadHeading: "早めのこまちで東京から出発", title: "秋田新幹線こまち", areaLabel: "東京駅 ➔ 田沢湖駅", image: photoKomachi, imageCredit: "Akita Prefecture", points: ["一周線10:45発に余裕を持って乗り継げる列車を選択", "列車の空席・運行日とパック対象を予約時に確認"], transitDetail: { method: "新幹線 約3時間", route: "東京駅 ➔ 田沢湖駅" } },
+    { leadHeading: "早めのこまちで東京から出発", title: "秋田新幹線こまち", areaLabel: "東京駅 ➔ 田沢湖駅", image: photoKomachiOutbound, imageCredit: "Akita Prefecture", points: ["一周線10:45発に余裕を持って乗り継げる列車を選択", "列車の空席・運行日とパック対象を予約時に確認"], transitDetail: { method: "新幹線 約3時間", route: "東京駅 ➔ 田沢湖駅" } },
     { leadHeading: "観光停車付きバスで湖を一周", title: "たつこ像・御座の石神社", areaLabel: "田沢湖畔", image: photoTatsuko, imageCredit: "Akita Prefecture", points: ["田沢湖駅前10:45発、潟尻で20分・御座の石神社で10分停車", "駅に12:16着。遅延や運休に備え余裕を確保"], transitDetail: { method: "田沢湖一周線 約1時間31分", route: "田沢湖駅前 ➔ 潟尻 ➔ 御座の石神社 ➔ 田沢湖駅前", specs: ["運行状況と時刻を事前確認。昼食は周遊後に駅前で取る"] } },
     { leadHeading: "駅前で昼食を取り温泉宿へ", title: "田沢湖高原の温泉宿", areaLabel: "田沢湖高原", image: photoHotel, imageCredit: "Akita Prefecture", isImageSample: true, points: ["昼食後、乳頭線または宿の予約制送迎で移動", "写真は亀の井ホテル田沢湖。パック対象と空室は予約時に確認"] }
   ] },
   { dayNumber: 2, title: "乳頭温泉 ➔ 駅前でお土産 ➔ こまち", steps: [
     { leadHeading: "日帰り入浴で乳頭温泉を楽しむ", title: "乳頭温泉郷 妙乃湯", areaLabel: "乳頭温泉郷", image: photoTaenoyu, imageCredit: "Akita Prefecture", points: ["日帰り入浴は10:30〜15:00、受付14:00まで。火曜休み", "宿からのバスと荷物預かりを確認し、入浴時間を確保"], transitDetail: { method: "乳頭線 約45〜50分", route: "妙乃湯温泉前 ➔ 田沢湖駅前", specs: ["帰りの列車まで買い物と乗り換えの余裕を取る"] } },
-    { leadHeading: "駅前で秋田土産を選ぶ", title: "駅前物産館 田沢湖市（いち）", areaLabel: "田沢湖駅前", image: photoKomachi, imageCredit: "Akita Prefecture", isImageSample: true, points: ["駅から徒歩約1分。地酒やお菓子、地元の特産品を探す", "写真は新幹線のイメージ。営業時間は事前確認"], transitDetail: { method: "徒歩約1分", route: "田沢湖市 ➔ 田沢湖駅" } },
+    { leadHeading: "駅前で秋田土産を選ぶ", title: "駅前物産館 田沢湖市（いち）", areaLabel: "田沢湖駅前", imageLayout: "grid-2", images: [photoSouvenirPot, photoSouvenirPickles], imageCredit: "Akita Prefecture", isImageSample: true, points: ["駅から徒歩約1分。地酒やお菓子、地元の特産品を探す", "写真はきりたんぽ鍋・いぶりがっこのイメージ。取扱商品と営業時間は要確認"], transitDetail: { method: "徒歩約1分", route: "田沢湖市 ➔ 田沢湖駅" } },
     { leadHeading: "こまちで東京へ", title: "田沢湖駅から帰路", image: photoKomachi, imageCredit: "Akita Prefecture", points: ["指定された列車の発車時刻を確認して乗車"] }
   ] }
 ]} />

@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "2.0",
+  "assetId": "akita_local_03きりたんぽ鍋",
+  "provider": {
+    "id": "akita_tourism_federation",
+    "nameJa": "一般社団法人 秋田県観光連盟",
+    "nameEn": "Akita Prefecture Tourism Federation",
+    "libraryName": "あきたファン フォトギャラリー",
+    "sourceUrl": "https://akita-fun.jp/photo_gallery"
+  },
+  "subject": {
+    "photoId": "local_03きりたんぽ鍋",
+    "titleJa": "03きりたんぽ鍋",
+    "titleEn": "03きりたんぽ鍋",
+    "prefecture": "秋田県",
+    "city": "秋田県",
+    "cityEn": "秋田県",
+    "season": "",
+    "genre": ""
+  },
+  "specs": {
+    "width": 1600,
+    "height": 1066,
+    "orientation": "landscape",
+    "aspectRatio": "3:2",
+    "fileSizeBytes": 248280,
+    "sha256": "d4cdd450c68c28722be27e471850a7d711c66dfb370d86a051d3b701b0ddb525",
+    "filename": "03きりたんぽ鍋.webp",
+    "originalFilename": "03きりたんぽ鍋.jpg",
+    "format": "webp"
+  },
+  "policy": {
+    "commercialUse": true,
+    "purposeConstraint": "tourism_pr_only",
+    "allowedProjects": [
+      "tavi-navi",
+      "DeepJapan",
+      "teluis",
+      "yomilee"
+    ],
+    "creditRequired": true,
+    "maxPerArticle": null,
+    "modification": "crop_and_resize_only",
+    "redistributionAllowed": false
+  },
+  "i18n": {
+    "ja": {
+      "alt": "秋田県の観光名所・03きりたんぽ鍋の風景写真",
+      "caption": "秋田県「03きりたんぽ鍋」の観光スポット風景",
+      "credit": "写真提供：一般社団法人 秋田県観光連盟「あきたファン」"
+    },
+    "en": {
+      "alt": "Scenic view of 03きりたんぽ鍋 in 秋田県, Akita",
+      "caption": "03きりたんぽ鍋 in 秋田県, Akita",
+      "credit": "Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun)"
+    }
+  },
+  "downloadedAt": "2026-11-09T18:21:39+0900"
+}

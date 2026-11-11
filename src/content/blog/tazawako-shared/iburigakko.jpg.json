@@ -1,0 +1,145 @@
+{
+  "schemaVersion": "2.0",
+  "assetId": "akita_local_いぶりがっこ",
+  "provider": {
+    "id": "akita_tourism_federation",
+    "nameJa": "一般社団法人 秋田県観光連盟",
+    "nameEn": "Akita Prefecture Tourism Federation",
+    "libraryName": "あきたファン フォトギャラリー",
+    "sourceUrl": "https://akita-fun.jp/photo_gallery"
+  },
+  "subject": {
+    "photoId": "local_いぶりがっこ",
+    "titleJa": "秋田の伝統郷土食 いぶりがっこ",
+    "titleEn": "Iburigakko, Akita's Traditional Smoked Daikon Pickles",
+    "prefecture": "秋田県",
+    "city": "秋田県",
+    "cityEn": "秋田県",
+    "season": "all_year",
+    "genre": "",
+    "rawTitleJa": "いぶりがっこ",
+    "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "seasonalHighlight": "none",
+    "sceneType": "gourmet",
+    "environment": "indoor",
+    "primaryEntities": [
+      "いぶりがっこ",
+      "燻製大根",
+      "和食器",
+      "漬物"
+    ],
+    "tags": [
+      "いぶりがっこ",
+      "秋田グルメ",
+      "郷土料理",
+      "伝統食",
+      "漬物",
+      "おつまみ",
+      "特産品",
+      "お土産"
+    ],
+    "tagsEn": [
+      "Iburigakko",
+      "smoked pickles",
+      "Akita gourmet",
+      "local food",
+      "traditional cuisine",
+      "souvenir"
+    ]
+  },
+  "specs": {
+    "width": 2852,
+    "height": 2129,
+    "orientation": "landscape",
+    "aspectRatio": "1.34:1",
+    "fileSizeBytes": 1124278,
+    "sha256": "4029a23037eb702bf7bc4897222ff1e8588bcb4acb7027123fb37c153da45473",
+    "filename": "いぶりがっこ.jpg",
+    "originalFilename": "いぶりがっこ.jpg"
+  },
+  "policy": {
+    "commercialUse": true,
+    "purposeConstraint": "tourism_pr_only",
+    "allowedProjects": [
+      "tavi-navi",
+      "DeepJapan",
+      "teluis",
+      "yomilee"
+    ],
+    "creditRequired": true,
+    "maxPerArticle": null,
+    "modification": "crop_and_resize_only",
+    "redistributionAllowed": false
+  },
+  "i18n": {
+    "ja": {
+      "alt": "秋田の伝統郷土食 いぶりがっこ（秋田県）- 深い藍色の陶器皿に美しく並べられた、秋田名物の「いぶりがっこ」。燻製の芳ばしい香りと素朴で奥深い風味が際立つ伝統の漬物です。",
+      "caption": "深い藍色の陶器皿に美しく並べられた、秋田名物の「いぶりがっこ」。燻製の芳ばしい香りと素朴で奥深い風味が際立つ伝統の漬物です。（写真提供：一般社団法人 秋田県観光連盟「あきたファン」）",
+      "credit": "写真提供：一般社団法人 秋田県観光連盟「あきたファン」"
+    },
+    "en": {
+      "alt": "Iburigakko, Akita's Traditional Smoked Daikon Pickles - Sliced Iburigakko, Akita's famous smoked daikon radish pickles, neatly served on an elegant deep blue ceramic plate.",
+      "caption": "Sliced Iburigakko, Akita's famous smoked daikon radish pickles, neatly served on an elegant deep blue ceramic plate. (Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun))",
+      "credit": "Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun)"
+    }
+  },
+  "downloadedAt": "2026-11-09T18:42:16+0900",
+  "aiProxy": {
+    "path": "ai_thumbs/いぶりがっこ.webp",
+    "format": "webp",
+    "width": 768,
+    "height": 573,
+    "fileSizeBytes": 30148,
+    "targetMaxTokens": 258
+  },
+  "visual": {
+    "schemaSubVersion": "2.1",
+    "descriptionJa": "深い藍色の陶器皿に美しく並べられた、秋田名物の「いぶりがっこ」。燻製の芳ばしい香りと素朴で奥深い風味が際立つ伝統の漬物です。",
+    "descriptionEn": "Sliced Iburigakko, Akita's famous smoked daikon radish pickles, neatly served on an elegant deep blue ceramic plate.",
+    "timeOfDay": "indoor",
+    "weather": "indoor",
+    "composition": "close_up",
+    "focalPosition": "center",
+    "textSafeArea": [
+      "top",
+      "left",
+      "right"
+    ],
+    "satoriTemplate": "split_right",
+    "hasPeople": false,
+    "peopleStyle": "none",
+    "dominantColor": "blue",
+    "mood": [
+      "nostalgic",
+      "serene",
+      "appetizing"
+    ],
+    "appealScore": 3,
+    "bestRole": "h2_main",
+    "isHeroReady": false,
+    "suitableFor": [
+      "solo",
+      "couple",
+      "senior",
+      "inbound"
+    ],
+    "bestFor": [
+      "秋田の郷土料理・名物グルメ紹介",
+      "おすすめのお土産・特産品特集",
+      "日本酒に合うおつまみガイド"
+    ]
+  }
+}

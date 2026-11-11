@@ -205,7 +205,7 @@ function formatGridCredits(photos: TimelinePhotoItem[], defaultCredit?: string, 
 function formatCredit(credit?: string, isImageSample?: boolean): string {
   let text = '';
   if (credit) {
-    text = credit === 'Akita Prefecture' || credit.startsWith('写真提供') || credit.startsWith('©') || credit.startsWith('Photo')
+    text = credit.startsWith('写真提供') || credit.startsWith('©') || credit.startsWith('Photo')
       ? credit
       : `写真提供：${credit}`;
   }

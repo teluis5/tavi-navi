@@ -23,6 +23,7 @@ const {
 } = Astro.props;
 
 const isImageMetadata = typeof src === 'object';
+const displayCredit = credit === 'Akita Prefecture' ? `写真提供：${credit}` : credit;
 ---
 
 <figure class="tourism-photo-container">
@@ -58,10 +59,10 @@ const isImageMetadata = typeof src === 'object';
         <span class="credit-text">
           {creditUrl ? (
             <a href={creditUrl} target="_blank" rel="noopener noreferrer" class="credit-link">
-              {credit}
+              {displayCredit}
             </a>
           ) : (
-            credit
+            displayCredit
           )}
         </span>
       )}

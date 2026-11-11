@@ -1,0 +1,140 @@
+{
+  "schemaVersion": "2.0",
+  "assetId": "akita_1629",
+  "provider": {
+    "id": "akita_tourism_federation",
+    "nameJa": "一般社団法人 秋田県観光連盟",
+    "nameEn": "Akita Prefecture Tourism Federation",
+    "libraryName": "あきたファン フォトギャラリー",
+    "sourceUrl": "https://akita-fun.jp/photo_gallery"
+  },
+  "subject": {
+    "photoId": "1629",
+    "titleJa": "乳頭温泉郷 大釜温泉の雪見露天風呂",
+    "titleEn": "Snowy Open-Air Bath at Ogama Onsen in Nyuto Onsen Village",
+    "prefecture": "秋田県",
+    "city": "仙北市",
+    "cityEn": "仙北 City",
+    "season": "winter",
+    "genre": "温泉・宿泊施設",
+    "months": [
+      12,
+      1,
+      2,
+      3
+    ],
+    "sceneType": "onsen",
+    "primaryEntities": [
+      "露天風呂",
+      "雪景色",
+      "大釜温泉",
+      "湯口"
+    ],
+    "tags": [
+      "秋田",
+      "仙北市",
+      "乳頭温泉郷",
+      "大釜温泉",
+      "露天風呂",
+      "雪見温泉",
+      "秘湯",
+      "冬景色",
+      "温泉旅行",
+      "温泉巡り",
+      "秋田県",
+      "雪見風呂",
+      "冬旅行"
+    ],
+    "rawTitleJa": "01乳頭温泉郷　大釜温泉",
+    "seasonalHighlight": "snow_scape",
+    "environment": "outdoor",
+    "tagsEn": [
+      "Nyuto Onsen",
+      "Ogama Onsen",
+      "hot spring",
+      "outdoor bath",
+      "snow onsen",
+      "Akita"
+    ]
+  },
+  "specs": {
+    "width": 4368,
+    "height": 2912,
+    "orientation": "landscape",
+    "aspectRatio": "3:2",
+    "fileSizeBytes": 6597379,
+    "sha256": "87c93f9cb0fbb99747a1432f9dd61641922e4d539dbcb90558ab6421f9fc1314",
+    "filename": "01乳頭温泉郷　大釜温泉.jpg",
+    "originalFilename": "01乳頭温泉郷　大釜温泉.jpg"
+  },
+  "policy": {
+    "commercialUse": true,
+    "purposeConstraint": "tourism_pr_only",
+    "allowedProjects": [
+      "tavi-navi",
+      "DeepJapan",
+      "teluis",
+      "yomilee"
+    ],
+    "creditRequired": true,
+    "maxPerArticle": null,
+    "modification": "crop_and_resize_only",
+    "redistributionAllowed": false
+  },
+  "i18n": {
+    "ja": {
+      "alt": "乳頭温泉郷 大釜温泉の雪見露天風呂（秋田県）- 深雪の森に囲まれた乳頭温泉郷・大釜温泉の露天風呂。湯けむり立ちのぼる湯船から白銀の静寂を味わう贅沢なひととき。",
+      "caption": "深雪の森に囲まれた乳頭温泉郷・大釜温泉の露天風呂。湯けむり立ちのぼる湯船から白銀の静寂を味わう贅沢なひととき。（写真提供：一般社団法人 秋田県観光連盟「あきたファン」）",
+      "credit": "写真提供：一般社団法人 秋田県観光連盟「あきたファン」"
+    },
+    "en": {
+      "alt": "Snowy Open-Air Bath at Ogama Onsen in Nyuto Onsen Village - A tranquil outdoor bath at Ogama Onsen in Nyuto Onsen Village, enveloped by deep winter snow and peaceful woodland.",
+      "caption": "A tranquil outdoor bath at Ogama Onsen in Nyuto Onsen Village, enveloped by deep winter snow and peaceful woodland. (Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun))",
+      "credit": "Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun)"
+    }
+  },
+  "downloadedAt": "2026-11-09T18:38:28+0900",
+  "aiProxy": {
+    "path": "ai_thumbs/01乳頭温泉郷　大釜温泉.webp",
+    "format": "webp",
+    "width": 768,
+    "height": 512,
+    "fileSizeBytes": 49688,
+    "targetMaxTokens": 258
+  },
+  "visual": {
+    "schemaSubVersion": "2.1",
+    "descriptionJa": "深雪の森に囲まれた乳頭温泉郷・大釜温泉の露天風呂。湯けむり立ちのぼる湯船から白銀の静寂を味わう贅沢なひととき。",
+    "descriptionEn": "A tranquil outdoor bath at Ogama Onsen in Nyuto Onsen Village, enveloped by deep winter snow and peaceful woodland.",
+    "timeOfDay": "daytime",
+    "weather": "snowy",
+    "composition": "wide_landscape",
+    "focalPosition": "center",
+    "textSafeArea": [
+      "bottom",
+      "top"
+    ],
+    "satoriTemplate": "bottom_slim",
+    "hasPeople": false,
+    "peopleStyle": "none",
+    "dominantColor": "white",
+    "mood": [
+      "serene",
+      "nostalgic"
+    ],
+    "appealScore": 4,
+    "bestRole": "hero",
+    "isHeroReady": true,
+    "suitableFor": [
+      "solo",
+      "couple",
+      "senior",
+      "inbound"
+    ],
+    "bestFor": [
+      "乳頭温泉郷の冬の湯めぐりガイド",
+      "東北の絶景雪見温泉特集",
+      "冬の秋田・秘湯ひとり旅"
+    ]
+  }
+}

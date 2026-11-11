@@ -10,11 +10,15 @@ season: "通年"
 departure: "tokyo"
 duration: "1泊2日"
 cities: ["senboku"]
-heroImage: "/thumbnails/akita-dokokanibyun-tazawako-real-v5.png"
+heroImage: "/thumbnails/akita-course-lake-v1.png"
 tags: ["どこかにビューン", "田沢湖", "秋田", "秋田新幹線", "乳頭温泉郷", "鶴の湯温泉", "車なしプランあり", "モデルコース", "温泉"]
 ---
 import ConclusionBox from '../../components/ConclusionBox.astro';
 import TravelTimeline from '../../components/TravelTimeline.astro';
+import photoKomachiOutbound from '../blog/tazawako-shared/komachi-outbound.jpg';
+import photoSouvenirPot from '../blog/tazawako-shared/kiritanpo-nabe.webp';
+import photoSouvenirPickles from '../blog/tazawako-shared/iburigakko.jpg';
+
 
 import photoKiritanpo from '../../assets/photos/akita_compressed/kiritanpo-pot.webp';
 import photoInaniwa from '../../assets/photos/akita/01稲庭うどん.jpg';
@@ -42,7 +46,7 @@ import photoKamenoiOpenAir from '../../assets/photos/akita/02亀の井ホテル�
           areaLabel: "東京駅 ➔ 田沢湖駅",
           title: "秋田新幹線こまち",
           categoryLabel: "新幹線",
-          image: photoKomachi,
+          image: photoKomachiOutbound,
           imageCredit: "Akita Prefecture",
           points: [
             "東京から田沢湖駅へ乗り換えなし。こまちは全席指定席",
@@ -231,10 +235,12 @@ import photoKamenoiOpenAir from '../../assets/photos/akita/02亀の井ホテル�
           areaLabel: "田沢湖駅前",
           title: "駅前物産館 田沢湖市（いち）",
           categoryLabel: "お土産",
-          image: photoKomachi,
+          imageLayout: "grid-2",
+          images: [photoSouvenirPot, photoSouvenirPickles],
           imageCredit: "Akita Prefecture",
           isImageSample: true,
           points: [
+            "写真はきりたんぽ鍋・いぶりがっこのイメージ。取扱商品は店舗で確認",
             "田沢湖駅から徒歩約1分。地酒やお菓子、地元の特産品が並ぶ",
             "営業時間は10:00〜18:00が目安。最新情報は事前に確認"
           ],

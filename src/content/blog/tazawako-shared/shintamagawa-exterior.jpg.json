@@ -1,0 +1,136 @@
+{
+  "schemaVersion": "2.0",
+  "assetId": "akita_1429",
+  "provider": {
+    "id": "akita_tourism_federation",
+    "nameJa": "一般社団法人 秋田県観光連盟",
+    "nameEn": "Akita Prefecture Tourism Federation",
+    "libraryName": "あきたファン フォトギャラリー",
+    "sourceUrl": "https://akita-fun.jp/photo_gallery"
+  },
+  "subject": {
+    "photoId": "1429",
+    "titleJa": "新玉川温泉の外観",
+    "titleEn": "Exterior of Shin-Tamagawa Onsen",
+    "prefecture": "秋田県",
+    "city": "仙北市",
+    "cityEn": "仙北 City",
+    "season": "summer",
+    "genre": "温泉・宿泊施設",
+    "months": [
+      6,
+      7,
+      8,
+      9
+    ],
+    "sceneType": "onsen",
+    "primaryEntities": [
+      "新玉川温泉",
+      "温泉宿外観",
+      "エントランスロータリー",
+      "青空"
+    ],
+    "tags": [
+      "秋田",
+      "仙北市",
+      "新玉川温泉",
+      "温泉宿",
+      "湯治",
+      "十和田八幡平国立公園",
+      "外観",
+      "青空",
+      "秋田県",
+      "湯治場"
+    ],
+    "rawTitleJa": "01新玉川温泉",
+    "seasonalHighlight": "summer_nature",
+    "environment": "outdoor",
+    "tagsEn": [
+      "Akita",
+      "Semboku",
+      "Shin-Tamagawa Onsen",
+      "hot spring resort",
+      "nature",
+      "summer sky"
+    ]
+  },
+  "specs": {
+    "width": 4928,
+    "height": 3280,
+    "orientation": "landscape",
+    "aspectRatio": "1.5:1",
+    "fileSizeBytes": 10249545,
+    "sha256": "338b38cc80a0b796594b7ab8bb122d7968e836a929c75e337d71064c646bf0c2",
+    "filename": "01新玉川温泉.jpg",
+    "originalFilename": "01新玉川温泉.jpg"
+  },
+  "policy": {
+    "commercialUse": true,
+    "purposeConstraint": "tourism_pr_only",
+    "allowedProjects": [
+      "tavi-navi",
+      "DeepJapan",
+      "teluis",
+      "yomilee"
+    ],
+    "creditRequired": true,
+    "maxPerArticle": null,
+    "modification": "crop_and_resize_only",
+    "redistributionAllowed": false
+  },
+  "i18n": {
+    "ja": {
+      "alt": "新玉川温泉の外観（秋田県）- 青空と豊かな緑に抱かれた新玉川温泉の外観。効能豊かな名湯として知られる山あいの湯治リゾートの全景です。",
+      "caption": "青空と豊かな緑に抱かれた新玉川温泉の外観。効能豊かな名湯として知られる山あいの湯治リゾートの全景です。（写真提供：一般社団法人 秋田県観光連盟「あきたファン」）",
+      "credit": "写真提供：一般社団法人 秋田県観光連盟「あきたファン」"
+    },
+    "en": {
+      "alt": "Exterior of Shin-Tamagawa Onsen - A wide view of the Shin-Tamagawa Onsen resort nestled in the mountains beneath a clear blue summer sky in Semboku, Akita.",
+      "caption": "A wide view of the Shin-Tamagawa Onsen resort nestled in the mountains beneath a clear blue summer sky in Semboku, Akita. (Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun))",
+      "credit": "Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun)"
+    }
+  },
+  "downloadedAt": "2026-11-09T18:51:30+0900",
+  "aiProxy": {
+    "path": "ai_thumbs/01新玉川温泉.webp",
+    "format": "webp",
+    "width": 768,
+    "height": 511,
+    "fileSizeBytes": 50866,
+    "targetMaxTokens": 258
+  },
+  "visual": {
+    "schemaSubVersion": "2.1",
+    "descriptionJa": "青空と豊かな緑に抱かれた新玉川温泉の外観。効能豊かな名湯として知られる山あいの湯治リゾートの全景です。",
+    "descriptionEn": "A wide view of the Shin-Tamagawa Onsen resort nestled in the mountains beneath a clear blue summer sky in Semboku, Akita.",
+    "timeOfDay": "daytime",
+    "weather": "sunny",
+    "composition": "wide_landscape",
+    "focalPosition": "bottom",
+    "textSafeArea": [
+      "top"
+    ],
+    "satoriTemplate": "bottom_slim",
+    "hasPeople": false,
+    "peopleStyle": "none",
+    "dominantColor": "blue",
+    "mood": [
+      "serene",
+      "nostalgic"
+    ],
+    "appealScore": 3,
+    "bestRole": "h2_main",
+    "isHeroReady": false,
+    "suitableFor": [
+      "solo",
+      "senior",
+      "couple",
+      "inbound"
+    ],
+    "bestFor": [
+      "新玉川温泉の施設・宿泊紹介",
+      "秋田の湯治・名湯めぐりガイド",
+      "八幡平・田沢湖エリアの宿情報"
+    ]
+  }
+}

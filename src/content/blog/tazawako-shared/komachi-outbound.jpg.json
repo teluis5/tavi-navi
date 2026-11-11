@@ -1,0 +1,134 @@
+{
+  "schemaVersion": "2.0",
+  "assetId": "akita_746",
+  "provider": {
+    "id": "akita_tourism_federation",
+    "nameJa": "一般社団法人 秋田県観光連盟",
+    "nameEn": "Akita Prefecture Tourism Federation",
+    "libraryName": "あきたファン フォトギャラリー",
+    "sourceUrl": "https://akita-fun.jp/photo_gallery"
+  },
+  "subject": {
+    "photoId": "746",
+    "titleJa": "田園風景の鉄橋を渡る秋田新幹線こまち",
+    "titleEn": "Akita Shinkansen Komachi Crossing a River Bridge in Daisen",
+    "prefecture": "秋田県",
+    "city": "大仙市",
+    "cityEn": "大仙 City",
+    "season": "autumn",
+    "genre": "自然・景勝地",
+    "rawTitleJa": "02秋田新幹線こまち",
+    "months": [
+      9,
+      10,
+      11
+    ],
+    "seasonalHighlight": "autumn_leaves",
+    "sceneType": "nature",
+    "environment": "outdoor",
+    "primaryEntities": [
+      "秋田新幹線こまち",
+      "鉄道橋",
+      "清流",
+      "里山の森"
+    ],
+    "tags": [
+      "秋田新幹線",
+      "こまち",
+      "E6系",
+      "鉄道風景",
+      "大仙市",
+      "秋田観光",
+      "鉄道旅",
+      "ローカル線風景"
+    ],
+    "tagsEn": [
+      "Akita Shinkansen",
+      "Komachi",
+      "Bullet Train",
+      "Railway Landscape",
+      "Daisen",
+      "Tohoku Travel"
+    ]
+  },
+  "specs": {
+    "width": 4368,
+    "height": 2912,
+    "orientation": "landscape",
+    "aspectRatio": "3:2",
+    "fileSizeBytes": 5571831,
+    "sha256": "0ec5684f8ef496d0fa65a304a518b03b1c85dd8406669c8b0977d3620b2f1b30",
+    "filename": "02秋田新幹線こまち.jpg",
+    "originalFilename": "02秋田新幹線こまち.jpg"
+  },
+  "policy": {
+    "commercialUse": true,
+    "purposeConstraint": "tourism_pr_only",
+    "allowedProjects": [
+      "tavi-navi",
+      "DeepJapan",
+      "teluis",
+      "yomilee"
+    ],
+    "creditRequired": true,
+    "maxPerArticle": null,
+    "modification": "crop_and_resize_only",
+    "redistributionAllowed": false
+  },
+  "i18n": {
+    "ja": {
+      "alt": "田園風景の鉄橋を渡る秋田新幹線こまち（秋田県）- 豊かな自然と澄んだ川が流れる里山を背景に、真紅のラインが美しい秋田新幹線こまちが鉄橋を駆け抜ける爽快な情景。",
+      "caption": "豊かな自然と澄んだ川が流れる里山を背景に、真紅のラインが美しい秋田新幹線こまちが鉄橋を駆け抜ける爽快な情景。（写真提供：一般社団法人 秋田県観光連盟「あきたファン」）",
+      "credit": "写真提供：一般社団法人 秋田県観光連盟「あきたファン」"
+    },
+    "en": {
+      "alt": "Akita Shinkansen Komachi Crossing a River Bridge in Daisen - The vibrant red Akita Shinkansen Komachi gracefully crosses an iron bridge over a gentle stream, surrounded by peaceful countryside scenery.",
+      "caption": "The vibrant red Akita Shinkansen Komachi gracefully crosses an iron bridge over a gentle stream, surrounded by peaceful countryside scenery. (Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun))",
+      "credit": "Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun)"
+    }
+  },
+  "downloadedAt": "2026-11-09T19:37:57+0900",
+  "aiProxy": {
+    "path": "ai_thumbs/02秋田新幹線こまち.webp",
+    "format": "webp",
+    "width": 768,
+    "height": 512,
+    "fileSizeBytes": 70762,
+    "targetMaxTokens": 258
+  },
+  "visual": {
+    "schemaSubVersion": "2.1",
+    "descriptionJa": "豊かな自然と澄んだ川が流れる里山を背景に、真紅のラインが美しい秋田新幹線こまちが鉄橋を駆け抜ける爽快な情景。",
+    "descriptionEn": "The vibrant red Akita Shinkansen Komachi gracefully crosses an iron bridge over a gentle stream, surrounded by peaceful countryside scenery.",
+    "timeOfDay": "daytime",
+    "weather": "cloudy",
+    "composition": "wide_landscape",
+    "focalPosition": "center",
+    "textSafeArea": [
+      "top",
+      "bottom"
+    ],
+    "satoriTemplate": "bottom_slim",
+    "hasPeople": false,
+    "peopleStyle": "none",
+    "dominantColor": "green",
+    "mood": [
+      "serene",
+      "nostalgic"
+    ],
+    "appealScore": 4,
+    "bestRole": "h2_main",
+    "isHeroReady": true,
+    "suitableFor": [
+      "solo",
+      "family",
+      "senior",
+      "inbound"
+    ],
+    "bestFor": [
+      "秋田新幹線の旅ガイド",
+      "東北の鉄道絶景スポット特集",
+      "大仙市・仙北エリアへのアクセス案内"
+    ]
+  }
+}

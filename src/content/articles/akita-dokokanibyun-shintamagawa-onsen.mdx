@@ -10,37 +10,25 @@ season: "通年"
 departure: "tokyo"
 duration: "1泊2日"
 cities: ["senboku"]
-heroImage: "/thumbnails/akita-dokokanibyun-tazawako-real-v5.png"
+heroImage: "/thumbnails/akita-course-shintamagawa-v1.png"
 tags: ["どこかにビューン", "田沢湖", "秋田", "秋田新幹線", "乳頭温泉郷", "鶴の湯温泉", "車なしプランあり", "モデルコース", "温泉"]
 ---
 import ConclusionBox from '../../components/ConclusionBox.astro';
 import TravelTimeline from '../../components/TravelTimeline.astro';
+import photoKomachiOutbound from '../blog/tazawako-shared/komachi-outbound.jpg';
+import photoSouvenirPot from '../blog/tazawako-shared/kiritanpo-nabe.webp';
+import photoSouvenirPickles from '../blog/tazawako-shared/iburigakko.jpg';
+import photoShinExterior from '../blog/tazawako-shared/shintamagawa-exterior.jpg';
+import photoShinBath from '../blog/tazawako-shared/shintamagawa-bath.jpg';
+
 
 import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
 
-こまちで田沢湖へ向かい、路線バスで新玉川温泉に泊まる1泊2日。帰りは田沢湖駅前でお土産を選びます。
+どこかにビューーン！で東京発の最も早い時間帯、6:00〜9:00を選ぶと、こまちと路線バスを乗り継いで新玉川温泉へ行けます。列車確定後に接続と宿の空室を確認しましょう。
 
 この記事は羽後交通と温泉施設の公式情報をもとにした行程案です（2026年11月12日確認）。列車・バスの時刻と営業状況は出発前に確認してください。
 
 ## 新玉川温泉に泊まる1泊2日コース
-
-このコースは1日目から新玉川温泉へ向かいます。申し込み時は行きの早い時間帯を選び、田沢湖駅が決まったら指定列車とバスの接続を確認しましょう。列車は選べないため、早い時間帯を選んでも特定の便は確約されません。
-
-### 東京発6時〜9時台のこまちと新玉川温泉へのバス
-
-2026年11月のJR時刻表を基にした例です。**6:00〜9:00の範囲は6:32、臨時の6:56、7:32、8:37発**。参考として9時台の9:08発も掲載しています。臨時列車の運行日や、どこかにビューーン！の対象列車は申込画面で確認してください。
-
-| 列車 | 東京発 | 田沢湖着 | 夏の次のバス | 冬の次のバス |
-| --- | --- | --- | --- | --- |
-| こまち1号 | 6:32 | 9:21 | 9:30 → 10:38 | 9:40 → 10:44 |
-| こまち51号（臨時） | 6:56 | 9:43 | 12:25 → 13:33 | 11:15 → 12:19 |
-| こまち3号 | 7:32 | 10:25 | 12:25 → 13:33 | 11:15 → 12:19 |
-| こまち7号 | 8:37 | 11:28 | 12:25 → 13:33 | 12:35 → 13:39 |
-| こまち9号 | 9:08 | 11:59 | 12:25 → 13:33 | 12:35 → 13:39 |
-
-バス欄は「田沢湖駅前発 → 新玉川温泉着」です。夏は2026年4月16日〜11月30日の玉川線、冬は2026年12月1日〜2027年3月31日予定の新玉川線を基にしています。夏の9:30発への乗り換えは9分です。列車の遅れには対応できないため、乗り遅れた場合は後続便を利用してください。
-
-列車は日によって時刻変更・臨時便があります。夏の一部バスは10月19日以降運休します。冬は道路規制により路線バスを利用し、**12:35発が最終**です。天候による運休・遅延もあるため、宿の予約前と出発直前に[JＲの時刻表](https://timetables.jreast.co.jp/2611/train/030/033833.html)、[夏のバス時刻表](https://shuhokubus-gr.sakura.ne.jp/local/202604/kazuno_1kankourosen.html)、[冬のバス時刻表](https://tazawako-kakunodate.com/wp-content/uploads/2026/10/%E6%96%B0%E7%8E%89%E5%B7%9D%E7%B7%9A.pdf)と[新玉川温泉のアクセス案内](https://www.shintamagawa.jp/access/)を確認してください。
 
 <TravelTimeline
   days={[
@@ -53,22 +41,48 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
           areaLabel: "東京駅 ➔ 田沢湖駅",
           title: "秋田新幹線こまち",
           categoryLabel: "新幹線",
-          image: photoKomachi,
+          image: photoKomachiOutbound,
           imageCredit: "Akita Prefecture",
-          points: ["指定された列車の到着時刻と、上の表に示したバスの接続を確認"]
+          points: [
+            "東京発6:00〜9:00の時間帯を選び、指定された列車とバスの接続を確認",
+            "列車は指定できず、臨時列車の運転日や対象列車は申込画面で確認"
+          ],
+          transitDetail: {
+            method: "こまち → 田沢湖駅前から新玉川温泉行きバス",
+            route: "東京駅 → 田沢湖駅 → 新玉川温泉",
+            specs: [
+              "以下は2026年11月の列車と、2026年度のバス時刻例。左から東京発・田沢湖着・夏バス・冬バス",
+              "こまち1号 6:32 → 9:21｜夏 9:30 → 10:38｜冬 9:40 → 10:44",
+              "こまち51号（臨時）6:56 → 9:43｜夏 12:25 → 13:33｜冬 11:15 → 12:19",
+              "こまち3号 7:32 → 10:25｜夏 12:25 → 13:33｜冬 11:15 → 12:19",
+              "こまち7号 8:37 → 11:28｜夏 12:25 → 13:33｜冬 12:35 → 13:39",
+              "参考：こまち9号 9:08 → 11:59｜夏 12:25 → 13:33｜冬 12:35 → 13:39",
+              "バス時刻は田沢湖駅前発 → 新玉川温泉着。夏の9:30発への乗り換えは9分",
+              "冬は12:35発が最終。時刻変更・運休や列車の遅れに注意"
+            ]
+          }
         },
         {
           leadHeading: "田沢湖駅から路線バスで新玉川温泉へ",
           areaLabel: "田沢湖駅前 ➔ 新玉川温泉",
           title: "急行玉川線・新玉川線",
           categoryLabel: "路線バス",
-          points: ["夏と冬で運行時刻・経路が異なる", "冬の最終バスに乗り遅れないよう注意"]
+          image: photoShinExterior,
+          imageCredit: "Akita Prefecture",
+          isImageSample: true,
+          points: ["写真は新玉川温泉の外観。夏と冬で運行時刻・経路が異なる", "冬の最終バスに乗り遅れないよう注意"]
         },
         {
           leadHeading: "新玉川温泉の湯を楽しむ",
           areaLabel: "新玉川温泉",
           title: "新玉川温泉に宿泊",
           categoryLabel: "温泉旅館",
+          imageLayout: "pip",
+          images: [
+            { image: photoShinBath, caption: "新玉川温泉の浴場" },
+            { image: photoShinExterior, caption: "新玉川温泉の外観" }
+          ],
+          imageCredit: "Akita Prefecture",
           points: ["強酸性の湯が特徴。入浴方法や体調に応じた注意事項を施設で確認", "空室とチェックイン前の荷物預かりを事前確認"]
         }
       ]
@@ -82,14 +96,21 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
           areaLabel: "新玉川温泉 ➔ 田沢湖駅前",
           title: "新玉川温泉を出発",
           categoryLabel: "路線バス",
-          points: ["冬の例：新玉川温泉11:10発、田沢湖駅前12:14着", "帰りの指定列車に余裕を持てる便を選び、運行日と宿のチェックアウト時刻を確認"]
+          image: photoShinExterior,
+          imageCredit: "Akita Prefecture",
+          isImageSample: true,
+          points: ["写真は新玉川温泉の外観", "冬の例：新玉川温泉11:10発、田沢湖駅前12:14着", "帰りの指定列車に余裕を持てる便を選び、運行日と宿のチェックアウト時刻を確認"]
         },
         {
           leadHeading: "田沢湖駅前の物産館でお土産を選ぶ",
           areaLabel: "田沢湖駅前",
           title: "駅前物産館 田沢湖市（いち）",
           categoryLabel: "お土産",
-          points: ["営業時間と帰りの列車を確認し、駅へ戻る時間を確保"]
+          imageLayout: "grid-2",
+          images: [photoSouvenirPot, photoSouvenirPickles],
+          imageCredit: "Akita Prefecture",
+          isImageSample: true,
+          points: ["写真はきりたんぽ鍋・いぶりがっこのイメージ。取扱商品は店舗で確認", "営業時間と帰りの列車を確認し、駅へ戻る時間を確保"]
         },
         {
           leadHeading: "こまちで東京へ",
@@ -107,7 +128,8 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
 
 ## 出発前に確認したいこと
 
-- [新玉川温泉の交通案内](https://www.shintamagawa.jp/access/)で夏・冬のバス時刻と運行状況を確認してください。
+- [JRの時刻表](https://timetables.jreast.co.jp/2611/train/030/033833.html)、[夏の玉川線](https://shuhokubus-gr.sakura.ne.jp/local/202604/kazuno_1kankourosen.html)、[冬の新玉川線](https://tazawako-kakunodate.com/wp-content/uploads/2026/10/%E6%96%B0%E7%8E%89%E5%B7%9D%E7%B7%9A.pdf)と[宿の交通案内](https://www.shintamagawa.jp/access/)で最新の運行状況を確認してください。
+- 夏の一部バスは10月19日以降運休。バスは列車の遅れに対応できないため、乗り遅れた場合は後続便を確認してください。
 - 冬は一般車両の通行規制があり、田沢湖駅前からの路線バスを利用します。
 
 ## 別のモデルコースを見る

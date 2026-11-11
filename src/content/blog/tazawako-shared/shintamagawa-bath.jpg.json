@@ -1,0 +1,145 @@
+{
+  "schemaVersion": "2.0",
+  "assetId": "akita_1478",
+  "provider": {
+    "id": "akita_tourism_federation",
+    "nameJa": "一般社団法人 秋田県観光連盟",
+    "nameEn": "Akita Prefecture Tourism Federation",
+    "libraryName": "あきたファン フォトギャラリー",
+    "sourceUrl": "https://akita-fun.jp/photo_gallery"
+  },
+  "subject": {
+    "photoId": "1478",
+    "titleJa": "新玉川温泉の総木造大浴場",
+    "titleEn": "Grand Wooden Bathhouse at Shin-Tamagawa Onsen",
+    "prefecture": "秋田県",
+    "city": "仙北市",
+    "cityEn": "仙北 City",
+    "season": "all_year",
+    "genre": "温泉・宿泊施設",
+    "rawTitleJa": "06新玉川温泉",
+    "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "seasonalHighlight": "none",
+    "sceneType": "onsen",
+    "environment": "indoor",
+    "primaryEntities": [
+      "大浴場",
+      "木造浴槽",
+      "木柱",
+      "源泉掛け流し"
+    ],
+    "tags": [
+      "新玉川温泉",
+      "玉川温泉",
+      "仙北市",
+      "秋田県",
+      "温泉",
+      "湯治",
+      "木造建築",
+      "源泉100%",
+      "名湯"
+    ],
+    "tagsEn": [
+      "Shin-Tamagawa Onsen",
+      "hot spring",
+      "wooden bath",
+      "Akita",
+      "Senboku",
+      "onsen therapy"
+    ]
+  },
+  "specs": {
+    "width": 5616,
+    "height": 3744,
+    "orientation": "landscape",
+    "aspectRatio": "3:2",
+    "fileSizeBytes": 14021100,
+    "sha256": "637c48fbfe2a454e910c89216f6f7cf493248c95aa1ea86ce3a25ad730505543",
+    "filename": "06新玉川温泉.jpg",
+    "originalFilename": "06新玉川温泉.jpg"
+  },
+  "policy": {
+    "commercialUse": true,
+    "purposeConstraint": "tourism_pr_only",
+    "allowedProjects": [
+      "tavi-navi",
+      "DeepJapan",
+      "teluis",
+      "yomilee"
+    ],
+    "creditRequired": true,
+    "maxPerArticle": null,
+    "modification": "crop_and_resize_only",
+    "redistributionAllowed": false
+  },
+  "i18n": {
+    "ja": {
+      "alt": "新玉川温泉の総木造大浴場（秋田県）- 豊かな木の温もりに包まれた新玉川温泉の大浴場。広々とした木造空間に名湯が満ち、心身を癒やす至福の湯治体験が味わえます。",
+      "caption": "豊かな木の温もりに包まれた新玉川温泉の大浴場。広々とした木造空間に名湯が満ち、心身を癒やす至福の湯治体験が味わえます。（写真提供：一般社団法人 秋田県観光連盟「あきたファン」）",
+      "credit": "写真提供：一般社団法人 秋田県観光連盟「あきたファン」"
+    },
+    "en": {
+      "alt": "Grand Wooden Bathhouse at Shin-Tamagawa Onsen - The magnificent all-wooden indoor bathhouse at Shin-Tamagawa Onsen, offering therapeutic natural hot springs surrounded by warm timber architecture.",
+      "caption": "The magnificent all-wooden indoor bathhouse at Shin-Tamagawa Onsen, offering therapeutic natural hot springs surrounded by warm timber architecture. (Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun))",
+      "credit": "Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun)"
+    }
+  },
+  "downloadedAt": "2026-11-09T18:51:30+0900",
+  "aiProxy": {
+    "path": "ai_thumbs/06新玉川温泉.webp",
+    "format": "webp",
+    "width": 768,
+    "height": 512,
+    "fileSizeBytes": 49564,
+    "targetMaxTokens": 258
+  },
+  "visual": {
+    "schemaSubVersion": "2.1",
+    "descriptionJa": "豊かな木の温もりに包まれた新玉川温泉の大浴場。広々とした木造空間に名湯が満ち、心身を癒やす至福の湯治体験が味わえます。",
+    "descriptionEn": "The magnificent all-wooden indoor bathhouse at Shin-Tamagawa Onsen, offering therapeutic natural hot springs surrounded by warm timber architecture.",
+    "timeOfDay": "indoor",
+    "weather": "indoor",
+    "composition": "wide_landscape",
+    "focalPosition": "center",
+    "textSafeArea": [
+      "top",
+      "bottom"
+    ],
+    "satoriTemplate": "bottom_slim",
+    "hasPeople": false,
+    "peopleStyle": "none",
+    "dominantColor": "warm",
+    "mood": [
+      "serene",
+      "nostalgic",
+      "luxury"
+    ],
+    "appealScore": 5,
+    "bestRole": "hero",
+    "isHeroReady": true,
+    "suitableFor": [
+      "solo",
+      "couple",
+      "senior",
+      "inbound"
+    ],
+    "bestFor": [
+      "温泉特集記事のアイキャッチ・カバー画像",
+      "秋田の名湯・湯治場巡りガイド",
+      "癒やしの温泉宿紹介"
+    ]
+  }
+}
