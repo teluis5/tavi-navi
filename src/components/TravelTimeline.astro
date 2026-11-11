@@ -922,15 +922,52 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
 
       startAutoPlay();
     });
-    // 5. 並列場所カルーセル（横スワイプ時のスムーズな操作とスナップ追従）
+    // 5. 並列場所カルーセル（横スワイプ操作 ＋ 10秒自動スクロール、ユーザー操作で自動スクロール完全無効化）
     document.querySelectorAll('.peeking-carousel-track').forEach((track) => {
       const htmlTrack = track as HTMLElement;
       let startX = 0;
       let startScrollLeft = 0;
       let isDragging = false;
       let totalWalk = 0;
+      let autoScrollDisabled = false;
+      let autoTimer: number | null = null;
+
+      const slides = htmlTrack.querySelectorAll('.carousel-slide-item');
+      const totalSlides = slides.length;
+      if (totalSlides <= 1) return;
+
+      // 10秒ごとの自動スクロール
+      const startAuto = () => {
+        if (autoTimer) clearInterval(autoTimer);
+        autoTimer = window.setInterval(() => {
+          if (autoScrollDisabled) {
+            if (autoTimer) clearInterval(autoTimer);
+            return;
+          }
+          const itemWidth = (slides[0] as HTMLElement).offsetWidth || htmlTrack.clientWidth * 0.92;
+          const currentIdx = Math.round(htmlTrack.scrollLeft / itemWidth);
+          const nextIdx = (currentIdx + 1) % totalSlides;
+          const targetSlide = slides[nextIdx] as HTMLElement;
+          if (targetSlide) {
+            htmlTrack.scrollTo({
+              left: targetSlide.offsetLeft,
+              behavior: 'smooth',
+            });
+          }
+        }, 10000);
+      };
+
+      // ユーザーが自発的にスクロール・タッチ・タブクリックした場合は自動スクロールを完全無効化
+      const disableAuto = () => {
+        autoScrollDisabled = true;
+        if (autoTimer) {
+          clearInterval(autoTimer);
+          autoTimer = null;
+        }
+      };
 
       htmlTrack.addEventListener('touchstart', (e: TouchEvent) => {
+        disableAuto();
         isDragging = true;
         startX = e.touches[0].pageX;
         startScrollLeft = htmlTrack.scrollLeft;
@@ -947,10 +984,8 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
       htmlTrack.addEventListener('touchend', () => {
         if (!isDragging) return;
         isDragging = false;
-        const slides = htmlTrack.querySelectorAll('.carousel-slide-item');
-        if (!slides.length) return;
         const itemWidth = (slides[0] as HTMLElement).offsetWidth || htmlTrack.clientWidth * 0.92;
-        const currentIdx = Math.max(0, Math.min(slides.length - 1, Math.round(htmlTrack.scrollLeft / itemWidth)));
+        const currentIdx = Math.max(0, Math.min(totalSlides - 1, Math.round(htmlTrack.scrollLeft / itemWidth)));
         const targetSlide = slides[currentIdx] as HTMLElement;
         if (targetSlide) {
           htmlTrack.scrollTo({
@@ -959,6 +994,18 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
           });
         }
       }, { passive: true });
+
+      htmlTrack.addEventListener('mousedown', disableAuto, { passive: true });
+
+      // 上部のタブボタンをクリックした際もユーザー操作と判定して自動スクロールを停止
+      const parentStep = htmlTrack.closest('.flow-step-item');
+      if (parentStep) {
+        parentStep.querySelectorAll('.swipe-tab-btn').forEach((btn) => {
+          btn.addEventListener('click', disableAuto, { passive: true });
+        });
+      }
+
+      startAuto();
 
       htmlTrack.addEventListener('scroll', () => {
         const slides = htmlTrack.querySelectorAll('.carousel-slide-item');
