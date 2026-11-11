@@ -15,16 +15,21 @@ tags: ["どこかにビューン", "田沢湖", "秋田", "秋田新幹線", "�
 ---
 import ConclusionBox from '../../components/ConclusionBox.astro';
 import TravelTimeline from '../../components/TravelTimeline.astro';
+import photoHanazen from '../blog/tazawako-shared/hanazen-torimeshi.jpg';
+import photoSoba from '../blog/tazawako-shared/akita-soba.jpg';
+
 import photoKomachiOutbound from '../blog/tazawako-shared/komachi-outbound.jpg';
 import photoSouvenirPot from '../blog/tazawako-shared/kiritanpo-nabe.webp';
 import photoSouvenirPickles from '../blog/tazawako-shared/iburigakko.jpg';
 import photoShinExterior from '../blog/tazawako-shared/shintamagawa-exterior.jpg';
 import photoShinBath from '../blog/tazawako-shared/shintamagawa-bath.jpg';
+import photoTamagawaSteam from '../blog/tazawako-shared/tamagawa-geothermal.jpg';
+import photoTamagawaRocks from '../blog/tazawako-shared/tamagawa-bedrock.jpg';
 
 
 import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
 
-どこかにビューーン！で東京発の最も早い時間帯、6:00〜9:00を選ぶと、こまちと路線バスを乗り継いで新玉川温泉へ行けます。列車確定後に接続と宿の空室を確認しましょう。
+どこかにビューーン！で東京発の最も早い時間帯、6:00〜9:00を選ぶと、こまちと路線バスを乗り継いで新玉川温泉へ行けます。日本一の強酸性とされる源泉の湯や、湯治文化に触れられます。列車確定後に接続と宿の空室を確認しましょう。
 
 この記事は羽後交通と温泉施設の公式情報をもとにした行程案です（2026年11月12日確認）。列車・バスの時刻と営業状況は出発前に確認してください。
 
@@ -83,7 +88,49 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
             { image: photoShinExterior, caption: "新玉川温泉の外観" }
           ],
           imageCredit: "Akita Prefecture",
-          points: ["強酸性の湯が特徴。入浴方法や体調に応じた注意事項を施設で確認", "空室とチェックイン前の荷物預かりを事前確認"]
+          points: [
+            "古くから湯治客が訪れる玉川温泉の源泉を引く宿。強酸性の湯を楽しむ",
+            "フロントで玉川温泉の湯めぐり入浴券と無料送迎便を確認",
+            "入浴方法と体調に応じた注意事項を施設で確認。空室も事前確認"
+          ]
+        },
+        {
+          leadHeading: "時間と季節が合えば、源泉・大噴と天然岩盤浴へ",
+          areaLabel: "玉川温泉園地（新玉川温泉とは別の場所）",
+          title: "大噴・自然研究路と天然岩盤浴",
+          categoryLabel: "季節限定の立ち寄り",
+          imageLayout: "grid-2",
+          images: [
+            { image: photoTamagawaSteam, caption: "玉川温泉の自然研究路" },
+            { image: photoTamagawaRocks, caption: "天然岩盤浴のある園地" }
+          ],
+          imageCredit: "Akita Prefecture",
+          points: [
+            "大噴は約98℃の源泉が湧き出す場所。施設公式はpH1.2で日本一の強酸性と案内",
+            "自然研究路は一周約30分。地熱を利用した天然岩盤浴も楽しめる",
+            "宿泊者はフロントで湯めぐり入浴券を受け取り、玉川温泉の大浴場も無料で利用できる",
+            "両館の間は宿泊者向け無料の湯めぐり便で約7分。出発時刻と運行状況を確認",
+            "冬期は玉川温泉が休館し、園地へ行けない場合がある。積雪・通行規制や施設案内を確認"
+          ],
+          transitDetail: {
+            method: "宿泊者向け湯めぐり便（無料）または路線バス（有料）",
+            route: "新玉川温泉 ⇔ 玉川温泉（園地）",
+            specs: ["フロントで入浴券とバスの利用条件・往復時刻を確認", "チェックイン後、夕食や翌日の帰路に余裕がある場合に利用", "立入禁止区域には入らず、火山ガスや天候に関する現地案内に従う"]
+          }
+        },
+        {
+          leadHeading: "宿泊者限定の屋内岩盤浴でゆっくり",
+          areaLabel: "新玉川温泉館内",
+          title: "新玉川温泉の屋内岩盤浴",
+          categoryLabel: "岩盤浴",
+          image: photoShinBath,
+          imageCredit: "Akita Prefecture",
+          isImageSample: true,
+          points: [
+            "天候に左右されない屋内岩盤浴。宿泊者限定・到着後にフロントで予約",
+            "7:00〜20:50、一般利用料800円。作務衣・タオルは別料金",
+            "写真は新玉川温泉の浴場。岩盤浴室ではありません"
+          ]
         }
       ]
     },
@@ -100,6 +147,42 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
           imageCredit: "Akita Prefecture",
           isImageSample: true,
           points: ["写真は新玉川温泉の外観", "冬の例：新玉川温泉11:10発、田沢湖駅前12:14着", "帰りの指定列車に余裕を持てる便を選び、運行日と宿のチェックアウト時刻を確認"]
+        },
+        {
+          leadHeading: "帰りのこまちの前に、駅前ランチか駅弁を選ぶ",
+          areaLabel: "田沢湖駅前・駅構内",
+          title: "最後のランチ",
+          alternatives: [
+            {
+              alternativeLabel: "駅前でそば",
+              title: "そば五郎",
+              categoryLabel: "駅前ランチ",
+              image: photoSoba,
+              imageCredit: "Akita Prefecture",
+              isImageSample: true,
+              points: [
+                "十割そばや比内地鶏のつけそばを楽しむ。写真は秋田のそばのイメージ",
+                "11:00〜17:30ラストオーダー、不定休。帰りの列車までの時間を確認"
+              ]
+            },
+            {
+              alternativeLabel: "鶏めし駅弁",
+              title: "NewDays KIOSK 田沢湖駅店",
+              categoryLabel: "駅弁テイクアウト",
+              image: photoHanazen,
+              imageCredit: "Akita Prefecture",
+              points: [
+                "時間がないときは、花善の鶏めしなど駅弁を買って車内で楽しむ",
+                "8:00〜12:45・13:55〜17:10。昼休み12:45〜13:55に注意",
+                "3日前を目安に電話で取り置き・注文の可否と受取時刻を確認。売切れや取扱い変更あり"
+              ]
+            }
+          ],
+          transitDetail: {
+            method: "徒歩で駅前の田沢湖市へ",
+            route: "駅前・駅構内 ➔ 田沢湖市 ➔ 田沢湖駅",
+            specs: ["食事・買い物と新幹線への乗り換えに余裕を確保", "昼休みや売り切れ時は早めに別の食事を手配"]
+          }
         },
         {
           leadHeading: "田沢湖駅前の物産館でお土産を選ぶ",
@@ -126,8 +209,13 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
   ]}
 />
 
+
+**駅前ランチと駅弁の確認先：** [そば五郎の案内](https://www.akita-nairiku.com/others/gourmet-route.php)・[NewDaysの営業時間](https://shop.jr-cross.co.jp/eki/spot/detail?code=1552496)・[花善の販売店一覧](https://hanazen.co.jp/about/)。鶏めしの取り置きは3日前を目安に[店舗へ電話（0187-58-0081）](tel:0187580081)で相談してください。電話番号は[秋田県の掲載資料](https://common3.pref.akita.lg.jp/akitamai/wp-content/uploads/2022/12/1a9efa3e1273344980c6834b22bd9191-2.pdf)を参照しています。受付条件・在庫は店舗に確認してください。
+
 ## 出発前に確認したいこと
 
+- 玉川温泉と新玉川温泉の宿泊者は、フロントで湯めぐり入浴券を受け取り姉妹館の大浴場を無料利用できます。両館間の宿泊者向け無料湯めぐり便の運行日・時刻は[施設の交通案内](https://www.shintamagawa.jp/access/)で確認してください。玉川温泉の冬期休館中は相互利用できません。
+- [新玉川温泉の屋内岩盤浴](https://www.shintamagawa.jp/care/)と[玉川温泉園地の天然岩盤浴・大噴](https://www.shintamagawa.jp/hot_stoned_bath/)は、場所と利用条件が異なります。冬期の園地利用可否も確認してください。
 - [JRの時刻表](https://timetables.jreast.co.jp/2611/train/030/033833.html)、[夏の玉川線](https://shuhokubus-gr.sakura.ne.jp/local/202604/kazuno_1kankourosen.html)、[冬の新玉川線](https://tazawako-kakunodate.com/wp-content/uploads/2026/10/%E6%96%B0%E7%8E%89%E5%B7%9D%E7%B7%9A.pdf)と[宿の交通案内](https://www.shintamagawa.jp/access/)で最新の運行状況を確認してください。
 - 夏の一部バスは10月19日以降運休。バスは列車の遅れに対応できないため、乗り遅れた場合は後続便を確認してください。
 - 冬は一般車両の通行規制があり、田沢湖駅前からの路線バスを利用します。

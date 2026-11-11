@@ -13,6 +13,9 @@ cities: ["senboku"]
 tags: ["ダイナミックレールパック", "田沢湖", "乳頭温泉郷", "車なしプランあり"]
 ---
 import TravelTimeline from '../../components/TravelTimeline.astro';
+import photoHanazen from '../blog/tazawako-shared/hanazen-torimeshi.jpg';
+import photoSoba from '../blog/tazawako-shared/akita-soba.jpg';
+
 import photoKomachiOutbound from '../blog/tazawako-shared/komachi-outbound.jpg';
 import photoSouvenirPot from '../blog/tazawako-shared/kiritanpo-nabe.webp';
 import photoSouvenirPickles from '../blog/tazawako-shared/iburigakko.jpg';
@@ -35,6 +38,10 @@ import photoHotel from '../../assets/photos/akita/02亀の井ホテル　田沢�
   ] },
   { dayNumber: 2, title: "乳頭温泉 ➔ 駅前でお土産 ➔ こまち", steps: [
     { leadHeading: "日帰り入浴で乳頭温泉を楽しむ", title: "乳頭温泉郷 妙乃湯", areaLabel: "乳頭温泉郷", image: photoTaenoyu, imageCredit: "Akita Prefecture", points: ["日帰り入浴は10:30〜15:00、受付14:00まで。火曜休み", "宿からのバスと荷物預かりを確認し、入浴時間を確保"], transitDetail: { method: "乳頭線 約45〜50分", route: "妙乃湯温泉前 ➔ 田沢湖駅前", specs: ["帰りの列車まで買い物と乗り換えの余裕を取る"] } },
+    { leadHeading: "帰りのこまちの前に駅前ランチか駅弁を選ぶ", title: "最後のランチ", areaLabel: "田沢湖駅前・駅構内", alternatives: [
+      { alternativeLabel: "駅前でそば", title: "そば五郎", image: photoSoba, imageCredit: "Akita Prefecture", isImageSample: true, points: ["十割そばや比内地鶏のつけそば。写真は秋田のそばのイメージ", "11:00〜17:30ラストオーダー、不定休。帰りの列車までの時間を確認"] },
+      { alternativeLabel: "鶏めし駅弁", title: "NewDays KIOSK 田沢湖駅店", image: photoHanazen, imageCredit: "Akita Prefecture", points: ["時間がなければ花善の鶏めしなどを買って車内へ", "8:00〜12:45・13:55〜17:10。昼休み12:45〜13:55に注意", "3日前を目安に電話で取り置き・注文の可否と受取時刻を確認。売切れや取扱い変更あり"] }
+    ], transitDetail: { method: "徒歩", route: "駅前・駅構内 ➔ 田沢湖市 ➔ 田沢湖駅", specs: ["食事・買い物と列車への乗り換えに余裕を確保"] } },
     { leadHeading: "駅前で秋田土産を選ぶ", title: "駅前物産館 田沢湖市（いち）", areaLabel: "田沢湖駅前", imageLayout: "grid-2", images: [photoSouvenirPot, photoSouvenirPickles], imageCredit: "Akita Prefecture", isImageSample: true, points: ["駅から徒歩約1分。地酒やお菓子、地元の特産品を探す", "写真はきりたんぽ鍋・いぶりがっこのイメージ。取扱商品と営業時間は要確認"], transitDetail: { method: "徒歩約1分", route: "田沢湖市 ➔ 田沢湖駅" } },
     { leadHeading: "こまちで東京へ", title: "田沢湖駅から帰路", image: photoKomachi, imageCredit: "Akita Prefecture", points: ["指定された列車の発車時刻を確認して乗車"] }
   ] }
@@ -54,3 +61,6 @@ import photoHotel from '../../assets/photos/akita/02亀の井ホテル　田沢�
 </ConclusionBox>
 
 [どこかにビューーン！で田沢湖駅に決まった方向けのモデルコース](/akita/dokokanibyun-tazawako-no-car/)もあります。
+
+
+**駅前ランチと駅弁の確認先：** [そば五郎の案内](https://www.akita-nairiku.com/others/gourmet-route.php)・[NewDaysの営業時間](https://shop.jr-cross.co.jp/eki/spot/detail?code=1552496)・[花善の販売店一覧](https://hanazen.co.jp/about/)。鶏めしの取り置きは3日前を目安に[店舗へ電話（0187-58-0081）](tel:0187580081)で相談してください。電話番号は[秋田県の掲載資料](https://common3.pref.akita.lg.jp/akitamai/wp-content/uploads/2022/12/1a9efa3e1273344980c6834b22bd9191-2.pdf)を参照しています。受付条件・在庫は店舗に確認してください。

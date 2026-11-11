@@ -1,0 +1,148 @@
+{
+  "schemaVersion": "2.0",
+  "assetId": "akita_449",
+  "provider": {
+    "id": "akita_tourism_federation",
+    "nameJa": "一般社団法人 秋田県観光連盟",
+    "nameEn": "Akita Prefecture Tourism Federation",
+    "libraryName": "あきたファン フォトギャラリー",
+    "sourceUrl": "https://akita-fun.jp/photo_gallery"
+  },
+  "subject": {
+    "photoId": "449",
+    "titleJa": "花善の名物「鶏めし弁当」",
+    "titleEn": "Hanazen's Famous Torimeshi Bento in Odate, Akita",
+    "prefecture": "秋田県",
+    "city": "大館市",
+    "cityEn": "大館 City",
+    "season": "all_year",
+    "genre": "食",
+    "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "sceneType": "gourmet",
+    "primaryEntities": [
+      "鶏めし弁当",
+      "鶏肉の甘辛煮",
+      "駅弁の折箱",
+      "花善の掛け紙"
+    ],
+    "tags": [
+      "花善",
+      "鶏めし",
+      "大館駅弁",
+      "秋田グルメ",
+      "ご当地駅弁",
+      "郷土料理",
+      "列車旅",
+      "秋田名物",
+      "大館市",
+      "ご当地グルメ",
+      "駅弁",
+      "鉄道旅"
+    ],
+    "rawTitleJa": "01花善　鶏めし",
+    "seasonalHighlight": "none",
+    "environment": "indoor",
+    "tagsEn": [
+      "torimeshi",
+      "ekiben",
+      "Hanazen",
+      "Odate gourmet",
+      "Akita specialty",
+      "Japanese bento"
+    ]
+  },
+  "specs": {
+    "width": 1378,
+    "height": 2067,
+    "orientation": "portrait",
+    "aspectRatio": "2:3",
+    "fileSizeBytes": 2508138,
+    "sha256": "e0102058a9fd5031d816fa963accfc16455e053ad976416885b3a78fbbc2577a",
+    "filename": "01花善　鶏めし.jpg",
+    "originalFilename": "01花善　鶏めし.jpg"
+  },
+  "policy": {
+    "commercialUse": true,
+    "purposeConstraint": "tourism_pr_only",
+    "allowedProjects": [
+      "tavi-navi",
+      "DeepJapan",
+      "teluis",
+      "yomilee"
+    ],
+    "creditRequired": true,
+    "maxPerArticle": null,
+    "modification": "crop_and_resize_only",
+    "redistributionAllowed": false
+  },
+  "i18n": {
+    "ja": {
+      "alt": "花善の名物「鶏めし弁当」（秋田県）- 甘辛く煮たジューシーな鶏肉と旨味が染み込んだ炊き込みご飯が絶品の、大館駅を代表する伝統の名物駅弁「鶏めし」。",
+      "caption": "甘辛く煮たジューシーな鶏肉と旨味が染み込んだ炊き込みご飯が絶品の、大館駅を代表する伝統の名物駅弁「鶏めし」。（写真提供：一般社団法人 秋田県観光連盟「あきたファン」）",
+      "credit": "写真提供：一般社団法人 秋田県観光連盟「あきたファン」"
+    },
+    "en": {
+      "alt": "Hanazen's Famous Torimeshi Bento in Odate, Akita - Hanazen's iconic Torimeshi Bento features savory simmered chicken over flavorful seasoned rice, representing Odate's beloved train station cuisine.",
+      "caption": "Hanazen's iconic Torimeshi Bento features savory simmered chicken over flavorful seasoned rice, representing Odate's beloved train station cuisine. (Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun))",
+      "credit": "Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun)"
+    }
+  },
+  "downloadedAt": "2026-11-09T19:32:23+0900",
+  "aiProxy": {
+    "path": "ai_thumbs/01花善　鶏めし.webp",
+    "format": "webp",
+    "width": 512,
+    "height": 768,
+    "fileSizeBytes": 49896,
+    "targetMaxTokens": 258
+  },
+  "visual": {
+    "schemaSubVersion": "2.1",
+    "descriptionJa": "甘辛く煮たジューシーな鶏肉と旨味が染み込んだ炊き込みご飯が絶品の、大館駅を代表する伝統の名物駅弁「鶏めし」。",
+    "descriptionEn": "Hanazen's iconic Torimeshi Bento features savory simmered chicken over flavorful seasoned rice, representing Odate's beloved train station cuisine.",
+    "timeOfDay": "indoor",
+    "weather": "indoor",
+    "composition": "medium",
+    "focalPosition": "center",
+    "textSafeArea": [
+      "bottom",
+      "top"
+    ],
+    "satoriTemplate": "bottom_slim",
+    "hasPeople": false,
+    "peopleStyle": "none",
+    "dominantColor": "warm",
+    "mood": [
+      "appetizing",
+      "nostalgic"
+    ],
+    "appealScore": 4,
+    "bestRole": "h2_main",
+    "isHeroReady": true,
+    "suitableFor": [
+      "solo",
+      "couple",
+      "family",
+      "senior",
+      "inbound"
+    ],
+    "bestFor": [
+      "秋田のご当地駅弁＆テイクアウト特集",
+      "奥羽本線・花輪線の鉄道旅グルメガイド",
+      "大館のおすすめ名物グルメ紹介"
+    ]
+  }
+}

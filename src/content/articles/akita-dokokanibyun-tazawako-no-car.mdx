@@ -15,6 +15,9 @@ tags: ["どこかにビューン", "田沢湖", "秋田", "秋田新幹線", "�
 ---
 import ConclusionBox from '../../components/ConclusionBox.astro';
 import TravelTimeline from '../../components/TravelTimeline.astro';
+import photoHanazen from '../blog/tazawako-shared/hanazen-torimeshi.jpg';
+import photoSoba from '../blog/tazawako-shared/akita-soba.jpg';
+
 import photoKomachiOutbound from '../blog/tazawako-shared/komachi-outbound.jpg';
 import photoSouvenirPot from '../blog/tazawako-shared/kiritanpo-nabe.webp';
 import photoSouvenirPickles from '../blog/tazawako-shared/iburigakko.jpg';
@@ -231,6 +234,42 @@ import photoKamenoiOpenAir from '../../assets/photos/akita/02亀の井ホテル�
           }
         },
         {
+          leadHeading: "帰りのこまちの前に、駅前ランチか駅弁を選ぶ",
+          areaLabel: "田沢湖駅前・駅構内",
+          title: "最後のランチ",
+          alternatives: [
+            {
+              alternativeLabel: "駅前でそば",
+              title: "そば五郎",
+              categoryLabel: "駅前ランチ",
+              image: photoSoba,
+              imageCredit: "Akita Prefecture",
+              isImageSample: true,
+              points: [
+                "十割そばや比内地鶏のつけそばを楽しむ。写真は秋田のそばのイメージ",
+                "11:00〜17:30ラストオーダー、不定休。帰りの列車までの時間を確認"
+              ]
+            },
+            {
+              alternativeLabel: "鶏めし駅弁",
+              title: "NewDays KIOSK 田沢湖駅店",
+              categoryLabel: "駅弁テイクアウト",
+              image: photoHanazen,
+              imageCredit: "Akita Prefecture",
+              points: [
+                "時間がないときは、花善の鶏めしなど駅弁を買って車内で楽しむ",
+                "8:00〜12:45・13:55〜17:10。昼休み12:45〜13:55に注意",
+                "3日前を目安に電話で取り置き・注文の可否と受取時刻を確認。売切れや取扱い変更あり"
+              ]
+            }
+          ],
+          transitDetail: {
+            method: "徒歩で駅前の田沢湖市へ",
+            route: "駅前・駅構内 ➔ 田沢湖市 ➔ 田沢湖駅",
+            specs: ["食事・買い物と新幹線への乗り換えに余裕を確保", "昼休みや売り切れ時は早めに別の食事を手配"]
+          }
+        },
+        {
           leadHeading: "田沢湖駅前の物産館で秋田土産を選ぶ",
           areaLabel: "田沢湖駅前",
           title: "駅前物産館 田沢湖市（いち）",
@@ -268,6 +307,9 @@ import photoKamenoiOpenAir from '../../assets/photos/akita/02亀の井ホテル�
     }
   ]}
 />
+
+
+**駅前ランチと駅弁の確認先：** [そば五郎の案内](https://www.akita-nairiku.com/others/gourmet-route.php)・[NewDaysの営業時間](https://shop.jr-cross.co.jp/eki/spot/detail?code=1552496)・[花善の販売店一覧](https://hanazen.co.jp/about/)。鶏めしの取り置きは3日前を目安に[店舗へ電話（0187-58-0081）](tel:0187580081)で相談してください。電話番号は[秋田県の掲載資料](https://common3.pref.akita.lg.jp/akitamai/wp-content/uploads/2022/12/1a9efa3e1273344980c6834b22bd9191-2.pdf)を参照しています。受付条件・在庫は店舗に確認してください。
 
 ## 出発前に確認したいこと
 

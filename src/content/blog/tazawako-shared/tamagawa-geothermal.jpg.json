@@ -1,0 +1,138 @@
+{
+  "schemaVersion": "2.0",
+  "assetId": "akita_1357",
+  "provider": {
+    "id": "akita_tourism_federation",
+    "nameJa": "一般社団法人 秋田県観光連盟",
+    "nameEn": "Akita Prefecture Tourism Federation",
+    "libraryName": "あきたファン フォトギャラリー",
+    "sourceUrl": "https://akita-fun.jp/photo_gallery"
+  },
+  "subject": {
+    "photoId": "1357",
+    "titleJa": "玉川温泉の地獄谷と自然研究路",
+    "titleEn": "Steaming Geothermal Valley at Tamagawa Onsen",
+    "prefecture": "秋田県",
+    "city": "仙北市",
+    "cityEn": "仙北 City",
+    "season": "summer",
+    "genre": "温泉・宿泊施設",
+    "rawTitleJa": "02玉川温泉",
+    "months": [
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "seasonalHighlight": "fresh_green",
+    "sceneType": "onsen",
+    "environment": "outdoor",
+    "primaryEntities": [
+      "玉川温泉の噴気地帯",
+      "立ち上る湯煙",
+      "遊歩道",
+      "湯治客"
+    ],
+    "tags": [
+      "秋田県",
+      "仙北市",
+      "玉川温泉",
+      "大噴",
+      "湯治",
+      "源泉",
+      "岩盤浴",
+      "自然研究路",
+      "秘湯"
+    ],
+    "tagsEn": [
+      "Tamagawa Onsen",
+      "Akita",
+      "Semboku",
+      "Hot Springs",
+      "Geothermal Valley",
+      "Therapeutic Bathing"
+    ]
+  },
+  "specs": {
+    "width": 5616,
+    "height": 3744,
+    "orientation": "landscape",
+    "aspectRatio": "3:2",
+    "fileSizeBytes": 17204227,
+    "sha256": "3700b822a4cf0665bd29ec3b0c8592af0417312fd55f106a4070f6e7ee2bb44f",
+    "filename": "02玉川温泉.jpg",
+    "originalFilename": "02玉川温泉.jpg"
+  },
+  "policy": {
+    "commercialUse": true,
+    "purposeConstraint": "tourism_pr_only",
+    "allowedProjects": [
+      "tavi-navi",
+      "DeepJapan",
+      "teluis",
+      "yomilee"
+    ],
+    "creditRequired": true,
+    "maxPerArticle": null,
+    "modification": "crop_and_resize_only",
+    "redistributionAllowed": false
+  },
+  "i18n": {
+    "ja": {
+      "alt": "玉川温泉の地獄谷と自然研究路（秋田県）- 轟音とともに吹き出す豊富な湯煙と強い硫黄臭に包まれる玉川温泉。整えられた遊歩道から大地の力強い息吹と湯治場の情緒を体感できます。",
+      "caption": "轟音とともに吹き出す豊富な湯煙と強い硫黄臭に包まれる玉川温泉。整えられた遊歩道から大地の力強い息吹と湯治場の情緒を体感できます。（写真提供：一般社団法人 秋田県観光連盟「あきたファン」）",
+      "credit": "写真提供：一般社団法人 秋田県観光連盟「あきたファン」"
+    },
+    "en": {
+      "alt": "Steaming Geothermal Valley at Tamagawa Onsen - Billowing thermal steam rises dramatically from the geothermal vents along the walking trail at Tamagawa Onsen, one of Japan's most famous therapeutic hot springs.",
+      "caption": "Billowing thermal steam rises dramatically from the geothermal vents along the walking trail at Tamagawa Onsen, one of Japan's most famous therapeutic hot springs. (Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun))",
+      "credit": "Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun)"
+    }
+  },
+  "downloadedAt": "2026-11-09T19:26:27+0900",
+  "aiProxy": {
+    "path": "ai_thumbs/02玉川温泉.webp",
+    "format": "webp",
+    "width": 768,
+    "height": 512,
+    "fileSizeBytes": 59960,
+    "targetMaxTokens": 258
+  },
+  "visual": {
+    "schemaSubVersion": "2.1",
+    "descriptionJa": "轟音とともに吹き出す豊富な湯煙と強い硫黄臭に包まれる玉川温泉。整えられた遊歩道から大地の力強い息吹と湯治場の情緒を体感できます。",
+    "descriptionEn": "Billowing thermal steam rises dramatically from the geothermal vents along the walking trail at Tamagawa Onsen, one of Japan's most famous therapeutic hot springs.",
+    "timeOfDay": "daytime",
+    "weather": "cloudy",
+    "composition": "wide_landscape",
+    "focalPosition": "left",
+    "textSafeArea": [
+      "top",
+      "bottom"
+    ],
+    "satoriTemplate": "split_right",
+    "hasPeople": true,
+    "peopleStyle": "face_visible",
+    "dominantColor": "green",
+    "mood": [
+      "dynamic",
+      "nostalgic"
+    ],
+    "appealScore": 4,
+    "bestRole": "h2_main",
+    "isHeroReady": true,
+    "suitableFor": [
+      "solo",
+      "couple",
+      "senior",
+      "inbound"
+    ],
+    "bestFor": [
+      "玉川温泉の源泉と散策ルート紹介",
+      "秋田の名湯・湯治特集",
+      "大自然を感じる地獄谷スポット案内"
+    ]
+  }
+}

@@ -1,0 +1,146 @@
+{
+  "schemaVersion": "2.0",
+  "assetId": "akita_104",
+  "provider": {
+    "id": "akita_tourism_federation",
+    "nameJa": "一般社団法人 秋田県観光連盟",
+    "nameEn": "Akita Prefecture Tourism Federation",
+    "libraryName": "あきたファン フォトギャラリー",
+    "sourceUrl": "https://akita-fun.jp/photo_gallery"
+  },
+  "subject": {
+    "photoId": "104",
+    "titleJa": "羽後町名物「西馬音内そば」の冷がけ",
+    "titleEn": "Nishimonai Soba: Chilled Buckwheat Noodles in Ugo Town, Akita",
+    "prefecture": "秋田県",
+    "city": "羽後町",
+    "cityEn": "羽後 Town",
+    "season": "all_year",
+    "genre": "食",
+    "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "sceneType": "gourmet",
+    "primaryEntities": [
+      "西馬音内そば",
+      "冷がけ蕎麦",
+      "天ぷら",
+      "薬味ネギ"
+    ],
+    "tags": [
+      "西馬音内そば",
+      "羽後町",
+      "秋田グルメ",
+      "ご当地そば",
+      "冷がけそば",
+      "郷土料理",
+      "天ぷら",
+      "ランチ",
+      "日本そば",
+      "冷がけ"
+    ],
+    "rawTitleJa": "01西馬音内そば",
+    "seasonalHighlight": "none",
+    "environment": "indoor",
+    "tagsEn": [
+      "Nishimonai Soba",
+      "Ugo Town",
+      "Akita Gourmet",
+      "Japanese Soba",
+      "Local Food",
+      "Tempura"
+    ]
+  },
+  "specs": {
+    "width": 4368,
+    "height": 2912,
+    "orientation": "landscape",
+    "aspectRatio": "3:2",
+    "fileSizeBytes": 3710992,
+    "sha256": "f911ae26250cb119cf6e1362be3c530184553bf3d30a48f6de46c9cf109309dd",
+    "filename": "01西馬音内そば.jpg",
+    "originalFilename": "01西馬音内そば.jpg"
+  },
+  "policy": {
+    "commercialUse": true,
+    "purposeConstraint": "tourism_pr_only",
+    "allowedProjects": [
+      "tavi-navi",
+      "DeepJapan",
+      "teluis",
+      "yomilee"
+    ],
+    "creditRequired": true,
+    "maxPerArticle": null,
+    "modification": "crop_and_resize_only",
+    "redistributionAllowed": false
+  },
+  "i18n": {
+    "ja": {
+      "alt": "羽後町名物「西馬音内そば」の冷がけ（秋田県）- 秋田県羽後町の名物「西馬音内そば」。喉越しの良いコシの強い蕎麦に冷たい出汁つゆが絡み、揚げたて天ぷらとともに味わう伝統の逸品です。",
+      "caption": "秋田県羽後町の名物「西馬音内そば」。喉越しの良いコシの強い蕎麦に冷たい出汁つゆが絡み、揚げたて天ぷらとともに味わう伝統の逸品です。（写真提供：一般社団法人 秋田県観光連盟「あきたファン」）",
+      "credit": "写真提供：一般社団法人 秋田県観光連盟「あきたファン」"
+    },
+    "en": {
+      "alt": "Nishimonai Soba: Chilled Buckwheat Noodles in Ugo Town, Akita - A savory bowl of Nishimonai Soba, a specialty of Ugo Town in Akita, served chilled with springy noodles and crisp tempura.",
+      "caption": "A savory bowl of Nishimonai Soba, a specialty of Ugo Town in Akita, served chilled with springy noodles and crisp tempura. (Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun))",
+      "credit": "Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun)"
+    }
+  },
+  "downloadedAt": "2026-11-09T19:46:16+0900",
+  "aiProxy": {
+    "path": "ai_thumbs/01西馬音内そば.webp",
+    "format": "webp",
+    "width": 768,
+    "height": 512,
+    "fileSizeBytes": 45308,
+    "targetMaxTokens": 258
+  },
+  "visual": {
+    "schemaSubVersion": "2.1",
+    "descriptionJa": "秋田県羽後町の名物「西馬音内そば」。喉越しの良いコシの強い蕎麦に冷たい出汁つゆが絡み、揚げたて天ぷらとともに味わう伝統の逸品です。",
+    "descriptionEn": "A savory bowl of Nishimonai Soba, a specialty of Ugo Town in Akita, served chilled with springy noodles and crisp tempura.",
+    "timeOfDay": "daytime",
+    "weather": "indoor",
+    "composition": "close_up",
+    "focalPosition": "center",
+    "textSafeArea": [
+      "top",
+      "bottom"
+    ],
+    "satoriTemplate": "bottom_slim",
+    "hasPeople": false,
+    "peopleStyle": "none",
+    "dominantColor": "warm",
+    "mood": [
+      "appetizing",
+      "nostalgic"
+    ],
+    "appealScore": 4,
+    "bestRole": "h2_main",
+    "isHeroReady": true,
+    "suitableFor": [
+      "solo",
+      "couple",
+      "family",
+      "senior",
+      "inbound"
+    ],
+    "bestFor": [
+      "秋田ご当地グルメ特集",
+      "羽後町の必食ランチ紹介",
+      "名物そば巡りモデルコース"
+    ]
+  }
+}
