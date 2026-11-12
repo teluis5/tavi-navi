@@ -16,6 +16,15 @@
       <div><dt>申し込み締切</dt><dd><strong data-closing></strong><span>23:59まで</span></dd></div>
       <div><dt>帰りの日</dt><dd><strong data-return></strong><span>日帰りから、行きの日を含む7日間</span></dd></div>
     </dl>
+    <div class="calendar-save">
+      <h3>申し込み開始日をカレンダーに登録</h3>
+      <p>受付開始日を終日の予定として追加します。</p>
+      <div class="calendar-save-links">
+        <a data-google-calendar target="_blank" rel="noopener noreferrer">Googleカレンダーに登録 ↗</a>
+        <a data-ics-calendar download="dokokani-booking.ics">iPhone・Outlookなどに登録</a>
+      </div>
+      <p class="calendar-save-note">ファイルの場合は、ダウンロード後に開いて登録してください。</p>
+    </div>
     <div class="calendar-section">
       <h3>カレンダーで見る</h3>
       <p class="calendar-intro">受付期間と帰りに選べる期間を色分けしています。</p>
@@ -47,6 +56,39 @@
       return shifted;
     };
     const calendar = result.querySelector<HTMLElement>('[data-calendar]');
+    const googleLink = result.querySelector<HTMLAnchorElement>('[data-google-calendar]');
+    const icsLink = result.querySelector<HTMLAnchorElement>('[data-ics-calendar]');
+    const calendarDate = (date: Date) => date.toISOString().slice(0, 10).replace(/-/g, '');
+    const escapeIcs = (text: string) => text.replace(/\\/g, '\\\\').replace(/\n/g, '\\n').replace(/,/g, '\\,').replace(/;/g, '\\;');
+    const foldIcsLine = (line: string) => {
+      const encoder = new TextEncoder();
+      const parts: string[] = [];
+      let part = '';
+      let bytes = 0;
+      for (const char of line) {
+        const size = encoder.encode(char).length;
+        if (bytes + size > 75) { parts.push(part); part = ' '; bytes = 1; }
+        part += char;
+        bytes += size;
+      }
+      parts.push(part);
+      return parts.join('\r\n');
+    };
+    const updateCalendarLinks = (departure: Date, opening: Date, closing: Date) => {
+      const title = 'どこかにビューーン！申し込み開始';
+      const detail = `出発日：${dateFormat.format(departure)}\n申し込み締切：${dateFormat.format(closing)} 23:59\nhttps://dokokani-eki-net.com/`;
+      const start = calendarDate(opening);
+      const end = calendarDate(shiftDate(opening, 1));
+      if (googleLink) {
+        const params = new URLSearchParams({ action: 'TEMPLATE', text: title, dates: `${start}/${end}`, details: detail });
+        googleLink.href = `https://calendar.google.com/calendar/render?${params.toString()}`;
+      }
+      if (icsLink) {
+        const stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
+        const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//tavi-navi//Dokokani//JA', 'CALSCALE:GREGORIAN', 'BEGIN:VEVENT', `UID:dokokani-${calendarDate(departure)}@tavi-navi.net`, `DTSTAMP:${stamp}`, `DTSTART;VALUE=DATE:${start}`, `DTEND;VALUE=DATE:${end}`, `SUMMARY:${escapeIcs(title)}`, `DESCRIPTION:${escapeIcs(detail)}`, 'END:VEVENT', 'END:VCALENDAR'];
+        icsLink.href = `data:text/calendar;charset=utf-8,${encodeURIComponent(lines.map(foldIcsLine).join('\r\n') + '\r\n')}`;
+      }
+    };
     const renderCalendar = (departure: Date, opening: Date, closing: Date, returnLast: Date) => {
       if (!calendar) return;
       calendar.replaceChildren();
@@ -118,6 +160,7 @@
       display('[data-opening]', dateFormat.format(shiftDate(departure, -21)));
       display('[data-closing]', dateFormat.format(shiftDate(departure, -6)));
       display('[data-return]', `${formattedDeparture} 〜 ${dateFormat.format(shiftDate(departure, 6))}`);
+      updateCalendarLinks(departure, shiftDate(departure, -21), shiftDate(departure, -6));
       renderCalendar(departure, shiftDate(departure, -21), shiftDate(departure, -6), shiftDate(departure, 6));
       result.hidden = false;
     };
@@ -145,6 +188,14 @@
   .simulator-result dd { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; margin: 4px 0 0; color: #193748; }
   .simulator-result dd strong { font-size: 16px; line-height: 1.5; }
   .simulator-result dd span { font-size: 12px; color: #36515f; }
+  .calendar-save { margin-top: 24px; }
+  .calendar-save h3 { margin: 0 0 8px; padding: 0; border: 0; color: #193748; font-size: 16px; line-height: 1.4; }
+  .simulator .calendar-save p { margin: 0 0 12px; color: #36515f; font-size: 13px; line-height: 1.6; }
+  .calendar-save-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 8px; }
+  .calendar-save-links a { display: flex; align-items: center; justify-content: center; min-height: 48px; padding: 8px 12px; border: 1px solid #126078; border-radius: 8px; background: #fff; color: #12566b; font-size: 13px; font-weight: 700; text-align: center; text-decoration: none; }
+  .calendar-save-links a:first-child { background: #126078; color: #fff; }
+  .calendar-save-links a:focus-visible { outline: 3px solid #193748; outline-offset: 2px; }
+  .simulator .calendar-save .calendar-save-note { margin: 8px 0 0; font-size: 12px; }
   .calendar-section { margin-top: 24px; }
   .calendar-section h3 { margin: 0 0 4px; padding: 0; border: 0; font-size: 17px; color: #193748; }
   .simulator .calendar-intro { margin: 0; color: #36515f; font-size: 13px; line-height: 1.6; }
