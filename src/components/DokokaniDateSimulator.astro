@@ -16,6 +16,15 @@
       <div><dt>申し込み締切</dt><dd><strong data-closing></strong><span>23:59まで</span></dd></div>
       <div><dt>帰りの日</dt><dd><strong data-return></strong><span>日帰りから、行きの日を含む7日間</span></dd></div>
     </dl>
+    <div class="calendar-section">
+      <h3>カレンダーで見る</h3>
+      <p class="calendar-intro">受付期間と帰りに選べる期間を色分けしています。</p>
+      <ul class="calendar-legend" aria-label="カレンダーの凡例">
+        <li><span class="legend-swatch booking" aria-hidden="true"></span>申し込み期間</li>
+        <li><span class="legend-swatch travel" aria-hidden="true"></span>帰りの日の範囲</li>
+      </ul>
+      <div class="calendar-months" data-calendar></div>
+    </div>
     <p class="simulator-note">日付の計算結果です。候補駅や座席の有無は、公式サイトでご確認ください。</p>
     <a class="official-link" href="https://dokokani-eki-net.com/dokokani/trial/index">公式のお試しページで検索する →</a>
   </div>
@@ -37,6 +46,65 @@
       shifted.setUTCDate(shifted.getUTCDate() + days);
       return shifted;
     };
+    const calendar = result.querySelector<HTMLElement>('[data-calendar]');
+    const renderCalendar = (departure: Date, opening: Date, closing: Date, returnLast: Date) => {
+      if (!calendar) return;
+      calendar.replaceChildren();
+      const days = ['日', '月', '火', '水', '木', '金', '土'];
+      const month = new Date(Date.UTC(opening.getUTCFullYear(), opening.getUTCMonth(), 1));
+      const lastMonth = new Date(Date.UTC(returnLast.getUTCFullYear(), returnLast.getUTCMonth(), 1));
+      const sameDay = (a: Date, b: Date) => a.getTime() === b.getTime();
+      while (month <= lastMonth) {
+        const year = month.getUTCFullYear();
+        const monthIndex = month.getUTCMonth();
+        const monthPanel = document.createElement('section');
+        monthPanel.className = 'calendar-month';
+        const title = document.createElement('h4');
+        title.textContent = `${year}年${monthIndex + 1}月`;
+        monthPanel.append(title);
+        const grid = document.createElement('div');
+        grid.className = 'calendar-grid';
+        grid.setAttribute('aria-label', `${year}年${monthIndex + 1}月のカレンダー`);
+        days.forEach((day) => {
+          const header = document.createElement('span');
+          header.className = 'calendar-weekday';
+          header.textContent = day;
+          grid.append(header);
+        });
+        for (let i = 0; i < month.getUTCDay(); i++) {
+          const blank = document.createElement('span');
+          blank.setAttribute('aria-hidden', 'true');
+          grid.append(blank);
+        }
+        const count = new Date(Date.UTC(year, monthIndex + 1, 0)).getUTCDate();
+        for (let day = 1; day <= count; day++) {
+          const current = new Date(Date.UTC(year, monthIndex, day));
+          const cell = document.createElement('div');
+          cell.className = 'calendar-day';
+          const labels: string[] = [];
+          if (current >= opening && current <= closing) { cell.classList.add('is-booking'); labels.push('申し込み期間'); }
+          if (current >= departure && current <= returnLast) { cell.classList.add('is-travel'); labels.push('帰りの日の範囲'); }
+          let badge = '';
+          if (sameDay(current, opening)) { badge = '開始'; labels.push('申し込み開始'); }
+          else if (sameDay(current, closing)) { badge = '締切'; labels.push('申し込み締切'); }
+          else if (sameDay(current, departure)) { badge = '出発'; labels.push('出発日'); }
+          else if (sameDay(current, returnLast)) { badge = '最終'; labels.push('帰りの最終日'); }
+          cell.setAttribute('aria-label', `${year}年${monthIndex + 1}月${day}日${labels.length ? `、${labels.join('、')}` : ''}`);
+          const number = document.createElement('span');
+          number.textContent = String(day);
+          cell.append(number);
+          if (badge) {
+            const marker = document.createElement('small');
+            marker.textContent = badge;
+            cell.append(marker);
+          }
+          grid.append(cell);
+        }
+        monthPanel.append(grid);
+        calendar.append(monthPanel);
+        month.setUTCMonth(month.getUTCMonth() + 1);
+      }
+    };
     const update = () => {
       if (!input.value || !input.checkValidity()) { result.hidden = true; return; }
       const departure = new Date(`${input.value}T00:00:00Z`);
@@ -50,6 +118,7 @@
       display('[data-opening]', dateFormat.format(shiftDate(departure, -21)));
       display('[data-closing]', dateFormat.format(shiftDate(departure, -6)));
       display('[data-return]', `${formattedDeparture} 〜 ${dateFormat.format(shiftDate(departure, 6))}`);
+      renderCalendar(departure, shiftDate(departure, -21), shiftDate(departure, -6), shiftDate(departure, 6));
       result.hidden = false;
     };
     input.addEventListener('input', update);
@@ -76,6 +145,23 @@
   .simulator-result dd { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; margin: 4px 0 0; color: #193748; }
   .simulator-result dd strong { font-size: 16px; line-height: 1.5; }
   .simulator-result dd span { font-size: 12px; color: #36515f; }
+  .calendar-section { margin-top: 24px; }
+  .calendar-section h3 { margin: 0 0 4px; padding: 0; border: 0; font-size: 17px; color: #193748; }
+  .simulator .calendar-intro { margin: 0; color: #36515f; font-size: 13px; line-height: 1.6; }
+  .calendar-legend { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 12px 0 16px; padding: 0; list-style: none; font-size: 12px; color: #193748; }
+  .calendar-legend li { display: flex; align-items: center; gap: 6px; margin: 0; }
+  .legend-swatch { width: 14px; height: 14px; border-radius: 4px; flex: none; }
+  .legend-swatch.booking { background: #b8e4e9; }
+  .legend-swatch.travel { background: #ffe4b4; }
+  .calendar-months { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 16px; }
+  .simulator :global(.calendar-month) { min-width: 0; padding: 16px; background: #fff; border-radius: 8px; }
+  .simulator :global(.calendar-month h4) { margin: 0 0 12px; padding: 0; font-size: 16px; line-height: 1.3; color: #193748; }
+  .simulator :global(.calendar-grid) { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 3px; }
+  .simulator :global(.calendar-weekday) { padding: 0 0 4px; text-align: center; color: #526676; font-size: 11px; font-weight: 700; }
+  .simulator :global(.calendar-day) { min-width: 0; min-height: 36px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2px 0; border-radius: 4px; color: #193748; font-size: 13px; line-height: 1.2; }
+  .simulator :global(.calendar-day.is-booking) { background: #d4eef0; }
+  .simulator :global(.calendar-day.is-travel) { background: #ffebc9; }
+  .simulator :global(.calendar-day small) { font-size: 9px; font-weight: 700; color: #193748; line-height: 1.2; }
   .simulator .simulator-note { margin: 16px 0 0; color: #36515f; font-size: 12px; line-height: 1.7; }
   .official-link { display: inline-block; margin-top: 12px; color: #125c75; font-size: 14px; font-weight: 700; }
   @media (max-width: 380px) { .simulator { padding: 20px 16px; } }
