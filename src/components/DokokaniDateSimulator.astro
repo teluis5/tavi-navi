@@ -9,6 +9,7 @@
     </div>
   </form>
   <div class="simulator-result" aria-live="polite" hidden>
+    <p class="booking-status" data-status></p>
     <p class="result-lead">行き <strong data-departure></strong> の場合</p>
     <dl>
       <div><dt>申し込み開始</dt><dd><strong data-opening></strong><span>0:00から</span></dd></div>
@@ -138,6 +139,15 @@
         if (target) target.textContent = text;
       };
       const formattedDeparture = dateFormat.format(departure);
+      const opening = shiftDate(departure, -21);
+      const closing = shiftDate(departure, -6);
+      const now = new Date();
+      const japanNow = new Date(now.getTime() + 9 * 60 * 60 * 1000);
+      const today = Date.UTC(japanNow.getUTCFullYear(), japanNow.getUTCMonth(), japanNow.getUTCDate());
+      const daysUntil = Math.round((opening.getTime() - today) / 86400000);
+      const minutes = japanNow.getUTCHours() * 60 + japanNow.getUTCMinutes();
+      const paused = minutes >= 50 && minutes < 300;
+      display('[data-status]', daysUntil > 0 ? `受付開始まであと${daysUntil}日` : today > closing.getTime() ? '受付終了' : paused ? '受付期間中（0:50〜5:00は利用できません）' : '受付期間中');
       display('[data-departure]', formattedDeparture);
       display('[data-opening]', dateFormat.format(shiftDate(departure, -21)));
       display('[data-closing]', dateFormat.format(shiftDate(departure, -6)));
@@ -155,6 +165,7 @@
 <style>
   .simulator { margin: 32px 0; padding: 24px; background: #edf6f8; border-radius: 12px; color: #193748; }
   .simulator .simulator-kicker { margin: 0 0 8px; color: #126078; font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+  .simulator .booking-status { margin: 16px 0 8px; color: #12566b; font-size: 18px; font-weight: 700; }
   .simulator h2 { margin: 0 0 8px; padding: 0; border: 0; background: transparent; color: #153e50; font-size: 21px; line-height: 1.35; }
   .simulator .simulator-intro { margin: 0 0 20px; color: #36515f; font-size: 14px; line-height: 1.7; }
   .simulator-form label { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 700; }

@@ -1,5 +1,5 @@
 ---
-title: "どこかにビューーン！何日前に予約？土日の申込開始と帰りの日"
+title: "どこかにビューーン！は何日前から？申込開始日シミュレーター"
 description: "土日旅行なら、どこかにビューーン！はいつ申し込む？往路21日前の受付開始、帰りの日を含む最大7日間の数え方、候補が出ないときの対策を具体例で解説します。"
 pubDate: 2026-11-12
 lang: "ja"
@@ -8,21 +8,12 @@ category: "旅行"
 season: "通年"
 tags: ["どこかにビューーン", "何日前", "予約", "いつ決まる", "新幹線"]
 ---
-import ProblemBox from '../../components/ProblemBox.astro';
 import ConclusionBox from '../../components/ConclusionBox.astro';
 import DokokaniDateSimulator from '../../components/DokokaniDateSimulator.astro';
 
-<ProblemBox>
-  <ul>
-    <li>予約は出発の何日前から何日前まで？</li>
-    <li>土日の旅は、いつ申し込むのがよい？</li>
-    <li>帰りの日も3週間先までしか選べない？</li>
-  </ul>
-</ProblemBox>
-
 申し込みは<b>出発の21日前0時から6日前23時59分まで</b>です。土日旅行なら、受付開始後すぐに候補を確認しましょう。
 
-予約期間は行きの乗車日を基準に数えます。帰りは、行きの日を含めて7日間の範囲で設定できます。
+出発日を選ぶと、受付開始日と帰りに選べる日がわかります。
 
 <DokokaniDateSimulator />
 
@@ -30,7 +21,7 @@ import DokokaniDateSimulator from '../../components/DokokaniDateSimulator.astro'
 
 申し込みは<b>行きの乗車日の21日前0時</b>から。えきねっとの事前受付は使えません。
 
-出発日を入力すると、上のシミュレーターで受付期間と帰りの日を確認できます。
+ただし、<b>0:50〜5:00はJRE POINTのサービス時間外</b>のため申し込めません。
 
 ### 土日旅行は申込開始後に即予約すべし
 
