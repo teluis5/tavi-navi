@@ -78,7 +78,12 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
           image: photoShinExterior,
           imageCredit: "Akita Prefecture",
           isImageSample: true,
-          points: ["写真は新玉川温泉の外観。夏と冬で運行時刻・経路が異なる", "冬の最終バスに乗り遅れないよう注意"]
+          points: ["写真は新玉川温泉の外観。夏と冬で運行時刻・経路が異なる", "冬の最終バスに乗り遅れないよう注意"],
+          transitDetail: {
+            method: "バスを降りて宿へ",
+            route: "新玉川温泉または玉川温泉のバス停 → 宿泊先",
+            specs: ["玉川温泉泊の場合は夏季の玉川温泉行きの便を確認"]
+          }
         },
         {
           leadHeading: "宿泊先は新玉川温泉、夏は玉川温泉も選べる",
@@ -112,7 +117,12 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
                 "宿泊先を玉川温泉にする場合、玉川温泉行きのバスと帰りの便を確認"
               ]
             }
-          ]
+          ],
+          transitDetail: {
+            method: "湯めぐり便または徒歩",
+            route: "宿泊先 → 玉川温泉園地",
+            specs: ["新玉川温泉からは宿泊者向け湯めぐり便の運行を確認。玉川温泉からは園地へ徒歩", "園地への立ち寄りは季節や現地の通行状況による"]
+          }
         },
         {
           leadHeading: "時間と季節が合えば、源泉・大噴と天然岩盤浴へ",
@@ -166,7 +176,12 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
           image: photoShinExterior,
           imageCredit: "Akita Prefecture",
           isImageSample: true,
-          points: ["写真は新玉川温泉の外観", "冬の例：新玉川温泉11:10発、田沢湖駅前12:14着", "夏に玉川温泉から帰る例：11:00発、田沢湖駅前12:15着", "帰りの指定列車に余裕を持てる便を選び、運行日と宿のチェックアウト時刻を確認"]
+          points: ["写真は新玉川温泉の外観", "冬の例：新玉川温泉11:10発、田沢湖駅前12:14着", "夏に玉川温泉から帰る例：11:00発、田沢湖駅前12:15着", "帰りの指定列車に余裕を持てる便を選び、運行日と宿のチェックアウト時刻を確認"],
+          transitDetail: {
+            method: "路線バス",
+            route: "新玉川温泉または玉川温泉 → 田沢湖駅前",
+            specs: ["季節ごとの運行時刻を確認し、到着後に駅前・駅構内の食事場所へ"]
+          }
         },
         {
           leadHeading: "帰りのこまちの前に、駅前ランチか駅弁を選ぶ",
@@ -213,7 +228,8 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
           images: [photoSouvenirPot, photoSouvenirPickles],
           imageCredit: "Akita Prefecture",
           isImageSample: true,
-          points: ["写真はきりたんぽ鍋・いぶりがっこのイメージ。取扱商品は店舗で確認", "営業時間と帰りの列車を確認し、駅へ戻る時間を確保"]
+          points: ["写真はきりたんぽ鍋・いぶりがっこのイメージ。取扱商品は店舗で確認", "営業時間と帰りの列車を確認し、駅へ戻る時間を確保"],
+          transitDetail: { method: "徒歩約1分", route: "田沢湖市 → 田沢湖駅" }
         },
         {
           leadHeading: "こまちで東京へ",
