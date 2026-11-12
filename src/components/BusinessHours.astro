@@ -1,0 +1,40 @@
+---
+interface Props { id: string }
+const { id } = Astro.props;
+---
+<p class="business-hours" data-business-hours={id}>営業時間を確認しています。</p>
+<script>
+  interface StoreHours {
+    checkedAt: string;
+    hours: Record<string, string>;
+    note?: string;
+  }
+  for (const element of document.querySelectorAll<HTMLElement>('[data-business-hours]')) {
+    const id = element.dataset.businessHours;
+    fetch(`/data/store-hours/${encodeURIComponent(id || '')}.json`)
+      .then((response) => {
+        if (!response.ok) throw new Error('Store hours unavailable');
+        return response.json() as Promise<StoreHours>;
+      })
+      .then((data) => {
+        const checked = new Date(data.checkedAt);
+        if (!Number.isFinite(checked.getTime()) || Date.now() - checked.getTime() > 48 * 60 * 60 * 1000) throw new Error('Store hours are stale');
+        const values = Object.values(data.hours);
+        if (!values.length || values.some((value) => !value)) throw new Error('Store hours are incomplete');
+        const hours = values.every((value) => value === values[0])
+          ? `営業時間 ${values[0]}`
+          : Object.entries(data.hours).map(([label, value]) => `${label} ${value}`).join(' ／ ');
+        const hasBreak = values.some((value) => {
+          const ranges = [...value.matchAll(/(\d{1,2}:\d{2})\s*[～〜~\-–]\s*(\d{1,2}:\d{2})/g)];
+          const minuteOfDay = (time: string) => { const [hour, minute] = time.split(':').map(Number); return hour * 60 + minute; };
+          return ranges.some((range, index) => index > 0 && minuteOfDay(range[1]) > minuteOfDay(ranges[index - 1][2]));
+        });
+        const updated = new Intl.DateTimeFormat('ja-JP', { timeZone: 'Asia/Tokyo', dateStyle: 'medium' }).format(checked);
+        element.textContent = `${hours}${hasBreak ? '（途中休業あり）' : ''}${data.note ? `。${data.note}` : ''}（${updated}確認）`;
+      })
+      .catch(() => { element.textContent = '営業時間は公式店舗ページをご確認ください。'; });
+  }
+</script>
+<style>
+  .business-hours { margin: 8px 0; font-size: .9rem; line-height: 1.6; }
+</style>
