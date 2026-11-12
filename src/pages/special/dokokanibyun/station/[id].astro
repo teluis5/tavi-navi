@@ -24,12 +24,33 @@ const description = `${station.name}駅からの旅を計画。${station.highlig
       <p>{station.highlight}</p>
     </header>
 
+    {station.id === 'tazawako' ? <section class="section courses">
+      <h2>田沢湖駅からの1泊2日コース</h2>
+      <p>確定したこまちとバスの接続を確認して、行き先を選びましょう。</p>
+      <a href="/akita/dokokanibyun-shintamagawa-onsen/"><img src="/thumbnails/akita-course-shintamagawa-v1.png" alt="新玉川温泉コース" loading="lazy" /><strong>朝一番の出発枠なら 新玉川温泉</strong><span>東京発6:00〜9:00枠が候補。列車とバスの接続を確認。夏は玉川温泉泊も選べます。</span></a>
+      <a href="/akita/dokokanibyun-tazawako-no-car/"><img src="/thumbnails/akita-course-lake-v1.png" alt="田沢湖散策コース" loading="lazy" /><strong>田沢湖を散策する</strong><span>湖畔やたつこ像を巡る。到着後に乗れるバスと滞在時間を確認。</span></a>
+      <a href="/akita/dokokanibyun-nyuto-onsen-yumeguri/"><img src="/thumbnails/akita-course-onsen-v1.png" alt="乳頭温泉郷の湯めぐりコース" loading="lazy" /><strong>乳頭温泉郷で湯めぐり</strong><span>日帰り入浴の受付時間に合わせて1日1軒を選ぶ。鶴の湯は列車の条件も確認。</span></a>
+      <p><a href="/akita/dynamic-rail-tazawako-no-car/">乗りたい列車を選ぶなら、ダイナミックレールパックのコースへ →</a></p>
+    </section> : <section class="section">
+      <h2>出発時間から旅を考える</h2>
+      <p><strong>朝早い列車が取れたら</strong><br />到着後の交通を確認して、{station.bestSpot}へ足を延ばしましょう。</p>
+      <p><strong>それ以外の列車なら</strong><br />到着時刻に合わせて駅周辺の食事や散策から始め、遠方の観光は翌日も含めて計画しましょう。</p>
+      <p class="note">列車の到着時刻、現地の運行日・営業時間を確認してください。</p>
+    </section>}
+
     <section class="section">
       <p class="eyebrow">HIGHLIGHTS</p>
       <h2>{station.name}駅からの見どころ</h2>
       <p class="spot">{station.bestSpot}</p>
       <p class="note">観光地によって駅からの距離や交通手段は異なります。営業時間や移動方法を事前にご確認ください。</p>
     </section>
+
+    {station.id === 'tazawako' && <section class="section">
+      <h2>駅からのバスと帰りの立ち寄り</h2>
+      <p>田沢湖畔へは田沢湖一周線、乳頭温泉郷へは乳頭線、新玉川温泉へは玉川温泉方面のバスを利用します。季節や運行日によって便が変わるため、各コースの時刻表と乗り継ぎを確認してください。</p>
+      <p>帰りは駅前のそば五郎で昼食、駅前物産館「田沢湖市」でお土産を。時間が短いときはNewDaysで花善の鶏めしを選べます。昼の休業時間と在庫を確認し、取り置きは3日前を目安に店舗へ電話で相談してください。</p>
+      <p><a href="/akita/dokokanibyun-tazawako-no-car/">駅前ランチとお土産の詳細を見る →</a></p>
+    </section>}
 
     <section class="section travel">
       <p class="eyebrow">TRAVEL TIPS</p>
@@ -64,6 +85,9 @@ const description = `${station.name}駅からの旅を計画。${station.highlig
   .hero h1 small { font-size: 18px; }
   .hero > p:last-child { margin: 0; font-size: 15px; line-height: 1.8; }
   .section { margin-top: 40px; }
+  .courses > a { display: grid; grid-template-columns: 120px 1fr; column-gap: 16px; margin: 16px 0; color: var(--line-color); text-decoration: none; }
+  .courses > a img { grid-row: span 2; width: 120px; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 8px; }
+  .courses > a span { color: #526676; font-size: 13px; line-height: 1.6; }
   .section h2, .nearby h2 { margin: 0 0 16px; font-size: 20px; line-height: 1.3; }
   .section p:not(.eyebrow) { font-size: 15px; line-height: 1.8; }
   .spot { margin: 0; padding: 16px; background: #f2f6f7; border-radius: 8px; font-weight: 700; }

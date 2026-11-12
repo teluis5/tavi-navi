@@ -25,6 +25,7 @@ import photoShinExterior from '../blog/tazawako-shared/shintamagawa-exterior.jpg
 import photoShinBath from '../blog/tazawako-shared/shintamagawa-bath.jpg';
 import photoTamagawaSteam from '../blog/tazawako-shared/tamagawa-geothermal.jpg';
 import photoTamagawaRocks from '../blog/tazawako-shared/tamagawa-bedrock.jpg';
+import photoTamagawaRyokan from '../blog/tazawako-shared/tamagawa-ryokan.jpg';
 
 
 import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
@@ -32,6 +33,8 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
 どこかにビューーン！で東京発の最も早い時間帯、6:00〜9:00を選ぶと、こまちと路線バスを乗り継いで新玉川温泉へ行けます。日本一の強酸性とされる源泉の湯や、湯治文化に触れられます。列車確定後に接続と宿の空室を確認しましょう。
 
 この記事は羽後交通と温泉施設の公式情報をもとにした行程案です（2026年11月12日確認）。列車・バスの時刻と営業状況は出発前に確認してください。
+
+夏の営業期間なら、姉妹館の玉川温泉にも宿泊できます。新玉川温泉の宿泊者は、玉川温泉の日帰り入浴も楽しめます。
 
 ## 新玉川温泉に泊まる1泊2日コース
 
@@ -78,20 +81,37 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
           points: ["写真は新玉川温泉の外観。夏と冬で運行時刻・経路が異なる", "冬の最終バスに乗り遅れないよう注意"]
         },
         {
-          leadHeading: "新玉川温泉の湯を楽しむ",
-          areaLabel: "新玉川温泉",
-          title: "新玉川温泉に宿泊",
-          categoryLabel: "温泉旅館",
-          imageLayout: "pip",
-          images: [
-            { image: photoShinBath, caption: "新玉川温泉の浴場" },
-            { image: photoShinExterior, caption: "新玉川温泉の外観" }
-          ],
-          imageCredit: "Akita Prefecture",
-          points: [
-            "古くから湯治客が訪れる玉川温泉の源泉を引く宿。強酸性の湯を楽しむ",
-            "フロントで玉川温泉の湯めぐり入浴券と無料送迎便を確認",
-            "入浴方法と体調に応じた注意事項を施設で確認。空室も事前確認"
+          leadHeading: "宿泊先は新玉川温泉、夏は玉川温泉も選べる",
+          areaLabel: "玉川温泉・新玉川温泉",
+          title: "宿泊先を選ぶ",
+          alternatives: [
+            {
+              alternativeLabel: "新玉川温泉",
+              title: "新玉川温泉に宿泊",
+              categoryLabel: "温泉旅館",
+              imageLayout: "pip",
+              images: [
+                { image: photoShinBath, caption: "新玉川温泉の浴場" },
+                { image: photoShinExterior, caption: "新玉川温泉の外観" }
+              ],
+              imageCredit: "Akita Prefecture",
+              points: [
+                "玉川温泉の源泉を引く宿。強酸性の湯や宿泊者限定の屋内岩盤浴を楽しむ",
+                "夏の営業期間は姉妹館の玉川温泉にも入浴可能。フロントで入浴券と無料送迎便を確認"
+              ]
+            },
+            {
+              alternativeLabel: "玉川温泉（夏）",
+              title: "玉川温泉に宿泊",
+              categoryLabel: "温泉旅館",
+              image: photoTamagawaRyokan,
+              imageCredit: "Akita Prefecture",
+              points: [
+                "自然研究路・大噴や天然岩盤浴に近い、昔ながらの湯治宿",
+                "夏の営業期間は宿泊可能。冬期は休館のため営業日と空室を事前確認",
+                "宿泊先を玉川温泉にする場合、玉川温泉行きのバスと帰りの便を確認"
+              ]
+            }
           ]
         },
         {
@@ -115,11 +135,11 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
           transitDetail: {
             method: "宿泊者向け湯めぐり便（無料）または路線バス（有料）",
             route: "新玉川温泉 ⇔ 玉川温泉（園地）",
-            specs: ["フロントで入浴券とバスの利用条件・往復時刻を確認", "チェックイン後、夕食や翌日の帰路に余裕がある場合に利用", "立入禁止区域には入らず、火山ガスや天候に関する現地案内に従う"]
+            specs: ["新玉川温泉に宿泊する場合はフロントで入浴券と送迎便の往復時刻を確認", "玉川温泉に宿泊する場合は園地へ直接向かう", "夕食や翌日の帰路に余裕がある場合に利用", "立入禁止区域には入らず、火山ガスや天候に関する現地案内に従う"]
           }
         },
         {
-          leadHeading: "宿泊者限定の屋内岩盤浴でゆっくり",
+          leadHeading: "新玉川温泉に泊まるなら館内の岩盤浴も",
           areaLabel: "新玉川温泉館内",
           title: "新玉川温泉の屋内岩盤浴",
           categoryLabel: "岩盤浴",
@@ -127,7 +147,7 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
           imageCredit: "Akita Prefecture",
           isImageSample: true,
           points: [
-            "天候に左右されない屋内岩盤浴。宿泊者限定・到着後にフロントで予約",
+            "新玉川温泉の宿泊者限定。到着後にフロントで予約",
             "7:00〜20:50、一般利用料800円。作務衣・タオルは別料金",
             "写真は新玉川温泉の浴場。岩盤浴室ではありません"
           ]
@@ -136,17 +156,17 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
     },
     {
       dayNumber: 2,
-      title: "新玉川温泉 ➔ 田沢湖市 ➔ こまちで帰路",
+      title: "宿泊先 ➔ 田沢湖市 ➔ こまちで帰路",
       steps: [
         {
           leadHeading: "朝の温泉を楽しみ、路線バスで駅へ",
-          areaLabel: "新玉川温泉 ➔ 田沢湖駅前",
-          title: "新玉川温泉を出発",
+          areaLabel: "宿泊先 ➔ 田沢湖駅前",
+          title: "宿泊先を出発",
           categoryLabel: "路線バス",
           image: photoShinExterior,
           imageCredit: "Akita Prefecture",
           isImageSample: true,
-          points: ["写真は新玉川温泉の外観", "冬の例：新玉川温泉11:10発、田沢湖駅前12:14着", "帰りの指定列車に余裕を持てる便を選び、運行日と宿のチェックアウト時刻を確認"]
+          points: ["写真は新玉川温泉の外観", "冬の例：新玉川温泉11:10発、田沢湖駅前12:14着", "夏に玉川温泉から帰る例：11:00発、田沢湖駅前12:15着", "帰りの指定列車に余裕を持てる便を選び、運行日と宿のチェックアウト時刻を確認"]
         },
         {
           leadHeading: "帰りのこまちの前に、駅前ランチか駅弁を選ぶ",

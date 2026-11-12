@@ -1,0 +1,132 @@
+{
+  "schemaVersion": "2.0",
+  "assetId": "akita_1385",
+  "provider": {
+    "id": "akita_tourism_federation",
+    "nameJa": "一般社団法人 秋田県観光連盟",
+    "nameEn": "Akita Prefecture Tourism Federation",
+    "libraryName": "あきたファン フォトギャラリー",
+    "sourceUrl": "https://akita-fun.jp/photo_gallery"
+  },
+  "subject": {
+    "photoId": "1385",
+    "titleJa": "秋色に染まる玉川温泉の全景",
+    "titleEn": "Panoramic Autumn View of Tamagawa Onsen in Akita",
+    "prefecture": "秋田県",
+    "city": "仙北市",
+    "cityEn": "仙北 City",
+    "season": "autumn",
+    "genre": "温泉・宿泊施設",
+    "rawTitleJa": "05玉川温泉",
+    "months": [
+      10
+    ],
+    "seasonalHighlight": "autumn_leaves",
+    "sceneType": "onsen",
+    "environment": "outdoor",
+    "primaryEntities": [
+      "玉川温泉",
+      "紅葉の山々",
+      "大噴（源泉地帯）",
+      "温泉宿泊棟"
+    ],
+    "tags": [
+      "玉川温泉",
+      "秋田県",
+      "仙北市",
+      "八幡平",
+      "紅葉",
+      "温泉宿",
+      "湯治場",
+      "源泉",
+      "絶景"
+    ],
+    "tagsEn": [
+      "Tamagawa Onsen",
+      "Akita",
+      "autumn leaves",
+      "hot spring resort",
+      "geothermal",
+      "nature"
+    ]
+  },
+  "specs": {
+    "width": 5184,
+    "height": 3456,
+    "orientation": "landscape",
+    "aspectRatio": "3:2",
+    "fileSizeBytes": 19444759,
+    "sha256": "7a8132c39b61b2b613bd4c0c4a1f31949262c03217b3c206860e6e5c2beeb632",
+    "filename": "05玉川温泉.jpg",
+    "originalFilename": "05玉川温泉.jpg"
+  },
+  "policy": {
+    "commercialUse": true,
+    "purposeConstraint": "tourism_pr_only",
+    "allowedProjects": [
+      "tavi-navi",
+      "DeepJapan",
+      "teluis",
+      "yomilee"
+    ],
+    "creditRequired": true,
+    "maxPerArticle": null,
+    "modification": "crop_and_resize_only",
+    "redistributionAllowed": false
+  },
+  "i18n": {
+    "ja": {
+      "alt": "秋色に染まる玉川温泉の全景（秋田県）- 澄み渡る秋空の下、鮮やかな紅葉の山々に包まれた玉川温泉。湯けむり立ち上る荒涼とした地獄地帯と錦秋のコントラストが圧巻の景観を描き出します。",
+      "caption": "澄み渡る秋空の下、鮮やかな紅葉の山々に包まれた玉川温泉。湯けむり立ち上る荒涼とした地獄地帯と錦秋のコントラストが圧巻の景観を描き出します。（写真提供：一般社団法人 秋田県観光連盟「あきたファン」）",
+      "credit": "写真提供：一般社団法人 秋田県観光連盟「あきたファン」"
+    },
+    "en": {
+      "alt": "Panoramic Autumn View of Tamagawa Onsen in Akita - A stunning panoramic view of Tamagawa Onsen nestled in colorful autumn mountains, where rising geothermal steam meets a vibrant forest under a crisp blue sky.",
+      "caption": "A stunning panoramic view of Tamagawa Onsen nestled in colorful autumn mountains, where rising geothermal steam meets a vibrant forest under a crisp blue sky. (Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun))",
+      "credit": "Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun)"
+    }
+  },
+  "downloadedAt": "2026-11-09T19:11:29+0900",
+  "aiProxy": {
+    "path": "ai_thumbs/05玉川温泉.webp",
+    "format": "webp",
+    "width": 768,
+    "height": 512,
+    "fileSizeBytes": 75792,
+    "targetMaxTokens": 258
+  },
+  "visual": {
+    "schemaSubVersion": "2.1",
+    "descriptionJa": "澄み渡る秋空の下、鮮やかな紅葉の山々に包まれた玉川温泉。湯けむり立ち上る荒涼とした地獄地帯と錦秋のコントラストが圧巻の景観を描き出します。",
+    "descriptionEn": "A stunning panoramic view of Tamagawa Onsen nestled in colorful autumn mountains, where rising geothermal steam meets a vibrant forest under a crisp blue sky.",
+    "timeOfDay": "daytime",
+    "weather": "sunny",
+    "composition": "wide_landscape",
+    "focalPosition": "center",
+    "textSafeArea": [
+      "top"
+    ],
+    "satoriTemplate": "bottom_slim",
+    "hasPeople": false,
+    "peopleStyle": "none",
+    "dominantColor": "blue",
+    "mood": [
+      "majestic",
+      "serene"
+    ],
+    "appealScore": 5,
+    "bestRole": "hero",
+    "isHeroReady": true,
+    "suitableFor": [
+      "solo",
+      "couple",
+      "senior",
+      "inbound"
+    ],
+    "bestFor": [
+      "秋の八幡平・玉川温泉特集のメインアイキャッチ",
+      "東北屈指の名湯と紅葉を巡るモデルコース",
+      "効能豊かな日本の秘湯・湯治場ガイド"
+    ]
+  }
+}
