@@ -33,13 +33,11 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
 
 <TrainCondition text="どこかにビューーン！は東京発6:00〜9:00の枠を選び、指定されたこまちが新玉川温泉行きバスに接続するか確認してください。帰りも駅に戻るバスに間に合う列車が必要です。" />
 
-どこかにビューーン！で東京発の最も早い時間帯、6:00〜9:00を選ぶと、こまちと路線バスを乗り継いで新玉川温泉へ行けます。日本一の強酸性とされる源泉の湯や、湯治文化に触れられます。列車確定後に接続と宿の空室を確認しましょう。
+東京発6:00〜9:00の枠なら、こまちとバスを乗り継いで新玉川温泉へ。強酸性の湯と湯治文化を楽しむ1泊2日です。
 
-この記事は羽後交通と温泉施設の公式情報をもとにした行程案です（2026年11月12日確認）。列車・バスの時刻と営業状況は出発前に確認してください。
+夏は姉妹館の玉川温泉への宿泊や、新玉川温泉からの湯めぐりも選べます。行程は羽後交通と温泉施設の公式情報をもとにしています（2026年11月12日確認）。
 
-夏の営業期間なら、姉妹館の玉川温泉にも宿泊できます。新玉川温泉の宿泊者は、玉川温泉の日帰り入浴も楽しめます。
-
-## 新玉川温泉に泊まる1泊2日コース
+## 新玉川温泉を楽しむ1泊2日の旅程
 
 <TravelTimeline
   days={[
@@ -50,7 +48,7 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
         {
           leadHeading: "東京からこまちで田沢湖駅へ",
           areaLabel: "東京駅 ➔ 田沢湖駅",
-          title: "秋田新幹線こまち", links: [{ label: "JRの時刻表", href: "https://timetables.jreast.co.jp/2611/train/030/033833.html" }],
+          title: "秋田新幹線こまち",
           categoryLabel: "新幹線",
           image: photoKomachiOutbound,
           imageCredit: "Akita Prefecture",
@@ -63,21 +61,26 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
             method: "こまち → 田沢湖駅前から新玉川温泉行きバス",
             route: "東京駅 → 田沢湖駅 → 新玉川温泉または玉川温泉",
             links: [
+              { label: "JRの時刻表", href: "https://timetables.jreast.co.jp/2611/train/030/033833.html" },
               { label: "夏の玉川線", href: "https://shuhokubus-gr.sakura.ne.jp/local/202604/kazuno_1kankourosen.html" },
               { label: "冬の新玉川線", href: "https://tazawako-kakunodate.com/wp-content/uploads/2026/10/%E6%96%B0%E7%8E%89%E5%B7%9D%E7%B7%9A.pdf" },
               { label: "宿の交通案内", href: "https://www.shintamagawa.jp/access/" }
             ],
             specs: [
-              "以下は2026年11月の東京発・田沢湖着の列車時刻例。最新の時刻と運行日を確認",
-              "こまち1号 6:32 → 9:21",
-              "こまち51号（臨時）6:56 → 9:43",
-              "こまち3号 7:32 → 10:25",
-              "こまち7号 8:37 → 11:28",
-              "参考：こまち9号 9:08 → 11:59",
-              "バスは下の時刻表で旅行日を選び、列車から乗り継げる便を確認",
-              "夏と冬でバスの経路・時刻が異なります。冬は一般車両の通行規制があり、最終バスに注意",
+              "列車とバスの接続を確認。冬は一般車両の通行規制があり、最終バスに注意",
               "玉川温泉泊の場合は夏季の玉川温泉行きの便を確認"
-            ]
+            ],
+            schedule: {
+              title: "東京発6:00〜9:00のこまち時刻例を見る",
+              entries: [
+                "2026年11月の東京発 → 田沢湖着。最新の時刻と運行日を確認",
+                "こまち1号 6:32 → 9:21",
+                "こまち51号（臨時）6:56 → 9:43",
+                "こまち3号 7:32 → 10:25",
+                "こまち7号 8:37 → 11:28",
+                "参考：こまち9号 9:08 → 11:59"
+              ]
+            }
           }
         },
         {
@@ -116,13 +119,14 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
           transitDetail: {
             method: "湯めぐり便または徒歩",
             route: "宿泊先 → 玉川温泉園地",
-            specs: ["新玉川温泉からは宿泊者向け湯めぐり便の運行を確認。玉川温泉からは園地へ徒歩", "園地への立ち寄りは季節や現地の通行状況による"]
+            specs: ["新玉川温泉からは宿泊者向け湯めぐり便の運行を確認。玉川温泉からは園地へ徒歩", "園地への立ち寄りは季節や現地の通行状況による"],
+            links: [{ label: "湯めぐり号のダイヤはこちら", href: "https://www.shintamagawa.jp/access/" }]
           }
         },
         {
           leadHeading: "時間と季節が合えば、源泉・大噴と天然岩盤浴へ",
           areaLabel: "玉川温泉園地（新玉川温泉とは別の場所）",
-          title: "大噴・自然研究路と天然岩盤浴", links: [{ label: "天然岩盤浴・大噴の案内", href: "https://www.shintamagawa.jp/hot_stoned_bath/" }, { label: "湯めぐり便の交通案内", href: "https://www.shintamagawa.jp/access/" }],
+          title: "大噴・自然研究路と天然岩盤浴", links: [{ label: "天然岩盤浴・大噴の案内", href: "https://www.shintamagawa.jp/hot_stoned_bath/" }],
           categoryLabel: "季節限定の立ち寄り",
           imageLayout: "grid-2",
           images: [
@@ -140,7 +144,8 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
           transitDetail: {
             method: "宿泊者向け湯めぐり便（無料）または路線バス（有料）",
             route: "新玉川温泉 ⇔ 玉川温泉（園地）",
-            specs: ["新玉川温泉に宿泊する場合はフロントで入浴券と送迎便の往復時刻を確認", "玉川温泉に宿泊する場合は園地へ直接向かう", "夕食や翌日の帰路に余裕がある場合に利用", "立入禁止区域には入らず、火山ガスや天候に関する現地案内に従う"]
+            specs: ["新玉川温泉に宿泊する場合はフロントで入浴券と送迎便の往復時刻を確認", "玉川温泉に宿泊する場合は園地へ直接向かう", "夕食や翌日の帰路に余裕がある場合に利用", "立入禁止区域には入らず、火山ガスや天候に関する現地案内に従う"],
+            links: [{ label: "湯めぐり号のダイヤはこちら", href: "https://www.shintamagawa.jp/access/" }]
           }
         },
         {
