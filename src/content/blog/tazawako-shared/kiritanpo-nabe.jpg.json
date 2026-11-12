@@ -1,0 +1,138 @@
+{
+  "schemaVersion": "2.0",
+  "assetId": "akita_local_03きりたんぽ鍋",
+  "provider": {
+    "id": "akita_tourism_federation",
+    "nameJa": "一般社団法人 秋田県観光連盟",
+    "nameEn": "Akita Prefecture Tourism Federation",
+    "libraryName": "あきたファン フォトギャラリー",
+    "sourceUrl": "https://akita-fun.jp/photo_gallery"
+  },
+  "subject": {
+    "photoId": "local_03きりたんぽ鍋",
+    "titleJa": "本場秋田の熱々きりたんぽ鍋",
+    "titleEn": "Authentic Kiritanpo Hot Pot of Akita",
+    "prefecture": "秋田県",
+    "city": "秋田県",
+    "cityEn": "秋田県",
+    "season": "winter",
+    "genre": "",
+    "rawTitleJa": "03きりたんぽ鍋",
+    "months": [
+      10,
+      11,
+      12,
+      1,
+      2,
+      3
+    ],
+    "seasonalHighlight": "none",
+    "sceneType": "gourmet",
+    "environment": "indoor",
+    "primaryEntities": [
+      "きりたんぽ鍋",
+      "比内地鶏",
+      "セリ",
+      "舞茸"
+    ],
+    "tags": [
+      "きりたんぽ鍋",
+      "秋田グルメ",
+      "郷土料理",
+      "比内地鶏",
+      "ご当地鍋",
+      "冬の味覚",
+      "鍋料理",
+      "伝統料理"
+    ],
+    "tagsEn": [
+      "Kiritanpo",
+      "Akita hot pot",
+      "local cuisine",
+      "Hinai jidori chicken",
+      "winter gourmet",
+      "traditional Japanese food"
+    ]
+  },
+  "specs": {
+    "width": 4368,
+    "height": 2912,
+    "orientation": "landscape",
+    "aspectRatio": "3:2",
+    "fileSizeBytes": 6031193,
+    "sha256": "d4cdd450c68c28722be27e471850a7d711c66dfb370d86a051d3b701b0ddb525",
+    "filename": "kiritanpo-nabe.jpg",
+    "originalFilename": "03きりたんぽ鍋.jpg"
+  },
+  "policy": {
+    "commercialUse": true,
+    "purposeConstraint": "tourism_pr_only",
+    "allowedProjects": [
+      "tavi-navi",
+      "DeepJapan",
+      "teluis",
+      "yomilee"
+    ],
+    "creditRequired": true,
+    "maxPerArticle": null,
+    "modification": "crop_and_resize_only",
+    "redistributionAllowed": false
+  },
+  "i18n": {
+    "ja": {
+      "alt": "本場秋田の熱々きりたんぽ鍋（秋田県）- 香ばしいきりたんぽと比内地鶏の旨味が凝縮された、湯気立ち上る秋田自慢の郷土鍋料理。",
+      "caption": "香ばしいきりたんぽと比内地鶏の旨味が凝縮された、湯気立ち上る秋田自慢の郷土鍋料理。（写真提供：一般社団法人 秋田県観光連盟「あきたファン」）",
+      "credit": "写真提供：一般社団法人 秋田県観光連盟「あきたファン」"
+    },
+    "en": {
+      "alt": "Authentic Kiritanpo Hot Pot of Akita - A steaming, flavorful Kiritanpo hot pot featuring local Hinai chicken, fresh herbs, and mushrooms—Akita's quintessential winter delicacy.",
+      "caption": "A steaming, flavorful Kiritanpo hot pot featuring local Hinai chicken, fresh herbs, and mushrooms—Akita's quintessential winter delicacy. (Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun))",
+      "credit": "Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun)"
+    }
+  },
+  "downloadedAt": "2026-11-09T18:21:39+0900",
+  "aiProxy": {
+    "path": "ai_thumbs/03きりたんぽ鍋.webp",
+    "format": "webp",
+    "width": 768,
+    "height": 512,
+    "fileSizeBytes": 63186,
+    "targetMaxTokens": 258
+  },
+  "visual": {
+    "schemaSubVersion": "2.1",
+    "descriptionJa": "香ばしいきりたんぽと比内地鶏の旨味が凝縮された、湯気立ち上る秋田自慢の郷土鍋料理。",
+    "descriptionEn": "A steaming, flavorful Kiritanpo hot pot featuring local Hinai chicken, fresh herbs, and mushrooms—Akita's quintessential winter delicacy.",
+    "timeOfDay": "indoor",
+    "weather": "indoor",
+    "composition": "medium",
+    "focalPosition": "center",
+    "textSafeArea": [
+      "top",
+      "bottom"
+    ],
+    "satoriTemplate": "travel_model_course",
+    "hasPeople": false,
+    "peopleStyle": "none",
+    "dominantColor": "warm",
+    "mood": [
+      "appetizing",
+      "nostalgic"
+    ],
+    "appealScore": 5,
+    "bestRole": "hero",
+    "isHeroReady": true,
+    "suitableFor": [
+      "solo",
+      "couple",
+      "family",
+      "senior",
+      "inbound"
+    ],
+    "bestFor": [
+      "秋田のご当地グルメ特集",
+      "冬のあったか郷土鍋ガイド",
+      "比内地鶏と新米グルメの旅"
+    ]
+  }
+}

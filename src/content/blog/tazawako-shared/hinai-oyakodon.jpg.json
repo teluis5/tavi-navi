@@ -1,0 +1,145 @@
+{
+  "schemaVersion": "2.0",
+  "assetId": "akita_443",
+  "provider": {
+    "id": "akita_tourism_federation",
+    "nameJa": "一般社団法人 秋田県観光連盟",
+    "nameEn": "Akita Prefecture Tourism Federation",
+    "libraryName": "あきたファン フォトギャラリー",
+    "sourceUrl": "https://akita-fun.jp/photo_gallery"
+  },
+  "subject": {
+    "photoId": "443",
+    "titleJa": "秋田名物 比内地鶏の親子丼",
+    "titleEn": "Hinai-jidori Chicken and Egg Rice Bowl (Oyakodon)",
+    "prefecture": "秋田県",
+    "city": "大館市",
+    "cityEn": "大館 City",
+    "season": "all_year",
+    "genre": "食",
+    "rawTitleJa": "03比内地鶏親子丼",
+    "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "seasonalHighlight": "none",
+    "sceneType": "gourmet",
+    "environment": "indoor",
+    "primaryEntities": [
+      "比内地鶏の親子丼",
+      "丼鉢",
+      "半熟卵",
+      "地鶏肉"
+    ],
+    "tags": [
+      "比内地鶏",
+      "親子丼",
+      "秋田グルメ",
+      "大館市",
+      "ご当地グルメ",
+      "郷土料理",
+      "丼もの",
+      "鶏肉料理"
+    ],
+    "tagsEn": [
+      "Hinai-jidori",
+      "Oyakodon",
+      "Akita Gourmet",
+      "Odate",
+      "Chicken and Egg Bowl",
+      "Local Specialty"
+    ]
+  },
+  "specs": {
+    "width": 1378,
+    "height": 917,
+    "orientation": "landscape",
+    "aspectRatio": "1.5:1",
+    "fileSizeBytes": 3073589,
+    "sha256": "17b7ec2f0e178e028ea6cdf96d54eb75a207eb9602846010a33f1b8a09ce0e53",
+    "filename": "hinai-oyakodon.jpg",
+    "originalFilename": "03比内地鶏親子丼.jpg"
+  },
+  "policy": {
+    "commercialUse": true,
+    "purposeConstraint": "tourism_pr_only",
+    "allowedProjects": [
+      "tavi-navi",
+      "DeepJapan",
+      "teluis",
+      "yomilee"
+    ],
+    "creditRequired": true,
+    "maxPerArticle": null,
+    "modification": "crop_and_resize_only",
+    "redistributionAllowed": false
+  },
+  "i18n": {
+    "ja": {
+      "alt": "秋田名物 比内地鶏の親子丼（秋田県）- 秋田が誇るブランド地鶏「比内地鶏」を贅沢に使い、とろとろの半熟卵でふんわりとじた絶品親子丼。立ち上る湯気と旨味溢れる出汁の香りが食欲を刺激します。",
+      "caption": "秋田が誇るブランド地鶏「比内地鶏」を贅沢に使い、とろとろの半熟卵でふんわりとじた絶品親子丼。立ち上る湯気と旨味溢れる出汁の香りが食欲を刺激します。（写真提供：一般社団法人 秋田県観光連盟「あきたファン」）",
+      "credit": "写真提供：一般社団法人 秋田県観光連盟「あきたファン」"
+    },
+    "en": {
+      "alt": "Hinai-jidori Chicken and Egg Rice Bowl (Oyakodon) - A piping hot bowl of savory oyakodon made with premium Hinai-jidori chicken and fluffy soft-cooked eggs, representing the authentic flavors of Akita.",
+      "caption": "A piping hot bowl of savory oyakodon made with premium Hinai-jidori chicken and fluffy soft-cooked eggs, representing the authentic flavors of Akita. (Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun))",
+      "credit": "Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun)"
+    }
+  },
+  "downloadedAt": "2026-11-09T18:08:20+0900",
+  "aiProxy": {
+    "path": "ai_thumbs/03比内地鶏親子丼.webp",
+    "format": "webp",
+    "width": 768,
+    "height": 511,
+    "fileSizeBytes": 114048,
+    "targetMaxTokens": 258
+  },
+  "visual": {
+    "schemaSubVersion": "2.1",
+    "descriptionJa": "秋田が誇るブランド地鶏「比内地鶏」を贅沢に使い、とろとろの半熟卵でふんわりとじた絶品親子丼。立ち上る湯気と旨味溢れる出汁の香りが食欲を刺激します。",
+    "descriptionEn": "A piping hot bowl of savory oyakodon made with premium Hinai-jidori chicken and fluffy soft-cooked eggs, representing the authentic flavors of Akita.",
+    "timeOfDay": "indoor",
+    "weather": "indoor",
+    "composition": "close_up",
+    "focalPosition": "center",
+    "textSafeArea": [
+      "top",
+      "bottom",
+      "left"
+    ],
+    "satoriTemplate": "split_left",
+    "hasPeople": false,
+    "peopleStyle": "none",
+    "dominantColor": "warm",
+    "mood": [
+      "appetizing"
+    ],
+    "appealScore": 4,
+    "bestRole": "h2_main",
+    "isHeroReady": true,
+    "suitableFor": [
+      "solo",
+      "couple",
+      "family",
+      "senior",
+      "inbound"
+    ],
+    "bestFor": [
+      "秋田ご当地グルメ特集",
+      "比内地鶏の名店ガイド",
+      "大館・県北のランチ紹介",
+      "東北絶品どんぶりセレクション"
+    ]
+  }
+}
