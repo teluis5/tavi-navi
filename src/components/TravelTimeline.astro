@@ -56,6 +56,7 @@ export interface TimelineStep {
   points?: string[];      // 箇条書きポイント（最大2〜3行）
   links?: { label: string; href: string }[];
   businessHoursId?: string;
+  linksInList?: boolean;
   amenities?: SpotAmenity[]; // 設備情報
   transit?: string;       // 移動情報メイン（e.g. "徒歩 約8分"）
   transitRoute?: string;  // 移動区間・道のりイメージ（e.g. "サンビーチ海沿いデッキ → 熱海銀座アーケード"）
@@ -476,16 +477,16 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                                 )}
 
                                 <div class="wide-spot-body">
-                                  {((opt.points && opt.points.length > 0) || opt.businessHoursId) && (
+                                  {((opt.points && opt.points.length > 0) || opt.businessHoursId || (opt.linksInList && opt.links?.length)) && (
                                     <ul class="wide-points-list">
                                       {opt.points?.map((pt) => (
                                         <li>{pt}</li>
                                       ))}
                                       {opt.businessHoursId && <BusinessHours id={opt.businessHoursId} />}
-                                      {opt.businessHoursId && opt.links && <li>{opt.links.map((link, index) => <>{index > 0 && '（'}<a href={link.href}>{link.label}</a>{index > 0 && '）'}</>)}</li>}
+                                      {(opt.businessHoursId || opt.linksInList) && opt.links && <li>{opt.links.map((link, index) => <>{index > 0 && '（'}<a href={link.href}>{link.label}</a>{index > 0 && '）'}</>)}</li>}
                                     </ul>
                                   )}
-                                  {!opt.businessHoursId && opt.links && <p class="spot-links">{opt.links.map((link) => <a href={link.href}>{link.label}</a>)}</p>}
+                                  {!opt.businessHoursId && !opt.linksInList && opt.links && <p class="spot-links">{opt.links.map((link) => <a href={link.href}>{link.label}</a>)}</p>}
 
                                   {opt.amenities && opt.amenities.length > 0 && (
                                     <p class="wide-amenities-line">
@@ -560,16 +561,16 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                       </div>
 
                       <div class="wide-spot-body">
-                        {(step.points || step.businessHoursId) && (
+                        {(step.points || step.businessHoursId || (step.linksInList && step.links?.length)) && (
                           <ul class="wide-points-list">
                             {step.points?.map((pt) => (
                               <li>{pt}</li>
                             ))}
                             {step.businessHoursId && <BusinessHours id={step.businessHoursId} />}
-                            {step.businessHoursId && step.links && <li>{step.links.map((link, index) => <>{index > 0 && '（'}<a href={link.href}>{link.label}</a>{index > 0 && '）'}</>)}</li>}
+                            {(step.businessHoursId || step.linksInList) && step.links && <li>{step.links.map((link, index) => <>{index > 0 && '（'}<a href={link.href}>{link.label}</a>{index > 0 && '）'}</>)}</li>}
                           </ul>
                         )}
-                        {!step.businessHoursId && step.links && <p class="spot-links">{step.links.map((link) => <a href={link.href}>{link.label}</a>)}</p>}
+                        {!step.businessHoursId && !step.linksInList && step.links && <p class="spot-links">{step.links.map((link) => <a href={link.href}>{link.label}</a>)}</p>}
 
                         {resolveHotelBookingUrl(step) && (
                           <a
@@ -730,16 +731,16 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                         )}
 
                         <div class="wide-spot-body">
-                          {((step.points && step.points.length > 0) || step.businessHoursId) && (
+                          {((step.points && step.points.length > 0) || step.businessHoursId || (step.linksInList && step.links?.length)) && (
                             <ul class="wide-points-list">
                               {step.points?.map((pt) => (
                                 <li>{pt}</li>
                               ))}
                               {step.businessHoursId && <BusinessHours id={step.businessHoursId} />}
-                              {step.businessHoursId && step.links && <li>{step.links.map((link, index) => <>{index > 0 && '（'}<a href={link.href}>{link.label}</a>{index > 0 && '）'}</>)}</li>}
+                              {(step.businessHoursId || step.linksInList) && step.links && <li>{step.links.map((link, index) => <>{index > 0 && '（'}<a href={link.href}>{link.label}</a>{index > 0 && '）'}</>)}</li>}
                             </ul>
                           )}
-                          {!step.businessHoursId && step.links && <p class="spot-links">{step.links.map((link) => <a href={link.href}>{link.label}</a>)}</p>}
+                          {!step.businessHoursId && !step.linksInList && step.links && <p class="spot-links">{step.links.map((link) => <a href={link.href}>{link.label}</a>)}</p>}
 
                           {step.amenities && step.amenities.length > 0 && (
                             <p class="wide-amenities-line">
@@ -1794,14 +1795,27 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
     scroll-snap-align: start;
     box-sizing: border-box;
     opacity: 0.65;
-    transform: scale(0.985);
-    transform-origin: left top;
-    transition: opacity 0.25s ease, transform 0.25s ease;
+    transition: opacity 0.25s ease;
   }
 
   .carousel-slide-item.is-active-slide {
     opacity: 1;
-    transform: scale(1);
+  }
+
+  .carousel-slide-item .wide-spot-unit {
+    height: 100%;
+  }
+
+  .carousel-slide-item .wide-photo-container {
+    flex-shrink: 0;
+  }
+
+  .carousel-slide-item .wide-spot-body {
+    flex: 1;
+  }
+
+  .carousel-slide-item .wide-hotel-cta {
+    margin-top: auto;
   }
 
   .carousel-dots-row {
