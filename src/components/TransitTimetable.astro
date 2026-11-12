@@ -5,12 +5,11 @@ interface Props {
   feed?: string;
   direction?: 'outbound' | 'return' | 'both';
   destinations?: string[];
-  returnNote?: string;
 }
-const { destination = '乳頭蟹場温泉', origin = '田沢湖駅前', feed = 'ugokotsu-tazawako', direction = 'both', destinations = [], returnNote } = Astro.props;
+const { destination = '乳頭蟹場温泉', origin = '田沢湖駅前', feed = 'ugokotsu-tazawako', direction = 'both', destinations = [] } = Astro.props;
 const stationName = origin.replace(/前$/, '');
 ---
-<section class="timetable" data-timetable data-feed={feed} data-origin-name={origin} data-station-name={stationName} data-destination={destination} data-direction={direction} data-return-note={returnNote}>
+<section class="timetable" data-timetable data-feed={feed} data-origin-name={origin} data-station-name={stationName} data-destination={destination} data-direction={direction}>
   {destinations.length > 1 && <label class="stop-selector">利用する温泉のバス停 <select data-stop>{destinations.map((stop) => <option value={stop} selected={stop === destination}>{stop}</option>)}</select></label>}
   <div data-periods class="periods" aria-label="ダイヤの期間"></div>
   <p class="status" data-status role="status">バスの時刻表を読み込んでいます。</p>
@@ -130,7 +129,7 @@ const stationName = origin.replace(/前$/, '');
               if (heading === '帰り') {
                 const note = document.createElement('p');
                 note.className = 'connection-summary';
-                note.textContent = widget.dataset.returnNote || `最も早いバスの場合、${widget.dataset.stationName}を${formatMinutes(Math.min(...rows.map((r) => r.arrival)) + 10)}より前に出る列車には間に合いません。`;
+                note.textContent = `最も早いバスの場合でも、${widget.dataset.stationName}を${formatMinutes(Math.min(...rows.map((r) => r.arrival)) + 10)}より前に出る列車には間に合いません。`;
                 section.append(note);
               }
             }

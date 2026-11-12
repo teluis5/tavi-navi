@@ -63,7 +63,7 @@ export interface TimelineStep {
   transitSpecs?: string[];// 運行本数・高低差・運賃などの実用ディテール
   transitDetail?: TimelineTransitDetail;
   transitBadge?: string;
-  timetable?: { destination: string; destinations?: string[]; direction: 'outbound' | 'return' | 'both'; returnNote?: string };
+  timetable?: { destination: string; destinations?: string[]; direction: 'outbound' | 'return' | 'both' };
 
   // 横スワイプ候補（カルーセル）機能
   alternativeLabel?: string; // 短縮ラベル推奨（例: "海鮮丼", "静岡牛", "イタリアン"）
