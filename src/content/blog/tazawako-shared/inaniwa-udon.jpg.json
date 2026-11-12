@@ -1,0 +1,148 @@
+{
+  "schemaVersion": "2.0",
+  "assetId": "akita_253",
+  "provider": {
+    "id": "akita_tourism_federation",
+    "nameJa": "一般社団法人 秋田県観光連盟",
+    "nameEn": "Akita Prefecture Tourism Federation",
+    "libraryName": "あきたファン フォトギャラリー",
+    "sourceUrl": "https://akita-fun.jp/photo_gallery"
+  },
+  "subject": {
+    "photoId": "253",
+    "titleJa": "滑らかな喉ごしが際立つ秋田名物・稲庭うどん",
+    "titleEn": "Inaniwa Udon, Akita's Traditional Hand-stretched Noodles",
+    "prefecture": "秋田県",
+    "city": "湯沢市",
+    "cityEn": "湯沢 City",
+    "season": "all_year",
+    "genre": "食",
+    "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "sceneType": "gourmet",
+    "primaryEntities": [
+      "稲庭うどん",
+      "ざる",
+      "手綯いうどん"
+    ],
+    "tags": [
+      "稲庭うどん",
+      "秋田グルメ",
+      "ご当地麺",
+      "湯沢市",
+      "郷土料理",
+      "日本三大うどん",
+      "手綯い麺",
+      "ざるうどん",
+      "ご当地グルメ",
+      "うどん",
+      "名物料理",
+      "和食"
+    ],
+    "rawTitleJa": "01稲庭うどん",
+    "seasonalHighlight": "none",
+    "environment": "indoor",
+    "tagsEn": [
+      "Inaniwa Udon",
+      "Akita Gourmet",
+      "Japanese Noodles",
+      "Local Cuisine",
+      "Yuzawa",
+      "Traditional Food"
+    ]
+  },
+  "specs": {
+    "width": 4368,
+    "height": 2912,
+    "orientation": "landscape",
+    "aspectRatio": "3:2",
+    "fileSizeBytes": 4554893,
+    "sha256": "718d1582c7701249bf7a5349e7dc67b45f740f70d76586ab79ed97f67d1bd638",
+    "filename": "inaniwa-udon.jpg",
+    "originalFilename": "01稲庭うどん.jpg"
+  },
+  "policy": {
+    "commercialUse": true,
+    "purposeConstraint": "tourism_pr_only",
+    "allowedProjects": [
+      "tavi-navi",
+      "DeepJapan",
+      "teluis",
+      "yomilee"
+    ],
+    "creditRequired": true,
+    "maxPerArticle": null,
+    "modification": "crop_and_resize_only",
+    "redistributionAllowed": false
+  },
+  "i18n": {
+    "ja": {
+      "alt": "滑らかな喉ごしが際立つ秋田名物・稲庭うどん（秋田県）- 竹すだれの上に美しく盛られた、艶やかで透き通るような白さの稲庭うどん。手綯い製法ならではの滑らかな舌触りと上品な喉ごしが伝わります。",
+      "caption": "竹すだれの上に美しく盛られた、艶やかで透き通るような白さの稲庭うどん。手綯い製法ならではの滑らかな舌触りと上品な喉ごしが伝わります。（写真提供：一般社団法人 秋田県観光連盟「あきたファン」）",
+      "credit": "写真提供：一般社団法人 秋田県観光連盟「あきたファン」"
+    },
+    "en": {
+      "alt": "Inaniwa Udon, Akita's Traditional Hand-stretched Noodles - Freshly boiled Inaniwa udon noodles neatly served on a bamboo mat, showcasing their smooth texture, translucent gloss, and delicate craft.",
+      "caption": "Freshly boiled Inaniwa udon noodles neatly served on a bamboo mat, showcasing their smooth texture, translucent gloss, and delicate craft. (Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun))",
+      "credit": "Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun)"
+    }
+  },
+  "downloadedAt": "2026-11-09T19:15:19+0900",
+  "aiProxy": {
+    "path": "ai_thumbs/01稲庭うどん.webp",
+    "format": "webp",
+    "width": 768,
+    "height": 512,
+    "fileSizeBytes": 24826,
+    "targetMaxTokens": 258
+  },
+  "visual": {
+    "schemaSubVersion": "2.1",
+    "descriptionJa": "竹すだれの上に美しく盛られた、艶やかで透き通るような白さの稲庭うどん。手綯い製法ならではの滑らかな舌触りと上品な喉ごしが伝わります。",
+    "descriptionEn": "Freshly boiled Inaniwa udon noodles neatly served on a bamboo mat, showcasing their smooth texture, translucent gloss, and delicate craft.",
+    "timeOfDay": "indoor",
+    "weather": "indoor",
+    "composition": "close_up",
+    "focalPosition": "center",
+    "textSafeArea": [
+      "bottom",
+      "top"
+    ],
+    "satoriTemplate": "bottom_slim",
+    "hasPeople": false,
+    "peopleStyle": "none",
+    "dominantColor": "white",
+    "mood": [
+      "appetizing",
+      "serene",
+      "luxury"
+    ],
+    "appealScore": 4,
+    "bestRole": "h2_main",
+    "isHeroReady": false,
+    "suitableFor": [
+      "solo",
+      "couple",
+      "family",
+      "senior",
+      "inbound"
+    ],
+    "bestFor": [
+      "秋田の必食ご当地グルメ特集",
+      "日本三大うどん食べ比べ記事",
+      "湯沢市の伝統工芸・食文化ガイド"
+    ]
+  }
+}
