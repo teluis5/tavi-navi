@@ -10,6 +10,7 @@ tags: ["どこかにビューーン", "何日前", "予約", "いつ決まる", 
 ---
 import ProblemBox from '../../components/ProblemBox.astro';
 import ConclusionBox from '../../components/ConclusionBox.astro';
+import DokokaniDateSimulator from '../../components/DokokaniDateSimulator.astro';
 
 <ProblemBox>
   <ul>
@@ -24,6 +25,8 @@ import ConclusionBox from '../../components/ConclusionBox.astro';
 予約期間は行きの乗車日を基準に数えます。帰りは、行きの日を含めて7日間の範囲で設定できます。
 
 2026年11月12日に[JR東日本の公式FAQ](https://dokokani-eki-net.com/faq.html)と[商品案内](https://www.eki-net.com/top/product/shinkansen/e-dokokani.html)を確認しました。
+
+<DokokaniDateSimulator />
 
 ## どこかにビューーン！は何日前から予約できる？
 
@@ -53,6 +56,12 @@ import ConclusionBox from '../../components/ConclusionBox.astro';
 旅行期間は<b>行きの日を1日目として最大7日間</b>です。12月19日（土）に出発するなら、帰りの日の範囲は日帰りの12月19日から12月25日（金）までです。
 
 11月28日に12月19日出発・12月20日帰りを申し込む場合、帰りは申込日から22日先です。最長の12月25日帰りなら27日先になります。どの日程でも候補や席が用意されるとは限らず、実際に選べる日付・列車は申し込み画面で確認してください。
+
+### 実際にお試し画面で帰りの日を選んでみた
+
+2026年11月12日に[公式のお試しページ](https://dokokani-eki-net.com/dokokani/trial/index)を確認しました。行きを12月3日（21日先）に設定すると、帰りは12月9日（27日先）まで選択できました。
+
+<b>日付の選択画面を確認した結果</b>であり、候補駅や列車の空席、申し込みの成立は確認していません。画面の選択肢は確認時期や条件により変わるため、利用時にも確認してください。
 
 出典：[えきねっと・申込期間と旅行期間](https://www.eki-net.com/top/product/shinkansen/e-dokokani.html)
 

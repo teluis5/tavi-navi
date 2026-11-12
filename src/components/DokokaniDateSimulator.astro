@@ -1,0 +1,82 @@
+<section class="simulator" aria-labelledby="dokokani-simulator-title">
+  <p class="simulator-kicker">DATE SIMULATOR</p>
+  <h2 id="dokokani-simulator-title">出発日から予約日を調べる</h2>
+  <p class="simulator-intro">行きの新幹線に乗る日を選んでください。申し込み期間と帰りの日の範囲がわかります。</p>
+  <form class="simulator-form">
+    <label for="dokokani-departure">行きの乗車日</label>
+    <div class="simulator-controls">
+      <input id="dokokani-departure" name="departure" type="date" min="1900-01-22" max="9999-12-25" required />
+      <button type="submit">日程を確認</button>
+    </div>
+  </form>
+  <div class="simulator-result" aria-live="polite" hidden>
+    <p class="result-lead">行き <strong data-departure></strong> の場合</p>
+    <dl>
+      <div><dt>申し込み開始</dt><dd><strong data-opening></strong><span>0:00から</span></dd></div>
+      <div><dt>申し込み締切</dt><dd><strong data-closing></strong><span>23:59まで</span></dd></div>
+      <div><dt>帰りの日</dt><dd><strong data-return></strong><span>日帰りから、行きの日を含む7日間</span></dd></div>
+    </dl>
+    <p class="simulator-note">日付の計算結果です。候補駅や座席の有無は、公式サイトでご確認ください。</p>
+    <a class="official-link" href="https://dokokani-eki-net.com/dokokani/trial/index">公式のお試しページで検索する →</a>
+  </div>
+  <noscript><p class="simulator-note">日付の自動計算にはJavaScriptを有効にしてください。申し込みは行きの21日前から6日前まで、帰りは行きを含む7日間です。</p></noscript>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.simulator').forEach((simulator) => {
+    const form = simulator.querySelector<HTMLFormElement>('.simulator-form');
+    const input = simulator.querySelector<HTMLInputElement>('input[name="departure"]');
+    const result = simulator.querySelector<HTMLElement>('.simulator-result');
+    if (!form || !input || !result) return;
+
+    const dateFormat = new Intl.DateTimeFormat('ja-JP', {
+      timeZone: 'UTC', year: 'numeric', month: 'long', day: 'numeric', weekday: 'short',
+    });
+    const shiftDate = (date: Date, days: number) => {
+      const shifted = new Date(date.getTime());
+      shifted.setUTCDate(shifted.getUTCDate() + days);
+      return shifted;
+    };
+    const update = () => {
+      if (!input.value || !input.checkValidity()) { result.hidden = true; return; }
+      const departure = new Date(`${input.value}T00:00:00Z`);
+      if (Number.isNaN(departure.getTime())) { result.hidden = true; return; }
+      const display = (selector: string, text: string) => {
+        const target = result.querySelector<HTMLElement>(selector);
+        if (target) target.textContent = text;
+      };
+      const formattedDeparture = dateFormat.format(departure);
+      display('[data-departure]', formattedDeparture);
+      display('[data-opening]', dateFormat.format(shiftDate(departure, -21)));
+      display('[data-closing]', dateFormat.format(shiftDate(departure, -6)));
+      display('[data-return]', `${formattedDeparture} 〜 ${dateFormat.format(shiftDate(departure, 6))}`);
+      result.hidden = false;
+    };
+    input.addEventListener('input', update);
+    input.addEventListener('change', update);
+    form.addEventListener('submit', (event) => { event.preventDefault(); update(); });
+  });
+</script>
+
+<style>
+  .simulator { margin: 32px 0; padding: 24px; background: #edf6f8; border-radius: 12px; color: #193748; }
+  .simulator .simulator-kicker { margin: 0 0 8px; color: #126078; font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+  .simulator h2 { margin: 0 0 8px; padding: 0; border: 0; background: transparent; color: #153e50; font-size: 21px; line-height: 1.35; }
+  .simulator .simulator-intro { margin: 0 0 20px; color: #36515f; font-size: 14px; line-height: 1.7; }
+  .simulator-form label { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 700; }
+  .simulator-controls { display: flex; flex-wrap: wrap; gap: 8px; }
+  .simulator-controls input { flex: 1 1 160px; min-width: 0; min-height: 48px; padding: 8px 12px; border: 1px solid #91aab5; border-radius: 8px; background: white; color: #193748; font: inherit; box-sizing: border-box; }
+  .simulator-controls button { flex: 1 1 120px; min-height: 48px; padding: 8px 16px; border: 0; border-radius: 8px; background: #126078; color: white; font: inherit; font-weight: 700; cursor: pointer; }
+  .simulator-controls :is(input, button):focus-visible, .official-link:focus-visible { outline: 3px solid #193748; outline-offset: 2px; }
+  .simulator-result[hidden] { display: none; }
+  .simulator .result-lead { margin: 24px 0 12px; font-size: 14px; }
+  .simulator-result dl { margin: 0; }
+  .simulator-result dl div { padding: 12px 0; border-top: 1px solid #c7dce2; }
+  .simulator-result dt { color: #36515f; font-size: 13px; font-weight: 700; }
+  .simulator-result dd { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; margin: 4px 0 0; color: #193748; }
+  .simulator-result dd strong { font-size: 16px; line-height: 1.5; }
+  .simulator-result dd span { font-size: 12px; color: #36515f; }
+  .simulator .simulator-note { margin: 16px 0 0; color: #36515f; font-size: 12px; line-height: 1.7; }
+  .official-link { display: inline-block; margin-top: 12px; color: #125c75; font-size: 14px; font-weight: 700; }
+  @media (max-width: 380px) { .simulator { padding: 20px 16px; } }
+</style>
