@@ -15,7 +15,7 @@ tags: ["どこかにビューン", "田沢湖", "秋田", "秋田新幹線", "�
 ---
 import ConclusionBox from '../../components/ConclusionBox.astro';
 import TravelTimeline from '../../components/TravelTimeline.astro';
-import TransitTimetable from '../../components/TransitTimetable.astro';
+import TrainCondition from '../../components/TrainCondition.astro';
 import photoHanazen from '../blog/tazawako-shared/hanazen-torimeshi.jpg';
 import photoSoba from '../blog/tazawako-shared/akita-soba.jpg';
 
@@ -33,13 +33,13 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
 import photoKamenoiExterior from '../../assets/photos/akita/01亀の井ホテル　田沢湖.jpg';
 import photoKamenoiOpenAir from '../../assets/photos/akita/02亀の井ホテル　田沢湖.jpg';
 
+<TrainCondition text="1日目は予約した宿への最終バス・送迎に間に合うこまちを選びます。2日目は田沢湖から駅に戻るバスに接続できる帰りのこまちが必要です。" />
+
 どこかにビューーン！で田沢湖へ。1日目は宿に泊まり、2日目に観光停車付きバスで湖を一周します。帰りの列車に合わせてバスを選びましょう。
 
 この記事は羽後交通と温泉施設の公式情報をもとにした行程案です（2026年11月12日確認）。列車・バスの時刻と営業状況は出発前に確認してください。
 
 ## 1日目：こまちで田沢湖へ
-
-<TransitTimetable destination="潟尻" />
 
 <TravelTimeline
   days={[
@@ -230,6 +230,7 @@ import photoKamenoiOpenAir from '../../assets/photos/akita/02亀の井ホテル�
             "観光停車のある便と停車時間を旅行日の時刻表で確認",
             "駅へ戻る時刻と帰りのこまちの接続を確認"
           ],
+          timetable: { destination: "潟尻", direction: "both" },
           transitDetail: {
             method: "田沢湖一周線",
             route: "田沢湖駅前 ➔ 潟尻 ➔ 御座の石神社 ➔ 田沢湖駅前",

@@ -15,7 +15,7 @@ tags: ["どこかにビューン", "田沢湖", "秋田", "秋田新幹線", "�
 ---
 import ConclusionBox from '../../components/ConclusionBox.astro';
 import TravelTimeline from '../../components/TravelTimeline.astro';
-import TransitTimetable from '../../components/TransitTimetable.astro';
+import TrainCondition from '../../components/TrainCondition.astro';
 import photoHanazen from '../blog/tazawako-shared/hanazen-torimeshi.jpg';
 import photoSoba from '../blog/tazawako-shared/akita-soba.jpg';
 
@@ -32,6 +32,8 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
 import photoKamenoiExterior from '../../assets/photos/akita/01亀の井ホテル　田沢湖.jpg';
 import photoKamenoiOpenAir from '../../assets/photos/akita/02亀の井ホテル　田沢湖.jpg';
 
+<TrainCondition text="1日目は日帰り入浴の受付に間に合うこまちとバスが必要です。2日目は温泉から駅に戻るバスに接続できる帰りのこまちを確認してください。" />
+
 こまちで田沢湖へ。1日目と2日目にそれぞれ日帰り温泉を1軒ずつ選び、宿の温泉も楽しむコースです。
 
 この記事は羽後交通と温泉施設の公式情報をもとにした行程案です（2026年11月12日確認）。列車・バスの時刻と営業状況は出発前に確認してください。
@@ -43,8 +45,6 @@ import photoKamenoiOpenAir from '../../assets/photos/akita/02亀の井ホテル�
 口コミは宿泊を含む利用者の感想で、点数はニフティ温泉の2026年11月12日確認時点です。湯の色や混雑は日によって変わります。口コミの参考：[水沢温泉](https://onsen.nifty.com/tazawako-onsen/onsen000614/)、[鶴の湯](https://onsen.nifty.com/kakunodate-onsen/onsen000615/kuchikomi/)、[大釜温泉](https://onsen.nifty.com/kakunodate-onsen/onsen000620/kuchikomi/)、[AONI](https://www.tripadvisor.jp/Hotel_Review-g1022324-d1107066-Reviews-Cerulean_Resort_Aoni-Semboku_Akita_Prefecture_Tohoku.html)。
 
 **鶴の湯を選ぶ条件：** 2日目は10:00から入浴できます。アルパこまくさから鶴の湯までの送迎は日帰り利用の可否と往復時刻を施設に確認してください。帰りのバスと指定されたこまちに余裕を持って乗り継げる場合に選びましょう。
-
-<TransitTimetable destination="乳頭蟹場温泉" />
 
 <TravelTimeline
   days={[
@@ -60,6 +60,7 @@ import photoKamenoiOpenAir from '../../assets/photos/akita/02亀の井ホテル�
           image: photoKomachiOutbound,
           imageCredit: "Akita Prefecture",
           points: ["指定された到着時刻に合わせてバスを確認"],
+          timetable: { destination: "水沢温泉郷", direction: "outbound" },
           transitDetail: {
             method: "羽後交通・乳頭線",
             route: "田沢湖駅前 → 水沢温泉郷 → 選んだ日帰り温泉",
@@ -202,6 +203,7 @@ import photoKamenoiOpenAir from '../../assets/photos/akita/02亀の井ホテル�
               ]
             }
           ],
+          timetable: { destination: "乳頭蟹場温泉", destinations: ["アルパこまくさ", "妙乃湯温泉前", "乳頭蟹場温泉"], direction: "return" },
           transitDetail: {
             method: "羽後交通 乳頭線などで田沢湖駅へ",
             route: "選んだ温泉の最寄りバス停 ➔ 田沢湖駅前",

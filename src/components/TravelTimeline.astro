@@ -1,6 +1,7 @@
 ---
 import type { ImageMetadata } from 'astro';
 import SpotCard, { type SpotData, type SpotAmenity } from './SpotCard.astro';
+import TransitTimetable from './TransitTimetable.astro';
 import { buildRakutenTravelUrl } from '../utils/affiliate';
 
 export interface TimelineHotelData {
@@ -17,6 +18,7 @@ export interface TimelineTransitDetail {
   method: string;         // e.g. "湯〜遊〜バス 約12分"
   route?: string;         // e.g. "熱海銀座バス停 → サンビーチ前"
   specs?: string[];       // e.g. ["運行：1時間に3〜4本（約15〜20分間隔）", "運賃200円（交通系IC可）"]
+  links?: { label: string; href: string }[];
 }
 
 export interface TimelinePhotoItem {
@@ -58,6 +60,7 @@ export interface TimelineStep {
   transitSpecs?: string[];// 運行本数・高低差・運賃などの実用ディテール
   transitDetail?: TimelineTransitDetail;
   transitBadge?: string;
+  timetable?: { destination: string; destinations?: string[]; direction: 'outbound' | 'return' | 'both' };
 
   // 横スワイプ候補（カルーセル）機能
   alternativeLabel?: string; // 短縮ラベル推奨（例: "海鮮丼", "静岡牛", "イタリアン"）
@@ -785,6 +788,8 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                         ))}
                       </ul>
                     )}
+                    {step.transitDetail?.links && <p class="spot-links">{step.transitDetail.links.map((link) => <a href={link.href}>{link.label}</a>)}</p>}
+                    {step.timetable && <TransitTimetable {...step.timetable} />}
                   </div>
                 </div>
               )}

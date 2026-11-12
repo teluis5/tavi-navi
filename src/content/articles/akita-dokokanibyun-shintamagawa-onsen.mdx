@@ -15,7 +15,7 @@ tags: ["どこかにビューン", "田沢湖", "秋田", "秋田新幹線", "�
 ---
 import ConclusionBox from '../../components/ConclusionBox.astro';
 import TravelTimeline from '../../components/TravelTimeline.astro';
-import TransitTimetable from '../../components/TransitTimetable.astro';
+import TrainCondition from '../../components/TrainCondition.astro';
 import photoHanazen from '../blog/tazawako-shared/hanazen-torimeshi.jpg';
 import photoSoba from '../blog/tazawako-shared/akita-soba.jpg';
 
@@ -31,6 +31,8 @@ import photoTamagawaRyokan from '../blog/tazawako-shared/tamagawa-ryokan.jpg';
 
 import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
 
+<TrainCondition text="どこかにビューーン！は東京発6:00〜9:00の枠を選び、指定されたこまちが新玉川温泉行きバスに接続するか確認してください。帰りも駅に戻るバスに間に合う列車が必要です。" />
+
 どこかにビューーン！で東京発の最も早い時間帯、6:00〜9:00を選ぶと、こまちと路線バスを乗り継いで新玉川温泉へ行けます。日本一の強酸性とされる源泉の湯や、湯治文化に触れられます。列車確定後に接続と宿の空室を確認しましょう。
 
 この記事は羽後交通と温泉施設の公式情報をもとにした行程案です（2026年11月12日確認）。列車・バスの時刻と営業状況は出発前に確認してください。
@@ -38,8 +40,6 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
 夏の営業期間なら、姉妹館の玉川温泉にも宿泊できます。新玉川温泉の宿泊者は、玉川温泉の日帰り入浴も楽しめます。
 
 ## 新玉川温泉に泊まる1泊2日コース
-
-<TransitTimetable destination="新玉川温泉" />
 
 <TravelTimeline
   days={[
@@ -58,9 +58,15 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
             "東京発6:00〜9:00の時間帯を選び、指定された列車とバスの接続を確認",
             "列車は指定できず、臨時列車の運転日や対象列車は申込画面で確認"
           ],
+          timetable: { destination: "新玉川温泉", destinations: ["新玉川温泉", "玉川温泉"], direction: "outbound" },
           transitDetail: {
             method: "こまち → 田沢湖駅前から新玉川温泉行きバス",
-            route: "東京駅 → 田沢湖駅 → 新玉川温泉",
+            route: "東京駅 → 田沢湖駅 → 新玉川温泉または玉川温泉",
+            links: [
+              { label: "夏の玉川線", href: "https://shuhokubus-gr.sakura.ne.jp/local/202604/kazuno_1kankourosen.html" },
+              { label: "冬の新玉川線", href: "https://tazawako-kakunodate.com/wp-content/uploads/2026/10/%E6%96%B0%E7%8E%89%E5%B7%9D%E7%B7%9A.pdf" },
+              { label: "宿の交通案内", href: "https://www.shintamagawa.jp/access/" }
+            ],
             specs: [
               "以下は2026年11月の東京発・田沢湖着の列車時刻例。最新の時刻と運行日を確認",
               "こまち1号 6:32 → 9:21",
@@ -68,24 +74,10 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
               "こまち3号 7:32 → 10:25",
               "こまち7号 8:37 → 11:28",
               "参考：こまち9号 9:08 → 11:59",
-              "バスは上の時刻表で旅行日を選び、列車から乗り継げる便を確認",
-              "列車の遅れや冬の最終バスに注意"
+              "バスは下の時刻表で旅行日を選び、列車から乗り継げる便を確認",
+              "夏と冬でバスの経路・時刻が異なります。冬は一般車両の通行規制があり、最終バスに注意",
+              "玉川温泉泊の場合は夏季の玉川温泉行きの便を確認"
             ]
-          }
-        },
-        {
-          leadHeading: "田沢湖駅から路線バスで新玉川温泉へ",
-          areaLabel: "田沢湖駅前 ➔ 新玉川温泉",
-          title: "急行玉川線・新玉川線", links: [{ label: "夏の玉川線", href: "https://shuhokubus-gr.sakura.ne.jp/local/202604/kazuno_1kankourosen.html" }, { label: "冬の新玉川線", href: "https://tazawako-kakunodate.com/wp-content/uploads/2026/10/%E6%96%B0%E7%8E%89%E5%B7%9D%E7%B7%9A.pdf" }, { label: "宿の交通案内", href: "https://www.shintamagawa.jp/access/" }],
-          categoryLabel: "路線バス",
-          image: photoShinExterior,
-          imageCredit: "Akita Prefecture",
-          isImageSample: true,
-          points: ["写真は新玉川温泉の外観。夏と冬で運行時刻・経路が異なる", "冬は一般車両の通行規制があり、路線バスを利用。冬の最終バスに注意", "季節で運行路線が変わるため、旅行日のバスと列車の接続を確認"],
-          transitDetail: {
-            method: "バスを降りて宿へ",
-            route: "新玉川温泉または玉川温泉のバス停 → 宿泊先",
-            specs: ["玉川温泉泊の場合は夏季の玉川温泉行きの便を確認"]
           }
         },
         {
@@ -180,6 +172,7 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
           imageCredit: "Akita Prefecture",
           isImageSample: true,
           points: ["写真は新玉川温泉の外観", "新玉川温泉から駅前へのバスを旅行日で確認", "玉川温泉から帰る場合は夏季の運行日を確認", "帰りの指定列車に余裕を持てる便を選び、運行日と宿のチェックアウト時刻を確認"],
+          timetable: { destination: "新玉川温泉", destinations: ["新玉川温泉", "玉川温泉"], direction: "return" },
           transitDetail: {
             method: "路線バス",
             route: "新玉川温泉または玉川温泉 → 田沢湖駅前",

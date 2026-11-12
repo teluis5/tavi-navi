@@ -3,11 +3,14 @@ interface Props {
   destination?: string;
   origin?: string;
   feed?: string;
+  direction?: 'outbound' | 'return' | 'both';
+  destinations?: string[];
 }
-const { destination = '乳頭蟹場温泉', origin = '田沢湖駅前', feed = 'ugokotsu-tazawako' } = Astro.props;
+const { destination = '乳頭蟹場温泉', origin = '田沢湖駅前', feed = 'ugokotsu-tazawako', direction = 'both', destinations = [] } = Astro.props;
 const stationName = origin.replace(/前$/, '');
 ---
-<section class="timetable" data-timetable data-feed={feed} data-origin-name={origin} data-station-name={stationName} data-destination={destination}>
+<section class="timetable" data-timetable data-feed={feed} data-origin-name={origin} data-station-name={stationName} data-destination={destination} data-direction={direction}>
+  {destinations.length > 1 && <label class="stop-selector">利用する温泉のバス停 <select data-stop>{destinations.map((stop) => <option value={stop} selected={stop === destination}>{stop}</option>)}</select></label>}
   <div data-periods class="periods" aria-label="ダイヤの期間"></div>
   <p class="status" data-status role="status">バスの時刻表を読み込んでいます。</p>
   <div data-results></div>
@@ -37,7 +40,7 @@ const stationName = origin.replace(/前$/, '');
     const status = widget.querySelector<HTMLElement>('[data-status]')!;
     const results = widget.querySelector<HTMLElement>('[data-results]')!;
     const station = widget.dataset.originName || '田沢湖駅前';
-    const destination = widget.dataset.destination || '乳頭蟹場温泉';
+    const stopSelector = widget.querySelector<HTMLSelectElement>('[data-stop]');
     const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Tokyo', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
     date.value = today;
 
@@ -60,6 +63,7 @@ const stationName = origin.replace(/前$/, '');
         const future = versions.filter((v) => v.start > todayKey);
         const options = [...(current ? [current] : []), ...future];
         const render = () => {
+          const destination = stopSelector?.value || widget.dataset.destination || '乳頭蟹場温泉';
           results.replaceChildren();
           const key = date.value.replaceAll('-', '');
           const version = versions.find((v) => v.start <= key && key <= v.end);
@@ -91,6 +95,8 @@ const stationName = origin.replace(/前$/, '');
           const checkDate = new Intl.DateTimeFormat('ja-JP', { timeZone: 'Asia/Tokyo', dateStyle: 'medium', timeStyle: 'short' }).format(checked);
           status.textContent = `${Number(key.slice(0, 4))}年${dateLabel(key)}の予定時刻（${checkDate} 更新確認）`;
           for (const [from, to, heading] of [[station, destination, '行き'], [destination, station, '帰り']]) {
+            if (widget.dataset.direction === 'outbound' && heading === '帰り') continue;
+            if (widget.dataset.direction === 'return' && heading === '行き') continue;
             const section = document.createElement('section');
             section.className = 'journey';
             const title = document.createElement('h3');
@@ -134,6 +140,7 @@ const stationName = origin.replace(/前$/, '');
           }
         };
         date.addEventListener('change', render);
+        stopSelector?.addEventListener('change', render);
         render();
       })
       .catch(() => { status.textContent = '時刻表を取得できません。運行会社の時刻表をご確認ください。'; });
@@ -151,5 +158,7 @@ const stationName = origin.replace(/前$/, '');
   .other-date { margin-top: 12px; font-size: .85rem; }
   .other-date summary { cursor: pointer; color: #24545b; }
   .other-date label { display: block; margin-top: 8px; }
+  .stop-selector { display: block; margin: 0 0 10px; font-size: .85rem; }
+  .stop-selector select { max-width: 100%; margin-left: 4px; padding: 5px; }
   .timetable .credit { color: #526676; font-size: .75rem; }
 </style>
