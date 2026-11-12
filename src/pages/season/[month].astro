@@ -170,7 +170,7 @@ const recommendedPrefs = PREFECTURES.filter((p) => theme.topPrefectures.includes
                 <div class="article-card-body">
                   <div class="article-card-meta">
                     <span style="font-weight: 700; color: var(--color-primary);">
-                      {prefObj ? prefObj.nameJa : post.data.pref}
+                      {post.data.pref === 'special' ? 'どこかにビューーン！' : prefObj ? prefObj.nameJa : post.data.pref}
                     </span>
                     <span>•</span>
                     <span class="badge-seasonal">{post.data.category}</span>

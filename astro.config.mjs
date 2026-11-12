@@ -19,7 +19,10 @@ export default defineConfig({
 	build: {
 		inlineStylesheets: 'always',
 	},
-	integrations: [mdx(), sitemap({ filter: (page) => !/^\/en(?:\/|$)/.test(new URL(page).pathname) }), icon()],
+	integrations: [mdx(), sitemap({ filter: (page) => {
+		const pathname = new URL(page).pathname;
+		return !/^\/en(?:\/|$)/.test(pathname) && pathname !== '/tokyo/dokokani-nannichimae/';
+	} }), icon()],
 	fonts: [
 		{
 			provider: fontProviders.local(),

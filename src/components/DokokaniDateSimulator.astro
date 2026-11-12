@@ -6,7 +6,6 @@
     <label for="dokokani-departure">行きの乗車日</label>
     <div class="simulator-controls">
       <input id="dokokani-departure" name="departure" type="date" min="1900-01-22" max="9999-12-25" required />
-      <button type="submit">日程を確認</button>
     </div>
   </form>
   <div class="simulator-result" aria-live="polite" hidden>
@@ -16,23 +15,21 @@
       <div><dt>申し込み締切</dt><dd><strong data-closing></strong><span>23:59まで</span></dd></div>
       <div><dt>帰りの日</dt><dd><strong data-return></strong><span>日帰りから、行きの日を含む7日間</span></dd></div>
     </dl>
-    <div class="calendar-save">
-      <h3>申し込み開始日をカレンダーに登録</h3>
-      <p>受付開始日を終日の予定として追加します。</p>
-      <div class="calendar-save-links">
-        <a data-google-calendar target="_blank" rel="noopener noreferrer">Googleカレンダーに登録 ↗</a>
-        <a data-ics-calendar download="dokokani-booking.ics">iPhone・Outlookなどに登録</a>
-      </div>
-      <p class="calendar-save-note">ファイルの場合は、ダウンロード後に開いて登録してください。</p>
-    </div>
     <div class="calendar-section">
       <h3>カレンダーで見る</h3>
-      <p class="calendar-intro">受付期間と帰りに選べる期間を色分けしています。</p>
+      <p class="calendar-intro">オレンジ色の1〜7日目が帰りの日の候補です。1日目は日帰り、7日目が帰りの最終日です。</p>
       <ul class="calendar-legend" aria-label="カレンダーの凡例">
         <li><span class="legend-swatch booking" aria-hidden="true"></span>申し込み期間</li>
         <li><span class="legend-swatch travel" aria-hidden="true"></span>帰りの日の範囲</li>
       </ul>
       <div class="calendar-months" data-calendar></div>
+    </div>
+    <div class="calendar-save">
+      <h3>申し込み開始日をカレンダーに登録</h3>
+      <p>受付開始日を終日の予定として追加します。</p>
+      <div class="calendar-save-links">
+        <a data-google-calendar target="_blank" rel="noopener noreferrer">Googleカレンダーに登録 ↗</a>
+      </div>
     </div>
     <p class="simulator-note">日付の計算結果です。候補駅や座席の有無は、公式サイトでご確認ください。</p>
     <a class="official-link" href="https://dokokani-eki-net.com/dokokani/trial/index">公式のお試しページで検索する →</a>
@@ -57,23 +54,7 @@
     };
     const calendar = result.querySelector<HTMLElement>('[data-calendar]');
     const googleLink = result.querySelector<HTMLAnchorElement>('[data-google-calendar]');
-    const icsLink = result.querySelector<HTMLAnchorElement>('[data-ics-calendar]');
     const calendarDate = (date: Date) => date.toISOString().slice(0, 10).replace(/-/g, '');
-    const escapeIcs = (text: string) => text.replace(/\\/g, '\\\\').replace(/\n/g, '\\n').replace(/,/g, '\\,').replace(/;/g, '\\;');
-    const foldIcsLine = (line: string) => {
-      const encoder = new TextEncoder();
-      const parts: string[] = [];
-      let part = '';
-      let bytes = 0;
-      for (const char of line) {
-        const size = encoder.encode(char).length;
-        if (bytes + size > 75) { parts.push(part); part = ' '; bytes = 1; }
-        part += char;
-        bytes += size;
-      }
-      parts.push(part);
-      return parts.join('\r\n');
-    };
     const updateCalendarLinks = (departure: Date, opening: Date, closing: Date) => {
       const title = 'どこかにビューーン！申し込み開始';
       const detail = `出発日：${dateFormat.format(departure)}\n申し込み締切：${dateFormat.format(closing)} 23:59\nhttps://dokokani-eki-net.com/`;
@@ -82,11 +63,6 @@
       if (googleLink) {
         const params = new URLSearchParams({ action: 'TEMPLATE', text: title, dates: `${start}/${end}`, details: detail });
         googleLink.href = `https://calendar.google.com/calendar/render?${params.toString()}`;
-      }
-      if (icsLink) {
-        const stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
-        const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//tavi-navi//Dokokani//JA', 'CALSCALE:GREGORIAN', 'BEGIN:VEVENT', `UID:dokokani-${calendarDate(departure)}@tavi-navi.net`, `DTSTAMP:${stamp}`, `DTSTART;VALUE=DATE:${start}`, `DTEND;VALUE=DATE:${end}`, `SUMMARY:${escapeIcs(title)}`, `DESCRIPTION:${escapeIcs(detail)}`, 'END:VEVENT', 'END:VCALENDAR'];
-        icsLink.href = `data:text/calendar;charset=utf-8,${encodeURIComponent(lines.map(foldIcsLine).join('\r\n') + '\r\n')}`;
       }
     };
     const renderCalendar = (departure: Date, opening: Date, closing: Date, returnLast: Date) => {
@@ -125,12 +101,18 @@
           cell.className = 'calendar-day';
           const labels: string[] = [];
           if (current >= opening && current <= closing) { cell.classList.add('is-booking'); labels.push('申し込み期間'); }
-          if (current >= departure && current <= returnLast) { cell.classList.add('is-travel'); labels.push('帰りの日の範囲'); }
+          const isReturnDay = current >= departure && current <= returnLast;
+          if (isReturnDay) { cell.classList.add('is-travel'); labels.push('帰りの日の候補'); }
           let badge = '';
           if (sameDay(current, opening)) { badge = '開始'; labels.push('申し込み開始'); }
           else if (sameDay(current, closing)) { badge = '締切'; labels.push('申し込み締切'); }
-          else if (sameDay(current, departure)) { badge = '出発'; labels.push('出発日'); }
-          else if (sameDay(current, returnLast)) { badge = '最終'; labels.push('帰りの最終日'); }
+          else if (isReturnDay) {
+            const tripDay = Math.round((current.getTime() - departure.getTime()) / 86400000) + 1;
+            badge = `${tripDay}日目`;
+            labels.push(`旅行${tripDay}日目`);
+            if (sameDay(current, departure)) { cell.classList.add('is-departure'); labels.push('出発日・日帰り'); }
+            if (sameDay(current, returnLast)) labels.push('帰りの最終日');
+          }
           cell.setAttribute('aria-label', `${year}年${monthIndex + 1}月${day}日${labels.length ? `、${labels.join('、')}` : ''}`);
           const number = document.createElement('span');
           number.textContent = String(day);
@@ -178,8 +160,7 @@
   .simulator-form label { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 700; }
   .simulator-controls { display: flex; flex-wrap: wrap; gap: 8px; }
   .simulator-controls input { flex: 1 1 160px; min-width: 0; min-height: 48px; padding: 8px 12px; border: 1px solid #91aab5; border-radius: 8px; background: white; color: #193748; font: inherit; box-sizing: border-box; }
-  .simulator-controls button { flex: 1 1 120px; min-height: 48px; padding: 8px 16px; border: 0; border-radius: 8px; background: #126078; color: white; font: inherit; font-weight: 700; cursor: pointer; }
-  .simulator-controls :is(input, button):focus-visible, .official-link:focus-visible { outline: 3px solid #193748; outline-offset: 2px; }
+  .simulator-controls input:focus-visible, .official-link:focus-visible { outline: 3px solid #193748; outline-offset: 2px; }
   .simulator-result[hidden] { display: none; }
   .simulator .result-lead { margin: 24px 0 12px; font-size: 14px; }
   .simulator-result dl { margin: 0; }
@@ -195,7 +176,6 @@
   .calendar-save-links a { display: flex; align-items: center; justify-content: center; min-height: 48px; padding: 8px 12px; border: 1px solid #126078; border-radius: 8px; background: #fff; color: #12566b; font-size: 13px; font-weight: 700; text-align: center; text-decoration: none; }
   .calendar-save-links a:first-child { background: #126078; color: #fff; }
   .calendar-save-links a:focus-visible { outline: 3px solid #193748; outline-offset: 2px; }
-  .simulator .calendar-save .calendar-save-note { margin: 8px 0 0; font-size: 12px; }
   .calendar-section { margin-top: 24px; }
   .calendar-section h3 { margin: 0 0 4px; padding: 0; border: 0; font-size: 17px; color: #193748; }
   .simulator .calendar-intro { margin: 0; color: #36515f; font-size: 13px; line-height: 1.6; }
@@ -212,6 +192,7 @@
   .simulator :global(.calendar-day) { min-width: 0; min-height: 36px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2px 0; border-radius: 4px; color: #193748; font-size: 13px; line-height: 1.2; }
   .simulator :global(.calendar-day.is-booking) { background: #d4eef0; }
   .simulator :global(.calendar-day.is-travel) { background: #ffebc9; }
+  .simulator :global(.calendar-day.is-departure) { box-shadow: inset 0 0 0 2px #9b5b00; }
   .simulator :global(.calendar-day small) { font-size: 9px; font-weight: 700; color: #193748; line-height: 1.2; }
   .simulator .simulator-note { margin: 16px 0 0; color: #36515f; font-size: 12px; line-height: 1.7; }
   .official-link { display: inline-block; margin-top: 12px; color: #125c75; font-size: 14px; font-weight: 700; }
