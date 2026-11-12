@@ -14,8 +14,7 @@ const stationName = origin.replace(/前$/, '');
   <div data-periods class="periods" aria-label="ダイヤの期間"></div>
   <p class="status" data-status role="status">バスの時刻表を読み込んでいます。</p>
   <div data-results></div>
-  <p class="credit">列車との乗り換えは10分を見込んだ目安です。こまちの便名・運行時刻を確認してください。</p>
-  <p class="credit">提供：<span data-publisher>羽後交通株式会社</span>（<a href="https://creativecommons.org/licenses/by/4.0/" data-license>CC BY 4.0</a>）・<a href="https://gtfs-data.jp/search?agencyId=ugokotsu" data-source>GTFSデータリポジトリ</a>。予定時刻です。運休・遅延は反映していません。</p>
+  <p class="credit">提供：<span data-publisher>羽後交通株式会社</span>（<a href="https://creativecommons.org/licenses/by/4.0/" data-license>CC BY 4.0</a>）・<a href="https://gtfs-data.jp/search?agencyId=ugokotsu" data-source>GTFSデータリポジトリ</a></p>
 </section>
 
 <script>
@@ -121,8 +120,7 @@ const stationName = origin.replace(/前$/, '');
               list.className = 'departures';
               for (const row of rows) {
                 const li = document.createElement('li');
-                const connection = heading === '帰り' ? `　列車は${formatMinutes(row.arrival + 10)}以降に駅発` : '';
-                li.textContent = `${formatMinutes(row.departure)}発 → ${formatMinutes(row.arrival)}着${connection}`;
+                li.textContent = `${formatMinutes(row.departure)}発 → ${formatMinutes(row.arrival)}着`;
                 list.append(li);
               }
               section.append(list);
