@@ -19,7 +19,7 @@ export default defineConfig({
 	build: {
 		inlineStylesheets: 'always',
 	},
-	integrations: [mdx(), sitemap(), icon()],
+	integrations: [mdx(), sitemap({ filter: (page) => !/^\/en(?:\/|$)/.test(new URL(page).pathname) }), icon()],
 	fonts: [
 		{
 			provider: fontProviders.local(),
