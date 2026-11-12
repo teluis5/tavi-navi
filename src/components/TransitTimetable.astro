@@ -15,7 +15,6 @@ const stationName = origin.replace(/前$/, '');
   <p class="status" data-status role="status">バスの時刻表を読み込んでいます。</p>
   <div data-results></div>
   <p class="credit">列車との乗り換えは10分を見込んだ目安です。こまちの便名・運行時刻を確認してください。</p>
-  <details class="other-date"><summary>旅行日を指定して確認する</summary><label>乗車日 <input type="date" data-date /></label></details>
   <p class="credit">提供：<span data-publisher>羽後交通株式会社</span>（<a href="https://creativecommons.org/licenses/by/4.0/" data-license>CC BY 4.0</a>）・<a href="https://gtfs-data.jp/search?agencyId=ugokotsu" data-source>GTFSデータリポジトリ</a>。予定時刻です。運休・遅延は反映していません。</p>
 </section>
 
@@ -35,14 +34,13 @@ const stationName = origin.replace(/前$/, '');
   const formatMinutes = (value: number) => `${value >= 1440 ? '翌日 ' : ''}${String(Math.floor(value / 60) % 24).padStart(2, '0')}:${String(value % 60).padStart(2, '0')}`;
 
   for (const widget of document.querySelectorAll<HTMLElement>('[data-timetable]')) {
-    const date = widget.querySelector<HTMLInputElement>('[data-date]')!;
     const periods = widget.querySelector<HTMLElement>('[data-periods]')!;
     const status = widget.querySelector<HTMLElement>('[data-status]')!;
     const results = widget.querySelector<HTMLElement>('[data-results]')!;
     const station = widget.dataset.originName || '田沢湖駅前';
     const stopSelector = widget.querySelector<HTMLSelectElement>('[data-stop]');
     const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Tokyo', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
-    date.value = today;
+    let selectedDate = today;
 
     fetch(`/data/transit/${encodeURIComponent(widget.dataset.feed || '')}.json`)
       .then((response) => { if (!response.ok) throw new Error('Timetable unavailable'); return response.json() as Promise<Feed>; })
@@ -65,7 +63,7 @@ const stationName = origin.replace(/前$/, '');
         const render = () => {
           const destination = stopSelector?.value || widget.dataset.destination || '乳頭蟹場温泉';
           results.replaceChildren();
-          const key = date.value.replaceAll('-', '');
+          const key = selectedDate.replaceAll('-', '');
           const version = versions.find((v) => v.start <= key && key <= v.end);
           periods.replaceChildren();
           for (const item of options) {
@@ -74,14 +72,14 @@ const stationName = origin.replace(/前$/, '');
             const season = item.routes.some((r) => r.name === '新玉川線') ? '冬季ダイヤ' : item.routes.some((r) => r.name === '玉川線') ? '夏季ダイヤ' : 'ダイヤ';
             button.textContent = item === current ? `現在のダイヤ（${dateLabel(item.end)}まで）` : `${dateLabel(item.start)}からの${season}`;
             button.setAttribute('aria-pressed', String(item === version));
-            button.addEventListener('click', () => { date.value = item === current ? today : isoDate(item.start); render(); });
+            button.addEventListener('click', () => { selectedDate = item === current ? today : isoDate(item.start); render(); });
             periods.append(button);
           }
           if (!version) {
             status.textContent = 'この日の時刻表データはまだありません。運行会社の時刻表をご確認ください。';
             return;
           }
-          const weekday = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'][new Date(`${date.value}T12:00:00+09:00`).getUTCDay()];
+          const weekday = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'][new Date(`${selectedDate}T12:00:00+09:00`).getUTCDay()];
           const active = new Set(version.calendar.filter((c) => c.start_date <= key && key <= c.end_date && c[weekday] === '1').map((c) => c.service_id));
           for (const exception of version.exceptions.filter((e) => e.date === key)) {
             if (exception.exception_type === '1') active.add(exception.service_id);
@@ -92,8 +90,8 @@ const stationName = origin.replace(/前$/, '');
             if (!grouped.has(time.trip)) grouped.set(time.trip, []);
             grouped.get(time.trip)!.push(time);
           }
-          const checkDate = new Intl.DateTimeFormat('ja-JP', { timeZone: 'Asia/Tokyo', dateStyle: 'medium', timeStyle: 'short' }).format(checked);
-          status.textContent = `${Number(key.slice(0, 4))}年${dateLabel(key)}の予定時刻（${checkDate} 更新確認）`;
+          const checkDate = new Intl.DateTimeFormat('ja-JP', { timeZone: 'Asia/Tokyo', dateStyle: 'medium' }).format(checked);
+          status.textContent = `${checkDate} 更新確認`;
           for (const [from, to, heading] of [[station, destination, '行き'], [destination, station, '帰り']]) {
             if (widget.dataset.direction === 'outbound' && heading === '帰り') continue;
             if (widget.dataset.direction === 'return' && heading === '行き') continue;
@@ -122,10 +120,8 @@ const stationName = origin.replace(/前$/, '');
               list.className = 'departures';
               for (const row of rows) {
                 const li = document.createElement('li');
-                const connection = heading === '行き'
-                  ? row.departure >= 10 ? `列車は${formatMinutes(row.departure - 10)}までに駅着` : '列車との接続を確認'
-                  : `列車は${formatMinutes(row.arrival + 10)}以降に駅発`;
-                li.textContent = `${formatMinutes(row.departure)}発 → ${formatMinutes(row.arrival)}着　${connection}`;
+                const connection = heading === '帰り' ? `　列車は${formatMinutes(row.arrival + 10)}以降に駅発` : '';
+                li.textContent = `${formatMinutes(row.departure)}発 → ${formatMinutes(row.arrival)}着${connection}`;
                 list.append(li);
               }
               section.append(list);
@@ -139,7 +135,6 @@ const stationName = origin.replace(/前$/, '');
             results.append(section);
           }
         };
-        date.addEventListener('change', render);
         stopSelector?.addEventListener('change', render);
         render();
       })
@@ -155,9 +150,6 @@ const stationName = origin.replace(/前$/, '');
   .timetable :global(.journey h3) { margin: 14px 0 6px; font-size: .95rem; }
   .timetable :global(.departures) { margin: 0; padding-left: 1.2em; font-size: .85rem; line-height: 1.7; }
   .timetable :global(.connection-summary) { font-weight: 700; color: #123d50; }
-  .other-date { margin-top: 12px; font-size: .85rem; }
-  .other-date summary { cursor: pointer; color: #24545b; }
-  .other-date label { display: block; margin-top: 8px; }
   .stop-selector { display: block; margin: 0 0 10px; font-size: .85rem; }
   .stop-selector select { max-width: 100%; margin-left: 4px; padding: 5px; }
   .timetable .credit { color: #526676; font-size: .75rem; }

@@ -56,7 +56,7 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
             "東京発6:00〜9:00の時間帯を選び、指定された列車とバスの接続を確認",
             "列車は指定できず、臨時列車の運転日や対象列車は申込画面で確認"
           ],
-          timetable: { destination: "新玉川温泉", destinations: ["新玉川温泉", "玉川温泉"], direction: "outbound" },
+          timetable: { destination: "新玉川温泉", direction: "outbound" },
           transitDetail: {
             method: "こまち → 田沢湖駅前から新玉川温泉行きバス",
             route: "東京駅 → 田沢湖駅 → 新玉川温泉または玉川温泉",
@@ -68,7 +68,7 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
             ],
             specs: [
               "列車とバスの接続を確認。冬は一般車両の通行規制があり、最終バスに注意",
-              "玉川温泉泊の場合は夏季の玉川温泉行きの便を確認"
+              "時刻表は新玉川温泉発着。玉川温泉泊の場合は下記の交通案内で発着時刻を確認"
             ],
             schedule: {
               title: "東京発6:00〜9:00のこまち時刻例を見る",
@@ -177,11 +177,12 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
           imageCredit: "Akita Prefecture",
           isImageSample: true,
           points: ["写真は新玉川温泉の外観", "新玉川温泉から駅前へのバスを旅行日で確認", "玉川温泉から帰る場合は夏季の運行日を確認", "帰りの指定列車に余裕を持てる便を選び、運行日と宿のチェックアウト時刻を確認"],
-          timetable: { destination: "新玉川温泉", destinations: ["新玉川温泉", "玉川温泉"], direction: "return" },
+          timetable: { destination: "新玉川温泉", direction: "return" },
           transitDetail: {
             method: "路線バス",
             route: "新玉川温泉または玉川温泉 → 田沢湖駅前",
-            specs: ["季節ごとの運行時刻を確認し、到着後に駅前・駅構内の食事場所へ"]
+            specs: ["時刻表は新玉川温泉発着。玉川温泉から乗る場合は発車時刻を交通案内で確認", "到着後に駅前・駅構内の食事場所へ"],
+            links: [{ label: "宿の交通案内", href: "https://www.shintamagawa.jp/access/" }]
           }
         },
         {
