@@ -2,7 +2,7 @@
 interface Props { id: string }
 const { id } = Astro.props;
 ---
-<p class="business-hours" data-business-hours={id}>営業時間を確認しています。</p>
+<li data-business-hours={id}>営業時間を確認しています。</li>
 <script>
   interface StoreHours {
     checkedAt: string;
@@ -35,6 +35,3 @@ const { id } = Astro.props;
       .catch(() => { element.textContent = '営業時間は公式店舗ページをご確認ください。'; });
   }
 </script>
-<style>
-  .business-hours { margin: 8px 0; font-size: .9rem; line-height: 1.6; }
-</style>

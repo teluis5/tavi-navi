@@ -476,15 +476,16 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                                 )}
 
                                 <div class="wide-spot-body">
-                                  {opt.points && opt.points.length > 0 && (
+                                  {((opt.points && opt.points.length > 0) || opt.businessHoursId) && (
                                     <ul class="wide-points-list">
-                                      {opt.points.map((pt) => (
+                                      {opt.points?.map((pt) => (
                                         <li>{pt}</li>
                                       ))}
+                                      {opt.businessHoursId && <BusinessHours id={opt.businessHoursId} />}
+                                      {opt.businessHoursId && opt.links && <li>{opt.links.map((link, index) => <>{index > 0 && '（'}<a href={link.href}>{link.label}</a>{index > 0 && '）'}</>)}</li>}
                                     </ul>
                                   )}
-                                  {opt.businessHoursId && <BusinessHours id={opt.businessHoursId} />}
-                                  {opt.links && <p class="spot-links">{opt.links.map((link) => <a href={link.href}>{link.label}</a>)}</p>}
+                                  {!opt.businessHoursId && opt.links && <p class="spot-links">{opt.links.map((link) => <a href={link.href}>{link.label}</a>)}</p>}
 
                                   {opt.amenities && opt.amenities.length > 0 && (
                                     <p class="wide-amenities-line">
@@ -559,15 +560,16 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                       </div>
 
                       <div class="wide-spot-body">
-                        {step.points && (
+                        {(step.points || step.businessHoursId) && (
                           <ul class="wide-points-list">
-                            {step.points.map((pt) => (
+                            {step.points?.map((pt) => (
                               <li>{pt}</li>
                             ))}
+                            {step.businessHoursId && <BusinessHours id={step.businessHoursId} />}
+                            {step.businessHoursId && step.links && <li>{step.links.map((link, index) => <>{index > 0 && '（'}<a href={link.href}>{link.label}</a>{index > 0 && '）'}</>)}</li>}
                           </ul>
                         )}
-                        {step.businessHoursId && <BusinessHours id={step.businessHoursId} />}
-                        {step.links && <p class="spot-links">{step.links.map((link) => <a href={link.href}>{link.label}</a>)}</p>}
+                        {!step.businessHoursId && step.links && <p class="spot-links">{step.links.map((link) => <a href={link.href}>{link.label}</a>)}</p>}
 
                         {resolveHotelBookingUrl(step) && (
                           <a
@@ -728,15 +730,16 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                         )}
 
                         <div class="wide-spot-body">
-                          {step.points && step.points.length > 0 && (
+                          {((step.points && step.points.length > 0) || step.businessHoursId) && (
                             <ul class="wide-points-list">
-                              {step.points.map((pt) => (
+                              {step.points?.map((pt) => (
                                 <li>{pt}</li>
                               ))}
+                              {step.businessHoursId && <BusinessHours id={step.businessHoursId} />}
+                              {step.businessHoursId && step.links && <li>{step.links.map((link, index) => <>{index > 0 && '（'}<a href={link.href}>{link.label}</a>{index > 0 && '）'}</>)}</li>}
                             </ul>
                           )}
-                          {step.businessHoursId && <BusinessHours id={step.businessHoursId} />}
-                          {step.links && <p class="spot-links">{step.links.map((link) => <a href={link.href}>{link.label}</a>)}</p>}
+                          {!step.businessHoursId && step.links && <p class="spot-links">{step.links.map((link) => <a href={link.href}>{link.label}</a>)}</p>}
 
                           {step.amenities && step.amenities.length > 0 && (
                             <p class="wide-amenities-line">
@@ -1731,7 +1734,8 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
     gap: 0.2rem;
   }
 
-  .wide-points-list li {
+  .wide-points-list li,
+  .wide-points-list :global(li[data-business-hours]) {
     font-size: 0.82rem;
     color: #1f2937;
     line-height: 1.48;
@@ -1739,7 +1743,8 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
     padding-left: 0.7rem;
   }
 
-  .wide-points-list li::before {
+  .wide-points-list li::before,
+  .wide-points-list :global(li[data-business-hours])::before {
     content: "·";
     position: absolute;
     left: 0;

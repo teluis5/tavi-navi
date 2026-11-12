@@ -100,20 +100,23 @@ const stationName = origin.replace(/前$/, '');
             const section = document.createElement('section');
             section.className = 'journey';
             const title = document.createElement('h3');
-            const finalStop = heading === '行き' ? widget.dataset.finalStop : undefined;
-            title.textContent = `${heading}　${from} → ${to}${finalStop ? ` → ${finalStop}` : ''}`;
+            const finalStop = widget.dataset.finalStop;
+            title.textContent = heading === '帰り' && finalStop
+              ? `${heading}　${finalStop} → ${from} → ${to}`
+              : `${heading}　${from} → ${to}${finalStop ? ` → ${finalStop}` : ''}`;
             section.append(title);
             const fromIds = new Set(version.stops.filter((s) => s.name === from).map((s) => s.id));
             const toIds = new Set(version.stops.filter((s) => s.name === to).map((s) => s.id));
             const finalIds = new Set(version.stops.filter((s) => s.name === finalStop).map((s) => s.id));
-            const rows: { departure: number; arrival: number; finalArrival?: number }[] = [];
+            const rows: { departure: number; arrival: number; finalArrival?: number; firstDeparture?: number }[] = [];
             for (const trip of version.trips.filter((t) => active.has(t.service))) {
               const stops = (grouped.get(trip.id) || []).sort((a, b) => a.sequence - b.sequence);
               for (const first of stops.filter((s) => fromIds.has(s.stop) && s.pickup !== '1' && s.departure)) {
                 const last = stops.find((s) => s.sequence > first.sequence && toIds.has(s.stop) && s.dropoff !== '1' && s.arrival);
                 if (last) {
-                  const final = finalStop && stops.find((s) => s.sequence > last.sequence && finalIds.has(s.stop) && s.dropoff !== '1' && s.arrival);
-                  rows.push({ departure: minutes(first.departure), arrival: minutes(last.arrival), finalArrival: final ? minutes(final.arrival) : undefined });
+                  const final = finalStop && heading === '行き' && stops.find((s) => s.sequence > last.sequence && finalIds.has(s.stop) && s.dropoff !== '1' && s.arrival);
+                  const preceding = finalStop && heading === '帰り' && stops.find((s) => s.sequence < first.sequence && finalIds.has(s.stop) && s.pickup !== '1' && s.departure);
+                  rows.push({ departure: minutes(first.departure), arrival: minutes(last.arrival), finalArrival: final ? minutes(final.arrival) : undefined, firstDeparture: preceding ? minutes(preceding.departure) : undefined });
                 }
               }
             }
@@ -127,7 +130,9 @@ const stationName = origin.replace(/前$/, '');
               list.className = 'departures';
               for (const row of rows) {
                 const li = document.createElement('li');
-                li.textContent = `${formatMinutes(row.departure)}発 → ${formatMinutes(row.arrival)}着${finalStop ? ` → ${row.finalArrival === undefined ? '—' : `${formatMinutes(row.finalArrival)}着`}` : ''}`;
+                const first = finalStop && heading === '帰り' ? `${row.firstDeparture === undefined ? '—' : `${formatMinutes(row.firstDeparture)}発`} → ` : '';
+                const last = finalStop && heading === '行き' ? ` → ${row.finalArrival === undefined ? '—' : `${formatMinutes(row.finalArrival)}着`}` : '';
+                li.textContent = `${first}${formatMinutes(row.departure)}発 → ${formatMinutes(row.arrival)}着${last}`;
                 list.append(li);
               }
               section.append(list);
