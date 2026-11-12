@@ -18,6 +18,7 @@ import TravelTimeline from '../../components/TravelTimeline.astro';
 import TrainCondition from '../../components/TrainCondition.astro';
 import photoHanazen from '../blog/tazawako-shared/hanazen-torimeshi.jpg';
 import photoSoba from '../blog/tazawako-shared/akita-soba.jpg';
+import photoOyakodon from '../blog/tazawako-shared/hinai-oyakodon.webp';
 
 import photoKomachiOutbound from '../blog/tazawako-shared/komachi-outbound.jpg';
 import photoSouvenirPot from '../blog/tazawako-shared/kiritanpo-nabe.webp';
@@ -67,10 +68,23 @@ import photoKamenoiOpenAir from '../../assets/photos/akita/02亀の井ホテル�
         {
           leadHeading: "田沢湖駅に到着！時間に余裕があれば駅周辺で食事",
           areaLabel: "田沢湖駅前",
-          title: "駅前ご当地ランチ（2大名物から選択）",
+          title: "駅前ご当地ランチ",
           categoryLabel: "ご当地グルメ",
           duration: "ランチ 50分",
           alternatives: [
+            {
+              alternativeLabel: "比内地鶏の親子丼",
+              title: "割烹 桃屋",
+              categoryLabel: "駅前ランチ",
+              image: photoOyakodon,
+              imageCredit: "Akita Prefecture",
+              isImageSample: true,
+              points: [
+                "比内地鶏の親子丼が候補。写真は親子丼のイメージ",
+                "田沢湖駅から徒歩約2分。定休日は水曜・木曜、貸切などによる臨時休業もあるため事前確認"
+              ],
+              links: [{ label: "電話 0187-43-0031", href: "tel:0187430031" }, { label: "店舗情報", href: "https://tazawako-kakunodate.com/spots/6196/" }]
+            },
             {
               alternativeLabel: "比内地鶏きりたんぽ",
               title: "駅前食堂の比内地鶏きりたんぽ鍋",
@@ -242,6 +256,19 @@ import photoKamenoiOpenAir from '../../assets/photos/akita/02亀の井ホテル�
           areaLabel: "田沢湖駅前・駅構内",
           title: "最後のランチ",
           alternatives: [
+            {
+              alternativeLabel: "比内地鶏の親子丼",
+              title: "割烹 桃屋",
+              categoryLabel: "駅前ランチ",
+              image: photoOyakodon,
+              imageCredit: "Akita Prefecture",
+              isImageSample: true,
+              points: [
+                "比内地鶏の親子丼が候補。写真は親子丼のイメージ",
+                "田沢湖駅から徒歩約2分。定休日は水曜・木曜、貸切などによる臨時休業もあるため事前確認"
+              ],
+              links: [{ label: "電話 0187-43-0031", href: "tel:0187430031" }, { label: "店舗情報", href: "https://tazawako-kakunodate.com/spots/6196/" }]
+            },
             {
               alternativeLabel: "駅前でそば",
               title: "そば五郎", links: [{ label: "そば五郎の案内", href: "https://www.akita-nairiku.com/others/gourmet-route.php" }],
