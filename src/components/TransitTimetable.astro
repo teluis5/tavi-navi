@@ -5,11 +5,12 @@ interface Props {
   feed?: string;
   direction?: 'outbound' | 'return' | 'both';
   destinations?: string[];
+  returnNote?: string;
 }
-const { destination = '乳頭蟹場温泉', origin = '田沢湖駅前', feed = 'ugokotsu-tazawako', direction = 'both', destinations = [] } = Astro.props;
+const { destination = '乳頭蟹場温泉', origin = '田沢湖駅前', feed = 'ugokotsu-tazawako', direction = 'both', destinations = [], returnNote } = Astro.props;
 const stationName = origin.replace(/前$/, '');
 ---
-<section class="timetable" data-timetable data-feed={feed} data-origin-name={origin} data-station-name={stationName} data-destination={destination} data-direction={direction}>
+<section class="timetable" data-timetable data-feed={feed} data-origin-name={origin} data-station-name={stationName} data-destination={destination} data-direction={direction} data-return-note={returnNote}>
   {destinations.length > 1 && <label class="stop-selector">利用する温泉のバス停 <select data-stop>{destinations.map((stop) => <option value={stop} selected={stop === destination}>{stop}</option>)}</select></label>}
   <div data-periods class="periods" aria-label="ダイヤの期間"></div>
   <p class="status" data-status role="status">バスの時刻表を読み込んでいます。</p>
@@ -70,7 +71,8 @@ const stationName = origin.replace(/前$/, '');
             const button = document.createElement('button');
             button.type = 'button';
             const season = item.routes.some((r) => r.name === '新玉川線') ? '冬季ダイヤ' : item.routes.some((r) => r.name === '玉川線') ? '夏季ダイヤ' : 'ダイヤ';
-            button.textContent = item === current ? `現在のダイヤ（${dateLabel(item.end)}まで）` : `${dateLabel(item.start)}からの${season}`;
+            const shortDate = (value: string) => `${Number(value.slice(4, 6))}/${Number(value.slice(6, 8))}`;
+            button.textContent = item === current ? `現在（${shortDate(item.end)}まで）` : `${shortDate(item.start)}から ${season}`;
             button.setAttribute('aria-pressed', String(item === version));
             button.addEventListener('click', () => { selectedDate = item === current ? today : isoDate(item.start); render(); });
             periods.append(button);
@@ -128,7 +130,7 @@ const stationName = origin.replace(/前$/, '');
               if (heading === '帰り') {
                 const note = document.createElement('p');
                 note.className = 'connection-summary';
-                note.textContent = `最も早いバスの場合、${widget.dataset.stationName}を${formatMinutes(Math.min(...rows.map((r) => r.arrival)) + 10)}より前に出る列車には間に合いません。`;
+                note.textContent = widget.dataset.returnNote || `最も早いバスの場合、${widget.dataset.stationName}を${formatMinutes(Math.min(...rows.map((r) => r.arrival)) + 10)}より前に出る列車には間に合いません。`;
                 section.append(note);
               }
             }
@@ -143,8 +145,8 @@ const stationName = origin.replace(/前$/, '');
 </script>
 <style>
   .timetable { margin: 24px 0; padding: 16px 0; border-top: 1px solid #d6e5e6; border-bottom: 1px solid #d6e5e6; }
-  .periods { display: flex; flex-wrap: wrap; gap: 8px; }
-  .periods :global(button) { padding: 7px 12px; border: 1px solid #aac3c3; border-radius: 20px; background: white; color: #24545b; font: inherit; font-size: .85rem; cursor: pointer; }
+  .periods { display: flex; flex-wrap: nowrap; gap: 6px; overflow-x: auto; }
+  .periods :global(button) { flex: 0 0 auto; white-space: nowrap; padding: 7px 9px; border: 1px solid #aac3c3; border-radius: 20px; background: white; color: #24545b; font: inherit; font-size: .8rem; cursor: pointer; }
   .periods :global(button[aria-pressed="true"]) { background: #24545b; color: white; }
   .timetable p { margin: 8px 0; font-size: .85rem; line-height: 1.6; }
   .timetable :global(.journey h3) { margin: 14px 0 6px; font-size: .95rem; }
