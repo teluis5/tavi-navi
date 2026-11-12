@@ -15,6 +15,7 @@ tags: ["どこかにビューン", "田沢湖", "秋田", "秋田新幹線", "�
 ---
 import ConclusionBox from '../../components/ConclusionBox.astro';
 import TravelTimeline from '../../components/TravelTimeline.astro';
+import TransitTimetable from '../../components/TransitTimetable.astro';
 import photoHanazen from '../blog/tazawako-shared/hanazen-torimeshi.jpg';
 import photoSoba from '../blog/tazawako-shared/akita-soba.jpg';
 
@@ -38,6 +39,8 @@ import photoKamenoiOpenAir from '../../assets/photos/akita/02亀の井ホテル�
 
 ## 1日目：こまちで田沢湖へ
 
+<TransitTimetable destination="潟尻" />
+
 <TravelTimeline
   days={[
     {
@@ -47,7 +50,7 @@ import photoKamenoiOpenAir from '../../assets/photos/akita/02亀の井ホテル�
         {
           leadHeading: "秋田新幹線こまちに乗って田沢湖へ",
           areaLabel: "東京駅 ➔ 田沢湖駅",
-          title: "秋田新幹線こまち",
+          title: "秋田新幹線こまち", links: [{ label: "どこかにビューーン！の申込条件", href: "https://dokokani-eki-net.com/" }],
           categoryLabel: "新幹線",
           image: photoKomachiOutbound,
           imageCredit: "Akita Prefecture",
@@ -208,7 +211,7 @@ import photoKamenoiOpenAir from '../../assets/photos/akita/02亀の井ホテル�
 
 ## 2日目：田沢湖散策と駅前のお土産
 
-宿から田沢湖駅へ戻り、観光停車付きの田沢湖一周線で湖畔を巡ります。駅への戻りが10:45発に間に合わない場合は13:25発を検討し、帰りの列車と接続する便を選んでください。
+宿から田沢湖駅へ戻り、観光停車付きの田沢湖一周線で湖畔を巡ります。旅行日の時刻表で、帰りの列車と接続できる便を選んでください。
 
 <TravelTimeline
   days={[
@@ -219,18 +222,18 @@ import photoKamenoiOpenAir from '../../assets/photos/akita/02亀の井ホテル�
         {
           leadHeading: "観光停車付きバスでたつこ像と湖畔へ",
           areaLabel: "田沢湖畔・潟尻",
-          title: "田沢湖・たつこ像",
+          title: "田沢湖・たつこ像", links: [{ label: "田沢湖一周線の時刻表", href: "https://ugokotsu.co.jp/wp-content/jikoku/latest/tazawa2026.pdf" }],
           imageCredit: "Akita Prefecture",
           imageLayout: "grid-3",
           images: [photoTatsuko, photoUkiki, photoPanorama],
           points: [
-            "駅前10:45発は潟尻と御座の石神社で観光停車し、12:16に駅へ戻る",
-            "13:25発は14:56着。帰りのこまちに接続できる便を選択"
+            "観光停車のある便と停車時間を旅行日の時刻表で確認",
+            "駅へ戻る時刻と帰りのこまちの接続を確認"
           ],
           transitDetail: {
-            method: "田沢湖一周線（約1時間31分）",
+            method: "田沢湖一周線",
             route: "田沢湖駅前 ➔ 潟尻 ➔ 御座の石神社 ➔ 田沢湖駅前",
-            specs: ["2026年4月改正の時刻表例。運行日と帰りの指定列車を確認"]
+            specs: ["旅行日の運行日と帰りの指定列車を確認"]
           }
         },
         {
@@ -240,7 +243,7 @@ import photoKamenoiOpenAir from '../../assets/photos/akita/02亀の井ホテル�
           alternatives: [
             {
               alternativeLabel: "駅前でそば",
-              title: "そば五郎",
+              title: "そば五郎", links: [{ label: "そば五郎の案内", href: "https://www.akita-nairiku.com/others/gourmet-route.php" }],
               categoryLabel: "駅前ランチ",
               image: photoSoba,
               imageCredit: "Akita Prefecture",
@@ -252,7 +255,7 @@ import photoKamenoiOpenAir from '../../assets/photos/akita/02亀の井ホテル�
             },
             {
               alternativeLabel: "鶏めし駅弁",
-              title: "NewDays KIOSK 田沢湖駅店",
+              title: "NewDays KIOSK 田沢湖駅店", links: [{ label: "NewDaysの営業時間", href: "https://shop.jr-cross.co.jp/eki/spot/detail?code=1552496" }, { label: "花善の販売店一覧", href: "https://hanazen.co.jp/about/" }, { label: "取り置きを電話で相談（0187-58-0081）", href: "tel:0187580081" }, { label: "電話番号の出典（秋田県）", href: "https://common3.pref.akita.lg.jp/akitamai/wp-content/uploads/2022/12/1a9efa3e1273344980c6834b22bd9191-2.pdf" }],
               categoryLabel: "駅弁テイクアウト",
               image: photoHanazen,
               imageCredit: "Akita Prefecture",
@@ -265,7 +268,7 @@ import photoKamenoiOpenAir from '../../assets/photos/akita/02亀の井ホテル�
           ],
           transitDetail: {
             method: "徒歩で駅前の田沢湖市へ",
-            route: "駅前・駅構内 ➔ 田沢湖市 ➔ 田沢湖駅",
+            route: "駅前・駅構内 ➔ 田沢湖市",
             specs: ["食事・買い物と新幹線への乗り換えに余裕を確保", "昼休みや売り切れ時は早めに別の食事を手配"]
           }
         },
@@ -309,12 +312,6 @@ import photoKamenoiOpenAir from '../../assets/photos/akita/02亀の井ホテル�
 />
 
 
-**駅前ランチと駅弁の確認先：** [そば五郎の案内](https://www.akita-nairiku.com/others/gourmet-route.php)・[NewDaysの営業時間](https://shop.jr-cross.co.jp/eki/spot/detail?code=1552496)・[花善の販売店一覧](https://hanazen.co.jp/about/)。鶏めしの取り置きは3日前を目安に[店舗へ電話（0187-58-0081）](tel:0187580081)で相談してください。電話番号は[秋田県の掲載資料](https://common3.pref.akita.lg.jp/akitamai/wp-content/uploads/2022/12/1a9efa3e1273344980c6834b22bd9191-2.pdf)を参照しています。受付条件・在庫は店舗に確認してください。
-
-## 出発前に確認したいこと
-
-- [田沢湖一周線の時刻表](https://ugokotsu.co.jp/wp-content/jikoku/latest/tazawa2026.pdf)と宿への交通を確認してください。
-- 列車は時間帯を指定して申し込み、便は選べません。[どこかにビューーン！公式](https://dokokani-eki-net.com/)で条件を確認してください。
 
 ## 別のモデルコースを見る
 

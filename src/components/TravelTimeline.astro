@@ -51,6 +51,7 @@ export interface TimelineStep {
   imageLayout?: 'carousel' | 'grid-2' | 'grid-3' | 'pip'; // 写真のレイアウト形式（pip: ピクチャーインピクチャ、メイン大＋右上に子写真小）
   desc?: string;
   points?: string[];      // 箇条書きポイント（最大2〜3行）
+  links?: { label: string; href: string }[];
   amenities?: SpotAmenity[]; // 設備情報
   transit?: string;       // 移動情報メイン（e.g. "徒歩 約8分"）
   transitRoute?: string;  // 移動区間・道のりイメージ（e.g. "サンビーチ海沿いデッキ → 熱海銀座アーケード"）
@@ -477,6 +478,7 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                                       ))}
                                     </ul>
                                   )}
+                                  {opt.links && <p class="spot-links">{opt.links.map((link) => <a href={link.href}>{link.label}</a>)}</p>}
 
                                   {opt.amenities && opt.amenities.length > 0 && (
                                     <p class="wide-amenities-line">
@@ -558,6 +560,7 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                             ))}
                           </ul>
                         )}
+                        {step.links && <p class="spot-links">{step.links.map((link) => <a href={link.href}>{link.label}</a>)}</p>}
 
                         {resolveHotelBookingUrl(step) && (
                           <a
@@ -725,6 +728,7 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                               ))}
                             </ul>
                           )}
+                          {step.links && <p class="spot-links">{step.links.map((link) => <a href={link.href}>{link.label}</a>)}</p>}
 
                           {step.amenities && step.amenities.length > 0 && (
                             <p class="wide-amenities-line">
@@ -1116,6 +1120,8 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
 </script>
 
 <style>
+  .spot-links { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 12px 0 0; font-size: 0.875rem; }
+  .spot-links a { color: #12627c; text-decoration: underline; }
   /* 全体コンテナ */
   .tavinavi-timeline-wide {
     width: 100%;

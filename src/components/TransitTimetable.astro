@@ -1,0 +1,170 @@
+---
+interface Props {
+  destination?: string;
+  origin?: string;
+  feed?: string;
+}
+const { destination = '乳頭蟹場温泉', origin = '田沢湖駅前', feed = 'ugokotsu-tazawako' } = Astro.props;
+const stationName = origin.replace(/前$/, '');
+---
+<section class="timetable" data-timetable data-feed={feed} data-origin-name={origin} data-station-name={stationName} data-destination={destination}>
+  <h2>こまちとバスの乗り継ぎを調べる</h2>
+  <p>旅行日と停留所を選ぶと、こまちと乗り継ぐための時刻をバスごとに表示します。</p>
+  <div class="fields">
+    <label>行き・帰り<select data-direction><option value="outbound">行き（駅から観光地へ）</option><option value="return">帰り（観光地から駅へ）</option></select></label>
+    <label>乗車日<input type="date" data-date /></label>
+    <label>乗る停留所<select data-origin disabled><option>読み込み中</option></select></label>
+    <label>降りる停留所<select data-destination-select disabled><option>読み込み中</option></select></label>
+    <label data-ready-label hidden>観光地を出発できる時刻<input type="time" data-ready-time /></label>
+    <label>駅での乗り換え時間<select data-transfer><option value="10">10分</option><option value="15">15分</option><option value="20">20分</option><option value="30">30分</option></select></label>
+  </div>
+  <p>乗り換え時間は駅前バス停と改札の移動を含む目安です。列車の運行時刻と指定された便を確認してください。</p>
+  <p class="status" data-status role="status">時刻表を読み込んでいます。</p>
+  <div data-results></div>
+  <p class="credit">データ提供：<span data-publisher>羽後交通株式会社</span>（<a href="https://creativecommons.org/licenses/by/4.0/" data-license>CC BY 4.0</a>）・<a href="https://gtfs-data.jp/search?agencyId=ugokotsu" data-source>GTFSデータリポジトリ</a>。予定ダイヤです。運休・遅延は反映していません。</p>
+</section>
+
+<script>
+  type Stop = { id: string; name: string };
+  type Trip = { id: string; route: string; service: string; headsign: string };
+  type StopTime = { trip: string; stop: string; sequence: number; arrival: string; departure: string; pickup: string; dropoff: string };
+  type Version = { start: string; end: string; stops: Stop[]; routes: { id: string; name: string }[]; trips: Trip[]; times: StopTime[]; calendar: Record<string, string>[]; exceptions: Record<string, string>[] };
+  type Feed = { checkedAt: string; publisher: string; license: string; licenseUrl: string; sourceUrl: string; versions: Version[] };
+
+  for (const widget of document.querySelectorAll<HTMLElement>('[data-timetable]')) {
+    const date = widget.querySelector<HTMLInputElement>('[data-date]')!;
+    const direction = widget.querySelector<HTMLSelectElement>('[data-direction]')!;
+    const readyTime = widget.querySelector<HTMLInputElement>('[data-ready-time]')!;
+    const readyLabel = widget.querySelector<HTMLElement>('[data-ready-label]')!;
+    const transfer = widget.querySelector<HTMLSelectElement>('[data-transfer]')!;
+    const origin = widget.querySelector<HTMLSelectElement>('[data-origin]')!;
+    const destination = widget.querySelector<HTMLSelectElement>('[data-destination-select]')!;
+    const status = widget.querySelector<HTMLElement>('[data-status]')!;
+    const results = widget.querySelector<HTMLElement>('[data-results]')!;
+    date.value = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Tokyo', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
+
+    fetch(`/data/transit/${encodeURIComponent(widget.dataset.feed || '')}.json`)
+      .then((response) => { if (!response.ok) throw new Error('Timetable unavailable'); return response.json() as Promise<Feed>; })
+      .then((feed) => {
+        widget.querySelector<HTMLElement>('[data-publisher]')!.textContent = feed.publisher;
+        const license = widget.querySelector<HTMLAnchorElement>('[data-license]')!;
+        license.textContent = feed.license;
+        license.href = feed.licenseUrl;
+        widget.querySelector<HTMLAnchorElement>('[data-source]')!.href = feed.sourceUrl;
+        const checked = new Date(feed.checkedAt);
+        if (!Number.isFinite(checked.getTime()) || Date.now() - checked.getTime() > 48 * 60 * 60 * 1000) {
+          status.textContent = '時刻表の更新を確認できません。運行会社の時刻表をご確認ください。';
+          return;
+        }
+        const formatTime = (value: string) => {
+          const [hours, minutes] = value.split(':').map(Number);
+          return `${hours >= 24 ? '翌日 ' : ''}${String(hours % 24).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+        };
+        const toMinutes = (value: string) => {
+          const [hours, minutes] = value.split(':').map(Number);
+          return hours * 60 + minutes;
+        };
+        const formatMinutes = (value: number) => `${value >= 1440 ? '翌日 ' : ''}${String(Math.floor(value / 60) % 24).padStart(2, '0')}:${String(value % 60).padStart(2, '0')}`;
+        const render = () => {
+          results.replaceChildren();
+          const key = date.value.replaceAll('-', '');
+          const version = feed.versions.find((item) => item.start <= key && key <= item.end);
+          if (!version) {
+            origin.disabled = destination.disabled = true;
+            status.textContent = '選択日の時刻表データはまだありません。運行会社の時刻表をご確認ください。';
+            return;
+          }
+          const names = [...new Set(version.stops.map((stop) => stop.name))].sort((a, b) => a.localeCompare(b, 'ja'));
+          for (const [select, fallback] of [[origin, widget.dataset.originName || '田沢湖駅前'], [destination, widget.dataset.destination || '乳頭蟹場温泉']] as const) {
+            const selected = names.includes(select.value) ? select.value : fallback;
+            select.replaceChildren(...names.map((name) => new Option(name, name)));
+            select.value = names.includes(selected) ? selected : names[0];
+            select.disabled = false;
+          }
+          const weekday = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'][new Date(`${date.value}T12:00:00+09:00`).getUTCDay()];
+          const active = new Set(version.calendar.filter((c) => c.start_date <= key && key <= c.end_date && c[weekday] === '1').map((c) => c.service_id));
+          for (const exception of version.exceptions.filter((e) => e.date === key)) {
+            if (exception.exception_type === '1') active.add(exception.service_id);
+            if (exception.exception_type === '2') active.delete(exception.service_id);
+          }
+          const from = new Set(version.stops.filter((stop) => stop.name === origin.value).map((stop) => stop.id));
+          const to = new Set(version.stops.filter((stop) => stop.name === destination.value).map((stop) => stop.id));
+          const timesByTrip = new Map<string, StopTime[]>();
+          for (const time of version.times) {
+            if (!timesByTrip.has(time.trip)) timesByTrip.set(time.trip, []);
+            timesByTrip.get(time.trip)!.push(time);
+          }
+          const rows: { departure: string; arrival: string; route: string; headsign: string }[] = [];
+          for (const trip of version.trips.filter((item) => active.has(item.service))) {
+            const stops = (timesByTrip.get(trip.id) || []).sort((a, b) => a.sequence - b.sequence);
+            for (const start of stops.filter((item) => from.has(item.stop) && item.pickup !== '1' && item.departure)) {
+              const end = stops.find((item) => item.sequence > start.sequence && to.has(item.stop) && item.dropoff !== '1' && item.arrival);
+              if (end) rows.push({ departure: start.departure, arrival: end.arrival, route: version.routes.find((route) => route.id === trip.route)?.name || '', headsign: trip.headsign });
+            }
+          }
+          rows.sort((a, b) => a.departure.localeCompare(b.departure));
+          const returning = direction.value === 'return';
+          const available = returning && readyTime.value ? rows.filter((row) => toMinutes(row.departure) >= toMinutes(readyTime.value)) : rows;
+          const checkDate = new Intl.DateTimeFormat('ja-JP', { timeZone: 'Asia/Tokyo', dateStyle: 'medium', timeStyle: 'short' }).format(checked);
+          const station = widget.dataset.originName || '田沢湖駅前';
+          const stationMatches = returning ? destination.value === station : origin.value === station;
+          const buffer = Number(transfer.value);
+          status.textContent = `${checkDate} 更新確認。${available.length ? `直通 ${available.length}便` : '条件に合う直通便が見つかりませんでした。'}`;
+          if (!stationMatches) {
+            const note = document.createElement('p');
+            note.textContent = `こまちとの接続を見るには、${returning ? '降りる' : '乗る'}停留所を「${station}」にしてください。`;
+            results.append(note);
+          } else if (returning && available.length) {
+            const earliest = Math.min(...available.map((row) => toMinutes(row.arrival))) + buffer;
+            const summary = document.createElement('p');
+            summary.className = 'connection-summary';
+            summary.textContent = `条件に合う最も早いバスを使う場合、${widget.dataset.stationName}発 ${formatMinutes(earliest)} より前の列車には間に合いません（乗り換え${buffer}分）。`;
+            results.append(summary);
+          }
+          if (!available.length) return;
+          const list = document.createElement('ul');
+          list.className = 'departures';
+          for (const row of available) {
+            const item = document.createElement('li');
+            const connection = stationMatches
+              ? returning
+                ? ` ／ 列車は${formatMinutes(toMinutes(row.arrival) + buffer)}以降に出発`
+                : toMinutes(row.departure) >= buffer
+                  ? ` ／ 列車は${formatMinutes(toMinutes(row.departure) - buffer)}までに到着`
+                  : ' ／ 列車からの乗り換え時刻を確認'
+              : '';
+            item.textContent = `${formatTime(row.departure)} 発 → ${formatTime(row.arrival)} 着　${row.route}${row.headsign ? `（${row.headsign}）` : ''}${connection}`;
+            list.append(item);
+          }
+          results.append(list);
+        };
+        date.addEventListener('change', render);
+        origin.addEventListener('change', render);
+        destination.addEventListener('change', render);
+        readyTime.addEventListener('input', render);
+        transfer.addEventListener('change', render);
+        direction.addEventListener('change', () => {
+          const previousOrigin = origin.value;
+          origin.value = destination.value;
+          destination.value = previousOrigin;
+          readyTime.value = '';
+          readyLabel.hidden = direction.value !== 'return';
+          render();
+        });
+        render();
+      })
+      .catch(() => { status.textContent = '時刻表を取得できません。運行会社の時刻表をご確認ください。'; });
+  }
+</script>
+<style>
+  .timetable { margin: 32px 0; padding: 20px; border: 1px solid #d6e5e6; border-radius: 12px; background: #f5faf9; }
+  .timetable h2 { margin: 0 0 8px; font-size: 1.2rem; }
+  .timetable p { margin: 8px 0; font-size: .9rem; line-height: 1.7; }
+  .fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 16px 0; }
+  .fields label { display: grid; gap: 4px; font-size: .85rem; font-weight: 700; }
+  .fields label[hidden] { display: none; }
+  .fields input, .fields select { width: 100%; min-width: 0; padding: 8px; border: 1px solid #9bb1b3; border-radius: 6px; background: white; color: #172b3a; font: inherit; }
+  .timetable :global(.departures) { padding-left: 1.2em; font-size: .9rem; }
+  .timetable :global(.connection-summary) { font-weight: 700; color: #123d50; }
+  .timetable .credit { color: #526676; font-size: .78rem; }
+</style>

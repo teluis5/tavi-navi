@@ -15,6 +15,7 @@ tags: ["どこかにビューン", "田沢湖", "秋田", "秋田新幹線", "�
 ---
 import ConclusionBox from '../../components/ConclusionBox.astro';
 import TravelTimeline from '../../components/TravelTimeline.astro';
+import TransitTimetable from '../../components/TransitTimetable.astro';
 import photoHanazen from '../blog/tazawako-shared/hanazen-torimeshi.jpg';
 import photoSoba from '../blog/tazawako-shared/akita-soba.jpg';
 
@@ -41,7 +42,9 @@ import photoKamenoiOpenAir from '../../assets/photos/akita/02亀の井ホテル�
 
 口コミは宿泊を含む利用者の感想で、点数はニフティ温泉の2026年11月12日確認時点です。湯の色や混雑は日によって変わります。口コミの参考：[水沢温泉](https://onsen.nifty.com/tazawako-onsen/onsen000614/)、[鶴の湯](https://onsen.nifty.com/kakunodate-onsen/onsen000615/kuchikomi/)、[大釜温泉](https://onsen.nifty.com/kakunodate-onsen/onsen000620/kuchikomi/)、[AONI](https://www.tripadvisor.jp/Hotel_Review-g1022324-d1107066-Reviews-Cerulean_Resort_Aoni-Semboku_Akita_Prefecture_Tohoku.html)。
 
-**鶴の湯を選ぶ条件：** 2日目は10:00から入浴できます。例えば田沢湖駅9:40発の乳頭線はアルパこまくさ10:14着。そこから鶴の湯までの交通は事前に確保してください。帰りにアルパこまくさ12:09発に乗れれば駅12:43着、こまち13:11発まで28分です。出発駅への帰着時間帯を選んでも列車は指定できず、この便に決まる保証はありません。送迎・渋滞・買い物時間を含めて余裕がなければ別の温泉を選びましょう。時刻は2026年11月の例で、日によって変わります。駅・宿からのバスの接続も確認してください。
+**鶴の湯を選ぶ条件：** 2日目は10:00から入浴できます。アルパこまくさから鶴の湯までの送迎は日帰り利用の可否と往復時刻を施設に確認してください。帰りのバスと指定されたこまちに余裕を持って乗り継げる場合に選びましょう。
+
+<TransitTimetable destination="乳頭蟹場温泉" />
 
 <TravelTimeline
   days={[
@@ -66,11 +69,11 @@ import photoKamenoiOpenAir from '../../assets/photos/akita/02亀の井ホテル�
         {
           leadHeading: "1日目は夕方も入れる日帰り温泉を1軒選ぶ",
           areaLabel: "水沢温泉郷",
-          title: "1日目の日帰り温泉",
+          title: "1日目の日帰り温泉", links: [{ label: "乳頭線の時刻表", href: "https://ugokotsu.co.jp/wp-content/jikoku/latest/nyuto2026.pdf" }],
           alternatives: [
             {
               alternativeLabel: "露天風呂 水沢温泉",
-              title: "露天風呂 水沢温泉",
+              title: "露天風呂 水沢温泉", links: [{ label: "水沢温泉の営業案内", href: "https://www.tsukamoto-sogyo.co.jp/mizusawa/onsen/index.html" }],
               categoryLabel: "日帰り温泉",
               image: photoKamenoiOpenAir,
               imageCredit: "Akita Prefecture",
@@ -79,12 +82,12 @@ import photoKamenoiOpenAir from '../../assets/photos/akita/02亀の井ホテル�
                 "写真は田沢湖高原の温泉（亀の井ホテル）のイメージ",
                 "白濁した湯と深さ約1mの露天風呂。ニフティ温泉4.2点（33件）",
                 "10:00〜20:00受付、21:00閉館。乳頭線「水沢温泉郷」から徒歩約1分",
-                "田沢湖駅17:20発の乳頭線は水沢温泉郷17:43着（2026年4月改正）"
+                "田沢湖駅から乳頭線で水沢温泉郷へ。旅行日のバス時刻を確認"
               ]
             },
             {
               alternativeLabel: "セルリアン AONI",
-              title: "セルリアンリゾートAONI",
+              title: "セルリアンリゾートAONI", links: [{ label: "AONIの営業案内", href: "https://cerulean-aoni.com/" }],
               categoryLabel: "日帰り温泉",
               image: photoKamenoiOpenAir,
               imageCredit: "Akita Prefecture",
@@ -152,7 +155,7 @@ import photoKamenoiOpenAir from '../../assets/photos/akita/02亀の井ホテル�
           alternatives: [
             {
               alternativeLabel: "鶴の湯",
-              title: "乳頭温泉郷 鶴の湯温泉",
+              title: "乳頭温泉郷 鶴の湯温泉", links: [{ label: "鶴の湯の日帰り入浴", href: "https://www.tsurunoyu.com/FONDMENT/t-onsen.html" }],
               categoryLabel: "日帰り温泉",
               image: photoTsurunoyu,
               imageCredit: "Akita Prefecture",
@@ -160,24 +163,24 @@ import photoKamenoiOpenAir from '../../assets/photos/akita/02亀の井ホテル�
                 "白濁した湯と秘湯の風情。ニフティ温泉4.3点（171件）",
                 "日帰り10:00〜15:00。月曜休み、祝日の場合は直近の平日が休み",
                 "アルパこまくさからの送迎は、日帰り利用の可否と往復の時間を施設に事前確認",
-                "帰りの目安：アルパこまくさ12:09発・駅12:43着なら、こまち13:11発以降を検討"
+                "アルパこまくさから駅へ戻るバスと帰りのこまちの接続を確認"
               ]
             },
             {
               alternativeLabel: "妙乃湯",
-              title: "乳頭温泉郷 妙乃湯",
+              title: "乳頭温泉郷 妙乃湯", links: [{ label: "妙乃湯の日帰り入浴", href: "https://taenoyu.com/bath/" }],
               categoryLabel: "日帰り温泉",
               image: photoTaenoyu,
               imageCredit: "Akita Prefecture",
               points: [
                 "金の湯は濁り湯、銀の湯は透明。白い湯とは異なる色合いを楽しめる",
                 "10:30〜15:00、受付14:00まで、火曜休み",
-                "妙乃湯温泉前11:58発の乳頭線は田沢湖駅前12:43着（2026年4月改正）"
+                "妙乃湯温泉前から駅へ戻る乳頭線の時刻を確認"
               ]
             },
             {
               alternativeLabel: "蟹場温泉",
-              title: "乳頭温泉郷 蟹場温泉",
+              title: "乳頭温泉郷 蟹場温泉", links: [{ label: "蟹場温泉の入浴案内", href: "https://ganibaonsen.com/baths/" }],
               categoryLabel: "日帰り温泉",
               image: photoGaniba,
               imageCredit: "Akita Prefecture",
@@ -188,7 +191,7 @@ import photoKamenoiOpenAir from '../../assets/photos/akita/02亀の井ホテル�
             },
             {
               alternativeLabel: "大釜温泉",
-              title: "乳頭温泉郷 大釜温泉",
+              title: "乳頭温泉郷 大釜温泉", links: [{ label: "大釜温泉の入浴案内", href: "https://ookama-onsen.jp/spa/" }],
               categoryLabel: "日帰り温泉",
               image: photoOgama,
               imageCredit: "Akita Prefecture",
@@ -212,7 +215,7 @@ import photoKamenoiOpenAir from '../../assets/photos/akita/02亀の井ホテル�
           alternatives: [
             {
               alternativeLabel: "駅前でそば",
-              title: "そば五郎",
+              title: "そば五郎", links: [{ label: "そば五郎の案内", href: "https://www.akita-nairiku.com/others/gourmet-route.php" }],
               categoryLabel: "駅前ランチ",
               image: photoSoba,
               imageCredit: "Akita Prefecture",
@@ -224,7 +227,7 @@ import photoKamenoiOpenAir from '../../assets/photos/akita/02亀の井ホテル�
             },
             {
               alternativeLabel: "鶏めし駅弁",
-              title: "NewDays KIOSK 田沢湖駅店",
+              title: "NewDays KIOSK 田沢湖駅店", links: [{ label: "NewDaysの営業時間", href: "https://shop.jr-cross.co.jp/eki/spot/detail?code=1552496" }, { label: "花善の販売店一覧", href: "https://hanazen.co.jp/about/" }, { label: "取り置きを電話で相談（0187-58-0081）", href: "tel:0187580081" }, { label: "電話番号の出典（秋田県）", href: "https://common3.pref.akita.lg.jp/akitamai/wp-content/uploads/2022/12/1a9efa3e1273344980c6834b22bd9191-2.pdf" }],
               categoryLabel: "駅弁テイクアウト",
               image: photoHanazen,
               imageCredit: "Akita Prefecture",
@@ -237,7 +240,7 @@ import photoKamenoiOpenAir from '../../assets/photos/akita/02亀の井ホテル�
           ],
           transitDetail: {
             method: "徒歩で駅前の田沢湖市へ",
-            route: "駅前・駅構内 ➔ 田沢湖市 ➔ 田沢湖駅",
+            route: "駅前・駅構内 ➔ 田沢湖市",
             specs: ["食事・買い物と新幹線への乗り換えに余裕を確保", "昼休みや売り切れ時は早めに別の食事を手配"]
           }
         },
@@ -281,14 +284,6 @@ import photoKamenoiOpenAir from '../../assets/photos/akita/02亀の井ホテル�
 />
 
 
-**駅前ランチと駅弁の確認先：** [そば五郎の案内](https://www.akita-nairiku.com/others/gourmet-route.php)・[NewDaysの営業時間](https://shop.jr-cross.co.jp/eki/spot/detail?code=1552496)・[花善の販売店一覧](https://hanazen.co.jp/about/)。鶏めしの取り置きは3日前を目安に[店舗へ電話（0187-58-0081）](tel:0187580081)で相談してください。電話番号は[秋田県の掲載資料](https://common3.pref.akita.lg.jp/akitamai/wp-content/uploads/2022/12/1a9efa3e1273344980c6834b22bd9191-2.pdf)を参照しています。受付条件・在庫は店舗に確認してください。
-
-## 出発前に確認したいこと
-
-- [乳頭線の時刻表](https://ugokotsu.co.jp/wp-content/jikoku/latest/nyuto2026.pdf)と各施設の営業状況を確認してください。
-- [鶴の湯](https://www.tsurunoyu.com/FONDMENT/t-onsen.html)は月曜休み。日帰り客の送迎可否と往復の時間を施設へ確認してください。
-- [妙乃湯](https://taenoyu.com/bath/)は火曜、[蟹場温泉](https://ganibaonsen.com/baths/)は水曜、[大釜温泉](https://ookama-onsen.jp/spa/)は木曜が日帰り休業です。
-- [水沢温泉](https://www.tsukamoto-sogyo.co.jp/mizusawa/onsen/index.html)と[AONI](https://cerulean-aoni.com/)の営業日を確認してください。
 
 ## 別のモデルコースを見る
 
