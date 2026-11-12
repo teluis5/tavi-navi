@@ -5,16 +5,17 @@ interface Props {
   feed?: string;
   direction?: 'outbound' | 'return' | 'both';
   destinations?: string[];
+  finalStop?: string;
 }
-const { destination = '乳頭蟹場温泉', origin = '田沢湖駅前', feed = 'ugokotsu-tazawako', direction = 'both', destinations = [] } = Astro.props;
+const { destination = '乳頭蟹場温泉', origin = '田沢湖駅前', feed = 'ugokotsu-tazawako', direction = 'both', destinations = [], finalStop } = Astro.props;
 const stationName = origin.replace(/前$/, '');
 ---
-<section class="timetable" data-timetable data-feed={feed} data-origin-name={origin} data-station-name={stationName} data-destination={destination} data-direction={direction}>
+<section class="timetable" data-timetable data-feed={feed} data-origin-name={origin} data-station-name={stationName} data-destination={destination} data-direction={direction} data-final-stop={finalStop}>
   {destinations.length > 1 && <label class="stop-selector">利用する温泉のバス停 <select data-stop>{destinations.map((stop) => <option value={stop} selected={stop === destination}>{stop}</option>)}</select></label>}
   <div data-periods class="periods" aria-label="ダイヤの期間"></div>
   <p class="status" data-status role="status">バスの時刻表を読み込んでいます。</p>
   <div data-results></div>
-  <p class="credit">提供：<span data-publisher>羽後交通株式会社</span>（<a href="https://creativecommons.org/licenses/by/4.0/" data-license>CC BY 4.0</a>）・<a href="https://gtfs-data.jp/search?agencyId=ugokotsu" data-source>GTFSデータリポジトリ</a></p>
+  <p class="credit">出典：<span data-publisher>羽後交通株式会社</span>（<a href="https://creativecommons.org/licenses/by/4.0/" data-license>CC BY 4.0</a>）・<a href="https://gtfs-data.jp/search?agencyId=ugokotsu" data-source>GTFS</a> <span data-updated></span></p>
 </section>
 
 <script>
@@ -91,23 +92,29 @@ const stationName = origin.replace(/前$/, '');
             grouped.get(time.trip)!.push(time);
           }
           const checkDate = new Intl.DateTimeFormat('ja-JP', { timeZone: 'Asia/Tokyo', dateStyle: 'medium' }).format(checked);
-          status.textContent = `${checkDate} 更新確認`;
+          status.textContent = '';
+          widget.querySelector<HTMLElement>('[data-updated]')!.textContent = `${checkDate}更新`;
           for (const [from, to, heading] of [[station, destination, '行き'], [destination, station, '帰り']]) {
             if (widget.dataset.direction === 'outbound' && heading === '帰り') continue;
             if (widget.dataset.direction === 'return' && heading === '行き') continue;
             const section = document.createElement('section');
             section.className = 'journey';
             const title = document.createElement('h3');
-            title.textContent = `${heading}　${from} → ${to}`;
+            const finalStop = heading === '行き' ? widget.dataset.finalStop : undefined;
+            title.textContent = `${heading}　${from} → ${to}${finalStop ? ` → ${finalStop}` : ''}`;
             section.append(title);
             const fromIds = new Set(version.stops.filter((s) => s.name === from).map((s) => s.id));
             const toIds = new Set(version.stops.filter((s) => s.name === to).map((s) => s.id));
-            const rows: { departure: number; arrival: number }[] = [];
+            const finalIds = new Set(version.stops.filter((s) => s.name === finalStop).map((s) => s.id));
+            const rows: { departure: number; arrival: number; finalArrival?: number }[] = [];
             for (const trip of version.trips.filter((t) => active.has(t.service))) {
               const stops = (grouped.get(trip.id) || []).sort((a, b) => a.sequence - b.sequence);
               for (const first of stops.filter((s) => fromIds.has(s.stop) && s.pickup !== '1' && s.departure)) {
                 const last = stops.find((s) => s.sequence > first.sequence && toIds.has(s.stop) && s.dropoff !== '1' && s.arrival);
-                if (last) rows.push({ departure: minutes(first.departure), arrival: minutes(last.arrival) });
+                if (last) {
+                  const final = finalStop && stops.find((s) => s.sequence > last.sequence && finalIds.has(s.stop) && s.dropoff !== '1' && s.arrival);
+                  rows.push({ departure: minutes(first.departure), arrival: minutes(last.arrival), finalArrival: final ? minutes(final.arrival) : undefined });
+                }
               }
             }
             rows.sort((a, b) => a.departure - b.departure);
@@ -120,7 +127,7 @@ const stationName = origin.replace(/前$/, '');
               list.className = 'departures';
               for (const row of rows) {
                 const li = document.createElement('li');
-                li.textContent = `${formatMinutes(row.departure)}発 → ${formatMinutes(row.arrival)}着`;
+                li.textContent = `${formatMinutes(row.departure)}発 → ${formatMinutes(row.arrival)}着${finalStop ? ` → ${row.finalArrival === undefined ? '—' : `${formatMinutes(row.finalArrival)}着`}` : ''}`;
                 list.append(li);
               }
               section.append(list);
@@ -146,6 +153,7 @@ const stationName = origin.replace(/前$/, '');
   .periods :global(button) { flex: 0 0 auto; white-space: nowrap; padding: 7px 9px; border: 1px solid #aac3c3; border-radius: 20px; background: white; color: #24545b; font: inherit; font-size: .8rem; cursor: pointer; }
   .periods :global(button[aria-pressed="true"]) { background: #24545b; color: white; }
   .timetable p { margin: 8px 0; font-size: .85rem; line-height: 1.6; }
+  .timetable .status:empty { display: none; }
   .timetable :global(.journey h3) { margin: 14px 0 6px; font-size: .95rem; }
   .timetable :global(.departures) { margin: 0; padding-left: 1.2em; font-size: .85rem; line-height: 1.7; }
   .timetable :global(.connection-summary) { font-weight: 700; color: #123d50; }

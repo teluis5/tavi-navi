@@ -20,7 +20,6 @@ export interface TimelineTransitDetail {
   route?: string;         // e.g. "熱海銀座バス停 → サンビーチ前"
   specs?: string[];       // e.g. ["運行：1時間に3〜4本（約15〜20分間隔）", "運賃200円（交通系IC可）"]
   links?: { label: string; href: string }[];
-  schedule?: { title: string; entries: string[] };
 }
 
 export interface TimelinePhotoItem {
@@ -63,7 +62,7 @@ export interface TimelineStep {
   transitSpecs?: string[];// 運行本数・高低差・運賃などの実用ディテール
   transitDetail?: TimelineTransitDetail;
   transitBadge?: string;
-  timetable?: { destination: string; destinations?: string[]; direction: 'outbound' | 'return' | 'both' };
+  timetable?: { destination: string; destinations?: string[]; finalStop?: string; direction: 'outbound' | 'return' | 'both' };
 
   // 横スワイプ候補（カルーセル）機能
   alternativeLabel?: string; // 短縮ラベル推奨（例: "海鮮丼", "静岡牛", "イタリアン"）
@@ -794,7 +793,6 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                         ))}
                       </ul>
                     )}
-                    {step.transitDetail?.schedule && <details class="transit-schedule"><summary>{step.transitDetail.schedule.title}</summary><ul>{step.transitDetail.schedule.entries.map((entry) => <li>{entry}</li>)}</ul></details>}
                     {step.timetable && <TransitTimetable {...step.timetable} />}
                     {step.transitDetail?.links && <p class="spot-links">{step.transitDetail.links.map((link) => <a href={link.href}>{link.label}</a>)}</p>}
                   </div>
@@ -1132,9 +1130,6 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
 </script>
 
 <style>
-  .transit-schedule { margin: 10px 0; font-size: .875rem; }
-  .transit-schedule summary { color: #12627c; cursor: pointer; font-weight: 700; }
-  .transit-schedule ul { padding-left: 1.3em; line-height: 1.7; }
   .spot-links { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 12px 0 0; font-size: 0.875rem; }
   .spot-links a { color: #12627c; text-decoration: underline; }
   /* 全体コンテナ */
