@@ -9,6 +9,8 @@ export interface TimelineHotelData {
   rating?: string;        // e.g. "4.4"
   reviewCount?: string;   // e.g. "2,150"
   rakutenUrl?: string;    // アフィリエイトURL（未指定時はホテル名等から自動生成）
+  jalanUrl?: string;      // 確認済みのじゃらん施設URL
+  yahooUrl?: string;      // 確認済みのYahoo!トラベル施設URL
   hotelNo?: string | number; // 楽天トラベルの施設番号
   areaUrl?: string;       // エリア一覧検索URL（例: "https://search.travel.rakuten.co.jp/ds/hotellist/Japan-Akita-Semboku-Tazawako"）
   priceText?: string;     // e.g. "2名1室 税込14,800円〜"
@@ -505,6 +507,18 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                                       <span class="cta-arrow">→</span>
                                     </a>
                                   )}
+                                  {opt.hotelData?.yahooUrl && (
+                                    <a href={`https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3787762&pid=892747331&vc_url=${encodeURIComponent(opt.hotelData.yahooUrl)}`} target="_blank" rel="nofollow sponsored noopener" class="wide-hotel-cta yahoo-hotel-cta">
+                                      <img src="https://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3787762&pid=892747331" height="1" width="0" border="0" alt="" />
+                                      <span>Yahoo!トラベルでこのホテルを予約する</span><span class="cta-arrow">→</span>
+                                    </a>
+                                  )}
+                                  {opt.hotelData?.jalanUrl && (
+                                    <a href={`https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3787762&pid=892747339&vc_url=${encodeURIComponent(opt.hotelData.jalanUrl)}`} target="_blank" rel="nofollow sponsored noopener" class="wide-hotel-cta jalan-hotel-cta">
+                                      <img src="https://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3787762&pid=892747339" height="1" width="0" border="0" alt="" />
+                                      <span>じゃらんでこのホテルの空室を確認する</span><span class="cta-arrow">→</span>
+                                    </a>
+                                  )}
                                 </div>
                               </div>
                             </div>
@@ -581,6 +595,18 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                           >
                             <span>{resolveHotelBookingUrl(step)!.label}</span>
                             <span class="cta-arrow">→</span>
+                          </a>
+                        )}
+                        {step.hotelData?.yahooUrl && (
+                          <a href={`https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3787762&pid=892747331&vc_url=${encodeURIComponent(step.hotelData.yahooUrl)}`} target="_blank" rel="nofollow sponsored noopener" class="wide-hotel-cta yahoo-hotel-cta">
+                            <img src="https://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3787762&pid=892747331" height="1" width="0" border="0" alt="" />
+                            <span>Yahoo!トラベルでこのホテルを予約する</span><span class="cta-arrow">→</span>
+                          </a>
+                        )}
+                        {step.hotelData?.jalanUrl && (
+                          <a href={`https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3787762&pid=892747339&vc_url=${encodeURIComponent(step.hotelData.jalanUrl)}`} target="_blank" rel="nofollow sponsored noopener" class="wide-hotel-cta jalan-hotel-cta">
+                            <img src="https://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3787762&pid=892747339" height="1" width="0" border="0" alt="" />
+                            <span>じゃらんでこのホテルの空室を確認する</span><span class="cta-arrow">→</span>
                           </a>
                         )}
                       </div>
@@ -757,6 +783,18 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                             >
                               <span>{resolveHotelBookingUrl(step)!.label}</span>
                               <span class="cta-arrow">→</span>
+                            </a>
+                          )}
+                          {step.hotelData?.yahooUrl && (
+                            <a href={`https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3787762&pid=892747331&vc_url=${encodeURIComponent(step.hotelData.yahooUrl)}`} target="_blank" rel="nofollow sponsored noopener" class="wide-hotel-cta yahoo-hotel-cta">
+                              <img src="https://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3787762&pid=892747331" height="1" width="0" border="0" alt="" />
+                              <span>Yahoo!トラベルでこのホテルを予約する</span><span class="cta-arrow">→</span>
+                            </a>
+                          )}
+                          {step.hotelData?.jalanUrl && (
+                            <a href={`https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3787762&pid=892747339&vc_url=${encodeURIComponent(step.hotelData.jalanUrl)}`} target="_blank" rel="nofollow sponsored noopener" class="wide-hotel-cta jalan-hotel-cta">
+                              <img src="https://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3787762&pid=892747339" height="1" width="0" border="0" alt="" />
+                              <span>じゃらんでこのホテルの空室を確認する</span><span class="cta-arrow">→</span>
                             </a>
                           )}
                         </div>
@@ -1869,6 +1907,10 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
     opacity: 0.9;
     color: #ffffff;
   }
+
+  .yahoo-hotel-cta { background: #bb2222; }
+
+  .jalan-hotel-cta { background: #a84200; }
 
   .cta-arrow {
     font-size: 0.95rem;

@@ -1,9 +1,9 @@
 ---
-interface Props { text: string }
-const { text } = Astro.props;
+interface Props { text: string; title?: string }
+const { text, title = 'このコースの注意点' } = Astro.props;
 ---
-<aside class="train-condition" aria-label="こまちの時間条件">
-  <strong>このコースの列車選び</strong>
+<aside class="train-condition" aria-label={title}>
+  <strong>{title}</strong>
   <p>{text}</p>
 </aside>
 <style>
