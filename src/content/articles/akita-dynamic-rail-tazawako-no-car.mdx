@@ -23,7 +23,6 @@ import photoKomachiOutbound from '../blog/tazawako-shared/komachi-outbound.jpg';
 import photoSouvenirPot from '../blog/tazawako-shared/kiritanpo-nabe.jpg';
 import photoSouvenirPickles from '../blog/tazawako-shared/iburigakko.jpg';
 
-import ConclusionBox from '../../components/ConclusionBox.astro';
 import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
 import photoTatsuko from '../../assets/photos/akita_compressed/tazawako-tatsuko.webp';
 import photoTaenoyu from '../../assets/photos/akita_compressed/01乳頭温泉郷　妙乃湯.webp';
@@ -33,16 +32,18 @@ import photoHotel from '../../assets/photos/akita/02亀の井ホテル　田沢�
 
 列車と宿を一緒に選ぶダイナミックレールパックなら、田沢湖での滞在時間を見ながら旅を組み立てられます。旅行日のバスに余裕を持って接続できる列車を選ぶ1泊2日案です。
 
-便・宿・送迎の空きは予約時に確認してください。バスの予定時刻は乗車日を選んで確認できます。
+予約時は対象の宿と送迎、往復の列車とバスの接続を確認します。乗車日の1カ月より前に申し込む希望列車は、手配結果が出るまで確定しません。[申込方法](https://www.jre-travel.com/guide/flow/)
+
+## 1日目と2日目の旅程
 
 <TravelTimeline days={[
   { dayNumber: 1, title: "こまち ➔ 田沢湖一周 ➔ 温泉宿", steps: [
-    { leadHeading: "早めのこまちで東京から出発", title: "秋田新幹線こまち", areaLabel: "東京駅 ➔ 田沢湖駅", image: photoKomachiOutbound, imageCredit: "Akita Prefecture", points: ["一周線に余裕を持って乗り継げる列車を選択", "列車の空席・運行日とパック対象を予約時に確認"], timetable: { destination: "潟尻", direction: "outbound" }, transitDetail: { method: "新幹線 約3時間", route: "東京駅 ➔ 田沢湖駅" } },
-    { leadHeading: "観光停車付きバスで湖を一周", title: "たつこ像・御座の石神社", areaLabel: "田沢湖畔", image: photoTatsuko, imageCredit: "Akita Prefecture", points: ["観光停車付きの便と停車時間を旅行日の時刻表で確認", "駅への帰着時刻を確認し、遅延や運休に備え余裕を確保"], timetable: { destination: "潟尻", direction: "return" }, transitDetail: { method: "田沢湖一周線", route: "田沢湖駅前 ➔ 潟尻 ➔ 御座の石神社 ➔ 田沢湖駅前", specs: ["運行状況と時刻を事前確認。昼食は周遊後に駅前で取る"] } },
+    { leadHeading: "早めのこまちで東京から出発", title: "秋田新幹線こまち", areaLabel: "東京駅 ➔ 田沢湖駅", image: photoKomachiOutbound, imageCredit: "Akita Prefecture", points: ["一周線に余裕を持って乗り継げる列車を選択", "列車の空席・運行日とパック対象を予約時に確認"], timetable: { destination: "潟尻", direction: "outbound" }, transitDetail: { method: "田沢湖一周線", route: "田沢湖駅前 ➔ 潟尻 ➔ 御座の石神社 ➔ 田沢湖駅前" } },
+    { leadHeading: "観光停車付きバスで湖を一周", title: "たつこ像・御座の石神社", areaLabel: "田沢湖畔", image: photoTatsuko, imageCredit: "Akita Prefecture", points: ["観光停車のある便では潟尻で20分、御座の石神社で10分散策", "駅に戻ったら昼食を取り、宿へのバスか送迎へ"], links: [{ label: "田沢湖一周線の時刻表", href: "https://ugokotsu.co.jp/wp-content/jikoku/latest/tazawa2026.pdf" }], timetable: { destination: "潟尻", direction: "return" }, transitDetail: { method: "乳頭線または宿の送迎", route: "田沢湖駅前 ➔ 予約した宿", specs: ["宿への最寄り停留所と送迎の予約条件を確認"] } },
     { leadHeading: "駅前で昼食を取り温泉宿へ", title: "田沢湖高原の温泉宿", areaLabel: "田沢湖高原", image: photoHotel, imageCredit: "Akita Prefecture", isImageSample: true, points: ["昼食後、乳頭線または宿の予約制送迎で移動", "写真は亀の井ホテル田沢湖。パック対象と空室は予約時に確認"] }
   ] },
   { dayNumber: 2, title: "乳頭温泉 ➔ 駅前でお土産 ➔ こまち", steps: [
-    { leadHeading: "日帰り入浴で乳頭温泉を楽しむ", title: "乳頭温泉郷 妙乃湯", areaLabel: "乳頭温泉郷", image: photoTaenoyu, imageCredit: "Akita Prefecture", points: ["日帰り入浴は10:30〜15:00、受付14:00まで。火曜休み", "宿からのバスと荷物預かりを確認し、入浴時間を確保"], timetable: { destination: "妙乃湯温泉前", direction: "return" }, transitDetail: { method: "乳頭線 約45〜50分", route: "妙乃湯温泉前 ➔ 田沢湖駅前", specs: ["帰りの列車まで買い物と乗り換えの余裕を取る"] } },
+    { leadHeading: "日帰り入浴で乳頭温泉を楽しむ", title: "乳頭温泉郷 妙乃湯", areaLabel: "乳頭温泉郷", image: photoTaenoyu, imageCredit: "Akita Prefecture", points: ["金の湯と銀の湯を楽しむ。日帰り入浴は火曜休み", "宿からのバスと荷物預かりを確認し、入浴時間を確保"], links: [{ label: "妙乃湯の日帰り入浴案内", href: "https://taenoyu.com/bath/" }], timetable: { destination: "妙乃湯温泉前", direction: "return" }, transitDetail: { method: "乳頭線 約45〜50分", route: "妙乃湯温泉前 ➔ 田沢湖駅前" } },
     { leadHeading: "帰りのこまちの前に駅前ランチか駅弁を選ぶ", title: "最後のランチ", areaLabel: "田沢湖駅前・駅構内", alternatives: [
       { alternativeLabel: "比内地鶏の親子丼", title: "割烹 桃屋", linksInList: true, categoryLabel: "駅前ランチ", image: photoOyakodon, imageCredit: "Akita Prefecture", isImageSample: true, points: ["比内地鶏の親子丼が候補。写真は親子丼のイメージ", "田沢湖駅から徒歩約2分。水曜・木曜定休、臨時休業は事前確認"], links: [{ label: "電話 0187-43-0031", href: "tel:0187430031" }, { label: "店舗情報", href: "https://tazawako-kakunodate.com/spots/6196/" }] },
       { alternativeLabel: "駅前食堂", title: "駅前食堂", linksInList: true, categoryLabel: "駅前ランチ", image: photoEkimaeUdon, imageCredit: "Akita Prefecture", isImageSample: true, points: ["稲庭うどんやもつ煮。写真は稲庭うどんのイメージ", "田沢湖駅の目の前。10:00〜19:00、金曜定休。営業時間は来店前に確認"], links: [{ label: "電話 0187-43-0483", href: "tel:0187430483" }, { label: "店舗情報", href: "https://tazawako-kakunodate.com/spots/6192/" }] },
@@ -54,17 +55,8 @@ import photoHotel from '../../assets/photos/akita/02亀の井ホテル　田沢�
   ] }
 ]} />
 
-## 予約前に確認したいこと
+## 別のモデルコースを見る
 
-- [JR東日本びゅうダイナミックレールパック](https://www.jre-travel.com/drp/)は列車と宿を組み合わせる商品です。価格と空席は変動し、対象外の宿もあります。
-- 乗車日の1カ月より前は希望列車の申込であり、手配結果が出るまで列車は確定しません。[申込方法](https://www.jre-travel.com/guide/flow/)
-- [田沢湖一周線](https://ugokotsu.co.jp/wp-content/jikoku/latest/tazawa2026.pdf)と[乳頭線](https://ugokotsu.co.jp/wp-content/jikoku/latest/nyuto2026.pdf)の運行日・最新時刻を確認してください。天候などで運休する場合があります。
-- [妙乃湯](https://taenoyu.com/bath/)の日帰り入浴は火曜休みです。宿からのアクセスと帰路の列車を先に確認してください。
-
-<ConclusionBox>
-- 早く着くこまちを選べたら、1日目に田沢湖を周遊。
-- 2日目は乳頭温泉と駅前の田沢湖市を楽しんで帰路へ。
-- 発着時刻・空室・価格・取消条件は予約時に確認。
-</ConclusionBox>
-
-[どこかにビューーン！で田沢湖駅に決まった方向けのモデルコース](/akita/dokokanibyun-tazawako-no-car/)もあります。
+- [どこかにビューーン！で田沢湖を散策](/akita/dokokanibyun-tazawako-no-car/)
+- [乳頭温泉郷の湯めぐり](/akita/dokokanibyun-nyuto-onsen-yumeguri/)
+- [新玉川温泉に泊まる](/akita/dokokanibyun-shintamagawa-onsen/)
