@@ -1,36 +1,72 @@
 {
   "checkedAt": "2026-11-14T10:54:35.900417+09:00",
-  "dates": {
-    "weekday": "2026-12-09",
-    "weekend": "2026-12-05"
-  },
   "adults": 2,
   "rooms": 1,
   "nights": 1,
   "hotels": {
     "11222": {
-      "weekday": 11571,
-      "weekend": 12673
+      "twoMeals": {
+        "weekday": 11571,
+        "weekend": 12673
+      },
+      "noMeals": {
+        "weekday": null,
+        "weekend": null
+      }
     },
     "129680": {
-      "weekday": null,
-      "weekend": 11300
+      "twoMeals": {
+        "weekday": null,
+        "weekend": 11300
+      },
+      "noMeals": {
+        "weekday": null,
+        "weekend": null
+      }
     },
     "15408": {
-      "weekday": null,
-      "weekend": null
+      "twoMeals": {
+        "weekday": null,
+        "weekend": null
+      },
+      "noMeals": {
+        "weekday": null,
+        "weekend": null
+      }
     },
     "162793": {
-      "weekday": 7700,
-      "weekend": 23100
+      "twoMeals": {
+        "weekday": 7700,
+        "weekend": 23100
+      },
+      "noMeals": {
+        "weekday": null,
+        "weekend": null
+      }
     },
     "4624": {
-      "weekday": 11844,
-      "weekend": null
+      "twoMeals": {
+        "weekday": 11844,
+        "weekend": null
+      },
+      "noMeals": {
+        "weekday": null,
+        "weekend": null
+      }
     },
     "70672": {
-      "weekday": null,
-      "weekend": 22500
+      "twoMeals": {
+        "weekday": null,
+        "weekend": 22500
+      },
+      "noMeals": {
+        "weekday": null,
+        "weekend": null
+      }
     }
+  },
+  "period": {
+    "start": "2026-11-01",
+    "end": "2027-01-31"
   }
 }

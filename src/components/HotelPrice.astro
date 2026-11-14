@@ -5,21 +5,60 @@ const { hotelNo } = Astro.props;
 <div class="hotel-price" data-hotel-price={hotelNo} hidden></div>
 
 <script>
-  type Prices = { checkedAt: string; dates: { weekday: string; weekend: string }; hotels: Record<string, { weekday: number | null; weekend: number | null }> };
+  type PlanPrice = { weekday: number | null; weekend: number | null };
+  type HotelEntry = {
+    twoMeals?: PlanPrice;
+    noMeals?: PlanPrice;
+    weekday?: number | null;
+    weekend?: number | null;
+  };
+  type Prices = {
+    checkedAt: string;
+    hotels: Record<string, HotelEntry>;
+  };
+
   const containers = document.querySelectorAll<HTMLElement>('[data-hotel-price]');
   if (containers.length) {
     fetch('/data/hotel-prices/rakuten.json')
-      .then((response) => { if (!response.ok) throw new Error('Hotel prices unavailable'); return response.json() as Promise<Prices>; })
+      .then((response) => {
+        if (!response.ok) throw new Error('Hotel prices unavailable');
+        return response.json() as Promise<Prices>;
+      })
       .then((data) => {
         const checked = new Date(data.checkedAt);
-        if (!Number.isFinite(checked.getTime()) || Date.now() - checked.getTime() > 48 * 60 * 60 * 1000) return;
+        // 月1更新に対応（35日間有効）
+        if (!Number.isFinite(checked.getTime()) || Date.now() - checked.getTime() > 35 * 24 * 60 * 60 * 1000) return;
+
         for (const container of containers) {
           const prices = data.hotels[container.dataset.hotelPrice || ''];
           if (!prices) continue;
-          const dateLabel = (value: string) => `${Number(value.slice(5, 7))}/${Number(value.slice(8, 10))}`;
-          const priceLabel = (price: number | null) => price === null ? '該当プランなし' : `${price.toLocaleString('ja-JP')}円〜`;
-          container.textContent = `宿泊料金の目安（大人2名1室・1泊、1人あたり）\n平日 ${dateLabel(data.dates.weekday)}泊 ${priceLabel(prices.weekday)} ／ 土曜 ${dateLabel(data.dates.weekend)}泊 ${priceLabel(prices.weekend)}\n${new Intl.DateTimeFormat('ja-JP', { timeZone: 'Asia/Tokyo', dateStyle: 'short' }).format(checked)}時点・楽天トラベル`;
-          container.hidden = false;
+
+          const formatPlan = (label: string, plan?: PlanPrice) => {
+            if (!plan) return null;
+            const wd = plan.weekday ? `平日 約${plan.weekday.toLocaleString('ja-JP')}円〜` : null;
+            const we = plan.weekend ? `休前日 約${plan.weekend.toLocaleString('ja-JP')}円〜` : null;
+            if (!wd && !we) return null;
+            return `・${label}：${wd || '平日 プランなし'} ／ ${we || '休前日 プランなし'}`;
+          };
+
+          const lines: string[] = ['宿泊料金の目安（大人2名1室・1人あたり・直近3ヶ月最安値）'];
+          const twoMealsLine = formatPlan('1泊2食付', prices.twoMeals);
+          const noMealsLine = formatPlan('素泊まり', prices.noMeals);
+
+          if (twoMealsLine) lines.push(twoMealsLine);
+          if (noMealsLine) lines.push(noMealsLine);
+
+          // 旧スキーマデータのフォールバック（移行期用）
+          if (!twoMealsLine && !noMealsLine && (prices.weekday || prices.weekend)) {
+            const wd = prices.weekday ? `平日 約${prices.weekday.toLocaleString('ja-JP')}円〜` : '平日 プランなし';
+            const we = prices.weekend ? `休前日 約${prices.weekend.toLocaleString('ja-JP')}円〜` : '休前日 プランなし';
+            lines.push(`・目安料金：${wd} ／ ${we}`);
+          }
+
+          if (lines.length > 1) {
+            container.textContent = lines.join('\n');
+            container.hidden = false;
+          }
         }
       })
       .catch(() => {});

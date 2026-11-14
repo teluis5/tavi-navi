@@ -500,7 +500,7 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                                   {opt.hotelData?.hotelNo && <HotelPrice hotelNo={opt.hotelData.hotelNo} />}
                                   {(() => {
                                     const isSearchMore = opt.title.includes('他の宿') || opt.title.includes('宿を探す') || opt.title.includes('ホテル一覧');
-                                    if (isSearchMore) {
+                                    if (isSearchMore && !opt.hotelData?.yahooUrl && !opt.hotelData?.jalanUrl) {
                                       return optBookingUrl ? (
                                         <a
                                           href={optBookingUrl.url}
@@ -520,8 +520,8 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                                     return (
                                       <div class="hotel-portal-hub">
                                         <div class="portal-hub-header">
-                                          <span class="portal-hub-label">旅行サイトでこの宿を確認</span>
-                                          <span class="portal-hub-note">※各サイトのホテル詳細ページへ直接移動します</span>
+                                          <span class="portal-hub-label">{isSearchMore ? '旅行サイトで周辺の宿を探す' : '旅行サイトでこの宿を確認'}</span>
+                                          <span class="portal-hub-note">{isSearchMore ? '※各予約サイトの空室一覧へ直接移動します' : '※各サイトのホテル詳細ページへ直接移動します'}</span>
                                         </div>
                                         <div class="portal-hub-buttons">
                                           {optBookingUrl && (
@@ -637,7 +637,7 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                         {(() => {
                           const isSearchMore = step.title.includes('他の宿') || step.title.includes('宿を探す') || step.title.includes('ホテル一覧');
                           const bookingUrl = resolveHotelBookingUrl(step);
-                          if (isSearchMore) {
+                          if (isSearchMore && !step.hotelData?.yahooUrl && !step.hotelData?.jalanUrl) {
                             return bookingUrl ? (
                               <a
                                 href={bookingUrl.url}
@@ -657,8 +657,8 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                           return (
                             <div class="hotel-portal-hub">
                               <div class="portal-hub-header">
-                                <span class="portal-hub-label">旅行サイトでこの宿を確認</span>
-                                <span class="portal-hub-note">※各サイトのホテル詳細ページへ直接移動します</span>
+                                <span class="portal-hub-label">{isSearchMore ? '旅行サイトで周辺の宿を探す' : '旅行サイトでこの宿を確認'}</span>
+                                <span class="portal-hub-note">{isSearchMore ? '※各予約サイトの空室一覧へ直接移動します' : '※各サイトのホテル詳細ページへ直接移動します'}</span>
                               </div>
                               <div class="portal-hub-buttons">
                                 {bookingUrl && (
@@ -872,7 +872,7 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                           {(() => {
                             const isSearchMore = step.title.includes('他の宿') || step.title.includes('宿を探す') || step.title.includes('ホテル一覧');
                             const bookingUrl = resolveHotelBookingUrl(step);
-                            if (isSearchMore) {
+                            if (isSearchMore && !step.hotelData?.yahooUrl && !step.hotelData?.jalanUrl) {
                               return bookingUrl ? (
                                 <a
                                   href={bookingUrl.url}
@@ -892,8 +892,8 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                             return (
                               <div class="hotel-portal-hub">
                                 <div class="portal-hub-header">
-                                  <span class="portal-hub-label">旅行サイトでこの宿を確認</span>
-                                  <span class="portal-hub-note">※各サイトのホテル詳細ページへ直接移動します</span>
+                                  <span class="portal-hub-label">{isSearchMore ? '旅行サイトで周辺の宿を探す' : '旅行サイトでこの宿を確認'}</span>
+                                  <span class="portal-hub-note">{isSearchMore ? '※各予約サイトの空室一覧へ直接移動します' : '※各サイトのホテル詳細ページへ直接移動します'}</span>
                                 </div>
                                 <div class="portal-hub-buttons">
                                   {bookingUrl && (
