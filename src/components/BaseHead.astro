@@ -36,14 +36,54 @@ const jaURL = new URL(pathWithoutLang, Astro.site);
 const enURL = new URL(`/en${pathWithoutLang === '/' ? '/' : pathWithoutLang}`, Astro.site);
 ---
 
-<!-- Global Metadata -->
+<!-- Google Tag Manager (管理者除外対応) -->
 <script is:inline>
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-  function gtag() { dataLayer.push(arguments); }
-  gtag('js', new Date());
+(function(w,d,s,l,i){
+  try {
+    var params = new URLSearchParams(w.location.search);
+    var hostname = w.location.hostname;
+    var domainAttr = hostname.endsWith('tavi-navi.net') ? '; domain=.tavi-navi.net' : '';
+    if (params.get('admin') === 'true') {
+      d.cookie = "teluis_admin=true; path=/" + domainAttr + "; max-age=31536000; SameSite=Lax";
+      localStorage.setItem('teluis_admin', 'true');
+      console.log('[Admin Mode] GA/GTM 計測除外モードを有効化しました');
+    } else if (params.get('admin') === 'false') {
+      d.cookie = "teluis_admin=; path=/" + domainAttr + "; max-age=0";
+      localStorage.removeItem('teluis_admin');
+      console.log('[Admin Mode] GA/GTM 計測除外モードを解除しました');
+    }
+  } catch (e) {}
+
+  var isAdmin = (d.cookie.indexOf('teluis_admin=true') !== -1);
+  try {
+    if (!isAdmin && localStorage.getItem('teluis_admin') === 'true') {
+      isAdmin = true;
+    }
+  } catch (e) {}
+
+  w[l] = w[l] || [];
+  w.gtag = w.gtag || function(){ w[l].push(arguments); };
+
+  if (isAdmin) {
+    console.info('[Admin Mode] GTMの読み込みをスキップしました (自アクセス除外中)');
+    return;
+  }
+
+  function loadGTM() {
+    if (w['__gtm_loaded']) return;
+    w['__gtm_loaded'] = true;
+    w.gtag('js', new Date());
+    w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
+    var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  }
+
+  ['scroll', 'mousemove', 'touchstart', 'click', 'keydown'].forEach(function(evt) {
+    w.addEventListener(evt, loadGTM, { once: true, passive: true });
+  });
+})(window,document,'script','dataLayer','GTM-M3BFR377');
 </script>
-<script is:inline async src="https://www.googletagmanager.com/gtm.js?id=GTM-M3BFR377"></script>
 <script is:inline async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8011635154814608" crossorigin="anonymous"></script>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
