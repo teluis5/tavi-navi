@@ -189,8 +189,8 @@ function cleanText(text?: string): string {
     display: none;
   }
   .swipe-tab-btn {
-    background: #ffffff;
-    border: none;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
     border-radius: 9999px;
     padding: 0.24rem 0.68rem;
     font-size: 0.72rem;
@@ -203,10 +203,11 @@ function cleanText(text?: string): string {
   }
   .swipe-tab-btn:hover {
     color: #111827;
-    background: #f3f4f6;
+    background: #e2e8f0;
   }
   .swipe-tab-btn.is-active {
     background: #111827;
+    border-color: #111827;
     color: #ffffff;
     font-weight: 700;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);

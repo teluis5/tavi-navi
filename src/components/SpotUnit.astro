@@ -142,17 +142,17 @@ const pillText = hotelCatName || cleanText(alternativeLabel);
 </div>
 
 <style>
-  /* 場所（スポット）：美しい白カード化 */
+  /* 場所（スポット）：白背景に映える淡色サーフェスカード */
   .wide-spot-unit {
     display: flex;
     flex-direction: column;
     width: 100%;
     box-sizing: border-box;
-    background: #ffffff;
+    background: #f1f5f9;
     border: 1px solid #e2e8f0;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 4px 12px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
     transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
   }
 
@@ -161,7 +161,7 @@ const pillText = hotelCatName || cleanText(alternativeLabel);
   }
   .clickable-unit:hover {
     border-color: #cbd5e1;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
   }
   .clickable-unit:active :global(.wide-photo-img) {
     transform: scale(1.02);
@@ -170,7 +170,7 @@ const pillText = hotelCatName || cleanText(alternativeLabel);
   /* 体験アクション見出し（カード上端） */
   .step-lead-heading {
     padding: 0.85rem 1rem 0.55rem;
-    background: #ffffff;
+    background: #f1f5f9;
   }
   .step-lead-text {
     font-size: 1.02rem;
@@ -187,7 +187,7 @@ const pillText = hotelCatName || cleanText(alternativeLabel);
     flex-direction: column;
     gap: 0.5rem;
     padding: 0.9rem 1rem 1.1rem;
-    background: #ffffff;
+    background: #f1f5f9;
     box-sizing: border-box;
   }
 

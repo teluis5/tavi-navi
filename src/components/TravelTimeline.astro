@@ -551,31 +551,18 @@ timelineDays.forEach(day => {
     line-height: 1.35;
   }
 
-  /* タイムライン全体の淡色グレーキャンバス（移動と場所を包み、白カードを際立たせる） */
+  /* タイムライン行程リスト（背景は白・余計な囲みなし） */
   .step-flow-list {
     display: flex;
     flex-direction: column;
-    background: #f1f5f9;
-    border-radius: 16px;
-    padding: 1.25rem 1.15rem;
-    box-sizing: border-box;
-  }
-
-  @media (max-width: 800px) {
-    .step-flow-list {
-      margin-left: -1rem;
-      margin-right: -1rem;
-      width: calc(100% + 2rem);
-      border-radius: 0;
-      padding: 1.15rem 1rem;
-    }
+    width: 100%;
   }
 
   .flow-step-item {
     position: relative;
   }
 
-  /* 場所（スポット）セクション：カード本体はSpotUnit側で白カード化 */
+  /* 場所（スポット）セクション：SpotUnit側で淡色カード化 */
   .step-place-surface {
     background: transparent;
     border: none;
