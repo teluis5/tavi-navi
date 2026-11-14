@@ -1,0 +1,279 @@
+---
+title: "どこかにビューーン！秋田市内｜車なし1泊2日モデルコース"
+description: "どこかにビューーン！で秋田駅が当たった人向けの車なし1泊2日モデルコース。千秋公園、秋田県立美術館、ねぶり流し館、駅周辺の郷土料理と宿を徒歩中心で巡る行程を公式情報を基にまとめます。"
+pubDate: 2026-11-14
+updatedDate: 2026-11-14
+lang: "ja"
+pref: "akita"
+category: "モデルコース"
+season: "通年"
+departure: "tokyo"
+duration: "1泊2日"
+cities: ["akita-city"]
+tags: ["どこかにビューン", "秋田駅", "秋田市", "1泊2日", "車なしプランあり", "モデルコース"]
+---
+import ConclusionBox from '../../components/ConclusionBox.astro';
+import TravelTimeline from '../../components/TravelTimeline.astro';
+import TrainCondition from '../../components/TrainCondition.astro';
+import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
+import photoSenshuPark from '../../assets/photos/akita_compressed/senshu-park.webp';
+import photoSenshuSatake from '../../assets/photos/akita_compressed/senshu-park-satake.webp';
+import photoMuseum from '../../assets/photos/akita/01秋田県立美術館.jpg';
+import photoNeburi from '../../assets/photos/akita/01秋田市民俗芸能伝承館 ねぶり流し館.jpg';
+import photoKiritanpo from '../../assets/photos/akita/03きりたんぽ鍋.jpg';
+import photoUdon from '../../assets/photos/akita/01稲庭うどん.jpg';
+import photoOyakodon from '../../assets/photos/akita/03比内地鶏親子丼.jpg';
+import photoPickles from '../blog/tazawako-shared/iburigakko.jpg';
+
+<TrainCondition text={"1日目は指定された秋田新幹線こまちの到着時刻によって、観光できる時間が変わります。\n到着が遅い場合は1日目を夕食中心にし、千秋公園や美術館は2日目の午前へ回すなど、発着時刻に合わせて調整してください。"} />
+
+どこかにビューーン！で秋田駅が当たったら、秋田駅周辺を拠点に徒歩で巡る1泊2日コースが組みやすいです。
+
+JR東日本および各施設の公式案内を基にした行程案です（2026年11月14日確認）。実際に乗車・訪問した体験談ではありません。営業時間や休館日は出発前に確認してください。
+
+※この記事にはアフィリエイト広告が含まれます。
+
+## 1日目：こまちで秋田駅へ、千秋公園と県立美術館
+
+<TravelTimeline
+  days={[
+    {
+      dayNumber: 1,
+      title: "秋田新幹線こまち ➔ 千秋公園・美術館 ➔ 秋田駅周辺泊",
+      steps: [
+        {
+          leadHeading: "秋田新幹線こまちで秋田駅へ到着",
+          areaLabel: "東京駅 ➔ 秋田駅",
+          title: "秋田新幹線こまち",
+          categoryLabel: "新幹線",
+          image: photoKomachi,
+          imageCredit: "Akita Prefecture",
+          links: [{ label: "どこかにビューーン！公式FAQ", href: "https://dokokani-eki-net.com/faq.html" }],
+          points: [
+            "東京から秋田駅へ直通（全席指定席）。到着後は駅周辺に荷物を預けると身軽",
+            "指定列車の変更・払戻条件はJR東日本の公式案内を確認"
+          ],
+          transitDetail: {
+            method: "秋田新幹線こまち（東京から約3時間40分）",
+            route: "東京駅 ➔ 秋田駅",
+            specs: ["指定された発着時刻に合わせて現地スケジュールを組む"]
+          }
+        },
+        {
+          leadHeading: "久保田城跡の緑と城下町の歴史を歩く",
+          areaLabel: "秋田駅西口エリア",
+          title: "千秋公園（久保田城跡）",
+          categoryLabel: "歴史・公園",
+          duration: "目安 45分",
+          imageLayout: "grid-2",
+          images: [photoSenshuPark, photoSenshuSatake],
+          imageCredit: "Akita Prefecture",
+          links: [{ label: "千秋公園へのアクセス（JR東日本）", href: "https://www.jreast.co.jp/akita/gonosen/menu/" }],
+          points: [
+            "千秋公園の二の丸跡へは秋田駅から徒歩約15分",
+            "坂道や石畳があるため、雨や雪の日は滑りにくい靴を推奨"
+          ],
+          transitDetail: {
+            method: "徒歩 約10分",
+            route: "千秋公園 ➔ 秋田県立美術館"
+          }
+        },
+        {
+          leadHeading: "エリアなかいち内で秋田ゆかりの美術に触れる",
+          areaLabel: "中通・エリアなかいち",
+          title: "秋田県立美術館",
+          categoryLabel: "美術館",
+          duration: "目安 60分",
+          image: photoMuseum,
+          imageCredit: "Akita Prefecture",
+          links: [{ label: "秋田県立美術館 交通案内", href: "https://www.akita-museum-of-art.jp/contents/contents_show.php?contents_id=76" }],
+          points: [
+            "秋田駅西口から徒歩約10分。開館10:00〜18:00（入館17:30まで）",
+            "不定休（展示替えやメンテナンスによる臨時休館あり）のため事前確認"
+          ],
+          transitDetail: {
+            method: "徒歩で駅周辺・川反方面へ",
+            route: "エリアなかいち ➔ 夕食エリア"
+          }
+        },
+        {
+          leadHeading: "夜は秋田駅周辺や川反で郷土料理を味わう",
+          areaLabel: "秋田駅前・川反エリア",
+          title: "秋田郷土料理の夕食",
+          categoryLabel: "ご当地グルメ",
+          duration: "夕食 60分",
+          alternatives: [
+            {
+              alternativeLabel: "きりたんぽ鍋",
+              title: "きりたんぽ鍋・郷土料理",
+              categoryLabel: "ご当地グルメ",
+              image: photoKiritanpo,
+              imageCredit: "Akita Prefecture",
+              isImageSample: true,
+              points: [
+                "写真はきりたんぽ鍋のイメージ。秋田駅前や川反エリアの居酒屋・郷土料理店で提供",
+                "繁忙期や週末は事前予約や営業時間の確認が安心"
+              ]
+            },
+            {
+              alternativeLabel: "比内地鶏・稲庭うどん",
+              title: "比内地鶏・稲庭うどん",
+              categoryLabel: "ご当地グルメ",
+              image: photoOyakodon,
+              imageCredit: "Akita Prefecture",
+              isImageSample: true,
+              points: [
+                "写真は比内地鶏親子丼のイメージ。駅ビル内や駅周辺にも飲食店が揃う",
+                "到着が遅い場合でも駅周辺なら食事先を探しやすい"
+              ]
+            }
+          ],
+          transitDetail: {
+            method: "徒歩で宿泊ホテルへ",
+            route: "夕食エリア ➔ 秋田駅周辺ホテル"
+          }
+        },
+        {
+          leadHeading: "翌日の移動もスムーズな秋田駅周辺の宿泊候補",
+          areaLabel: "秋田駅直結・西口周辺",
+          title: "今夜の宿泊候補",
+          categoryLabel: "宿泊",
+          alternatives: [
+            {
+              alternativeLabel: "メトロポリタン秋田",
+              title: "ホテルメトロポリタン秋田",
+              categoryLabel: "シティホテル",
+              areaLabel: "JR秋田駅直結",
+              image: "https://img.travel.rakuten.co.jp/share/HOTEL/1476/1476.jpg",
+              hotelData: {
+                hotelNo: "1476"
+              },
+              points: [
+                "JR秋田駅に直結（隣接）しており、雨や雪の日も移動しやすい",
+                "到着が遅い便や帰りの荷造りにも便利な立地"
+              ]
+            },
+            {
+              alternativeLabel: "ドーミーイン秋田",
+              title: "中通温泉 こまちの湯 ドーミーイン秋田",
+              categoryLabel: "天然温泉ホテル",
+              areaLabel: "秋田駅西口 徒歩約8分",
+              image: "https://img.travel.rakuten.co.jp/share/HOTEL/50775/50775.jpg",
+              hotelData: {
+                hotelNo: "50775"
+              },
+              points: [
+                "最上階に男女別の天然温泉大浴場（露天風呂・サウナ完備）",
+                "千秋公園やエリアなかいちに近く、市内散策の拠点に便利"
+              ]
+            },
+            {
+              alternativeLabel: "リッチモンドホテル",
+              title: "リッチモンドホテル秋田駅前",
+              categoryLabel: "ビジネスホテル",
+              areaLabel: "秋田駅西口 徒歩約7分",
+              image: "https://img.travel.rakuten.co.jp/share/HOTEL/73983/73983.jpg",
+              hotelData: {
+                hotelNo: "73983"
+              },
+              points: [
+                "JR秋田駅西口から徒歩約7分の好アクセス",
+                "広めの客室と使いやすいデスクで観光拠点に快適"
+              ]
+            },
+            {
+              alternativeLabel: "他の宿を探す",
+              title: "秋田市・秋田駅周辺の宿を探す",
+              categoryLabel: "シティホテル",
+              areaLabel: "秋田市エリア",
+              image: photoSenshuPark,
+              imageCredit: "Akita Prefecture",
+              hotelData: {
+                rakutenUrl: "https://hb.afl.rakuten.co.jp/hgc/5953a273.5cc8e490.5953a274.81eca08c/_RTLink155472?pc=https%3A%2F%2Fsearch.travel.rakuten.co.jp%2Fds%2Fhotellist%2FJapan-Akita-Akita-Akita&link_type=hybrid_url&ut=eyJwYWdlIjoidXJsIiwidHlwZSI6Imh5YnJpZF91cmwiLCJjb2wiOjF9"
+              },
+              points: [
+                "秋田駅周辺の空室・直前プランを楽天トラベルで一覧検索",
+                "日程や予算に合わせて駅近ホテルを比較可能"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]}
+/>
+
+## 2日目：ねぶり流し館と駅前ランチ・お土産
+
+<TravelTimeline
+  days={[
+    {
+      dayNumber: 2,
+      title: "ねぶり流し館 ➔ 駅前ランチ・お土産 ➔ こまちで帰路",
+      steps: [
+        {
+          leadHeading: "竿燈まつりの熱気と伝統芸能を体感",
+          areaLabel: "大町エリア",
+          title: "秋田市民俗芸能伝承館（ねぶり流し館）",
+          categoryLabel: "文化施設",
+          duration: "目安 45分",
+          image: photoNeburi,
+          imageCredit: "Akita Prefecture",
+          links: [{ label: "秋田市の施設案内", href: "https://www.city.akita.lg.jp/shisetsu/cashless/1035451.html" }],
+          points: [
+            "秋田駅西口から徒歩約15分。開館9:30〜16:30（入館は16:15まで）",
+            "観覧料は一般130円・高校生以下無料（年末年始12/29〜1/3休館）"
+          ],
+          transitDetail: {
+            method: "徒歩 約15分（または路線バス）",
+            route: "ねぶり流し館 ➔ 秋田駅周辺"
+          }
+        },
+        {
+          leadHeading: "駅周辺で稲庭うどんランチとお土産選び",
+          areaLabel: "秋田駅ビル・駅周辺",
+          title: "駅前ランチ＆お土産",
+          categoryLabel: "ご当地グルメ",
+          duration: "目安 75分",
+          imageLayout: "grid-2",
+          images: [photoUdon, photoPickles],
+          imageCredit: "Akita Prefecture",
+          isImageSample: true,
+          points: [
+            "写真は稲庭うどん・いぶりがっこのイメージ。取扱店や営業時間は現地で確認",
+            "新幹線の出発時刻から逆算して余裕を持って改札へ向かう"
+          ],
+          transitDetail: {
+            method: "徒歩ですぐ",
+            route: "駅周辺 ➔ 秋田駅新幹線改札"
+          }
+        },
+        {
+          leadHeading: "秋田駅で新幹線こまちに乗車して帰路へ",
+          areaLabel: "秋田駅",
+          title: "秋田新幹線こまち（帰路）",
+          categoryLabel: "新幹線帰路",
+          image: photoKomachi,
+          imageCredit: "Akita Prefecture",
+          points: [
+            "指定された秋田新幹線こまちに乗車して東京方面へ",
+            "どこかにビューーン！では新幹線以外の食事・宿泊・入館料は別途必要"
+          ]
+        }
+      ]
+    }
+  ]}
+/>
+
+## 別のモデルコースを見る
+
+- [秋田駅発・車なし4コースの比較ハブへ戻る](/akita/dokokani-akita-station-courses/)
+- [秋田港セリオン・車なし1泊2日コース](/akita/dokokani-akita-port-1night-2days/)
+- [男鹿温泉郷・車なし1泊2日コース](/akita/dokokani-oga-onsen-1night-2days/)
+- [秋田市内＋男鹿温泉・車なし2泊3日コース](/akita/dokokani-akita-oga-2nights-3days/)
+
+<ConclusionBox>
+- 秋田駅周辺に泊まれば、千秋公園・秋田県立美術館・ねぶり流し館を徒歩中心で巡れる。
+- 到着が遅い日は1日目を夕食中心にし、2日目に観光を寄せて調整する。
+- 各施設の開館時間・休館日と、指定新幹線の時刻を出発前に確認する。
+</ConclusionBox>

@@ -1,0 +1,227 @@
+---
+title: "どこかにビューーン！秋田港セリオン｜車なし1泊2日モデルコース"
+description: "どこかにビューーン！で秋田駅が当たった人向けの、秋田港・ポートタワー・セリオンを巡る車なし1泊2日モデルコース。秋田駅西口からのバスアクセスと秋田市内散策を公式情報からまとめます。"
+pubDate: 2026-11-14
+updatedDate: 2026-11-14
+lang: "ja"
+pref: "akita"
+category: "モデルコース"
+season: "通年"
+departure: "tokyo"
+duration: "1泊2日"
+cities: ["akita-city"]
+tags: ["どこかにビューン", "秋田駅", "秋田港", "セリオン", "1泊2日", "車なしプランあり", "モデルコース"]
+---
+import ConclusionBox from '../../components/ConclusionBox.astro';
+import TravelTimeline from '../../components/TravelTimeline.astro';
+import TrainCondition from '../../components/TrainCondition.astro';
+import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
+import photoSelionOut from '../../assets/photos/akita/01ポートタワーセリオン.jpg';
+import photoSelionView from '../../assets/photos/akita/04ポートタワーセリオン.jpg';
+import photoSenshuPark from '../../assets/photos/akita_compressed/senshu-park.webp';
+import photoOyakodon from '../../assets/photos/akita/03比内地鶏親子丼.jpg';
+import photoUdon from '../../assets/photos/akita/01稲庭うどん.jpg';
+
+<TrainCondition text={"秋田駅西口からセリオン線の路線バスは本数が限られます。\n到着が遅く往復バスが合わない場合は、1日目を秋田市内散策にして2日目の午前中に秋田港へ行くなど、日程を入れ替えて調整してください。"} />
+
+海や港の景色を楽しみたいなら、秋田駅西口からバスで約25分のポートタワー・セリオンへ足を延ばす1泊2日コースが向いています。
+
+JR東日本・セリオン・秋田市の公式情報を基にした行程案です（2026年11月14日確認）。実際に現地取材した体験談ではありません。バスの時刻と営業時間は出発前に確認してください。
+
+※この記事にはアフィリエイト広告が含まれます。
+
+## 1日目：秋田駅西口からバスでポートタワー・セリオンへ
+
+<TravelTimeline
+  days={[
+    {
+      dayNumber: 1,
+      title: "秋田駅 ➔ セリオン（秋田港） ➔ 秋田駅周辺泊",
+      steps: [
+        {
+          leadHeading: "秋田新幹線こまちで秋田駅に到着",
+          areaLabel: "東京駅 ➔ 秋田駅",
+          title: "秋田新幹線こまち",
+          categoryLabel: "新幹線",
+          image: photoKomachi,
+          imageCredit: "Akita Prefecture",
+          links: [{ label: "どこかにビューーン！公式FAQ", href: "https://dokokani-eki-net.com/faq.html" }],
+          points: [
+            "到着後、駅周辺のホテルまたはコインロッカーに荷物を預けると動きやすい",
+            "秋田駅西口バスターミナル4番乗り場からセリオン線へ乗車"
+          ],
+          transitDetail: {
+            method: "秋田中央交通 セリオン線（約25分）",
+            route: "秋田駅西口4番乗り場 ➔ ポートタワー・セリオン前",
+            specs: [
+              "運賃目安：片道550円（乗車時に要確認）",
+              "運行本数が限られるため事前に往復時刻を確認"
+            ]
+          }
+        },
+        {
+          leadHeading: "入場無料の展望室から日本海と秋田港を一望",
+          areaLabel: "秋田港・道の駅あきた港",
+          title: "ポートタワー・セリオン",
+          categoryLabel: "展望・港",
+          duration: "目安 75分",
+          imageLayout: "grid-2",
+          images: [photoSelionOut, photoSelionView],
+          imageCredit: "Akita Prefecture",
+          links: [
+            { label: "セリオン 施設案内", href: "https://www.selion-akita.com/facility/" },
+            { label: "セリオン アクセス案内", href: "https://www.selion-akita.com/access/" }
+          ],
+          points: [
+            "展望室は9:00〜21:00で入場無料、年中無休",
+            "物産館（セリオンガーデン）は3〜11月 9:00〜18:00、12〜2月 9:00〜17:00"
+          ],
+          transitDetail: {
+            method: "秋田中央交通 セリオン線（約25分）",
+            route: "ポートタワー・セリオン前 ➔ 秋田駅西口",
+            specs: ["帰りのバス時刻を到着時に確認しておく"]
+          }
+        },
+        {
+          leadHeading: "秋田駅へ戻り、駅周辺のホテルへ宿泊",
+          areaLabel: "秋田駅周辺",
+          title: "今夜の宿泊候補",
+          categoryLabel: "宿泊",
+          alternatives: [
+            {
+              alternativeLabel: "メトロポリタン秋田",
+              title: "ホテルメトロポリタン秋田",
+              categoryLabel: "シティホテル",
+              areaLabel: "JR秋田駅直結",
+              image: "https://img.travel.rakuten.co.jp/share/HOTEL/1476/1476.jpg",
+              hotelData: {
+                hotelNo: "1476"
+              },
+              points: [
+                "JR秋田駅に直結（隣接）でバス乗り場からもすぐ",
+                "天候を気にせずチェックインできる"
+              ]
+            },
+            {
+              alternativeLabel: "ドーミーイン秋田",
+              title: "中通温泉 こまちの湯 ドーミーイン秋田",
+              categoryLabel: "天然温泉ホテル",
+              areaLabel: "秋田駅西口 徒歩約8分",
+              image: "https://img.travel.rakuten.co.jp/share/HOTEL/50775/50775.jpg",
+              hotelData: {
+                hotelNo: "50775"
+              },
+              points: [
+                "最上階に天然温泉大浴場・露天風呂・サウナを備える",
+                "翌日の千秋公園散策にも向く立地"
+              ]
+            },
+            {
+              alternativeLabel: "リッチモンドホテル",
+              title: "リッチモンドホテル秋田駅前",
+              categoryLabel: "ビジネスホテル",
+              areaLabel: "秋田駅西口 徒歩約7分",
+              image: "https://img.travel.rakuten.co.jp/share/HOTEL/73983/73983.jpg",
+              hotelData: {
+                hotelNo: "73983"
+              },
+              points: [
+                "秋田駅西口から徒歩約7分。広めの客室で過ごしやすい",
+                "周辺の飲食店へのアクセスも良好"
+              ]
+            },
+            {
+              alternativeLabel: "他の宿を探す",
+              title: "秋田市・秋田駅周辺の宿を探す",
+              categoryLabel: "シティホテル",
+              areaLabel: "秋田市エリア",
+              image: photoSenshuPark,
+              imageCredit: "Akita Prefecture",
+              hotelData: {
+                rakutenUrl: "https://hb.afl.rakuten.co.jp/hgc/5953a273.5cc8e490.5953a274.81eca08c/_RTLink155472?pc=https%3A%2F%2Fsearch.travel.rakuten.co.jp%2Fds%2Fhotellist%2FJapan-Akita-Akita-Akita&link_type=hybrid_url&ut=eyJwYWdlIjoidXJsIiwidHlwZSI6Imh5YnJpZF91cmwiLCJjb2wiOjF9"
+              },
+              points: [
+                "秋田駅周辺の宿泊施設を楽天トラベルで一覧検索",
+                "予算や空室状況に合わせて選択可能"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]}
+/>
+
+## 2日目：千秋公園・秋田市内散策と帰路
+
+<TravelTimeline
+  days={[
+    {
+      dayNumber: 2,
+      title: "千秋公園散策 ➔ 駅前ランチ・買い物 ➔ こまちで帰路",
+      steps: [
+        {
+          leadHeading: "朝は駅徒歩圏の千秋公園をゆったり散策",
+          areaLabel: "秋田駅西口エリア",
+          title: "千秋公園・駅周辺散策",
+          categoryLabel: "歴史・公園",
+          duration: "目安 60分",
+          image: photoSenshuPark,
+          imageCredit: "Akita Prefecture",
+          links: [{ label: "千秋公園へのアクセス（JR東日本）", href: "https://www.jreast.co.jp/akita/gonosen/menu/" }],
+          points: [
+            "秋田駅から徒歩約15分。帰りの新幹線までの時間に合わせて散策",
+            "帰りのバスと合わない場合は、1日目と2日目の行き先を入れ替えて調整"
+          ],
+          transitDetail: {
+            method: "徒歩 約15分",
+            route: "千秋公園 ➔ 秋田駅周辺"
+          }
+        },
+        {
+          leadHeading: "秋田駅周辺で名物ランチとお土産購入",
+          areaLabel: "秋田駅前・駅ビル",
+          title: "駅前ランチ＆お土産",
+          categoryLabel: "ご当地グルメ",
+          duration: "目安 60分",
+          imageLayout: "grid-2",
+          images: [photoOyakodon, photoUdon],
+          imageCredit: "Akita Prefecture",
+          isImageSample: true,
+          points: [
+            "写真は比内地鶏親子丼・稲庭うどんのイメージ。店舗により営業時間は異なる",
+            "バス代・食事代は新幹線ポイントとは別途必要"
+          ],
+          transitDetail: {
+            method: "徒歩ですぐ",
+            route: "駅周辺 ➔ 秋田駅新幹線改札"
+          }
+        },
+        {
+          leadHeading: "指定列車で東京方面へ帰路",
+          areaLabel: "秋田駅",
+          title: "秋田新幹線こまち（帰路）",
+          categoryLabel: "新幹線帰路",
+          image: photoKomachi,
+          imageCredit: "Akita Prefecture",
+          points: [
+            "秋田駅から指定された新幹線こまちで帰路へ"
+          ]
+        }
+      ]
+    }
+  ]}
+/>
+
+## 別のモデルコースを見る
+
+- [秋田駅発・車なし4コースの比較ハブへ戻る](/akita/dokokani-akita-station-courses/)
+- [秋田市内・車なし1泊2日コース](/akita/dokokani-akita-city-1night-2days/)
+- [男鹿温泉郷・車なし1泊2日コース](/akita/dokokani-oga-onsen-1night-2days/)
+- [秋田市内＋男鹿温泉・車なし2泊3日コース](/akita/dokokani-akita-oga-2nights-3days/)
+
+<ConclusionBox>
+- ポートタワー・セリオンは秋田駅西口からバス約25分（片道550円）で向かえる。
+- 展望室は年中無休（9:00〜21:00）だが、物産館や飲食店の営業時間は事前に確認する。
+- バス時刻が合わない場合は、秋田市内散策と1日目・2日目を入れ替えて調整する。
+</ConclusionBox>
