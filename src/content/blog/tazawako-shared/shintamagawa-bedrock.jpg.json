@@ -1,0 +1,72 @@
+{
+  "$schema": "https://teluis.com/schemas/licensed-image-v2.json",
+  "schemaVersion": "2.0",
+  "assetId": "akita_tazawako_05新玉川温泉-scaled",
+  "provider": {
+    "id": "tazawako_kakunodate_tourism",
+    "nameJa": "一般社団法人 田沢湖・角館観光協会",
+    "nameEn": "Tazawako-Kakunodate Tourism Association",
+    "libraryName": "田沢湖・角館観光協会 写真ライブラリ",
+    "sourceUrl": "https://tazawako-kakunodate.com/",
+    "official_url": "https://tazawako-kakunodate.com/"
+  },
+  "subject": {
+    "photoId": "05新玉川温泉-scaled",
+    "titleJa": "新玉川温泉",
+    "titleEn": "Tazawako-Kakunodate Sightseeing Photo (05新玉川温泉-scaled)",
+    "rawTitleJa": "05新玉川温泉-scaled",
+    "prefecture": "秋田県",
+    "city": "仙北市",
+    "cityEn": "Semboku City",
+    "region": "田沢湖・角館",
+    "area": "田沢湖・角館"
+  },
+  "specs": {
+    "width": 2560,
+    "height": 1707,
+    "orientation": "landscape",
+    "aspectRatio": "1.50:1",
+    "fileSizeBytes": 622171,
+    "sha256": "04c728973c29f02743a2f2301a53aabf40a87297c184c164999f465314124d42",
+    "filename": "05新玉川温泉-scaled.jpg",
+    "originalFilename": "05新玉川温泉-scaled.jpg"
+  },
+  "rights": {
+    "licenseType": "approved_with_application",
+    "commercialUse": true,
+    "creditRequired": true,
+    "creditNotice": "写真提供：一般社団法人 田沢湖・角館観光協会",
+    "termsUrl": "https://tazawako-kakunodate.com/photopolicy/",
+    "applicationApproved": true,
+    "applicationNote": "アフィリエイトを含むWebメディアでの利用を事前申請し、協会より利用許可を取得済み"
+  },
+  "policy": {
+    "published_url": "https://tavi-navi.net",
+    "purpose": "観光旅行情報メディア「タビナビ」（https://tavi-navi.net、アフィリエイト利用含む）の観光記事に掲載するため（事前申請・許可取得済み）",
+    "purposeConstraint": "tourism_pr_and_affiliate_approved",
+    "allowedProjects": [
+      "tavi-navi",
+      "DeepJapan",
+      "teluis",
+      "yomilee"
+    ],
+    "creditRequired": true,
+    "credit_notice": "写真提供：一般社団法人 田沢湖・角館観光協会",
+    "terms_url": "https://tazawako-kakunodate.com/photopolicy/",
+    "modification": "crop_and_resize_only",
+    "redistributionAllowed": false
+  },
+  "i18n": {
+    "ja": {
+      "alt": "新玉川温泉（秋田県仙北市・田沢湖・角館）",
+      "caption": "新玉川温泉（写真提供：一般社団法人 田沢湖・角館観光協会）",
+      "credit": "写真提供：一般社団法人 田沢湖・角館観光協会"
+    },
+    "en": {
+      "alt": "新玉川温泉 in Tazawako-Kakunodate, Semboku, Akita",
+      "caption": "Photo courtesy of Tazawako-Kakunodate Tourism Association",
+      "credit": "Photo courtesy of Tazawako-Kakunodate Tourism Association"
+    }
+  },
+  "downloadedAt": "2026-11-14T12:25:08+0900"
+}
