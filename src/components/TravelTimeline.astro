@@ -3,8 +3,7 @@ import type { ImageMetadata } from 'astro';
 import SpotCard, { type SpotData, type SpotAmenity } from './SpotCard.astro';
 import TransitTimetable from './TransitTimetable.astro';
 import BusinessHours from './BusinessHours.astro';
-import HotelPrice from './HotelPrice.astro';
-import { buildRakutenTravelUrl } from '../utils/affiliate';
+import HotelPortalHub from './HotelPortalHub.astro';
 
 export interface TimelineHotelData {
   rating?: string;        // e.g. "4.4"
@@ -147,34 +146,6 @@ function isAllowedHotelCategory(cat?: string): string | null {
   ];
   if (cat && allowed.includes(cat.trim())) {
     return cat.trim();
-  }
-  return null;
-}
-
-// ホテルの楽天トラベル予約URL解決ヘルパー
-function resolveHotelBookingUrl(step: TimelineStep): { url: string; label: string } | null {
-  const isHotelStep = step.isHotel || !!isAllowedHotelCategory(step.categoryLabel);
-  if (!isHotelStep && !step.hotelData?.rakutenUrl) {
-    return null;
-  }
-
-  // 「他の宿を探す」カードなどのカスタム判定
-  const isSearchMore = step.title.includes('他の宿') || step.title.includes('宿を探す') || step.title.includes('ホテル一覧');
-  const label = isSearchMore
-    ? '楽天トラベルでこのエリアの宿を探す'
-    : '楽天トラベルでこのホテルを予約する';
-
-  if (step.hotelData?.rakutenUrl) {
-    return { url: step.hotelData.rakutenUrl, label };
-  }
-  if (step.hotelData?.hotelNo) {
-    return { url: buildRakutenTravelUrl({ hotelNo: step.hotelData.hotelNo }), label };
-  }
-  if (step.hotelData?.areaUrl) {
-    return { url: buildRakutenTravelUrl({ areaUrl: step.hotelData.areaUrl }), label };
-  }
-  if (step.title) {
-    return { url: buildRakutenTravelUrl({ keyword: step.title }), label };
   }
   return null;
 }
@@ -345,7 +316,6 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                           const optCreditText = (optLayout === 'grid-2' || optLayout === 'grid-3' || optLayout === 'pip') && isOptMulti
                             ? formatGridCredits(optPhotos, opt.imageCredit || step.imageCredit, optLayout)
                             : formatCredit(opt.imageCredit || step.imageCredit, opt.isImageSample || step.isImageSample);
-                          const optBookingUrl = resolveHotelBookingUrl(opt);
 
                           return (
                             <div class={`carousel-slide-item ${optIdx === 0 ? 'is-active-slide' : ''}`}>
@@ -497,75 +467,7 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                                     </p>
                                   )}
 
-                                  {opt.hotelData?.hotelNo && <HotelPrice hotelNo={opt.hotelData.hotelNo} />}
-                                  {(() => {
-                                    const isSearchMore = opt.title.includes('他の宿') || opt.title.includes('宿を探す') || opt.title.includes('ホテル一覧');
-                                    if (isSearchMore && !opt.hotelData?.yahooUrl && !opt.hotelData?.jalanUrl) {
-                                      return optBookingUrl ? (
-                                        <a
-                                          href={optBookingUrl.url}
-                                          target="_blank"
-                                          rel="noopener sponsored"
-                                          class="wide-hotel-cta rakuten-hotel-cta"
-                                        >
-                                          <span>{optBookingUrl.label}</span>
-                                          <span class="cta-arrow">→</span>
-                                        </a>
-                                      ) : null;
-                                    }
-
-                                    const hasAnyBooking = optBookingUrl || opt.hotelData?.yahooUrl || opt.hotelData?.jalanUrl;
-                                    if (!hasAnyBooking) return null;
-
-                                    return (
-                                      <div class="hotel-portal-hub">
-                                        <div class="portal-hub-header">
-                                          <span class="portal-hub-label">{isSearchMore ? '旅行サイトで周辺の宿を探す' : '旅行サイトでこの宿を確認'}</span>
-                                          <span class="portal-hub-note">{isSearchMore ? '※各予約サイトの空室一覧へ直接移動します' : '※各サイトのホテル詳細ページへ直接移動します'}</span>
-                                        </div>
-                                        <div class="portal-hub-buttons">
-                                          {optBookingUrl && (
-                                            <a
-                                              href={optBookingUrl.url}
-                                              target="_blank"
-                                              rel="noopener sponsored"
-                                              class="portal-btn btn-rakuten"
-                                              title="楽天トラベルでこのホテルの空室・プランを確認"
-                                            >
-                                              <span class="portal-name-short">楽天</span>
-                                              <span class="portal-name-full">楽天トラベル</span>
-                                            </a>
-                                          )}
-                                          {opt.hotelData?.yahooUrl && (
-                                            <a
-                                              href={`https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3787762&pid=892747331&vc_url=${encodeURIComponent(opt.hotelData.yahooUrl)}`}
-                                              target="_blank"
-                                              rel="nofollow sponsored noopener"
-                                              class="portal-btn btn-yahoo"
-                                              title="Yahoo!トラベルでこのホテルの空室・プランを確認"
-                                            >
-                                              <img src="https://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3787762&pid=892747331" height="1" width="0" border="0" alt="" />
-                                              <span class="portal-name-short">Yahoo!</span>
-                                              <span class="portal-name-full">Yahoo!トラベル</span>
-                                            </a>
-                                          )}
-                                          {opt.hotelData?.jalanUrl && (
-                                            <a
-                                              href={`https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3787762&pid=892747339&vc_url=${encodeURIComponent(opt.hotelData.jalanUrl)}`}
-                                              target="_blank"
-                                              rel="nofollow sponsored noopener"
-                                              class="portal-btn btn-jalan"
-                                              title="じゃらんでこのホテルの空室・プランを確認"
-                                            >
-                                              <img src="https://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3787762&pid=892747339" height="1" width="0" border="0" alt="" />
-                                              <span class="portal-name-short">じゃらん</span>
-                                              <span class="portal-name-full">じゃらんnet</span>
-                                            </a>
-                                          )}
-                                        </div>
-                                      </div>
-                                    );
-                                  })()}
+                                  <HotelPortalHub hotelData={opt.hotelData} title={opt.title} />
                                 </div>
                               </div>
                             </div>
@@ -633,76 +535,7 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                         )}
                         {!step.businessHoursId && !step.linksInList && step.links && <p class="spot-links">{step.links.map((link) => <a href={link.href}>{link.label}</a>)}</p>}
 
-                        {step.hotelData?.hotelNo && <HotelPrice hotelNo={step.hotelData.hotelNo} />}
-                        {(() => {
-                          const isSearchMore = step.title.includes('他の宿') || step.title.includes('宿を探す') || step.title.includes('ホテル一覧');
-                          const bookingUrl = resolveHotelBookingUrl(step);
-                          if (isSearchMore && !step.hotelData?.yahooUrl && !step.hotelData?.jalanUrl) {
-                            return bookingUrl ? (
-                              <a
-                                href={bookingUrl.url}
-                                target="_blank"
-                                rel="noopener sponsored"
-                                class="wide-hotel-cta rakuten-hotel-cta"
-                              >
-                                <span>{bookingUrl.label}</span>
-                                <span class="cta-arrow">→</span>
-                              </a>
-                            ) : null;
-                          }
-
-                          const hasAnyBooking = bookingUrl || step.hotelData?.yahooUrl || step.hotelData?.jalanUrl;
-                          if (!hasAnyBooking) return null;
-
-                          return (
-                            <div class="hotel-portal-hub">
-                              <div class="portal-hub-header">
-                                <span class="portal-hub-label">{isSearchMore ? '旅行サイトで周辺の宿を探す' : '旅行サイトでこの宿を確認'}</span>
-                                <span class="portal-hub-note">{isSearchMore ? '※各予約サイトの空室一覧へ直接移動します' : '※各サイトのホテル詳細ページへ直接移動します'}</span>
-                              </div>
-                              <div class="portal-hub-buttons">
-                                {bookingUrl && (
-                                  <a
-                                    href={bookingUrl.url}
-                                    target="_blank"
-                                    rel="noopener sponsored"
-                                    class="portal-btn btn-rakuten"
-                                    title="楽天トラベルでこのホテルの空室・プランを確認"
-                                  >
-                                    <span class="portal-name-short">楽天</span>
-                                    <span class="portal-name-full">楽天トラベル</span>
-                                  </a>
-                                )}
-                                {step.hotelData?.yahooUrl && (
-                                  <a
-                                    href={`https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3787762&pid=892747331&vc_url=${encodeURIComponent(step.hotelData.yahooUrl)}`}
-                                    target="_blank"
-                                    rel="nofollow sponsored noopener"
-                                    class="portal-btn btn-yahoo"
-                                    title="Yahoo!トラベルでこのホテルの空室・プランを確認"
-                                  >
-                                    <img src="https://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3787762&pid=892747331" height="1" width="0" border="0" alt="" />
-                                    <span class="portal-name-short">Yahoo!</span>
-                                    <span class="portal-name-full">Yahoo!トラベル</span>
-                                  </a>
-                                )}
-                                {step.hotelData?.jalanUrl && (
-                                  <a
-                                    href={`https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3787762&pid=892747339&vc_url=${encodeURIComponent(step.hotelData.jalanUrl)}`}
-                                    target="_blank"
-                                    rel="nofollow sponsored noopener"
-                                    class="portal-btn btn-jalan"
-                                    title="じゃらんでこのホテルの空室・プランを確認"
-                                  >
-                                    <img src="https://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3787762&pid=892747339" height="1" width="0" border="0" alt="" />
-                                    <span class="portal-name-short">じゃらん</span>
-                                    <span class="portal-name-full">じゃらんnet</span>
-                                  </a>
-                                )}
-                              </div>
-                            </div>
-                          );
-                        })()}
+                        <HotelPortalHub hotelData={step.hotelData} title={step.title} />
                       </div>
                     </div>
                   ) : (() => {
@@ -868,76 +701,7 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                             </p>
                           )}
 
-                          {step.hotelData?.hotelNo && <HotelPrice hotelNo={step.hotelData.hotelNo} />}
-                          {(() => {
-                            const isSearchMore = step.title.includes('他の宿') || step.title.includes('宿を探す') || step.title.includes('ホテル一覧');
-                            const bookingUrl = resolveHotelBookingUrl(step);
-                            if (isSearchMore && !step.hotelData?.yahooUrl && !step.hotelData?.jalanUrl) {
-                              return bookingUrl ? (
-                                <a
-                                  href={bookingUrl.url}
-                                  target="_blank"
-                                  rel="noopener sponsored"
-                                  class="wide-hotel-cta rakuten-hotel-cta"
-                                >
-                                  <span>{bookingUrl.label}</span>
-                                  <span class="cta-arrow">→</span>
-                                </a>
-                              ) : null;
-                            }
-
-                            const hasAnyBooking = bookingUrl || step.hotelData?.yahooUrl || step.hotelData?.jalanUrl;
-                            if (!hasAnyBooking) return null;
-
-                            return (
-                              <div class="hotel-portal-hub">
-                                <div class="portal-hub-header">
-                                  <span class="portal-hub-label">{isSearchMore ? '旅行サイトで周辺の宿を探す' : '旅行サイトでこの宿を確認'}</span>
-                                  <span class="portal-hub-note">{isSearchMore ? '※各予約サイトの空室一覧へ直接移動します' : '※各サイトのホテル詳細ページへ直接移動します'}</span>
-                                </div>
-                                <div class="portal-hub-buttons">
-                                  {bookingUrl && (
-                                    <a
-                                      href={bookingUrl.url}
-                                      target="_blank"
-                                      rel="noopener sponsored"
-                                      class="portal-btn btn-rakuten"
-                                      title="楽天トラベルでこのホテルの空室・プランを確認"
-                                    >
-                                      <span class="portal-name-short">楽天</span>
-                                      <span class="portal-name-full">楽天トラベル</span>
-                                    </a>
-                                  )}
-                                  {step.hotelData?.yahooUrl && (
-                                    <a
-                                      href={`https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3787762&pid=892747331&vc_url=${encodeURIComponent(step.hotelData.yahooUrl)}`}
-                                      target="_blank"
-                                      rel="nofollow sponsored noopener"
-                                      class="portal-btn btn-yahoo"
-                                      title="Yahoo!トラベルでこのホテルの空室・プランを確認"
-                                    >
-                                      <img src="https://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3787762&pid=892747331" height="1" width="0" border="0" alt="" />
-                                      <span class="portal-name-short">Yahoo!</span>
-                                      <span class="portal-name-full">Yahoo!トラベル</span>
-                                    </a>
-                                  )}
-                                  {step.hotelData?.jalanUrl && (
-                                    <a
-                                      href={`https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3787762&pid=892747339&vc_url=${encodeURIComponent(step.hotelData.jalanUrl)}`}
-                                      target="_blank"
-                                      rel="nofollow sponsored noopener"
-                                      class="portal-btn btn-jalan"
-                                      title="じゃらんでこのホテルの空室・プランを確認"
-                                    >
-                                      <img src="https://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3787762&pid=892747339" height="1" width="0" border="0" alt="" />
-                                      <span class="portal-name-short">じゃらん</span>
-                                      <span class="portal-name-full">じゃらんnet</span>
-                                    </a>
-                                  )}
-                                </div>
-                              </div>
-                            );
-                          })()}
+                          <HotelPortalHub hotelData={step.hotelData} title={step.title} />
                         </div>
                       </div>
                     );

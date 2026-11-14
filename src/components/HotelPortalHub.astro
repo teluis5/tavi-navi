@@ -1,0 +1,264 @@
+---
+import HotelPrice from './HotelPrice.astro';
+import {
+  buildRakutenTravelUrl,
+  buildYahooTravelUrl,
+  buildJalanUrl,
+} from '../utils/affiliate';
+
+export interface Props {
+  hotelData?: {
+    hotelNo?: string | number;
+    rakutenUrl?: string;
+    areaUrl?: string;
+    yahooUrl?: string;
+    jalanUrl?: string;
+    rating?: string | number;
+  };
+  hotelNo?: string | number;
+  rakutenUrl?: string;
+  yahooUrl?: string;
+  jalanUrl?: string;
+  title?: string;
+  showPrice?: boolean;
+}
+
+const {
+  hotelData,
+  hotelNo: propHotelNo,
+  rakutenUrl: propRakutenUrl,
+  yahooUrl: propYahooUrl,
+  jalanUrl: propJalanUrl,
+  title = '',
+  showPrice = true,
+} = Astro.props;
+
+const hotelNo = propHotelNo || hotelData?.hotelNo;
+const rawRakutenUrl = propRakutenUrl || hotelData?.rakutenUrl;
+const rawYahooUrl = propYahooUrl || hotelData?.yahooUrl;
+const rawJalanUrl = propJalanUrl || hotelData?.jalanUrl;
+
+const isSearchMore =
+  title.includes('他の宿') ||
+  title.includes('宿を探す') ||
+  title.includes('ホテル一覧');
+
+// 楽天トラベルURL解決
+let rakutenBookingUrl: string | null = null;
+if (rawRakutenUrl) {
+  rakutenBookingUrl = rawRakutenUrl;
+} else if (hotelNo) {
+  rakutenBookingUrl = buildRakutenTravelUrl({ hotelNo });
+} else if (hotelData?.areaUrl) {
+  rakutenBookingUrl = buildRakutenTravelUrl({ areaUrl: hotelData.areaUrl });
+} else if (title) {
+  rakutenBookingUrl = buildRakutenTravelUrl({ keyword: title });
+}
+
+// Yahoo!トラベルURL解決
+const yahooData = rawYahooUrl ? buildYahooTravelUrl(rawYahooUrl) : null;
+
+// じゃらんnetURL解決
+const jalanData = rawJalanUrl ? buildJalanUrl(rawJalanUrl) : null;
+
+const hasAnyBooking = !!(rakutenBookingUrl || yahooData || jalanData);
+---
+
+{showPrice && hotelNo && <HotelPrice hotelNo={hotelNo} />}
+
+{hasAnyBooking && (
+  isSearchMore && !yahooData && !jalanData ? (
+    <a
+      href={rakutenBookingUrl}
+      target="_blank"
+      rel="noopener sponsored"
+      class="wide-hotel-cta rakuten-hotel-cta"
+    >
+      <span>楽天トラベルでこのエリアの宿を探す</span>
+      <span class="cta-arrow">→</span>
+    </a>
+  ) : (
+    <div class="hotel-portal-hub">
+      <div class="portal-hub-header">
+        <span class="portal-hub-label">
+          {isSearchMore ? '旅行サイトで周辺の宿を探す' : '旅行サイトでこの宿を確認'}
+        </span>
+        <span class="portal-hub-note">
+          {isSearchMore
+            ? '※各予約サイトの空室一覧へ直接移動します'
+            : '※各サイトのホテル詳細ページへ直接移動します'}
+        </span>
+      </div>
+      <div class="portal-hub-buttons">
+        {rakutenBookingUrl && (
+          <a
+            href={rakutenBookingUrl}
+            target="_blank"
+            rel="noopener sponsored"
+            class="portal-btn btn-rakuten"
+            title="楽天トラベルで空室・宿泊プランを確認"
+          >
+            <span class="portal-name-short">楽天</span>
+            <span class="portal-name-full">楽天トラベル</span>
+          </a>
+        )}
+        {yahooData && (
+          <a
+            href={yahooData.url}
+            target="_blank"
+            rel="nofollow sponsored noopener"
+            class="portal-btn btn-yahoo"
+            title="Yahoo!トラベルで空室・宿泊プランを確認"
+          >
+            <img
+              src={yahooData.trackingPixel}
+              height="1"
+              width="0"
+              border="0"
+              alt=""
+            />
+            <span class="portal-name-short">Yahoo!</span>
+            <span class="portal-name-full">Yahoo!トラベル</span>
+          </a>
+        )}
+        {jalanData && (
+          <a
+            href={jalanData.url}
+            target="_blank"
+            rel="nofollow sponsored noopener"
+            class="portal-btn btn-jalan"
+            title="じゃらんで空室・宿泊プランを確認"
+          >
+            <img
+              src={jalanData.trackingPixel}
+              height="1"
+              width="0"
+              border="0"
+              alt=""
+            />
+            <span class="portal-name-short">じゃらん</span>
+            <span class="portal-name-full">じゃらんnet</span>
+          </a>
+        )}
+      </div>
+    </div>
+  )
+)}
+
+<style>
+  .wide-hotel-cta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 14px 0 0;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-decoration: none !important;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .rakuten-hotel-cta {
+    background: #bf0000;
+    color: #ffffff !important;
+    box-shadow: 0 2px 6px rgba(191, 0, 0, 0.2);
+  }
+  .wide-hotel-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(191, 0, 0, 0.3);
+  }
+  .cta-arrow {
+    font-size: 1.1rem;
+    line-height: 1;
+  }
+
+  .hotel-portal-hub {
+    margin: 14px 0 0;
+    padding: 10px 12px;
+    background: #f7f9f8;
+    border-radius: 8px;
+    border: 1px solid #e2ece7;
+  }
+  .portal-hub-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+    gap: 8px;
+  }
+  .portal-hub-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #264a3f;
+    letter-spacing: 0.02em;
+  }
+  .portal-hub-note {
+    font-size: 0.68rem;
+    color: #6d8178;
+  }
+  .portal-hub-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .portal-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 9px 8px;
+    border-radius: 6px;
+    text-decoration: none !important;
+    font-weight: 700;
+    font-size: 0.82rem;
+    line-height: 1.2;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  }
+  .portal-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+    opacity: 0.95;
+  }
+  .btn-rakuten {
+    background: #bf0000;
+    color: #ffffff !important;
+    border: 1px solid #a80000;
+  }
+  .btn-yahoo {
+    background: #ff0033;
+    color: #ffffff !important;
+    border: 1px solid #e0002d;
+  }
+  .btn-jalan {
+    background: #ff5a00;
+    color: #ffffff !important;
+    border: 1px solid #e04e00;
+  }
+  .portal-name-short {
+    display: none;
+  }
+  .portal-name-full {
+    display: inline;
+  }
+  @media (max-width: 480px) {
+    .portal-hub-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+    }
+    .portal-hub-note {
+      font-size: 0.64rem;
+    }
+    .portal-name-full {
+      display: none;
+    }
+    .portal-name-short {
+      display: inline;
+    }
+    .portal-btn {
+      padding: 8px 4px;
+      font-size: 0.8rem;
+    }
+  }
+</style>
