@@ -143,25 +143,31 @@ timelineDays.forEach(day => {
                     trackId={`wide-track-${index}`}
                   />
                 ) : (
-                  <SpotUnit
-                    title={step.title}
-                    categoryLabel={step.categoryLabel}
-                    alternativeLabel={step.alternativeLabel}
-                    areaLabel={step.areaLabel}
-                    image={step.image}
-                    images={step.images}
-                    imageLayout={step.imageLayout}
-                    imageCredit={step.imageCredit}
-                    isImageSample={step.isImageSample}
-                    points={step.points}
-                    links={step.links}
-                    linksInList={step.linksInList}
-                    businessHoursId={step.businessHoursId}
-                    hotelData={step.hotelData}
-                    spotData={step.spotData}
-                    amenities={step.amenities}
-                    leadHeading={step.leadHeading}
-                  />
+                  <div class="single-spot-container">
+                    {step.leadHeading && (
+                      <div class="spot-lead-heading">
+                        <h3 class="lead-text">{step.leadHeading}</h3>
+                      </div>
+                    )}
+                    <SpotUnit
+                      title={step.title}
+                      categoryLabel={step.categoryLabel}
+                      alternativeLabel={step.alternativeLabel}
+                      areaLabel={step.areaLabel}
+                      image={step.image}
+                      images={step.images}
+                      imageLayout={step.imageLayout}
+                      imageCredit={step.imageCredit}
+                      isImageSample={step.isImageSample}
+                      points={step.points}
+                      links={step.links}
+                      linksInList={step.linksInList}
+                      businessHoursId={step.businessHoursId}
+                      hotelData={step.hotelData}
+                      spotData={step.spotData}
+                      amenities={step.amenities}
+                    />
+                  </div>
                 )}
               </div>
 
@@ -589,11 +595,17 @@ timelineDays.forEach(day => {
     display: none !important;
   }
 
-  /* 体験アクション見出し（写真の直上に配置） */
-  .step-lead-heading {
-    margin-bottom: 0.45rem;
+  /* 体験アクション見出し（カード上部に独立配置） */
+  .single-spot-container {
+    width: 100%;
   }
 
+  .spot-lead-heading,
+  .step-lead-heading {
+    margin-bottom: 0.5rem;
+  }
+
+  .spot-lead-heading .lead-text,
   .step-lead-text {
     font-size: 1.05rem;
     font-weight: 800;

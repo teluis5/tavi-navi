@@ -82,12 +82,6 @@ const pillText = hotelCatName || cleanText(alternativeLabel);
   role={spotData ? 'button' : undefined}
   tabindex={spotData ? '0' : undefined}
 >
-  {leadHeading && (
-    <div class="step-lead-heading">
-      <h3 class="step-lead-text">{leadHeading}</h3>
-    </div>
-  )}
-
   <SpotPhotoGallery
     title={title}
     pillText={pillText}
@@ -170,20 +164,6 @@ const pillText = hotelCatName || cleanText(alternativeLabel);
   }
   .clickable-unit:active :global(.wide-photo-img) {
     transform: scale(1.02);
-  }
-
-  /* 体験アクション見出し（カード上端） */
-  .step-lead-heading {
-    padding: 0.85rem 1rem 0.55rem;
-    background: #f1f5f9;
-  }
-  .step-lead-text {
-    font-size: 1.02rem;
-    font-weight: 800;
-    color: #111827;
-    margin: 0;
-    line-height: 1.35;
-    letter-spacing: -0.015em;
   }
 
   /* スポット本文（カード下部：縦幅伸長＆フッター下揃え） */

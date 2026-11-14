@@ -21,7 +21,7 @@ function cleanText(text?: string): string {
 
 <div class="spot-carousel-container" data-track-id={trackId}>
   {leadHeading && (
-    <div class="carousel-lead-heading">
+    <div class="spot-lead-heading carousel-lead-heading">
       <h3 class="lead-text">{leadHeading}</h3>
     </div>
   )}
@@ -164,8 +164,9 @@ function cleanText(text?: string): string {
     width: 100%;
     margin: 0;
   }
+  .spot-lead-heading,
   .carousel-lead-heading {
-    margin-bottom: 0.45rem;
+    margin-bottom: 0.5rem;
   }
   .lead-text {
     margin: 0;
