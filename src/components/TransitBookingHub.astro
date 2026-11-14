@@ -7,6 +7,9 @@ export interface Props {
   transportType?: 'shinkansen' | 'rentacar' | 'all';
   showExperience?: boolean;
   title?: string;
+  pref?: string;
+  asoviewAreaId?: string;
+  asoviewUrl?: string;
 }
 
 const {
@@ -15,7 +18,59 @@ const {
   transportType = 'all',
   showExperience = true,
   title,
+  pref,
+  asoviewAreaId: propAsoviewAreaId,
+  asoviewUrl: propAsoviewUrl,
 } = Astro.props;
+
+// アソビュー！エリアIDマッピング（主要観光エリアの公式destinationId）
+const ASOVIEW_AREA_MAP: Record<string, string> = {
+  // 秋田
+  '田沢湖': 'are0050300',
+  '角館': 'are0050300',
+  '大曲': 'are0050300',
+  '仙北': 'are0050300',
+  '横手': 'are0050300',
+  '秋田市': 'are0050100',
+  '男鹿': 'are0050200',
+  '白神': 'are0050200',
+  '十和田': 'are0050400',
+  '大館': 'are0050400',
+  '鹿角': 'are0050400',
+  // 青森
+  '青森': 'are0020100',
+  '弘前': 'are0020200',
+  '八戸': 'are0020300',
+  // 岩手
+  '盛岡': 'are0030100',
+  '花巻': 'are0030200',
+  '平泉': 'are0030400',
+  // 宮城
+  '仙台': 'are0040100',
+  '松島': 'are0040200',
+};
+
+// アソビュー！地域絞り込みURL解決
+let asoviewUrl = propAsoviewUrl || '';
+if (!asoviewUrl) {
+  let resolvedAreaId = propAsoviewAreaId;
+  if (!resolvedAreaId) {
+    const searchTarget = `${destination} ${station}`;
+    for (const [key, code] of Object.entries(ASOVIEW_AREA_MAP)) {
+      if (searchTarget.includes(key)) {
+        resolvedAreaId = code;
+        break;
+      }
+    }
+  }
+
+  if (resolvedAreaId) {
+    asoviewUrl = `https://www.asoview.com/search/?adultQuantity=1&destinationId=${resolvedAreaId}&destinationType=area`;
+  } else {
+    // 未設定時のフォールバック（田沢湖・角館エリア）
+    asoviewUrl = 'https://www.asoview.com/search/?adultQuantity=1&destinationId=are0050300&destinationType=area';
+  }
+}
 
 // 楽天レンタカー公式アフィリエイトURL
 const rentacarTargetUrl = station
@@ -26,9 +81,6 @@ const rakutenRentacarUrl = `https://hb.afl.rakuten.co.jp/hgc/${RAKUTEN_AFFILIATE
 // JR東日本 / どこかにビューーン / ダイナミックレールパック
 const dokokaniByunUrl = 'https://dokokani-byun.com/';
 const jreDynamicRailUrl = 'https://www.jre-travel.com/';
-
-// アソビュー！体験・観光施設チケット
-const asoviewUrl = `https://www.asoview.com/leisure/?keyword=${encodeURIComponent(destination || station)}`;
 ---
 
 <aside class="transit-booking-section" aria-labelledby="transit-booking">
@@ -102,7 +154,7 @@ const asoviewUrl = `https://www.asoview.com/leisure/?keyword=${encodeURIComponen
           <span class="card-tag">遊び・体験・温泉チケット</span>
           <h4 class="card-name">アソビュー！</h4>
           <p class="card-text">
-            日帰り温泉やアクティビティ、観光施設の前売り電子チケットを事前購入できます。
+            {destination ? `${destination}周辺` : '現地エリア'}の日帰り温泉・アクティビティ・前売り電子チケットを事前予約。
           </p>
         </div>
         <div class="card-actions">
