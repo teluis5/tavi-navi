@@ -1,6 +1,5 @@
 import json
 import os
-import re
 import sys
 import time
 from datetime import datetime, timedelta, timezone
@@ -11,15 +10,20 @@ from urllib.request import urlopen
 
 ROOT = Path(__file__).resolve().parent.parent
 OUTPUT = ROOT / 'public/data/hotel-prices/rakuten.json'
+HOTEL_LIST = ROOT / 'src/data/rakuten-hotels.json'
 JST = timezone(timedelta(hours=9))
 app_id = os.environ.get('RAKUTEN_APP_ID')
 access_key = os.environ.get('RAKUTEN_ACCESS_KEY')
 if not app_id or not access_key:
     sys.exit('RAKUTEN_APP_ID and RAKUTEN_ACCESS_KEY are required')
 
-hotel_ids = set()
-for article in (ROOT / 'src/content/articles').rglob('*.mdx'):
-    hotel_ids.update(re.findall(r'hotelNo\s*:\s*["\']?(\d+)', article.read_text(encoding='utf-8')))
+hotel_list = json.loads(HOTEL_LIST.read_text(encoding='utf-8'))
+hotel_ids = []
+for hotel in hotel_list:
+    hotel_id = str(hotel['hotelNo'])
+    if not hotel_id.isdigit() or hotel_id in hotel_ids or not hotel.get('name'):
+        sys.exit('ホテル一覧の施設番号・施設名が不正、または重複しています')
+    hotel_ids.append(hotel_id)
 
 now = datetime.now(JST)
 start = now.date() + timedelta(days=21)
