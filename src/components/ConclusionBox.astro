@@ -1,9 +1,15 @@
 ---
 import { Icon } from 'astro-icon/components';
+
+export interface Props {
+  title?: string;
+}
+
+const { title = 'このコースのおさらい' } = Astro.props;
 ---
 <div class="conclusion-box">
   <div class="conclusion-box-title">
-    <Icon name="heroicons:check-badge" class="icon-inline" /> この記事の結論
+    <Icon name="heroicons:check-badge" class="icon-inline" /> {title}
   </div>
   <div class="conclusion-box-content">
     <slot />
