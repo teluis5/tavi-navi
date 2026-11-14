@@ -1,0 +1,213 @@
+---
+import TransitTimetable from './TransitTimetable.astro';
+
+export interface Props {
+  transitDetail?: {
+    method?: string;
+    route?: string;
+    specs?: string[];
+    links?: { label: string; href: string }[];
+  };
+  transit?: string;
+  transitBadge?: string;
+  transitRoute?: string;
+  transitSpecs?: string[];
+  timetable?: {
+    destination?: string;
+    finalStop?: string;
+    direction?: 'outbound' | 'return';
+    stationId?: string;
+    trainFilter?: string;
+    busFilter?: string;
+  };
+}
+
+const {
+  transitDetail,
+  transit,
+  transitBadge,
+  transitRoute,
+  transitSpecs,
+  timetable,
+} = Astro.props;
+
+function cleanText(text?: string): string {
+  if (!text) return '';
+  return text.replace(/^【|】$/g, '').trim();
+}
+
+let method = '';
+let route = '';
+const specs: string[] = [];
+
+if (transitDetail) {
+  method = cleanText(transitDetail.method);
+  route = transitDetail.route || '';
+  if (transitDetail.specs) specs.push(...transitDetail.specs);
+} else {
+  const rawMain = cleanText(transit || transitBadge);
+  method = rawMain;
+  route = transitRoute || '';
+  if (transitSpecs && transitSpecs.length > 0) {
+    specs.push(...transitSpecs);
+  } else if (rawMain) {
+    // "徒歩 8分（平坦・歩道あり）" のような括弧書きを自動分割
+    const match = rawMain.match(/^(.+?)[（(](.+?)[）)]$/);
+    if (match) {
+      method = match[1].trim();
+      specs.push(match[2].trim());
+    }
+  }
+}
+
+const hasContent = !!(method || route || specs.length > 0 || timetable || transitDetail?.links);
+---
+
+{hasContent && (
+  <div class="transit-vector-block" aria-label="次のスポットへの移動">
+    <div class="transit-vector-axis" aria-hidden="true">
+      <span class="vector-origin-dot"></span>
+      <span class="vector-stem-line"></span>
+      <svg class="vector-arrow-head" viewBox="0 0 12 12" fill="none">
+        <path
+          d="M2.5 4.5L6 8L9.5 4.5"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </div>
+
+    <div class="transit-vector-content">
+      {(method || route) && (
+        <div class="transit-primary-row">
+          {method && <span class="transit-method-title">{method}</span>}
+          {route && <span class="transit-route-flow">{route}</span>}
+        </div>
+      )}
+
+      {specs.length > 0 && (
+        <ul class="transit-specs-list">
+          {specs.map((spec) => (
+            <li>{spec}</li>
+          ))}
+        </ul>
+      )}
+
+      {timetable && <TransitTimetable {...timetable} />}
+
+      {transitDetail?.links && transitDetail.links.length > 0 && (
+        <p class="transit-links">
+          {transitDetail.links.map((link) => (
+            <a href={link.href} target="_blank" rel="noopener">{link.label}</a>
+          ))}
+        </p>
+      )}
+    </div>
+  </div>
+)}
+
+<style>
+  .transit-vector-block {
+    display: flex;
+    align-items: stretch;
+    gap: 0.85rem;
+    margin: 1.25rem 0 1.45rem;
+    padding: 0.15rem 0 0.15rem 0.65rem;
+  }
+
+  .transit-vector-axis {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 14px;
+    flex-shrink: 0;
+    padding: 0.15rem 0 0.05rem;
+  }
+
+  .vector-origin-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    background: #9ca3af;
+    flex-shrink: 0;
+  }
+
+  .vector-stem-line {
+    width: 1.5px;
+    flex: 1;
+    min-height: 28px;
+    background: linear-gradient(to bottom, #9ca3af 0%, #111827 100%);
+    margin: 2px 0 -2px;
+  }
+
+  .vector-arrow-head {
+    width: 13px;
+    height: 13px;
+    color: #111827;
+    flex-shrink: 0;
+  }
+
+  .transit-vector-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.25rem;
+    padding: 0.1rem 0;
+    min-width: 0;
+    flex: 1;
+  }
+
+  .transit-primary-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.45rem;
+    line-height: 1.35;
+  }
+
+  .transit-method-title {
+    font-size: 0.84rem;
+    font-weight: 800;
+    color: #111827;
+    letter-spacing: 0.01em;
+  }
+
+  .transit-route-flow {
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: #4b5563;
+    letter-spacing: 0.01em;
+  }
+
+  .transit-specs-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.14rem;
+  }
+
+  .transit-specs-list li {
+    font-size: 0.74rem;
+    color: #4b5563;
+    line-height: 1.42;
+    letter-spacing: 0.01em;
+  }
+
+  .transit-links {
+    margin: 4px 0 0;
+    font-size: 0.76rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .transit-links a {
+    color: #1b634c;
+    text-decoration: underline;
+    font-weight: 700;
+  }
+</style>
