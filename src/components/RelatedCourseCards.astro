@@ -64,54 +64,52 @@ if (courseSlugs && courseSlugs.length > 0) {
 ---
 
 {matchedArticles.length > 0 && (
-  <div class="related-courses-container">
+  <aside class="related-courses-section" aria-labelledby="related-courses">
     <div class="related-courses-section-header">
       <span class="related-badge">関連コース</span>
       <h2 class="related-courses-title" id="related-courses">{title}</h2>
     </div>
 
-    <aside class="related-courses-section" aria-labelledby="related-courses">
-      <div class="related-courses-grid">
-        {matchedArticles.map(({ article, url }) => {
-          const data = article.data;
-          const heroImg = data.heroImage || '/thumbnails/default.png';
-          const duration = data.duration || '1泊2日';
-          const displayTags = (data.tags || []).slice(0, 3);
+    <div class="related-courses-grid">
+      {matchedArticles.map(({ article, url }) => {
+        const data = article.data;
+        const heroImg = data.heroImage || '/thumbnails/default.png';
+        const duration = data.duration || '1泊2日';
+        const displayTags = (data.tags || []).slice(0, 3);
 
-          return (
-            <a href={url} class="course-card">
-              <div class="course-thumb-wrap">
-                <img src={heroImg} alt={data.title} loading="lazy" class="course-thumb" />
-                <span class="course-duration-badge">{duration}</span>
-              </div>
-              <div class="course-content">
-                {displayTags.length > 0 && (
-                  <div class="course-tags">
-                    {displayTags.map((t) => (
-                      <span class="course-tag">#{t}</span>
-                    ))}
-                  </div>
-                )}
-                <h4 class="course-title">{data.title}</h4>
-                <p class="course-desc">{data.description}</p>
-                <div class="course-footer">
-                  <span class="course-read-more">コース詳細を見る →</span>
+        return (
+          <a href={url} class="course-card">
+            <div class="course-thumb-wrap">
+              <img src={heroImg} alt={data.title} loading="lazy" class="course-thumb" />
+              <span class="course-duration-badge">{duration}</span>
+            </div>
+            <div class="course-content">
+              {displayTags.length > 0 && (
+                <div class="course-tags">
+                  {displayTags.map((t) => (
+                    <span class="course-tag">#{t}</span>
+                  ))}
                 </div>
+              )}
+              <h4 class="course-title">{data.title}</h4>
+              <p class="course-desc">{data.description}</p>
+              <div class="course-footer">
+                <span class="course-read-more">コース詳細を見る →</span>
               </div>
-            </a>
-          );
-        })}
-      </div>
-    </aside>
-  </div>
+            </div>
+          </a>
+        );
+      })}
+    </div>
+  </aside>
 )}
 
 <style>
-  .related-courses-container {
+  .related-courses-section {
     margin: 2.5rem 0;
   }
   .related-courses-section-header {
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.85rem;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -128,7 +126,7 @@ if (courseSlugs && courseSlugs.length > 0) {
     letter-spacing: 0.04em;
     line-height: 1.3;
   }
-  :global(.prose) .related-courses-container h2,
+  :global(.prose) .related-courses-section h2,
   .related-courses-title {
     margin: 0 !important;
     font-size: 1.25rem !important;
@@ -140,14 +138,6 @@ if (courseSlugs && courseSlugs.length > 0) {
     padding: 0 !important;
     background: transparent !important;
     border-radius: 0 !important;
-  }
-  .related-courses-section {
-    margin: 0;
-    padding: 1.15rem;
-    background: #f8fafc;
-    border-radius: 10px;
-    border: 1px solid #e2e8f0;
-    box-sizing: border-box;
   }
   .related-courses-grid {
     display: grid;

@@ -31,7 +31,7 @@ const jreDynamicRailUrl = 'https://www.jre-travel.com/';
 const asoviewUrl = `https://www.asoview.com/leisure/?keyword=${encodeURIComponent(destination || station)}`;
 ---
 
-<div class="transit-booking-container">
+<aside class="transit-booking-section" aria-labelledby="transit-booking">
   <div class="transit-hub-section-header">
     <span class="transit-hub-badge">予約ハブ</span>
     <h2 class="transit-hub-title" id="transit-booking">
@@ -42,8 +42,7 @@ const asoviewUrl = `https://www.asoview.com/leisure/?keyword=${encodeURIComponen
     </p>
   </div>
 
-  <aside class="transit-booking-hub" aria-labelledby="transit-booking">
-    <div class="transit-hub-grid">
+  <div class="transit-hub-grid">
     {(transportType === 'all' || transportType === 'shinkansen') && (
       <div class="transit-card">
         <div class="card-body">
@@ -120,15 +119,14 @@ const asoviewUrl = `https://www.asoview.com/leisure/?keyword=${encodeURIComponen
       </div>
     )}
   </div>
-  </aside>
-</div>
+</aside>
 
 <style>
-  .transit-booking-container {
+  .transit-booking-section {
     margin: 2.5rem 0 2rem;
   }
   .transit-hub-section-header {
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.85rem;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -145,7 +143,7 @@ const asoviewUrl = `https://www.asoview.com/leisure/?keyword=${encodeURIComponen
     letter-spacing: 0.04em;
     line-height: 1.3;
   }
-  :global(.prose) .transit-booking-container h2,
+  :global(.prose) .transit-booking-section h2,
   .transit-hub-title {
     margin: 0 !important;
     font-size: 1.25rem !important;
@@ -163,14 +161,6 @@ const asoviewUrl = `https://www.asoview.com/leisure/?keyword=${encodeURIComponen
     font-size: 0.8rem !important;
     color: #64748b !important;
     line-height: 1.45 !important;
-  }
-  .transit-booking-hub {
-    margin: 0;
-    padding: 1.15rem;
-    background: #f8fafc;
-    border-radius: 10px;
-    border: 1px solid #e2e8f0;
-    box-sizing: border-box;
   }
   .transit-hub-grid {
     display: grid;
