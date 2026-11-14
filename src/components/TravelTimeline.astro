@@ -520,7 +520,8 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                                     return (
                                       <div class="hotel-portal-hub">
                                         <div class="portal-hub-header">
-                                          <span class="portal-hub-label">旅行サイトで確認</span>
+                                          <span class="portal-hub-label">旅行サイトでこの宿を確認</span>
+                                          <span class="portal-hub-note">※各サイトのホテル詳細ページへ直接移動します</span>
                                         </div>
                                         <div class="portal-hub-buttons">
                                           {optBookingUrl && (
@@ -529,8 +530,10 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                                               target="_blank"
                                               rel="noopener sponsored"
                                               class="portal-btn btn-rakuten"
+                                              title="楽天トラベルでこのホテルの空室・プランを確認"
                                             >
-                                              <span>楽天</span>
+                                              <span class="portal-name-short">楽天</span>
+                                              <span class="portal-name-full">楽天トラベル</span>
                                             </a>
                                           )}
                                           {opt.hotelData?.yahooUrl && (
@@ -539,9 +542,11 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                                               target="_blank"
                                               rel="nofollow sponsored noopener"
                                               class="portal-btn btn-yahoo"
+                                              title="Yahoo!トラベルでこのホテルの空室・プランを確認"
                                             >
                                               <img src="https://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3787762&pid=892747331" height="1" width="0" border="0" alt="" />
-                                              <span>Yahoo!</span>
+                                              <span class="portal-name-short">Yahoo!</span>
+                                              <span class="portal-name-full">Yahoo!トラベル</span>
                                             </a>
                                           )}
                                           {opt.hotelData?.jalanUrl && (
@@ -550,9 +555,11 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                                               target="_blank"
                                               rel="nofollow sponsored noopener"
                                               class="portal-btn btn-jalan"
+                                              title="じゃらんでこのホテルの空室・プランを確認"
                                             >
                                               <img src="https://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3787762&pid=892747339" height="1" width="0" border="0" alt="" />
-                                              <span>じゃらん</span>
+                                              <span class="portal-name-short">じゃらん</span>
+                                              <span class="portal-name-full">じゃらんnet</span>
                                             </a>
                                           )}
                                         </div>
@@ -650,7 +657,8 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                           return (
                             <div class="hotel-portal-hub">
                               <div class="portal-hub-header">
-                                <span class="portal-hub-label">旅行サイトで確認</span>
+                                <span class="portal-hub-label">旅行サイトでこの宿を確認</span>
+                                <span class="portal-hub-note">※各サイトのホテル詳細ページへ直接移動します</span>
                               </div>
                               <div class="portal-hub-buttons">
                                 {bookingUrl && (
@@ -659,8 +667,10 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                                     target="_blank"
                                     rel="noopener sponsored"
                                     class="portal-btn btn-rakuten"
+                                    title="楽天トラベルでこのホテルの空室・プランを確認"
                                   >
-                                    <span>楽天</span>
+                                    <span class="portal-name-short">楽天</span>
+                                    <span class="portal-name-full">楽天トラベル</span>
                                   </a>
                                 )}
                                 {step.hotelData?.yahooUrl && (
@@ -669,9 +679,11 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                                     target="_blank"
                                     rel="nofollow sponsored noopener"
                                     class="portal-btn btn-yahoo"
+                                    title="Yahoo!トラベルでこのホテルの空室・プランを確認"
                                   >
                                     <img src="https://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3787762&pid=892747331" height="1" width="0" border="0" alt="" />
-                                    <span>Yahoo!</span>
+                                    <span class="portal-name-short">Yahoo!</span>
+                                    <span class="portal-name-full">Yahoo!トラベル</span>
                                   </a>
                                 )}
                                 {step.hotelData?.jalanUrl && (
@@ -680,9 +692,11 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                                     target="_blank"
                                     rel="nofollow sponsored noopener"
                                     class="portal-btn btn-jalan"
+                                    title="じゃらんでこのホテルの空室・プランを確認"
                                   >
                                     <img src="https://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3787762&pid=892747339" height="1" width="0" border="0" alt="" />
-                                    <span>じゃらん</span>
+                                    <span class="portal-name-short">じゃらん</span>
+                                    <span class="portal-name-full">じゃらんnet</span>
                                   </a>
                                 )}
                               </div>
@@ -878,7 +892,8 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                             return (
                               <div class="hotel-portal-hub">
                                 <div class="portal-hub-header">
-                                  <span class="portal-hub-label">旅行サイトで確認</span>
+                                  <span class="portal-hub-label">旅行サイトでこの宿を確認</span>
+                                  <span class="portal-hub-note">※各サイトのホテル詳細ページへ直接移動します</span>
                                 </div>
                                 <div class="portal-hub-buttons">
                                   {bookingUrl && (
@@ -887,8 +902,10 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                                       target="_blank"
                                       rel="noopener sponsored"
                                       class="portal-btn btn-rakuten"
+                                      title="楽天トラベルでこのホテルの空室・プランを確認"
                                     >
-                                      <span>楽天</span>
+                                      <span class="portal-name-short">楽天</span>
+                                      <span class="portal-name-full">楽天トラベル</span>
                                     </a>
                                   )}
                                   {step.hotelData?.yahooUrl && (
@@ -897,9 +914,11 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                                       target="_blank"
                                       rel="nofollow sponsored noopener"
                                       class="portal-btn btn-yahoo"
+                                      title="Yahoo!トラベルでこのホテルの空室・プランを確認"
                                     >
                                       <img src="https://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3787762&pid=892747331" height="1" width="0" border="0" alt="" />
-                                      <span>Yahoo!</span>
+                                      <span class="portal-name-short">Yahoo!</span>
+                                      <span class="portal-name-full">Yahoo!トラベル</span>
                                     </a>
                                   )}
                                   {step.hotelData?.jalanUrl && (
@@ -908,9 +927,11 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                                       target="_blank"
                                       rel="nofollow sponsored noopener"
                                       class="portal-btn btn-jalan"
+                                      title="じゃらんでこのホテルの空室・プランを確認"
                                     >
                                       <img src="https://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3787762&pid=892747339" height="1" width="0" border="0" alt="" />
-                                      <span>じゃらん</span>
+                                      <span class="portal-name-short">じゃらん</span>
+                                      <span class="portal-name-full">じゃらんnet</span>
                                     </a>
                                   )}
                                 </div>
@@ -2047,16 +2068,39 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
 
   .portal-hub-header {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 0.45rem;
+    flex-direction: column;
+    gap: 0.15rem;
+    margin-bottom: 0.5rem;
   }
 
   .portal-hub-label {
-    font-size: 0.76rem;
+    font-size: 0.8rem;
     font-weight: 700;
-    color: #4b5563;
+    color: #1f2937;
     letter-spacing: 0.02em;
+  }
+
+  .portal-hub-note {
+    font-size: 0.7rem;
+    color: #6b7280;
+    letter-spacing: 0.01em;
+  }
+
+  .portal-name-short {
+    display: inline;
+  }
+
+  .portal-name-full {
+    display: none;
+  }
+
+  @media (min-width: 640px) {
+    .portal-name-short {
+      display: none;
+    }
+    .portal-name-full {
+      display: inline;
+    }
   }
 
   .portal-hub-buttons {
