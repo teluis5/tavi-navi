@@ -1,0 +1,243 @@
+---
+import { RAKUTEN_AFFILIATE_ID } from '../utils/affiliate';
+
+export interface Props {
+  destination?: string;
+  station?: string;
+  transportType?: 'shinkansen' | 'rentacar' | 'all';
+  showExperience?: boolean;
+  title?: string;
+}
+
+const {
+  destination = '目的地',
+  station = '',
+  transportType = 'all',
+  showExperience = true,
+  title,
+} = Astro.props;
+
+// 楽天レンタカー公式アフィリエイトURL
+const rentacarTargetUrl = station
+  ? `https://travel.rakuten.co.jp/cars/search/?search_type=1&keyword=${encodeURIComponent(station)}`
+  : `https://travel.rakuten.co.jp/cars/`;
+const rakutenRentacarUrl = `https://hb.afl.rakuten.co.jp/hgc/${RAKUTEN_AFFILIATE_ID}/?pc=${encodeURIComponent(rentacarTargetUrl)}`;
+
+// JR東日本 / どこかにビューーン / ダイナミックレールパック
+const dokokaniByunUrl = 'https://dokokani-byun.com/';
+const jreDynamicRailUrl = 'https://www.jre-travel.com/';
+
+// アソビュー！体験・観光施設チケット
+const asoviewUrl = `https://www.asoview.com/leisure/?keyword=${encodeURIComponent(destination || station)}`;
+---
+
+<div class="transit-booking-hub">
+  <div class="transit-hub-header">
+    <div class="transit-hub-badge">
+      <span>🎫</span>
+      <span>交通・レンタカー・現地体験</span>
+    </div>
+    <h3 class="transit-hub-title">
+      {title || `${destination}への移動・現地チケットを予約する`}
+    </h3>
+    <p class="transit-hub-desc">
+      新幹線チケットや駅前レンタカー、周辺の観光前売り券は事前予約がおすすめです。
+    </p>
+  </div>
+
+  <div class="transit-hub-grid">
+    {(transportType === 'all' || transportType === 'shinkansen') && (
+      <div class="transit-card shinkansen-card">
+        <div class="card-icon">🚅</div>
+        <div class="card-body">
+          <div class="card-tag">新幹線・JRセット</div>
+          <h4 class="card-name">新幹線チケット・パック</h4>
+          <p class="card-text">どこかにビューーン！なら往復6,000pt。列車＋宿のダイナミックレールパックもお得です。</p>
+        </div>
+        <div class="card-actions">
+          <a
+            href={dokokaniByunUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hub-btn btn-dokokani"
+            title="どこかにビューーン！公式ページへ"
+          >
+            どこかにビューーン！公式 →
+          </a>
+          <a
+            href={jreDynamicRailUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hub-btn btn-jr-pack"
+            title="JR東日本ダイナミックレールパックへ"
+          >
+            JR＋宿セット予約 →
+          </a>
+        </div>
+      </div>
+    )}
+
+    {(transportType === 'all' || transportType === 'rentacar') && (
+      <div class="transit-card rentacar-card">
+        <div class="card-icon">🚗</div>
+        <div class="card-body">
+          <div class="card-tag">駅前レンタカー</div>
+          <h4 class="card-name">楽天トラベル レンタカー</h4>
+          <p class="card-text">
+            {station ? `${station}周辺` : `${destination}周辺`}の各社レンタカーを最安値比較。楽天ポイントも貯まります。
+          </p>
+        </div>
+        <div class="card-actions">
+          <a
+            href={rakutenRentacarUrl}
+            target="_blank"
+            rel="noopener sponsored"
+            class="hub-btn btn-rentacar"
+            title="楽天レンタカーで最安値を比較"
+          >
+            レンタカーを比較・予約 →
+          </a>
+        </div>
+      </div>
+    )}
+
+    {showExperience && (
+      <div class="transit-card experience-card">
+        <div class="card-icon">🎟️</div>
+        <div class="card-body">
+          <div class="card-tag">日帰り温泉・体験</div>
+          <h4 class="card-name">アソビュー！電子チケット</h4>
+          <p class="card-text">
+            {destination}周辺の人気レジャー、日帰り温泉、アクティビティの前売り割引チケット。
+          </p>
+        </div>
+        <div class="card-actions">
+          <a
+            href={asoviewUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hub-btn btn-asoview"
+            title="アソビューで前売りチケットを検索"
+          >
+            体験・前売り券を見る →
+          </a>
+        </div>
+      </div>
+    )}
+  </div>
+</div>
+
+<style>
+  .transit-booking-hub {
+    margin: 28px 0;
+    padding: 20px 18px;
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e1e9e5;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  }
+  .transit-hub-header {
+    margin-bottom: 16px;
+  }
+  .transit-hub-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #234d40;
+    background: #e8f1ed;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+  }
+  .transit-hub-title {
+    margin: 0 0 4px;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #1a332a;
+    line-height: 1.35;
+  }
+  .transit-hub-desc {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #5d6f68;
+    line-height: 1.5;
+  }
+  .transit-hub-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+  }
+  .transit-card {
+    display: flex;
+    flex-direction: column;
+    padding: 14px 14px 12px;
+    background: #f8faf9;
+    border-radius: 9px;
+    border: 1px solid #e3ede8;
+  }
+  .card-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .card-body {
+    flex: 1;
+  }
+  .card-tag {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #3b6656;
+    margin-bottom: 2px;
+  }
+  .card-name {
+    margin: 0 0 4px;
+    font-size: 0.96rem;
+    font-weight: 700;
+    color: #1a332a;
+  }
+  .card-text {
+    margin: 0 0 10px;
+    font-size: 0.76rem;
+    color: #63756e;
+    line-height: 1.45;
+  }
+  .card-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .hub-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 10px;
+    border-radius: 6px;
+    text-decoration: none !important;
+    font-size: 0.8rem;
+    font-weight: 700;
+    line-height: 1.2;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+  }
+  .hub-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+  .btn-dokokani {
+    background: #00897b;
+    color: #ffffff !important;
+  }
+  .btn-jr-pack {
+    background: #2e7d32;
+    color: #ffffff !important;
+  }
+  .btn-rentacar {
+    background: #bf0000;
+    color: #ffffff !important;
+  }
+  .btn-asoview {
+    background: #ff5722;
+    color: #ffffff !important;
+  }
+</style>

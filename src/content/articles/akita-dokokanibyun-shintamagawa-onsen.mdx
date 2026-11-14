@@ -16,6 +16,9 @@ tags: ["どこかにビューン", "田沢湖", "秋田", "秋田新幹線", "�
 import ConclusionBox from '../../components/ConclusionBox.astro';
 import TravelTimeline from '../../components/TravelTimeline.astro';
 import TrainCondition from '../../components/TrainCondition.astro';
+import CourseBudget from '../../components/CourseBudget.astro';
+import TransitBookingHub from '../../components/TransitBookingHub.astro';
+import RelatedCourseCards from '../../components/RelatedCourseCards.astro';
 import photoHanazen from '../blog/tazawako-shared/hanazen-torimeshi.jpg';
 import photoSoba from '../blog/tazawako-shared/akita-soba.jpg';
 import photoOyakodon from '../blog/tazawako-shared/hinai-oyakodon.jpg';
@@ -273,11 +276,28 @@ import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
 
 
 
-## 別のモデルコースを見る
+<CourseBudget
+  shinkansen="6,000pt（往復）"
+  hotel={14500}
+  localTransit={3160}
+  meals={4000}
+/>
 
-- [田沢湖散策コース](/akita/dokokanibyun-tazawako-no-car/)
-- [乳頭温泉郷の湯めぐりコース](/akita/dokokanibyun-nyuto-onsen-yumeguri/)
-- [ダイナミックレールパックの田沢湖コース](/akita/dynamic-rail-tazawako-no-car/)
+<TransitBookingHub
+  destination="新玉川温泉・田沢湖"
+  station="田沢湖駅"
+  pref="akita"
+/>
+
+<RelatedCourseCards
+  pref="akita"
+  currentSlug="akita-dokokanibyun-shintamagawa-onsen"
+  courseSlugs={[
+    'akita-dokokanibyun-tazawako-no-car',
+    'akita-dokokanibyun-nyuto-onsen-yumeguri',
+    'akita-dynamic-rail-tazawako-no-car'
+  ]}
+/>
 
 <ConclusionBox>
 - 指定列車と夏・冬のバスの接続を確認します。
