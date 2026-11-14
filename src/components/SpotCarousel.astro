@@ -166,15 +166,27 @@ function cleanText(text?: string): string {
   }
   .spot-lead-heading,
   .carousel-lead-heading {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.85rem;
   }
   .lead-text {
     margin: 0;
-    font-size: 1.05rem;
+    font-size: 1.15rem;
     font-weight: 800;
     color: #111827;
-    line-height: 1.38;
+    line-height: 1.4;
     letter-spacing: -0.015em;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e2e8f0;
+    position: relative;
+  }
+  .lead-text::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 60px;
+    height: 2px;
+    background-color: var(--theme-accent, #0ea5e9);
   }
   .swipe-tab-scroll {
     display: flex;

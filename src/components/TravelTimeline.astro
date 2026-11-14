@@ -577,8 +577,7 @@ timelineDays.forEach(day => {
     width: 100%;
   }
 
-  /* .prose からの見出しスタイル干渉（下線・左縦線・下青バー::after）を強制リセット */
-  :global(.prose) .step-place-surface h3,
+  /* .prose からの見出しスタイル干渉（下線・左縦線・下青バー::after）を強制リセット（※カード内タイトルh4およびDAYバナーh3のみ対象） */
   :global(.prose) .step-place-surface h4,
   :global(.prose) .day-header-banner h3 {
     border: none !important;
@@ -588,31 +587,44 @@ timelineDays.forEach(day => {
     position: static !important;
   }
 
-  :global(.prose) .step-place-surface h3::after,
   :global(.prose) .step-place-surface h4::after,
   :global(.prose) .day-header-banner h3::after {
     content: none !important;
     display: none !important;
   }
 
-  /* 体験アクション見出し（カード上部に独立配置） */
+  /* 体験アクション見出し（カード上部に独立配置：標準H3装飾で統一） */
   .single-spot-container {
     width: 100%;
   }
 
   .spot-lead-heading,
   .step-lead-heading {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.85rem;
   }
 
   .spot-lead-heading .lead-text,
   .step-lead-text {
-    font-size: 1.05rem;
+    font-size: 1.15rem;
     font-weight: 800;
     color: #111827;
     margin: 0;
-    line-height: 1.38;
+    line-height: 1.4;
     letter-spacing: -0.015em;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e2e8f0;
+    position: relative;
+  }
+
+  .spot-lead-heading .lead-text::after,
+  .step-lead-text::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 60px;
+    height: 2px;
+    background-color: var(--theme-accent, #0ea5e9);
   }
 
   /* カルーセル専用ヘッダー（見出し ＋ 横スクロールジャンルタブ） */
