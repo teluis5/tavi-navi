@@ -1,69 +1,125 @@
 ---
-interface Props { hotelNo: string | number }
+import hotelPricesData from '../../public/data/hotel-prices/rakuten.json';
+
+interface Props {
+  hotelNo: string | number;
+}
+
 const { hotelNo } = Astro.props;
----
-<div class="hotel-price" data-hotel-price={hotelNo} hidden></div>
+const hotelId = String(hotelNo);
+const hotelEntry = (hotelPricesData?.hotels as Record<string, any>)?.[hotelId];
 
-<script>
-  type PlanPrice = { weekday: number | null; weekend: number | null };
-  type HotelEntry = {
-    twoMeals?: PlanPrice;
-    noMeals?: PlanPrice;
-    weekday?: number | null;
-    weekend?: number | null;
-  };
-  type Prices = {
-    checkedAt: string;
-    hotels: Record<string, HotelEntry>;
-  };
+type PlanPrice = { weekday: number | null; weekend: number | null };
 
-  const containers = document.querySelectorAll<HTMLElement>('[data-hotel-price]');
-  if (containers.length) {
-    fetch('/data/hotel-prices/rakuten.json')
-      .then((response) => {
-        if (!response.ok) throw new Error('Hotel prices unavailable');
-        return response.json() as Promise<Prices>;
-      })
-      .then((data) => {
-        const checked = new Date(data.checkedAt);
-        // 月1更新に対応（35日間有効）
-        if (!Number.isFinite(checked.getTime()) || Date.now() - checked.getTime() > 35 * 24 * 60 * 60 * 1000) return;
+function formatPlan(label: string, plan?: PlanPrice) {
+  if (!plan) return null;
+  const wd = plan.weekday ? `平日 約${plan.weekday.toLocaleString('ja-JP')}円〜` : null;
+  const we = plan.weekend ? `休前日 約${plan.weekend.toLocaleString('ja-JP')}円〜` : null;
+  if (!wd && !we) return null;
+  return { label, text: `${wd || '平日 プランなし'} ／ ${we || '休前日 プランなし'}` };
+}
 
-        for (const container of containers) {
-          const prices = data.hotels[container.dataset.hotelPrice || ''];
-          if (!prices) continue;
+const planLines: { label: string; text: string }[] = [];
+if (hotelEntry) {
+  const twoMeals = formatPlan('1泊2食付', hotelEntry.twoMeals);
+  const noMeals = formatPlan('素泊まり', hotelEntry.noMeals);
+  if (twoMeals) planLines.push(twoMeals);
+  if (noMeals) planLines.push(noMeals);
 
-          const formatPlan = (label: string, plan?: PlanPrice) => {
-            if (!plan) return null;
-            const wd = plan.weekday ? `平日 約${plan.weekday.toLocaleString('ja-JP')}円〜` : null;
-            const we = plan.weekend ? `休前日 約${plan.weekend.toLocaleString('ja-JP')}円〜` : null;
-            if (!wd && !we) return null;
-            return `・${label}：${wd || '平日 プランなし'} ／ ${we || '休前日 プランなし'}`;
-          };
-
-          const lines: string[] = ['宿泊料金の目安（大人2名1室・1人あたり・直近3ヶ月最安値）'];
-          const twoMealsLine = formatPlan('1泊2食付', prices.twoMeals);
-          const noMealsLine = formatPlan('素泊まり', prices.noMeals);
-
-          if (twoMealsLine) lines.push(twoMealsLine);
-          if (noMealsLine) lines.push(noMealsLine);
-
-          // 旧スキーマデータのフォールバック（移行期用）
-          if (!twoMealsLine && !noMealsLine && (prices.weekday || prices.weekend)) {
-            const wd = prices.weekday ? `平日 約${prices.weekday.toLocaleString('ja-JP')}円〜` : '平日 プランなし';
-            const we = prices.weekend ? `休前日 約${prices.weekend.toLocaleString('ja-JP')}円〜` : '休前日 プランなし';
-            lines.push(`・目安料金：${wd} ／ ${we}`);
-          }
-
-          if (lines.length > 1) {
-            container.textContent = lines.join('\n');
-            container.hidden = false;
-          }
-        }
-      })
-      .catch(() => {});
+  // 旧スキーマフォールバック
+  if (!twoMeals && !noMeals && (hotelEntry.weekday || hotelEntry.weekend)) {
+    const wd = hotelEntry.weekday ? `平日 約${hotelEntry.weekday.toLocaleString('ja-JP')}円〜` : '平日 プランなし';
+    const we = hotelEntry.weekend ? `休前日 約${hotelEntry.weekend.toLocaleString('ja-JP')}円〜` : '休前日 プランなし';
+    planLines.push({ label: '目安料金', text: `${wd} ／ ${we}` });
   }
-</script>
+}
+---
+
+<div class="hotel-price-box">
+  <div class="price-box-header">
+    <span class="price-box-title">宿泊料金の目安</span>
+    <span class="price-box-note">（大人2名1室・1人あたり）</span>
+  </div>
+  {planLines.length > 0 ? (
+    <ul class="price-plan-list">
+      {planLines.map((plan) => (
+        <li class="price-plan-item">
+          <span class="plan-label">{plan.label}</span>
+          <span class="plan-colon">：</span>
+          <span class="plan-value">{plan.text}</span>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p class="price-fallback-note">
+      ※休館・改修期間またはプラン更新中のため、最新料金は各予約サイトをご確認ください。
+    </p>
+  )}
+</div>
+
 <style>
-  .hotel-price { margin: 12px 0 0; color: #344b43; font-size: .8rem; line-height: 1.6; white-space: pre-line; }
+  .hotel-price-box {
+    margin-top: 0.65rem;
+    padding-top: 0.55rem;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .price-box-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.35rem;
+  }
+  .price-box-title {
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: #475569;
+    letter-spacing: -0.01em;
+  }
+  .price-box-note {
+    font-size: 0.68rem;
+    color: #94a3b8;
+  }
+  .price-plan-list {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  .price-plan-item {
+    font-size: 0.76rem;
+    line-height: 1.45;
+    color: #1e293b;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+  }
+  .price-plan-item::before {
+    content: "・";
+    color: #64748b;
+    font-weight: 700;
+    margin-right: 0.15rem;
+  }
+  .plan-label {
+    font-weight: 700;
+    color: #334155;
+  }
+  .plan-colon {
+    color: #64748b;
+  }
+  .plan-value {
+    color: #0f172a;
+    font-variant-numeric: tabular-nums;
+  }
+  .price-fallback-note {
+    margin: 0 !important;
+    font-size: 0.72rem;
+    color: #64748b;
+    line-height: 1.4;
+  }
 </style>

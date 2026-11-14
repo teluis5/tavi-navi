@@ -76,19 +76,20 @@ const jalanData = (hasHotelInfo && rawJalanUrl) ? buildJalanUrl(rawJalanUrl) : n
 const hasAnyBooking = hasHotelInfo && !!(rakutenBookingUrl || yahooData || jalanData);
 ---
 
-{showPrice && hotelNo && <HotelPrice hotelNo={hotelNo} />}
-
-{hasAnyBooking && (
+{hasAnyBooking ? (
   isSearchMore && !yahooData && !jalanData ? (
-    <a
-      href={rakutenBookingUrl}
-      target="_blank"
-      rel="noopener sponsored"
-      class="wide-hotel-cta rakuten-hotel-cta"
-    >
-      <span>楽天トラベルでこのエリアの宿を探す</span>
-      <span class="cta-arrow">→</span>
-    </a>
+    <div class="hotel-portal-hub">
+      <a
+        href={rakutenBookingUrl}
+        target="_blank"
+        rel="noopener sponsored"
+        class="wide-hotel-cta rakuten-hotel-cta"
+      >
+        <span>楽天トラベルでこのエリアの宿を探す</span>
+        <span class="cta-arrow">→</span>
+      </a>
+      {showPrice && hotelNo && <HotelPrice hotelNo={hotelNo} />}
+    </div>
   ) : (
     <div class="hotel-portal-hub">
       <div class="portal-hub-header">
@@ -153,6 +154,13 @@ const hasAnyBooking = hasHotelInfo && !!(rakutenBookingUrl || yahooData || jalan
           </a>
         )}
       </div>
+      {showPrice && hotelNo && <HotelPrice hotelNo={hotelNo} />}
+    </div>
+  )
+) : (
+  showPrice && hotelNo && (
+    <div class="hotel-portal-hub">
+      <HotelPrice hotelNo={hotelNo} />
     </div>
   )
 )}
