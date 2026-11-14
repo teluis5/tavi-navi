@@ -31,26 +31,22 @@ const jreDynamicRailUrl = 'https://www.jre-travel.com/';
 const asoviewUrl = `https://www.asoview.com/leisure/?keyword=${encodeURIComponent(destination || station)}`;
 ---
 
-<div class="transit-booking-hub">
+<aside class="transit-booking-hub" aria-label="交通・レンタカー・現地体験予約">
   <div class="transit-hub-header">
-    <div class="transit-hub-badge">
-      <span>🎫</span>
-      <span>交通・レンタカー・現地体験</span>
-    </div>
+    <span class="transit-hub-badge">予約ハブ</span>
     <h3 class="transit-hub-title">
       {title || `${destination}への移動・現地チケットを予約する`}
     </h3>
     <p class="transit-hub-desc">
-      新幹線チケットや駅前レンタカー、周辺の観光前売り券は事前予約がおすすめです。
+      新幹線チケットや駅前レンタカー、周辺の観光前売り券は事前予約がスムーズです。
     </p>
   </div>
 
   <div class="transit-hub-grid">
     {(transportType === 'all' || transportType === 'shinkansen') && (
-      <div class="transit-card shinkansen-card">
-        <div class="card-icon">🚅</div>
+      <div class="transit-card">
         <div class="card-body">
-          <div class="card-tag">新幹線・JRセット</div>
+          <span class="card-tag">新幹線・JRセット</span>
           <h4 class="card-name">新幹線チケット・パック</h4>
           <p class="card-text">どこかにビューーン！なら往復6,000pt。列車＋宿のダイナミックレールパックもお得です。</p>
         </div>
@@ -78,10 +74,9 @@ const asoviewUrl = `https://www.asoview.com/leisure/?keyword=${encodeURIComponen
     )}
 
     {(transportType === 'all' || transportType === 'rentacar') && (
-      <div class="transit-card rentacar-card">
-        <div class="card-icon">🚗</div>
+      <div class="transit-card">
         <div class="card-body">
-          <div class="card-tag">駅前レンタカー</div>
+          <span class="card-tag">駅前レンタカー</span>
           <h4 class="card-name">楽天トラベル レンタカー</h4>
           <p class="card-text">
             {station ? `${station}周辺` : `${destination}周辺`}の各社レンタカーを最安値比較。楽天ポイントも貯まります。
@@ -101,14 +96,13 @@ const asoviewUrl = `https://www.asoview.com/leisure/?keyword=${encodeURIComponen
       </div>
     )}
 
-    {showExperience && (
-      <div class="transit-card experience-card">
-        <div class="card-icon">🎟️</div>
+    {(transportType === 'all' || showExperience) && (
+      <div class="transit-card">
         <div class="card-body">
-          <div class="card-tag">日帰り温泉・体験</div>
-          <h4 class="card-name">アソビュー！電子チケット</h4>
+          <span class="card-tag">遊び・体験・温泉チケット</span>
+          <h4 class="card-name">アソビュー！</h4>
           <p class="card-text">
-            {destination}周辺の人気レジャー、日帰り温泉、アクティビティの前売り割引チケット。
+            日帰り温泉やアクティビティ、観光施設の前売り電子チケットを事前購入できます。
           </p>
         </div>
         <div class="card-actions">
@@ -117,127 +111,133 @@ const asoviewUrl = `https://www.asoview.com/leisure/?keyword=${encodeURIComponen
             target="_blank"
             rel="noopener noreferrer"
             class="hub-btn btn-asoview"
-            title="アソビューで前売りチケットを検索"
+            title="アソビューでレジャー・体験を探す"
           >
-            体験・前売り券を見る →
+            前売りチケットを探す →
           </a>
         </div>
       </div>
     )}
   </div>
-</div>
+</aside>
 
 <style>
   .transit-booking-hub {
-    margin: 28px 0;
-    padding: 20px 18px;
-    background: #ffffff;
-    border-radius: 12px;
-    border: 1px solid #e1e9e5;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    margin: 2rem 0;
+    padding: 1.25rem 1.35rem;
+    background: #f8fafc;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    box-sizing: border-box;
   }
   .transit-hub-header {
-    margin-bottom: 16px;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
   }
   .transit-hub-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 0.72rem;
+    align-self: flex-start;
+    font-size: 0.7rem;
     font-weight: 700;
-    color: #234d40;
-    background: #e8f1ed;
-    padding: 3px 8px;
+    color: #475569;
+    background: #e2e8f0;
+    padding: 0.15rem 0.5rem;
     border-radius: 4px;
-    margin-bottom: 6px;
+    letter-spacing: 0.04em;
   }
   .transit-hub-title {
-    margin: 0 0 4px;
-    font-size: 1.15rem;
-    font-weight: 800;
-    color: #1a332a;
-    line-height: 1.35;
+    margin: 0 !important;
+    font-size: 1.05rem !important;
+    font-weight: 800 !important;
+    color: #111827 !important;
+    line-height: 1.35 !important;
+    border: none !important;
+    padding: 0 !important;
   }
   .transit-hub-desc {
-    margin: 0;
-    font-size: 0.8rem;
-    color: #5d6f68;
-    line-height: 1.5;
+    margin: 0 !important;
+    font-size: 0.78rem !important;
+    color: #64748b !important;
+    line-height: 1.45 !important;
   }
   .transit-hub-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 0.85rem;
   }
   .transit-card {
     display: flex;
     flex-direction: column;
-    padding: 14px 14px 12px;
-    background: #f8faf9;
-    border-radius: 9px;
-    border: 1px solid #e3ede8;
-  }
-  .card-icon {
-    font-size: 1.5rem;
-    line-height: 1;
-    margin-bottom: 6px;
+    justify-content: space-between;
+    padding: 1rem;
+    background: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    box-sizing: border-box;
   }
   .card-body {
     flex: 1;
+    margin-bottom: 0.75rem;
   }
   .card-tag {
+    display: inline-block;
     font-size: 0.68rem;
     font-weight: 700;
-    color: #3b6656;
-    margin-bottom: 2px;
+    color: #475569;
+    background: #f1f5f9;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    margin-bottom: 0.35rem;
   }
   .card-name {
-    margin: 0 0 4px;
-    font-size: 0.96rem;
-    font-weight: 700;
-    color: #1a332a;
+    margin: 0 0 0.35rem !important;
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+    color: #111827 !important;
+    border: none !important;
+    padding: 0 !important;
   }
   .card-text {
-    margin: 0 0 10px;
-    font-size: 0.76rem;
-    color: #63756e;
-    line-height: 1.45;
+    margin: 0 !important;
+    font-size: 0.76rem !important;
+    color: #64748b !important;
+    line-height: 1.45 !important;
   }
   .card-actions {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 0.4rem;
   }
   .hub-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 8px 10px;
+    padding: 0.55rem 0.85rem;
     border-radius: 6px;
     text-decoration: none !important;
     font-size: 0.8rem;
     font-weight: 700;
     line-height: 1.2;
-    transition: opacity 0.15s ease, transform 0.15s ease;
+    transition: opacity 0.15s ease;
   }
   .hub-btn:hover {
     opacity: 0.9;
-    transform: translateY(-1px);
   }
   .btn-dokokani {
-    background: #00897b;
+    background: #0284c7;
     color: #ffffff !important;
   }
   .btn-jr-pack {
-    background: #2e7d32;
+    background: #16a34a;
     color: #ffffff !important;
   }
   .btn-rentacar {
-    background: #bf0000;
+    background: #dc2626;
     color: #ffffff !important;
   }
   .btn-asoview {
-    background: #ff5722;
+    background: #ea580c;
     color: #ffffff !important;
   }
 </style>

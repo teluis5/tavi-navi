@@ -22,7 +22,7 @@ export interface Props {
   spotData?: any;
   amenities?: { label: string }[];
   leadHeading?: string;
-  clickable?: boolean;
+  isHotel?: boolean;
 }
 
 const {
@@ -43,22 +43,44 @@ const {
   spotData,
   amenities,
   leadHeading,
-  clickable = true,
+  isHotel: propIsHotel,
 } = Astro.props;
 
-// カテゴリバッジ表示判定
-const allowedHotelCategories = [
-  '宿泊', '温泉宿', '温泉旅館', 'ホテル', 'ビジネスホテル', 'リゾートホテル', 'ゲストハウス'
-];
-const isHotelCategory = categoryLabel && allowedHotelCategories.includes(categoryLabel.trim());
-const pillText = (isHotelCategory ? categoryLabel.trim() : null) || (alternativeLabel ? alternativeLabel.replace(/^【|】$/g, '').trim() : null) || categoryLabel;
+// 8大ホテルカテゴリ判定
+function isAllowedHotelCategory(cat?: string): string | null {
+  const allowed = [
+    '温泉旅館',
+    '天然温泉ホテル',
+    '大浴場付きホテル',
+    'ラグジュアリー',
+    'シティホテル',
+    'ビジネスホテル',
+    'リゾートホテル',
+    'ゲストハウス',
+  ];
+  if (cat && allowed.includes(cat.trim())) {
+    return cat.trim();
+  }
+  return null;
+}
+
+function cleanText(text?: string): string {
+  if (!text) return '';
+  return text.replace(/^[\p{Emoji_Presentation}\p{Extended_Pictographic}\s]+/u, '').trim() || text;
+}
+
+const hotelCatName = isAllowedHotelCategory(categoryLabel);
+const isSearchMore = title.includes('他の宿') || title.includes('宿を探す') || title.includes('ホテル一覧');
+const isHotelStep = Boolean(propIsHotel || hotelCatName || hotelData?.hotelNo || hotelData?.rakutenUrl || isSearchMore);
+
+const pillText = hotelCatName || cleanText(alternativeLabel);
 ---
 
 <div
-  class={`wide-spot-unit ${spotData && clickable ? 'clickable-unit' : ''}`}
+  class={`wide-spot-unit ${spotData ? 'clickable-unit' : ''}`}
   data-open-spot={spotData?.id}
-  role={spotData && clickable ? 'button' : undefined}
-  tabindex={spotData && clickable ? '0' : undefined}
+  role={spotData ? 'button' : undefined}
+  tabindex={spotData ? '0' : undefined}
 >
   {leadHeading && (
     <div class="step-lead-heading">
@@ -75,15 +97,17 @@ const pillText = (isHotelCategory ? categoryLabel.trim() : null) || (alternative
     imageCredit={imageCredit}
     isImageSample={isImageSample}
     spotData={spotData}
+    hotelData={hotelData}
   />
 
-  <div class="wide-body-container">
-    {businessHoursId && <BusinessHours id={businessHoursId} />}
-
-    {((points && points.length > 0) || (linksInList && links && links.length > 0)) && (
-      <ul class="clean-bullet-list">
-        {points?.map((pt) => <li>{pt}</li>)}
-        {linksInList && links && (
+  <div class="wide-spot-body">
+    {(points || businessHoursId || (linksInList && links?.length)) && (
+      <ul class="wide-points-list">
+        {points?.map((pt) => (
+          <li>{pt}</li>
+        ))}
+        {businessHoursId && <BusinessHours id={businessHoursId} />}
+        {(businessHoursId || linksInList) && links && (
           <li>
             {links.map((link, index) => (
               <>
@@ -111,56 +135,99 @@ const pillText = (isHotelCategory ? categoryLabel.trim() : null) || (alternative
       </p>
     )}
 
-    <HotelPortalHub hotelData={hotelData} title={title} />
+    {isHotelStep && (
+      <HotelPortalHub hotelData={hotelData} title={title} />
+    )}
   </div>
 </div>
 
 <style>
+  /* ワイドフォト・スポットユニット（サーフェス上で自然に一体化） */
   .wide-spot-unit {
-    background: #ffffff;
-    border-radius: 12px;
-    border: 1px solid #dce8e1;
-    overflow: hidden;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    width: 100%;
+    box-sizing: border-box;
+    background: transparent;
+    border: none;
+    box-shadow: none;
   }
+  .clickable-unit {
+    cursor: pointer;
+  }
+  .clickable-unit:active :global(.wide-photo-img) {
+    transform: scale(1.02);
+  }
+
+  /* 体験アクション見出し（写真の直上に配置） */
   .step-lead-heading {
-    padding: 10px 14px 6px;
+    margin-bottom: 0.45rem;
   }
   .step-lead-text {
-    margin: 0;
-    font-size: 0.98rem;
+    font-size: 1.05rem;
     font-weight: 800;
-    color: #1a332a;
-    line-height: 1.35;
+    color: #111827;
+    margin: 0;
+    line-height: 1.38;
+    letter-spacing: -0.015em;
   }
-  .wide-body-container {
-    padding: 14px 16px 16px;
-  }
-  .clean-bullet-list {
-    margin: 0 0 8px;
-    padding-left: 18px;
-    color: #334940;
-    font-size: 0.88rem;
-    line-height: 1.6;
-  }
-  .clean-bullet-list li {
-    margin-bottom: 4px;
-  }
-  .spot-links {
-    margin: 8px 0 0;
-    font-size: 0.82rem;
+
+  /* スポット本文 */
+  .wide-spot-body {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.2rem;
   }
-  .spot-links a {
-    color: #1b634c;
-    text-decoration: underline;
+
+  /* 見どころ箇条書き */
+  .wide-points-list {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .wide-points-list li {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: #111827;
+    padding-left: 1rem;
+    position: relative;
+    margin: 0;
+  }
+  .wide-points-list li::before {
+    content: "・";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #4b5563;
     font-weight: 700;
   }
+
+  /* 外部リンク */
+  .spot-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    margin: 4px 0 0;
+    font-size: 0.85rem;
+  }
+  .spot-links a {
+    color: #12627c;
+    text-decoration: underline;
+    font-weight: 600;
+  }
+  .spot-links a:hover {
+    color: #0c4a5e;
+  }
+
+  /* アメニティ行 */
   .wide-amenities-line {
-    margin: 8px 0 0;
+    margin: 4px 0 0;
     font-size: 0.78rem;
-    color: #62776e;
+    color: #64748b;
   }
 </style>

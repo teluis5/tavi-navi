@@ -17,6 +17,11 @@ export interface Props {
   imageCredit?: string;
   isImageSample?: boolean;
   spotData?: any;
+  hotelData?: {
+    rating?: string | number;
+    reviewCount?: string | number;
+    priceText?: string;
+  };
 }
 
 const {
@@ -28,6 +33,7 @@ const {
   imageCredit,
   isImageSample,
   spotData,
+  hotelData,
 } = Astro.props;
 
 function getImageUrl(img: any): string {
@@ -52,35 +58,43 @@ if (images && images.length > 0) {
 
 const isMulti = photoItems.length > 1;
 const layout = propLayout || (isMulti ? 'carousel' : 'single');
-const heroImg = getImageUrl(image || photoItems[0]?.image || spotData?.heroImage);
 
 // 複数写真のクレジット合成
 function formatCredits(photos: PhotoItem[], defaultCredit?: string, currentLayout?: string): string {
   if (currentLayout === 'pip' || currentLayout === 'grid-2' || currentLayout === 'grid-3') {
     const count = currentLayout === 'grid-3' ? 3 : 2;
-    const targets = photos.slice(0, count);
-    const credits = targets.map((p) => p.imageCredit || defaultCredit || '').filter(Boolean);
+    const targetPhotos = photos.slice(0, count);
+    const credits = targetPhotos.map((p) => p.imageCredit || defaultCredit || '').filter(Boolean);
+
     if (credits.length === 0) return '';
-    const allSame = credits.every((c) => c === credits[0]);
-    if (allSame) {
-      const c = credits[0];
-      return c.startsWith('写真提供') || c.startsWith('©') ? c : `写真提供：${c}`;
+    if (credits.every((c) => c === credits[0])) {
+      return formatCredit(credits[0]);
     }
-    const labels = currentLayout === 'pip' ? ['背景', '小枠'] : currentLayout === 'grid-2' ? ['左', '右'] : ['左', '右上', '右下'];
-    const parts = targets.map((p, idx) => {
-      const cr = p.imageCredit || defaultCredit;
-      return cr ? `${cr}(${labels[idx]})` : '';
-    }).filter(Boolean);
+
+    const labels = currentLayout === 'pip'
+      ? ['背景', '小枠']
+      : currentLayout === 'grid-2'
+        ? ['左', '右']
+        : ['左', '右上', '右下'];
+
+    const parts: string[] = [];
+    targetPhotos.forEach((p, idx) => {
+      const c = p.imageCredit || defaultCredit;
+      if (c) parts.push(`${c}(${labels[idx]})`);
+    });
     return `写真提供：${parts.join('、')}`;
   }
 
-  // 通常・スライダー
   const c = photos[0]?.imageCredit || defaultCredit;
+  return formatCredit(c, isImageSample);
+}
+
+function formatCredit(c?: string, isSample?: boolean): string {
   let text = '';
   if (c) {
-    text = c.startsWith('写真提供') || c.startsWith('©') ? c : `写真提供：${c}`;
+    text = c.startsWith('写真提供') || c.startsWith('©') || c.startsWith('Photo') ? c : `写真提供：${c}`;
   }
-  if (isImageSample) {
+  if (isSample) {
     return text ? `${text}（イメージ写真）` : '※写真はイメージです';
   }
   return text;
@@ -112,6 +126,13 @@ const creditText = formatCredits(photoItems, imageCredit, layout);
         <div class="overlay-meta-right">
           {creditText && <span class="photo-credit-tag tiny-credit">{creditText}</span>}
         </div>
+        {hotelData && (hotelData.rating || hotelData.priceText) && (
+          <div class="overlay-hotel-rating">
+            {hotelData.rating && <span class="rating-star">★ {hotelData.rating}</span>}
+            {hotelData.reviewCount && <span class="rating-count">({hotelData.reviewCount}件)</span>}
+            {hotelData.priceText && <span class="rating-price">· {hotelData.priceText}</span>}
+          </div>
+        )}
       </div>
     </div>
   </div>
@@ -142,6 +163,13 @@ const creditText = formatCredits(photoItems, imageCredit, layout);
         <div class="overlay-meta-right">
           {creditText && <span class="photo-credit-tag tiny-credit">{creditText}</span>}
         </div>
+        {hotelData && (hotelData.rating || hotelData.priceText) && (
+          <div class="overlay-hotel-rating">
+            {hotelData.rating && <span class="rating-star">★ {hotelData.rating}</span>}
+            {hotelData.reviewCount && <span class="rating-count">({hotelData.reviewCount}件)</span>}
+            {hotelData.priceText && <span class="rating-price">· {hotelData.priceText}</span>}
+          </div>
+        )}
       </div>
     </div>
   </div>
@@ -176,16 +204,23 @@ const creditText = formatCredits(photoItems, imageCredit, layout);
         <div class="overlay-meta-right">
           {creditText && <span class="photo-credit-tag tiny-credit">{creditText}</span>}
         </div>
+        {hotelData && (hotelData.rating || hotelData.priceText) && (
+          <div class="overlay-hotel-rating">
+            {hotelData.rating && <span class="rating-star">★ {hotelData.rating}</span>}
+            {hotelData.reviewCount && <span class="rating-count">({hotelData.reviewCount}件)</span>}
+            {hotelData.priceText && <span class="rating-price">· {hotelData.priceText}</span>}
+          </div>
+        )}
       </div>
     </div>
   </div>
-) : isMulti && layout === 'carousel' ? (
-  /* 写真のみスライダートラック */
+) : layout === 'carousel' && isMulti ? (
+  /* 写真カルーセル */
   <div class="wide-photo-container spot-photo-slider-container">
-    <div class="spot-photo-only-track" tabindex="0" role="region" aria-label="写真一覧。左右の矢印キーで移動できます">
-      {photoItems.map((photo) => (
+    <div class="spot-photo-only-track">
+      {photoItems.map((p, idx) => (
         <div class="spot-photo-only-slide">
-          <img src={getImageUrl(photo.image)} alt={photo.caption || title} class="wide-photo-img" loading="lazy" />
+          <img src={getImageUrl(p.image)} alt={`${title} (${idx + 1})`} class="wide-photo-img" loading="lazy" />
         </div>
       ))}
     </div>
@@ -205,14 +240,23 @@ const creditText = formatCredits(photoItems, imageCredit, layout);
         <div class="overlay-meta-right">
           {creditText && <span class="photo-credit-tag tiny-credit">{creditText}</span>}
         </div>
+        {hotelData && (hotelData.rating || hotelData.priceText) && (
+          <div class="overlay-hotel-rating">
+            {hotelData.rating && <span class="rating-star">★ {hotelData.rating}</span>}
+            {hotelData.reviewCount && <span class="rating-count">({hotelData.reviewCount}件)</span>}
+            {hotelData.priceText && <span class="rating-price">· {hotelData.priceText}</span>}
+          </div>
+        )}
       </div>
     </div>
   </div>
 ) : (
-  /* 通常1枚写真 */
+  /* 単一写真 */
   <div class="wide-photo-container">
-    {heroImg && <img src={heroImg} alt={title} class="wide-photo-img" loading="lazy" />}
-    <div class="wide-photo-overlay">
+    {photoItems[0]?.image && (
+      <img src={getImageUrl(photoItems[0].image)} alt={title} class="wide-photo-img" loading="lazy" />
+    )}
+    <div class="wide-photo-overlay pointer-events-none">
       <div class="overlay-title-column align-left">
         {pillText && (
           <div class="overlay-tag-above-title">
@@ -228,80 +272,137 @@ const creditText = formatCredits(photoItems, imageCredit, layout);
         <div class="overlay-meta-right">
           {creditText && <span class="photo-credit-tag tiny-credit">{creditText}</span>}
         </div>
+        {hotelData && (hotelData.rating || hotelData.priceText) && (
+          <div class="overlay-hotel-rating">
+            {hotelData.rating && <span class="rating-star">★ {hotelData.rating}</span>}
+            {hotelData.reviewCount && <span class="rating-count">({hotelData.reviewCount}件)</span>}
+            {hotelData.priceText && <span class="rating-price">· {hotelData.priceText}</span>}
+          </div>
+        )}
       </div>
     </div>
   </div>
 )}
 
 <style>
+  /* ① 横幅100% 16:9 ワイド写真＋グラデーション文字オーバーレイ */
   .wide-photo-container {
     position: relative;
     width: 100%;
     aspect-ratio: 16 / 9;
-    background: #20332c;
+    border-radius: 8px;
     overflow: hidden;
+    background: #1f2937;
   }
   .wide-photo-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
+    transition: transform 0.25s ease;
   }
   .wide-photo-overlay {
     position: absolute;
     inset: 0;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    padding: 12px 14px 10px;
-    background: linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.65) 100%);
-    color: #ffffff;
-    z-index: 3;
+    justify-content: flex-end;
+    padding: 0.75rem 0.85rem;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 35%, rgba(0, 0, 0, 0.45) 60%, rgba(0, 0, 0, 0.85) 100%);
+    box-sizing: border-box;
+    z-index: 2;
   }
-  .overlay-title-column {
+  .overlay-title-column.align-left {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    align-items: flex-start;
+    gap: 0.25rem;
+    width: 100%;
   }
+  .overlay-tag-above-title {
+    display: flex;
+    align-items: center;
+  }
+  /* メニュー名・宿カテゴリ（白地に黒文字・場所名の上に表示） */
   .photo-category-pill {
-    display: inline-block;
-    font-size: 0.68rem;
-    font-weight: 800;
-    color: #ffffff;
-    background: rgba(33, 92, 72, 0.9);
-    padding: 2px 7px;
+    font-size: 0.66rem;
+    font-weight: 700;
+    color: #111827;
+    background: #ffffff;
+    border: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+    padding: 0.15rem 0.5rem;
     border-radius: 4px;
-    backdrop-filter: blur(2px);
-  }
-  .overlay-heading {
-    margin: 0;
-    font-size: 1.1rem;
-    font-weight: 800;
-    color: #ffffff;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.6);
-    line-height: 1.35;
+    letter-spacing: 0.03em;
+    line-height: 1.25;
   }
   .overlay-title-row {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 0.35rem;
+    width: 100%;
+  }
+  .overlay-heading {
+    margin: 0;
+    font-size: clamp(0.95rem, 3.8vw, 1.25rem);
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8), 0 2px 6px rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .overlay-chevron {
-    font-size: 1.2rem;
-    color: #8ce4cb;
-    font-weight: 700;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 1;
   }
   .overlay-bottom-bar {
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 0.2rem;
   }
-  .photo-credit-tag {
-    font-size: 0.64rem;
-    color: rgba(255, 255, 255, 0.85);
-    background: rgba(0, 0, 0, 0.45);
-    padding: 2px 6px;
-    border-radius: 3px;
-    backdrop-filter: blur(2px);
+  .overlay-meta-right {
+    display: flex;
+    align-items: center;
+  }
+  /* 写真提供元クレジットバッジ（最も左下・極小） */
+  .photo-credit-tag.tiny-credit {
+    font-size: 0.55rem;
+    line-height: 1.1;
+    color: rgba(255, 255, 255, 0.7);
+    background: transparent;
+    padding: 0;
+    letter-spacing: 0.01em;
+    font-weight: 400;
+    white-space: nowrap;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+  }
+  /* 宿の評価・レビュー・料金 */
+  .overlay-hotel-rating {
+    display: flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.9);
+  }
+  .rating-star {
+    font-weight: 800;
+    color: #fbbf24;
+  }
+  .rating-count {
+    font-size: 0.68rem;
+    opacity: 0.85;
+  }
+  .rating-price {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #fde047;
   }
 
   /* PiP & Grid */
@@ -310,68 +411,75 @@ const creditText = formatCredits(photoItems, imageCredit, layout);
   }
   .pip-inset-frame {
     position: absolute;
-    bottom: 12px;
-    right: 12px;
-    width: 32%;
+    top: 0.6rem;
+    right: 0.6rem;
+    width: 28%;
     aspect-ratio: 4 / 3;
-    border: 2px solid #ffffff;
     border-radius: 6px;
     overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-    z-index: 2;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+    border: 1.5px solid rgba(255, 255, 255, 0.9);
+    z-index: 1;
   }
   .pip-inset-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
+  .photo-grid-wrapper {
+    position: relative;
+  }
   .photo-gallery-grid-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    height: 100%;
     gap: 2px;
+    width: 100%;
+    height: 100%;
   }
   .grid-2-cell {
-    overflow: hidden;
-  }
-  .photo-gallery-grid-3 {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
+    width: 100%;
     height: 100%;
-    gap: 2px;
-  }
-  .grid-3-main-cell {
-    overflow: hidden;
-  }
-  .grid-3-sub-column {
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-    gap: 2px;
-  }
-  .grid-3-sub-cell {
     overflow: hidden;
   }
   .grid-cell-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    display: block;
   }
-  .pointer-events-none {
-    pointer-events: none;
+  .photo-gallery-grid-3 {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 2px;
+    width: 100%;
+    height: 100%;
   }
-
-  /* 写真スライダー */
+  .grid-3-main-cell {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  .grid-3-sub-column {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 2px;
+    height: 100%;
+  }
+  .grid-3-sub-cell {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
   .spot-photo-slider-container {
-    position: relative;
+    overflow: hidden;
   }
   .spot-photo-only-track {
     display: flex;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    height: 100%;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    width: 100%;
+    height: 100%;
   }
   .spot-photo-only-track::-webkit-scrollbar {
     display: none;
@@ -381,5 +489,8 @@ const creditText = formatCredits(photoItems, imageCredit, layout);
     width: 100%;
     height: 100%;
     scroll-snap-align: start;
+  }
+  .pointer-events-none {
+    pointer-events: none;
   }
 </style>

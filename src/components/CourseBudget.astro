@@ -3,7 +3,6 @@ export interface BudgetItem {
   category: string;
   amount: number | string;
   note?: string;
-  icon?: string;
 }
 
 export interface Props {
@@ -11,6 +10,8 @@ export interface Props {
   personLabel?: string;
   title?: string;
   items?: BudgetItem[];
+  totalPerPerson?: string;
+  totalNote?: string;
   // 簡易指定用プロパティ
   shinkansen?: number | string;
   hotel?: number | string;
@@ -20,8 +21,10 @@ export interface Props {
 
 const {
   total: propTotal,
-  personLabel = '大人1名あたり（2名1室利用時・概算）',
-  title = 'この旅の概算予算・費用内訳',
+  totalPerPerson,
+  totalNote,
+  personLabel = '大人1名あたり（2名1室利用時・概算目安）',
+  title = 'このコースの概算予算・費用内訳',
   items: propItems,
   shinkansen,
   hotel,
@@ -35,9 +38,8 @@ if (!propItems || propItems.length === 0) {
   const autoItems: BudgetItem[] = [];
   if (shinkansen !== undefined) {
     autoItems.push({
-      category: '往復交通（新幹線）',
+      category: '往復交通（新幹線・特急等）',
       amount: shinkansen,
-      icon: '🚅',
       note: typeof shinkansen === 'string' && shinkansen.includes('pt') ? 'JRE POINT利用' : '通常期指定席目安',
     });
   }
@@ -45,7 +47,6 @@ if (!propItems || propItems.length === 0) {
     autoItems.push({
       category: '宿泊費（1泊）',
       amount: hotel,
-      icon: '🏨',
       note: '平日〜休前日の最安〜標準目安',
     });
   }
@@ -53,23 +54,21 @@ if (!propItems || propItems.length === 0) {
     autoItems.push({
       category: '現地交通（バス・路線）',
       amount: localTransit,
-      icon: '🚌',
       note: '周遊バス・路線バス運賃',
     });
   }
   if (meals !== undefined) {
     autoItems.push({
-      category: '飲食・お土産代',
+      category: '飲食・現地体験',
       amount: meals,
-      icon: '🍱',
-      note: '駅前ランチ・名物グルメ・地酒など',
+      note: 'ランチ・名物グルメ・入場料など',
     });
   }
   budgetItems = autoItems;
 }
 
 // 合計金額の算出
-let displayTotal = propTotal;
+let displayTotal = totalPerPerson || propTotal;
 if (!displayTotal) {
   const numSum = budgetItems.reduce((acc, item) => {
     if (typeof item.amount === 'number') {
@@ -96,160 +95,199 @@ const formatAmount = (val: number | string) => {
 };
 ---
 
-<div class="course-budget-card">
+<aside class="course-budget-card" aria-label="旅の予算・費用内訳">
   <div class="budget-header">
-    <div class="budget-title-wrap">
-      <span class="budget-badge">💰 予算目安</span>
+    <div class="budget-header-left">
+      <span class="budget-badge">費用目安</span>
       <h3 class="budget-title">{title}</h3>
       <span class="budget-person-label">{personLabel}</span>
     </div>
+
     <div class="budget-total-box">
-      <span class="total-label">合計目安</span>
+      <span class="total-label">1人あたり合計目安</span>
       <span class="total-value">{displayTotal}</span>
     </div>
   </div>
 
-  {budgetItems.length > 0 && (
-    <ul class="budget-list">
+  <table class="budget-table">
+    <tbody>
       {budgetItems.map((item) => (
-        <li class="budget-item">
-          <div class="item-left">
-            <span class="item-icon">{item.icon || '🔹'}</span>
-            <span class="item-category">{item.category}</span>
-            {item.note && <span class="item-note">（{item.note}）</span>}
-          </div>
-          <div class="item-amount">{formatAmount(item.amount)}</div>
-        </li>
+        <tr class="budget-row">
+          <th scope="row" class="budget-col-category">
+            <span class="item-category-text">{item.category}</span>
+            {item.note && <span class="item-note-text">{item.note}</span>}
+          </th>
+          <td class="budget-col-amount">
+            <span class="amount-value">{formatAmount(item.amount)}</span>
+          </td>
+        </tr>
       ))}
-    </ul>
-  )}
+    </tbody>
+  </table>
 
-  <div class="budget-footer-note">
-    ※宿泊時期（平日/土曜/連休）や予約タイミング、選択するプランにより変動します。最新の料金は各予約サイトでご確認ください。
-  </div>
-</div>
+  {(totalNote || budgetItems.length > 0) && (
+    <div class="budget-footer-note">
+      <p>{totalNote || '※表示料金は調査時点の標準的な目安です。宿泊日・予約タイミング・利用プランにより変動します。'}</p>
+    </div>
+  )}
+</aside>
 
 <style>
   .course-budget-card {
-    margin: 28px 0;
-    padding: 20px 20px 16px;
-    background: #fbfdfc;
-    border-radius: 12px;
-    border: 1px solid #e0ede6;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 1.25rem 1.35rem;
+    margin: 1.5rem 0 2rem;
+    box-sizing: border-box;
   }
+
   .budget-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    border-bottom: 2px solid #e7f0eb;
-    padding-bottom: 14px;
-    margin-bottom: 14px;
-    gap: 16px;
-    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e2e8f0;
+    margin-bottom: 1rem;
   }
+
+  .budget-header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
   .budget-badge {
-    display: inline-block;
-    font-size: 0.72rem;
-    font-weight: 800;
-    color: #215c48;
-    background: #e2f0e9;
-    padding: 3px 8px;
+    align-self: flex-start;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #475569;
+    background: #e2e8f0;
+    padding: 0.15rem 0.5rem;
     border-radius: 4px;
-    margin-bottom: 4px;
+    letter-spacing: 0.04em;
   }
+
   .budget-title {
-    margin: 0;
-    font-size: 1.15rem;
-    font-weight: 800;
-    color: #1a332a;
-    line-height: 1.3;
+    margin: 0 !important;
+    font-size: 1.05rem !important;
+    font-weight: 800 !important;
+    color: #111827 !important;
+    line-height: 1.35 !important;
+    border: none !important;
+    padding: 0 !important;
   }
+
   .budget-person-label {
-    display: block;
     font-size: 0.74rem;
-    color: #687e74;
-    margin-top: 3px;
+    color: #64748b;
   }
+
   .budget-total-box {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    background: #edf7f2;
-    padding: 8px 14px;
-    border-radius: 8px;
-    border: 1px solid #d5eada;
+    flex-shrink: 0;
   }
+
   .total-label {
     font-size: 0.68rem;
-    font-weight: 700;
-    color: #3d6e5c;
+    font-weight: 600;
+    color: #64748b;
   }
+
   .total-value {
     font-size: 1.35rem;
     font-weight: 900;
-    color: #1c5e46;
-    line-height: 1.2;
+    color: #111827;
+    font-variant-numeric: tabular-nums;
     letter-spacing: -0.02em;
+    line-height: 1.2;
   }
-  .budget-list {
-    list-style: none !important;
-    padding: 0 !important;
-    margin: 0 0 12px !important;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+
+  .budget-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 0 0.75rem 0 !important;
   }
-  .budget-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 7px 10px;
-    background: #ffffff;
-    border-radius: 6px;
-    border: 1px solid #ebf2ee;
+
+  .budget-row {
+    border-bottom: 1px solid #f1f5f9;
+  }
+
+  .budget-row:last-child {
+    border-bottom: none;
+  }
+
+  .budget-col-category {
+    text-align: left;
+    padding: 0.65rem 0;
+    vertical-align: middle;
+    font-weight: normal;
+  }
+
+  .item-category-text {
+    display: block;
     font-size: 0.86rem;
-  }
-  .item-left {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-wrap: wrap;
-  }
-  .item-icon {
-    font-size: 1rem;
-    line-height: 1;
-  }
-  .item-category {
     font-weight: 700;
-    color: #254035;
-  }
-  .item-note {
-    font-size: 0.74rem;
-    color: #7a8e85;
-  }
-  .item-amount {
-    font-weight: 800;
-    color: #1c5e46;
-    white-space: nowrap;
-    padding-left: 8px;
-  }
-  .budget-footer-note {
-    font-size: 0.7rem;
-    color: #7b8e86;
+    color: #111827;
     line-height: 1.4;
-    border-top: 1px dashed #e4ede7;
-    padding-top: 10px;
   }
-  @media (max-width: 480px) {
+
+  .item-note-text {
+    display: block;
+    font-size: 0.73rem;
+    color: #64748b;
+    margin-top: 0.1rem;
+    line-height: 1.35;
+  }
+
+  .budget-col-amount {
+    text-align: right;
+    padding: 0.65rem 0;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: 35%;
+  }
+
+  .amount-value {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #111827;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .budget-footer-note {
+    border-top: 1px dashed #e2e8f0;
+    padding-top: 0.65rem;
+    margin-top: 0.25rem;
+  }
+
+  .budget-footer-note p {
+    margin: 0 !important;
+    font-size: 0.7rem !important;
+    color: #64748b !important;
+    line-height: 1.45 !important;
+  }
+
+  @media (max-width: 540px) {
+    .course-budget-card {
+      padding: 1rem 1.05rem;
+    }
     .budget-header {
       flex-direction: column;
       align-items: flex-start;
-      gap: 10px;
+      gap: 0.65rem;
     }
     .budget-total-box {
+      align-items: flex-start;
       width: 100%;
-      align-items: center;
+      padding-top: 0.5rem;
+      border-top: 1px dashed #e2e8f0;
+    }
+    .total-value {
+      font-size: 1.25rem;
     }
   }
 </style>

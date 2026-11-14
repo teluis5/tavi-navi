@@ -43,25 +43,37 @@ const isSearchMore =
   title.includes('宿を探す') ||
   title.includes('ホテル一覧');
 
+// 宿または宿検索であることを示す明示的な情報があるか判定（一般スポットへの誤表示を完全防止）
+const hasHotelInfo = Boolean(
+  hotelNo ||
+  rawRakutenUrl ||
+  rawYahooUrl ||
+  rawJalanUrl ||
+  hotelData?.areaUrl ||
+  isSearchMore
+);
+
 // 楽天トラベルURL解決
 let rakutenBookingUrl: string | null = null;
-if (rawRakutenUrl) {
-  rakutenBookingUrl = rawRakutenUrl;
-} else if (hotelNo) {
-  rakutenBookingUrl = buildRakutenTravelUrl({ hotelNo });
-} else if (hotelData?.areaUrl) {
-  rakutenBookingUrl = buildRakutenTravelUrl({ areaUrl: hotelData.areaUrl });
-} else if (title) {
-  rakutenBookingUrl = buildRakutenTravelUrl({ keyword: title });
+if (hasHotelInfo) {
+  if (rawRakutenUrl) {
+    rakutenBookingUrl = rawRakutenUrl;
+  } else if (hotelNo) {
+    rakutenBookingUrl = buildRakutenTravelUrl({ hotelNo });
+  } else if (hotelData?.areaUrl) {
+    rakutenBookingUrl = buildRakutenTravelUrl({ areaUrl: hotelData.areaUrl });
+  } else if (isSearchMore && title) {
+    rakutenBookingUrl = buildRakutenTravelUrl({ keyword: title });
+  }
 }
 
 // Yahoo!トラベルURL解決
-const yahooData = rawYahooUrl ? buildYahooTravelUrl(rawYahooUrl) : null;
+const yahooData = (hasHotelInfo && rawYahooUrl) ? buildYahooTravelUrl(rawYahooUrl) : null;
 
 // じゃらんnetURL解決
-const jalanData = rawJalanUrl ? buildJalanUrl(rawJalanUrl) : null;
+const jalanData = (hasHotelInfo && rawJalanUrl) ? buildJalanUrl(rawJalanUrl) : null;
 
-const hasAnyBooking = !!(rakutenBookingUrl || yahooData || jalanData);
+const hasAnyBooking = hasHotelInfo && !!(rakutenBookingUrl || yahooData || jalanData);
 ---
 
 {showPrice && hotelNo && <HotelPrice hotelNo={hotelNo} />}
