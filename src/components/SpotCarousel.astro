@@ -218,6 +218,7 @@ function cleanText(text?: string): string {
   }
   .peeking-carousel-track {
     display: flex;
+    align-items: stretch;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     gap: 0.75rem;
@@ -234,12 +235,18 @@ function cleanText(text?: string): string {
     max-width: 92%;
     scroll-snap-align: start;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
   }
   @media (min-width: 640px) {
     .carousel-slide-item {
       flex: 0 0 88%;
       max-width: 88%;
     }
+  }
+  .carousel-slide-item > :global(.wide-spot-unit) {
+    flex: 1 1 auto;
+    height: 100%;
   }
   .carousel-dots-row {
     display: flex;

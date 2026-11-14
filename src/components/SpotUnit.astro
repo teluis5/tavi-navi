@@ -101,52 +101,57 @@ const pillText = hotelCatName || cleanText(alternativeLabel);
   />
 
   <div class="wide-spot-body">
-    {(points || businessHoursId || (linksInList && links?.length)) && (
-      <ul class="wide-points-list">
-        {points?.map((pt) => (
-          <li>{pt}</li>
-        ))}
-        {businessHoursId && <BusinessHours id={businessHoursId} />}
-        {(businessHoursId || linksInList) && links && (
-          <li>
-            {links.map((link, index) => (
-              <>
-                {index > 0 && '（'}
-                <a href={link.href} target="_blank" rel="noopener">{link.label}</a>
-                {index > 0 && '）'}
-              </>
-            ))}
-          </li>
-        )}
-      </ul>
-    )}
+    <div class="spot-body-main">
+      {(points || businessHoursId || (linksInList && links?.length)) && (
+        <ul class="wide-points-list">
+          {points?.map((pt) => (
+            <li>{pt}</li>
+          ))}
+          {businessHoursId && <BusinessHours id={businessHoursId} />}
+          {(businessHoursId || linksInList) && links && (
+            <li>
+              {links.map((link, index) => (
+                <>
+                  {index > 0 && '（'}
+                  <a href={link.href} target="_blank" rel="noopener">{link.label}</a>
+                  {index > 0 && '）'}
+                </>
+              ))}
+            </li>
+          )}
+        </ul>
+      )}
 
-    {!businessHoursId && !linksInList && links && links.length > 0 && (
-      <p class="spot-links">
-        {links.map((link) => (
-          <a href={link.href} target="_blank" rel="noopener">{link.label}</a>
-        ))}
-      </p>
-    )}
+      {!businessHoursId && !linksInList && links && links.length > 0 && (
+        <p class="spot-links">
+          {links.map((link) => (
+            <a href={link.href} target="_blank" rel="noopener">{link.label}</a>
+          ))}
+        </p>
+      )}
 
-    {amenities && amenities.length > 0 && (
-      <p class="wide-amenities-line">
-        {amenities.map((am) => am.label).join(' · ')}
-      </p>
-    )}
+      {amenities && amenities.length > 0 && (
+        <p class="wide-amenities-line">
+          {amenities.map((am) => am.label).join(' · ')}
+        </p>
+      )}
+    </div>
 
     {isHotelStep && (
-      <HotelPortalHub hotelData={hotelData} title={title} />
+      <div class="spot-body-footer">
+        <HotelPortalHub hotelData={hotelData} title={title} />
+      </div>
     )}
   </div>
 </div>
 
 <style>
-  /* 場所（スポット）：白背景に映える淡色サーフェスカード */
+  /* 場所（スポット）：白背景に映える淡色サーフェスカード（縦幅均等対応） */
   .wide-spot-unit {
     display: flex;
     flex-direction: column;
     width: 100%;
+    height: 100%;
     box-sizing: border-box;
     background: #f1f5f9;
     border: 1px solid #e2e8f0;
@@ -181,14 +186,26 @@ const pillText = hotelCatName || cleanText(alternativeLabel);
     letter-spacing: -0.015em;
   }
 
-  /* スポット本文（カード下部） */
+  /* スポット本文（カード下部：縦幅伸長＆フッター下揃え） */
   .wide-spot-body {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    justify-content: space-between;
+    flex: 1 1 auto;
+    gap: 0.75rem;
     padding: 0.9rem 1rem 1.1rem;
     background: #f1f5f9;
     box-sizing: border-box;
+  }
+
+  .spot-body-main {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .spot-body-footer {
+    margin-top: auto;
   }
 
   /* 見どころ箇条書き */
