@@ -1,0 +1,137 @@
+{
+  "schemaVersion": "2.0",
+  "assetId": "akita_1616",
+  "provider": {
+    "id": "akita_tourism_federation",
+    "nameJa": "一般社団法人 秋田県観光連盟",
+    "nameEn": "Akita Prefecture Tourism Federation",
+    "libraryName": "あきたファン フォトギャラリー",
+    "sourceUrl": "https://akita-fun.jp/photo_gallery"
+  },
+  "subject": {
+    "photoId": "1616",
+    "titleJa": "男鹿温泉郷 男鹿観光ホテルの庭園に咲く桜と水車",
+    "titleEn": "Cherry Blossoms and Red Waterwheel at Oga Kanko Hotel Garden, Oga Onsen",
+    "prefecture": "秋田県",
+    "city": "男鹿市",
+    "cityEn": "男鹿 City",
+    "season": "spring",
+    "genre": "温泉・宿泊施設",
+    "months": [
+      4,
+      5
+    ],
+    "sceneType": "onsen",
+    "primaryEntities": [
+      "桜",
+      "赤い水車",
+      "池",
+      "男鹿観光ホテル庭園"
+    ],
+    "tags": [
+      "秋田",
+      "男鹿市",
+      "男鹿温泉郷",
+      "男鹿観光ホテル",
+      "桜",
+      "水車",
+      "日本庭園",
+      "春の温泉旅",
+      "花見",
+      "秋田県",
+      "春の風景",
+      "温泉宿"
+    ],
+    "rawTitleJa": "01男鹿温泉郷　男鹿観光ホテル",
+    "seasonalHighlight": "cherry_blossom",
+    "environment": "outdoor",
+    "tagsEn": [
+      "Oga Onsen",
+      "Akita",
+      "cherry blossoms",
+      "sakura",
+      "waterwheel",
+      "onsen hotel"
+    ]
+  },
+  "specs": {
+    "width": 2899,
+    "height": 3865,
+    "orientation": "portrait",
+    "aspectRatio": "0.75:1",
+    "fileSizeBytes": 4285742,
+    "sha256": "b34aa0ee9fdd54b80a19bcb2c7e5fb9258d98ca4685ea201c42b16b4a387020b",
+    "filename": "01男鹿温泉郷　男鹿観光ホテル.jpg",
+    "originalFilename": "01男鹿温泉郷　男鹿観光ホテル.jpg"
+  },
+  "policy": {
+    "commercialUse": true,
+    "purposeConstraint": "tourism_pr_only",
+    "allowedProjects": [
+      "tavi-navi",
+      "DeepJapan",
+      "teluis",
+      "yomilee"
+    ],
+    "creditRequired": true,
+    "maxPerArticle": null,
+    "modification": "crop_and_resize_only",
+    "redistributionAllowed": false
+  },
+  "i18n": {
+    "ja": {
+      "alt": "男鹿温泉郷 男鹿観光ホテルの庭園に咲く桜と水車（秋田県）- 男鹿観光ホテルの庭園を美しく彩る満開の桜。穏やかな池に佇む鮮やかな赤い水車が、春の温泉情緒をより一層引き立てています。",
+      "caption": "男鹿観光ホテルの庭園を美しく彩る満開の桜。穏やかな池に佇む鮮やかな赤い水車が、春の温泉情緒をより一層引き立てています。（写真提供：一般社団法人 秋田県観光連盟「あきたファン」）",
+      "credit": "写真提供：一般社団法人 秋田県観光連盟「あきたファン」"
+    },
+    "en": {
+      "alt": "Cherry Blossoms and Red Waterwheel at Oga Kanko Hotel Garden, Oga Onsen - Cherry blossoms in full bloom frame a picturesque red waterwheel resting on a tranquil pond at Oga Kanko Hotel's garden in Akita.",
+      "caption": "Cherry blossoms in full bloom frame a picturesque red waterwheel resting on a tranquil pond at Oga Kanko Hotel's garden in Akita. (Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun))",
+      "credit": "Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun)"
+    }
+  },
+  "downloadedAt": "2026-11-09T18:19:31+0900",
+  "aiProxy": {
+    "path": "ai_thumbs/01男鹿温泉郷　男鹿観光ホテル.webp",
+    "format": "webp",
+    "width": 576,
+    "height": 768,
+    "fileSizeBytes": 147900,
+    "targetMaxTokens": 258
+  },
+  "visual": {
+    "schemaSubVersion": "2.1",
+    "descriptionJa": "男鹿観光ホテルの庭園を美しく彩る満開の桜。穏やかな池に佇む鮮やかな赤い水車が、春の温泉情緒をより一層引き立てています。",
+    "descriptionEn": "Cherry blossoms in full bloom frame a picturesque red waterwheel resting on a tranquil pond at Oga Kanko Hotel's garden in Akita.",
+    "timeOfDay": "daytime",
+    "weather": "sunny",
+    "composition": "medium",
+    "focalPosition": "left",
+    "textSafeArea": [
+      "bottom",
+      "top"
+    ],
+    "satoriTemplate": "travel_model_course",
+    "hasPeople": false,
+    "peopleStyle": "none",
+    "dominantColor": "warm",
+    "mood": [
+      "serene",
+      "nostalgic"
+    ],
+    "appealScore": 3,
+    "bestRole": "timeline_step",
+    "isHeroReady": false,
+    "suitableFor": [
+      "senior",
+      "couple",
+      "solo",
+      "inbound"
+    ],
+    "bestFor": [
+      "男鹿温泉郷の春の散策ガイド",
+      "男鹿観光ホテルの館内・庭園施設紹介",
+      "秋田の桜と名湯をめぐるモデルコース"
+    ]
+  }
+}

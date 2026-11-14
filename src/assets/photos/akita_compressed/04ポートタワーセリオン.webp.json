@@ -1,0 +1,144 @@
+{
+  "schemaVersion": "2.0",
+  "assetId": "akita_1040",
+  "provider": {
+    "id": "akita_tourism_federation",
+    "nameJa": "一般社団法人 秋田県観光連盟",
+    "nameEn": "Akita Prefecture Tourism Federation",
+    "libraryName": "あきたファン フォトギャラリー",
+    "sourceUrl": "https://akita-fun.jp/photo_gallery"
+  },
+  "subject": {
+    "photoId": "1040",
+    "titleJa": "ポートタワー・セリオン 展望台のペアベンチ",
+    "titleEn": "Couple Bench at Port Tower Selion Observatory in Akita",
+    "prefecture": "秋田県",
+    "city": "秋田市",
+    "cityEn": "秋田 City",
+    "season": "all_year",
+    "genre": "観光施設",
+    "rawTitleJa": "04ポートタワーセリオン",
+    "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "seasonalHighlight": "none",
+    "sceneType": "facility",
+    "environment": "indoor",
+    "primaryEntities": [
+      "展望台ペアベンチ",
+      "展望室",
+      "観光望遠鏡",
+      "秋田港の眺望"
+    ],
+    "tags": [
+      "秋田市",
+      "ポートタワーセリオン",
+      "道の駅あきた港",
+      "展望台",
+      "カップルシート",
+      "フォトスポット",
+      "秋田港",
+      "デートスポット"
+    ],
+    "tagsEn": [
+      "Port Tower Selion",
+      "Akita City",
+      "Observatory Deck",
+      "Port of Akita",
+      "Date Spot",
+      "Couple Bench"
+    ]
+  },
+  "specs": {
+    "width": 4032,
+    "height": 1960,
+    "orientation": "landscape",
+    "aspectRatio": "2.06:1",
+    "fileSizeBytes": 2728175,
+    "sha256": "686690573e05dbf8044e9384d903345dc64ec173cd0b6599e3aded055b6d6b71",
+    "filename": "04ポートタワーセリオン.jpg",
+    "originalFilename": "04ポートタワーセリオン.jpg"
+  },
+  "policy": {
+    "commercialUse": true,
+    "purposeConstraint": "tourism_pr_only",
+    "allowedProjects": [
+      "tavi-navi",
+      "DeepJapan",
+      "teluis",
+      "yomilee"
+    ],
+    "creditRequired": true,
+    "maxPerArticle": null,
+    "modification": "crop_and_resize_only",
+    "redistributionAllowed": false
+  },
+  "i18n": {
+    "ja": {
+      "alt": "ポートタワー・セリオン 展望台のペアベンチ（秋田県）- 地上100mの無料展望台に設置された愛らしいペアベンチ。ガラス越しに秋田港の雄大な海景や街並みを一望できます。",
+      "caption": "地上100mの無料展望台に設置された愛らしいペアベンチ。ガラス越しに秋田港の雄大な海景や街並みを一望できます。（写真提供：一般社団法人 秋田県観光連盟「あきたファン」）",
+      "credit": "写真提供：一般社団法人 秋田県観光連盟「あきたファン」"
+    },
+    "en": {
+      "alt": "Couple Bench at Port Tower Selion Observatory in Akita - A charming couple's bench at the 100-meter-high Port Tower Selion observatory, offering sweeping views of the Port of Akita and the coastline.",
+      "caption": "A charming couple's bench at the 100-meter-high Port Tower Selion observatory, offering sweeping views of the Port of Akita and the coastline. (Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun))",
+      "credit": "Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun)"
+    }
+  },
+  "downloadedAt": "2026-11-09T18:17:30+0900",
+  "aiProxy": {
+    "path": "ai_thumbs/04ポートタワーセリオン.webp",
+    "format": "webp",
+    "width": 768,
+    "height": 373,
+    "fileSizeBytes": 35514,
+    "targetMaxTokens": 258
+  },
+  "visual": {
+    "schemaSubVersion": "2.1",
+    "descriptionJa": "地上100mの無料展望台に設置された愛らしいペアベンチ。ガラス越しに秋田港の雄大な海景や街並みを一望できます。",
+    "descriptionEn": "A charming couple's bench at the 100-meter-high Port Tower Selion observatory, offering sweeping views of the Port of Akita and the coastline.",
+    "timeOfDay": "daytime",
+    "weather": "cloudy",
+    "composition": "interior",
+    "focalPosition": "center",
+    "textSafeArea": [
+      "top",
+      "bottom"
+    ],
+    "satoriTemplate": "bottom_slim",
+    "hasPeople": false,
+    "peopleStyle": "none",
+    "dominantColor": "blue",
+    "mood": [
+      "cute",
+      "nostalgic",
+      "serene"
+    ],
+    "appealScore": 3,
+    "bestRole": "timeline_step",
+    "isHeroReady": false,
+    "suitableFor": [
+      "couple",
+      "solo",
+      "family",
+      "inbound"
+    ],
+    "bestFor": [
+      "秋田市内ドライブコースの立ち寄りスポット紹介",
+      "道の駅あきた港セリオンの展望台見どころガイド",
+      "カップルにおすすめの秋田デート特集"
+    ]
+  }
+}

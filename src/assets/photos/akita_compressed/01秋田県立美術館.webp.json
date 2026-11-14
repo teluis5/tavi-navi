@@ -1,0 +1,144 @@
+{
+  "schemaVersion": "2.0",
+  "assetId": "akita_873",
+  "provider": {
+    "id": "akita_tourism_federation",
+    "nameJa": "一般社団法人 秋田県観光連盟",
+    "nameEn": "Akita Prefecture Tourism Federation",
+    "libraryName": "あきたファン フォトギャラリー",
+    "sourceUrl": "https://akita-fun.jp/photo_gallery"
+  },
+  "subject": {
+    "photoId": "873",
+    "titleJa": "秋田県立美術館の螺旋階段と天窓",
+    "titleEn": "Spiral Staircase and Skylight at Akita Museum of Art",
+    "prefecture": "秋田県",
+    "city": "秋田市",
+    "cityEn": "秋田 City",
+    "season": "all_year",
+    "genre": "歴史・文化 観光施設",
+    "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "sceneType": "facility",
+    "primaryEntities": [
+      "螺旋階段",
+      "三角形の天窓",
+      "打ち放しコンクリート壁",
+      "秋田県立美術館"
+    ],
+    "tags": [
+      "秋田県立美術館",
+      "安藤忠雄",
+      "現代建築",
+      "螺旋階段",
+      "美術館巡り",
+      "秋田市",
+      "建築美",
+      "アートスポット",
+      "雨の日観光"
+    ],
+    "rawTitleJa": "01秋田県立美術館",
+    "seasonalHighlight": "none",
+    "environment": "indoor",
+    "tagsEn": [
+      "Akita Museum of Art",
+      "Tadao Ando",
+      "Modern Architecture",
+      "Spiral Staircase",
+      "Akita City",
+      "Art Museum"
+    ]
+  },
+  "specs": {
+    "width": 1378,
+    "height": 919,
+    "orientation": "landscape",
+    "aspectRatio": "1.5:1",
+    "fileSizeBytes": 1433046,
+    "sha256": "d217268fc2748b7f23fdbeadf7ae60b0aed4d8bc0482a6ed9d2d3b0591a5688e",
+    "filename": "01秋田県立美術館.jpg",
+    "originalFilename": "01秋田県立美術館.jpg"
+  },
+  "policy": {
+    "commercialUse": true,
+    "purposeConstraint": "tourism_pr_only",
+    "allowedProjects": [
+      "tavi-navi",
+      "DeepJapan",
+      "teluis",
+      "yomilee"
+    ],
+    "creditRequired": true,
+    "maxPerArticle": null,
+    "modification": "crop_and_resize_only",
+    "redistributionAllowed": false
+  },
+  "i18n": {
+    "ja": {
+      "alt": "秋田県立美術館の螺旋階段と天窓（秋田県）- 世界的建築家・安藤忠雄氏が手掛けた秋田県立美術館。支柱のない美しい螺旋階段と三角形の天窓から降り注ぐ光が織りなす、幾何学的で静謐な空間美が見どころです。",
+      "caption": "世界的建築家・安藤忠雄氏が手掛けた秋田県立美術館。支柱のない美しい螺旋階段と三角形の天窓から降り注ぐ光が織りなす、幾何学的で静謐な空間美が見どころです。（写真提供：一般社団法人 秋田県観光連盟「あきたファン」）",
+      "credit": "写真提供：一般社団法人 秋田県観光連盟「あきたファン」"
+    },
+    "en": {
+      "alt": "Spiral Staircase and Skylight at Akita Museum of Art - Designed by Tadao Ando, the Akita Museum of Art features a stunning freestanding spiral staircase beneath a dramatic triangular skylight, showcasing minimalist architectural beauty.",
+      "caption": "Designed by Tadao Ando, the Akita Museum of Art features a stunning freestanding spiral staircase beneath a dramatic triangular skylight, showcasing minimalist architectural beauty. (Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun))",
+      "credit": "Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun)"
+    }
+  },
+  "downloadedAt": "2026-11-09T19:32:23+0900",
+  "aiProxy": {
+    "path": "ai_thumbs/01秋田県立美術館.webp",
+    "format": "webp",
+    "width": 768,
+    "height": 512,
+    "fileSizeBytes": 29264,
+    "targetMaxTokens": 258
+  },
+  "visual": {
+    "schemaSubVersion": "2.1",
+    "descriptionJa": "世界的建築家・安藤忠雄氏が手掛けた秋田県立美術館。支柱のない美しい螺旋階段と三角形の天窓から降り注ぐ光が織りなす、幾何学的で静謐な空間美が見どころです。",
+    "descriptionEn": "Designed by Tadao Ando, the Akita Museum of Art features a stunning freestanding spiral staircase beneath a dramatic triangular skylight, showcasing minimalist architectural beauty.",
+    "timeOfDay": "indoor",
+    "weather": "indoor",
+    "composition": "wide_landscape",
+    "focalPosition": "center",
+    "textSafeArea": [
+      "bottom",
+      "left"
+    ],
+    "satoriTemplate": "bottom_slim",
+    "hasPeople": false,
+    "peopleStyle": "none",
+    "dominantColor": "white",
+    "mood": [
+      "serene",
+      "majestic"
+    ],
+    "appealScore": 5,
+    "bestRole": "hero",
+    "isHeroReady": true,
+    "suitableFor": [
+      "solo",
+      "couple",
+      "senior",
+      "inbound"
+    ],
+    "bestFor": [
+      "秋田市内のアート・建築巡り特集のメイン画像",
+      "安藤忠雄建築の美を巡る旅ガイド",
+      "雨や雪の日でも楽しめる秋田の屋内観光スポット紹介"
+    ]
+  }
+}

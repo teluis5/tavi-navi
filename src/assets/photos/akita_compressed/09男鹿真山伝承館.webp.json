@@ -1,0 +1,146 @@
+{
+  "schemaVersion": "2.0",
+  "assetId": "akita_1830",
+  "provider": {
+    "id": "akita_tourism_federation",
+    "nameJa": "一般社団法人 秋田県観光連盟",
+    "nameEn": "Akita Prefecture Tourism Federation",
+    "libraryName": "あきたファン フォトギャラリー",
+    "sourceUrl": "https://akita-fun.jp/photo_gallery"
+  },
+  "subject": {
+    "photoId": "1830",
+    "titleJa": "男鹿真山伝承館の囲炉裏",
+    "titleEn": "Traditional Irori Sunken Hearth at Oga Shinzan Folklore Museum",
+    "prefecture": "秋田県",
+    "city": "男鹿市",
+    "cityEn": "男鹿 City",
+    "season": "all_year",
+    "genre": "歴史・文化 観光施設",
+    "rawTitleJa": "09男鹿真山伝承館",
+    "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "seasonalHighlight": "none",
+    "sceneType": "historic",
+    "environment": "indoor",
+    "primaryEntities": [
+      "囲炉裏",
+      "自在鉤",
+      "鉄瓶",
+      "曲家"
+    ],
+    "tags": [
+      "男鹿真山伝承館",
+      "男鹿市",
+      "秋田県",
+      "囲炉裏",
+      "古民家",
+      "なまはげ",
+      "自在鉤",
+      "曲家",
+      "日本の伝統",
+      "民俗資料館"
+    ],
+    "tagsEn": [
+      "Oga Shinzan Folklore Museum",
+      "Akita",
+      "Irori",
+      "Sunken hearth",
+      "Traditional house",
+      "Namahage"
+    ]
+  },
+  "specs": {
+    "width": 3456,
+    "height": 5184,
+    "orientation": "portrait",
+    "aspectRatio": "2:3",
+    "fileSizeBytes": 9554814,
+    "sha256": "388847dc364f59396bf144a5094635e8ecb7714481bc3a5c32d10bc109aee987",
+    "filename": "09男鹿真山伝承館.jpg",
+    "originalFilename": "09男鹿真山伝承館.jpg"
+  },
+  "policy": {
+    "commercialUse": true,
+    "purposeConstraint": "tourism_pr_only",
+    "allowedProjects": [
+      "tavi-navi",
+      "DeepJapan",
+      "teluis",
+      "yomilee"
+    ],
+    "creditRequired": true,
+    "maxPerArticle": null,
+    "modification": "crop_and_resize_only",
+    "redistributionAllowed": false
+  },
+  "i18n": {
+    "ja": {
+      "alt": "男鹿真山伝承館の囲炉裏（秋田県）- 男鹿真山伝承館の曲家に設えられた伝統的な囲炉裏。立ち上る煙と柔らかな薪火が、古き良き日本の暮らしの温もりを伝えます。",
+      "caption": "男鹿真山伝承館の曲家に設えられた伝統的な囲炉裏。立ち上る煙と柔らかな薪火が、古き良き日本の暮らしの温もりを伝えます。（写真提供：一般社団法人 秋田県観光連盟「あきたファン」）",
+      "credit": "写真提供：一般社団法人 秋田県観光連盟「あきたファン」"
+    },
+    "en": {
+      "alt": "Traditional Irori Sunken Hearth at Oga Shinzan Folklore Museum - A traditional Japanese sunken hearth with a hanging iron kettle and crackling firewood inside the historic Oga Shinzan Folklore Museum in Akita.",
+      "caption": "A traditional Japanese sunken hearth with a hanging iron kettle and crackling firewood inside the historic Oga Shinzan Folklore Museum in Akita. (Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun))",
+      "credit": "Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun)"
+    }
+  },
+  "downloadedAt": "2026-11-09T18:10:02+0900",
+  "aiProxy": {
+    "path": "ai_thumbs/09男鹿真山伝承館.webp",
+    "format": "webp",
+    "width": 512,
+    "height": 768,
+    "fileSizeBytes": 43800,
+    "targetMaxTokens": 258
+  },
+  "visual": {
+    "schemaSubVersion": "2.1",
+    "descriptionJa": "男鹿真山伝承館の曲家に設えられた伝統的な囲炉裏。立ち上る煙と柔らかな薪火が、古き良き日本の暮らしの温もりを伝えます。",
+    "descriptionEn": "A traditional Japanese sunken hearth with a hanging iron kettle and crackling firewood inside the historic Oga Shinzan Folklore Museum in Akita.",
+    "timeOfDay": "indoor",
+    "weather": "indoor",
+    "composition": "medium",
+    "focalPosition": "center",
+    "textSafeArea": [
+      "top",
+      "left",
+      "right"
+    ],
+    "satoriTemplate": "split_left",
+    "hasPeople": false,
+    "peopleStyle": "none",
+    "dominantColor": "dark",
+    "mood": [
+      "nostalgic",
+      "serene"
+    ],
+    "appealScore": 4,
+    "bestRole": "h2_main",
+    "isHeroReady": false,
+    "suitableFor": [
+      "solo",
+      "couple",
+      "senior",
+      "inbound"
+    ],
+    "bestFor": [
+      "男鹿のなまはげ体験ガイド",
+      "秋田の伝統建築と曲家文化の紹介",
+      "日本のノスタルジックな原風景特集"
+    ]
+  }
+}

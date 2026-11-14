@@ -1,0 +1,145 @@
+{
+  "schemaVersion": "2.0",
+  "assetId": "akita_1030",
+  "provider": {
+    "id": "akita_tourism_federation",
+    "nameJa": "一般社団法人 秋田県観光連盟",
+    "nameEn": "Akita Prefecture Tourism Federation",
+    "libraryName": "あきたファン フォトギャラリー",
+    "sourceUrl": "https://akita-fun.jp/photo_gallery"
+  },
+  "subject": {
+    "photoId": "1030",
+    "titleJa": "道の駅あきた港 ポートタワー・セリオン",
+    "titleEn": "Akita Port Tower Selion",
+    "prefecture": "秋田県",
+    "city": "秋田市",
+    "cityEn": "秋田 City",
+    "season": "all_year",
+    "genre": "観光施設",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "sceneType": "facility",
+    "primaryEntities": [
+      "ポートタワー・セリオン",
+      "セリオンリスタ",
+      "秋田港",
+      "道の駅あきた港"
+    ],
+    "tags": [
+      "秋田県",
+      "秋田市",
+      "ポートタワーセリオン",
+      "道の駅あきた港",
+      "展望塔",
+      "秋田港",
+      "ガラス張りタワー",
+      "ランドマーク",
+      "絶景スポット",
+      "展望タワー",
+      "ドライブ",
+      "道の駅"
+    ],
+    "rawTitleJa": "01ポートタワーセリオン",
+    "seasonalHighlight": "none",
+    "environment": "outdoor",
+    "tagsEn": [
+      "Akita",
+      "Akita City",
+      "Port Tower Selion",
+      "Akita Port",
+      "observation tower",
+      "roadside station"
+    ]
+  },
+  "specs": {
+    "width": 4368,
+    "height": 2912,
+    "orientation": "landscape",
+    "aspectRatio": "3:2",
+    "fileSizeBytes": 3599504,
+    "sha256": "fa0e4aafa2e5b1e6fd84d3606c1939b7de02fcd064f87e725682e9958558f567",
+    "filename": "01ポートタワーセリオン.jpg",
+    "originalFilename": "01ポートタワーセリオン.jpg"
+  },
+  "policy": {
+    "commercialUse": true,
+    "purposeConstraint": "tourism_pr_only",
+    "allowedProjects": [
+      "tavi-navi",
+      "DeepJapan",
+      "teluis",
+      "yomilee"
+    ],
+    "creditRequired": true,
+    "maxPerArticle": null,
+    "modification": "crop_and_resize_only",
+    "redistributionAllowed": false
+  },
+  "i18n": {
+    "ja": {
+      "alt": "道の駅あきた港 ポートタワー・セリオン（秋田県）- 青空に向かって高くそびえ立つ総ガラス張りのポートタワー・セリオン。地上100mの無料展望台から日本海や男鹿半島を一望できる秋田港のシンボルです。",
+      "caption": "青空に向かって高くそびえ立つ総ガラス張りのポートタワー・セリオン。地上100mの無料展望台から日本海や男鹿半島を一望できる秋田港のシンボルです。（写真提供：一般社団法人 秋田県観光連盟「あきたファン」）",
+      "credit": "写真提供：一般社団法人 秋田県観光連盟「あきたファン」"
+    },
+    "en": {
+      "alt": "Akita Port Tower Selion - Standing tall against the blue sky, Akita Port Tower Selion features an all-glass exterior and a free 100-meter-high observation deck overlooking the Sea of Japan.",
+      "caption": "Standing tall against the blue sky, Akita Port Tower Selion features an all-glass exterior and a free 100-meter-high observation deck overlooking the Sea of Japan. (Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun))",
+      "credit": "Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun)"
+    }
+  },
+  "downloadedAt": "2026-11-09T19:30:23+0900",
+  "aiProxy": {
+    "path": "ai_thumbs/01ポートタワーセリオン.webp",
+    "format": "webp",
+    "width": 768,
+    "height": 512,
+    "fileSizeBytes": 34254,
+    "targetMaxTokens": 258
+  },
+  "visual": {
+    "schemaSubVersion": "2.1",
+    "descriptionJa": "青空に向かって高くそびえ立つ総ガラス張りのポートタワー・セリオン。地上100mの無料展望台から日本海や男鹿半島を一望できる秋田港のシンボルです。",
+    "descriptionEn": "Standing tall against the blue sky, Akita Port Tower Selion features an all-glass exterior and a free 100-meter-high observation deck overlooking the Sea of Japan.",
+    "timeOfDay": "daytime",
+    "weather": "sunny",
+    "composition": "wide_landscape",
+    "focalPosition": "center",
+    "textSafeArea": [
+      "left",
+      "bottom",
+      "top"
+    ],
+    "satoriTemplate": "split_left",
+    "hasPeople": false,
+    "peopleStyle": "none",
+    "dominantColor": "blue",
+    "mood": [
+      "serene",
+      "majestic"
+    ],
+    "appealScore": 4,
+    "bestRole": "hero",
+    "isHeroReady": true,
+    "suitableFor": [
+      "solo",
+      "couple",
+      "family",
+      "senior",
+      "inbound"
+    ],
+    "bestFor": [
+      "秋田市内ドライブ観光コース",
+      "無料の絶景展望台スポット紹介",
+      "道の駅あきた港グルメ＆立ち寄りガイド",
+      "秋田ベイエリア散策"
+    ]
+  }
+}
