@@ -95,67 +95,56 @@ const formatAmount = (val: number | string) => {
 };
 ---
 
-<aside class="course-budget-card" aria-label="旅の予算・費用内訳">
-  <div class="budget-header">
-    <div class="budget-header-left">
-      <span class="budget-badge">費用目安</span>
-      <h3 class="budget-title">{title}</h3>
-      <span class="budget-person-label">{personLabel}</span>
-    </div>
-
-    <div class="budget-total-box">
-      <span class="total-label">1人あたり合計目安</span>
-      <span class="total-value">{displayTotal}</span>
-    </div>
+<div class="course-budget-container">
+  <div class="budget-section-header">
+    <span class="budget-badge">費用目安</span>
+    <h2 class="budget-title" id="course-budget">{title}</h2>
   </div>
 
-  <table class="budget-table">
-    <tbody>
-      {budgetItems.map((item) => (
-        <tr class="budget-row">
-          <th scope="row" class="budget-col-category">
-            <span class="item-category-text">{item.category}</span>
-            {item.note && <span class="item-note-text">{item.note}</span>}
-          </th>
-          <td class="budget-col-amount">
-            <span class="amount-value">{formatAmount(item.amount)}</span>
-          </td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-
-  {(totalNote || budgetItems.length > 0) && (
-    <div class="budget-footer-note">
-      <p>{totalNote || '※表示料金は調査時点の標準的な目安です。宿泊日・予約タイミング・利用プランにより変動します。'}</p>
+  <aside class="course-budget-card" aria-labelledby="course-budget">
+    <div class="budget-card-top">
+      <span class="budget-person-label">{personLabel}</span>
+      <div class="budget-total-box">
+        <span class="total-label">1人あたり合計目安</span>
+        <span class="total-value">{displayTotal}</span>
+      </div>
     </div>
-  )}
-</aside>
+
+    <table class="budget-table">
+      <tbody>
+        {budgetItems.map((item) => (
+          <tr class="budget-row">
+            <th scope="row" class="budget-col-category">
+              <span class="item-category-text">{item.category}</span>
+              {item.note && <span class="item-note-text">{item.note}</span>}
+            </th>
+            <td class="budget-col-amount">
+              <span class="amount-value">{formatAmount(item.amount)}</span>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+
+    {(totalNote || budgetItems.length > 0) && (
+      <div class="budget-footer-note">
+        <p>{totalNote || '※表示料金は調査時点の標準的な目安です。宿泊日・予約タイミング・利用プランにより変動します。'}</p>
+      </div>
+    )}
+  </aside>
+</div>
 
 <style>
-  .course-budget-card {
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    border-radius: 10px;
-    padding: 1.25rem 1.35rem;
-    margin: 1.5rem 0 2rem;
-    box-sizing: border-box;
+  .course-budget-container {
+    margin: 2rem 0;
   }
 
-  .budget-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 1rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid #e2e8f0;
-    margin-bottom: 1rem;
-  }
-
-  .budget-header-left {
+  .budget-section-header {
     display: flex;
     flex-direction: column;
-    gap: 0.2rem;
+    align-items: flex-start;
+    gap: 0.35rem;
+    margin-bottom: 0.65rem;
   }
 
   .budget-badge {
@@ -167,16 +156,39 @@ const formatAmount = (val: number | string) => {
     padding: 0.15rem 0.5rem;
     border-radius: 4px;
     letter-spacing: 0.04em;
+    line-height: 1.3;
   }
 
+  :global(.prose) .course-budget-container h2,
   .budget-title {
     margin: 0 !important;
-    font-size: 1.05rem !important;
+    font-size: 1.25rem !important;
     font-weight: 800 !important;
     color: #111827 !important;
     line-height: 1.35 !important;
+    letter-spacing: -0.015em;
     border: none !important;
     padding: 0 !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+  }
+
+  .course-budget-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 1.15rem 1.35rem;
+    box-sizing: border-box;
+  }
+
+  .budget-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid #e2e8f0;
+    margin-bottom: 0.85rem;
   }
 
   .budget-person-label {

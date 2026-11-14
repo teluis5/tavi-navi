@@ -31,18 +31,19 @@ const jreDynamicRailUrl = 'https://www.jre-travel.com/';
 const asoviewUrl = `https://www.asoview.com/leisure/?keyword=${encodeURIComponent(destination || station)}`;
 ---
 
-<aside class="transit-booking-hub" aria-label="交通・レンタカー・現地体験予約">
-  <div class="transit-hub-header">
+<div class="transit-booking-container">
+  <div class="transit-hub-section-header">
     <span class="transit-hub-badge">予約ハブ</span>
-    <h3 class="transit-hub-title">
+    <h2 class="transit-hub-title" id="transit-booking">
       {title || `${destination}への移動・現地チケットを予約する`}
-    </h3>
+    </h2>
     <p class="transit-hub-desc">
       新幹線チケットや駅前レンタカー、周辺の観光前売り券は事前予約がスムーズです。
     </p>
   </div>
 
-  <div class="transit-hub-grid">
+  <aside class="transit-booking-hub" aria-labelledby="transit-booking">
+    <div class="transit-hub-grid">
     {(transportType === 'all' || transportType === 'shinkansen') && (
       <div class="transit-card">
         <div class="card-body">
@@ -119,22 +120,19 @@ const asoviewUrl = `https://www.asoview.com/leisure/?keyword=${encodeURIComponen
       </div>
     )}
   </div>
-</aside>
+  </aside>
+</div>
 
 <style>
-  .transit-booking-hub {
-    margin: 2rem 0;
-    padding: 1.25rem 1.35rem;
-    background: #f8fafc;
-    border-radius: 10px;
-    border: 1px solid #e2e8f0;
-    box-sizing: border-box;
+  .transit-booking-container {
+    margin: 2.5rem 0 2rem;
   }
-  .transit-hub-header {
-    margin-bottom: 1rem;
+  .transit-hub-section-header {
+    margin-bottom: 0.75rem;
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+    align-items: flex-start;
+    gap: 0.35rem;
   }
   .transit-hub-badge {
     align-self: flex-start;
@@ -145,21 +143,34 @@ const asoviewUrl = `https://www.asoview.com/leisure/?keyword=${encodeURIComponen
     padding: 0.15rem 0.5rem;
     border-radius: 4px;
     letter-spacing: 0.04em;
+    line-height: 1.3;
   }
+  :global(.prose) .transit-booking-container h2,
   .transit-hub-title {
     margin: 0 !important;
-    font-size: 1.05rem !important;
+    font-size: 1.25rem !important;
     font-weight: 800 !important;
     color: #111827 !important;
     line-height: 1.35 !important;
+    letter-spacing: -0.015em;
     border: none !important;
     padding: 0 !important;
+    background: transparent !important;
+    border-radius: 0 !important;
   }
   .transit-hub-desc {
     margin: 0 !important;
-    font-size: 0.78rem !important;
+    font-size: 0.8rem !important;
     color: #64748b !important;
     line-height: 1.45 !important;
+  }
+  .transit-booking-hub {
+    margin: 0;
+    padding: 1.15rem;
+    background: #f8fafc;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    box-sizing: border-box;
   }
   .transit-hub-grid {
     display: grid;
