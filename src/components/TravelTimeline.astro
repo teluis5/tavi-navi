@@ -560,23 +560,21 @@ timelineDays.forEach(day => {
     position: relative;
   }
 
-  /* 場所（スポット）セクションの淡色背景（PCは角丸カード、スマホは横画面いっぱいのフルブリード） */
+  /* 場所（スポット）セクション：移動と背景色を統一（カード本体はSpotUnit側でカード化） */
   .step-place-surface {
-    background: #e3e7ed;
+    background: transparent;
     border: none;
-    border-radius: 12px;
-    padding: 1.15rem 1.1rem;
+    padding: 0;
     box-sizing: border-box;
     width: 100%;
   }
 
   @media (max-width: 800px) {
     .step-place-surface {
-      margin-left: -1rem;
-      margin-right: -1rem;
-      width: calc(100% + 2rem);
-      border-radius: 0;
-      padding: 1.15rem 1rem;
+      margin-left: 0;
+      margin-right: 0;
+      width: 100%;
+      padding: 0;
     }
   }
 

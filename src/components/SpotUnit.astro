@@ -142,43 +142,53 @@ const pillText = hotelCatName || cleanText(alternativeLabel);
 </div>
 
 <style>
-  /* ワイドフォト・スポットユニット（サーフェス上で自然に一体化） */
+  /* 場所（スポット）：美しい白カード化 */
   .wide-spot-unit {
     display: flex;
     flex-direction: column;
-    gap: 0.65rem;
     width: 100%;
     box-sizing: border-box;
-    background: transparent;
-    border: none;
-    box-shadow: none;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
   }
+
   .clickable-unit {
     cursor: pointer;
+  }
+  .clickable-unit:hover {
+    border-color: #cbd5e1;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
   }
   .clickable-unit:active :global(.wide-photo-img) {
     transform: scale(1.02);
   }
 
-  /* 体験アクション見出し（写真の直上に配置） */
+  /* 体験アクション見出し（カード上端） */
   .step-lead-heading {
-    margin-bottom: 0.45rem;
+    padding: 0.85rem 1rem 0.55rem;
+    background: #ffffff;
   }
   .step-lead-text {
-    font-size: 1.05rem;
+    font-size: 1.02rem;
     font-weight: 800;
     color: #111827;
     margin: 0;
-    line-height: 1.38;
+    line-height: 1.35;
     letter-spacing: -0.015em;
   }
 
-  /* スポット本文 */
+  /* スポット本文（カード下部） */
   .wide-spot-body {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    margin-top: 0.2rem;
+    padding: 0.9rem 1rem 1.1rem;
+    background: #ffffff;
+    box-sizing: border-box;
   }
 
   /* 見どころ箇条書き */
