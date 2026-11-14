@@ -1,0 +1,30 @@
+---
+interface Props { hotelNo: string | number }
+const { hotelNo } = Astro.props;
+---
+<div class="hotel-price" data-hotel-price={hotelNo} hidden></div>
+
+<script>
+  type Prices = { checkedAt: string; dates: { weekday: string; weekend: string }; hotels: Record<string, { weekday: number | null; weekend: number | null }> };
+  const containers = document.querySelectorAll<HTMLElement>('[data-hotel-price]');
+  if (containers.length) {
+    fetch('/data/hotel-prices/rakuten.json')
+      .then((response) => { if (!response.ok) throw new Error('Hotel prices unavailable'); return response.json() as Promise<Prices>; })
+      .then((data) => {
+        const checked = new Date(data.checkedAt);
+        if (!Number.isFinite(checked.getTime()) || Date.now() - checked.getTime() > 48 * 60 * 60 * 1000) return;
+        for (const container of containers) {
+          const prices = data.hotels[container.dataset.hotelPrice || ''];
+          if (!prices) continue;
+          const dateLabel = (value: string) => `${Number(value.slice(5, 7))}/${Number(value.slice(8, 10))}`;
+          const priceLabel = (price: number | null) => price === null ? '該当プランなし' : `${price.toLocaleString('ja-JP')}円〜`;
+          container.textContent = `宿泊料金の目安（大人2名1室・1泊、1人あたり）\n平日 ${dateLabel(data.dates.weekday)}泊 ${priceLabel(prices.weekday)} ／ 土曜 ${dateLabel(data.dates.weekend)}泊 ${priceLabel(prices.weekend)}\n${new Intl.DateTimeFormat('ja-JP', { timeZone: 'Asia/Tokyo', dateStyle: 'short' }).format(checked)}時点・楽天トラベル`;
+          container.hidden = false;
+        }
+      })
+      .catch(() => {});
+  }
+</script>
+<style>
+  .hotel-price { margin: 12px 0 0; color: #344b43; font-size: .8rem; line-height: 1.6; white-space: pre-line; }
+</style>

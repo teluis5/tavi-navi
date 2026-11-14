@@ -3,6 +3,7 @@ import type { ImageMetadata } from 'astro';
 import SpotCard, { type SpotData, type SpotAmenity } from './SpotCard.astro';
 import TransitTimetable from './TransitTimetable.astro';
 import BusinessHours from './BusinessHours.astro';
+import HotelPrice from './HotelPrice.astro';
 import { buildRakutenTravelUrl } from '../utils/affiliate';
 
 export interface TimelineHotelData {
@@ -496,12 +497,13 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                                     </p>
                                   )}
 
+                                  {opt.hotelData?.hotelNo && <HotelPrice hotelNo={opt.hotelData.hotelNo} />}
                                   {optBookingUrl && (
                                     <a
                                       href={optBookingUrl.url}
                                       target="_blank"
                                       rel="noopener sponsored"
-                                      class="wide-hotel-cta"
+                                      class="wide-hotel-cta rakuten-hotel-cta"
                                     >
                                       <span>{optBookingUrl.label}</span>
                                       <span class="cta-arrow">→</span>
@@ -586,12 +588,13 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                         )}
                         {!step.businessHoursId && !step.linksInList && step.links && <p class="spot-links">{step.links.map((link) => <a href={link.href}>{link.label}</a>)}</p>}
 
+                        {step.hotelData?.hotelNo && <HotelPrice hotelNo={step.hotelData.hotelNo} />}
                         {resolveHotelBookingUrl(step) && (
                           <a
                             href={resolveHotelBookingUrl(step)!.url}
                             target="_blank"
                             rel="noopener sponsored"
-                            class="wide-hotel-cta"
+                            class="wide-hotel-cta rakuten-hotel-cta"
                           >
                             <span>{resolveHotelBookingUrl(step)!.label}</span>
                             <span class="cta-arrow">→</span>
@@ -774,12 +777,13 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
                             </p>
                           )}
 
+                          {step.hotelData?.hotelNo && <HotelPrice hotelNo={step.hotelData.hotelNo} />}
                           {resolveHotelBookingUrl(step) && (
                             <a
                               href={resolveHotelBookingUrl(step)!.url}
                               target="_blank"
                               rel="noopener sponsored"
-                              class="wide-hotel-cta"
+                              class="wide-hotel-cta rakuten-hotel-cta"
                             >
                               <span>{resolveHotelBookingUrl(step)!.label}</span>
                               <span class="cta-arrow">→</span>
@@ -1911,6 +1915,10 @@ function resolveTransitInfo(step: TimelineStep): TimelineTransitDetail | null {
   .yahoo-hotel-cta { background: #bb2222; }
 
   .jalan-hotel-cta { background: #a84200; }
+
+  .rakuten-hotel-cta { background: #176b49; box-shadow: 0 2px 6px rgba(23, 107, 73, 0.2); }
+  .rakuten-hotel-cta:hover { background: #11573b; }
+  .rakuten-hotel-cta:active { background: #0d4931; }
 
   .cta-arrow {
     font-size: 0.95rem;

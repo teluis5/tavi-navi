@@ -1,0 +1,36 @@
+{
+  "checkedAt": "2026-11-14T10:34:36.127051+09:00",
+  "dates": {
+    "weekday": "2026-12-09",
+    "weekend": "2026-12-05"
+  },
+  "adults": 2,
+  "rooms": 1,
+  "nights": 1,
+  "hotels": {
+    "11222": {
+      "weekday": 11571,
+      "weekend": 12673
+    },
+    "129680": {
+      "weekday": null,
+      "weekend": 11300
+    },
+    "15408": {
+      "weekday": null,
+      "weekend": null
+    },
+    "162793": {
+      "weekday": 7700,
+      "weekend": 23100
+    },
+    "4624": {
+      "weekday": 11844,
+      "weekend": null
+    },
+    "70672": {
+      "weekday": null,
+      "weekend": 22500
+    }
+  }
+}
