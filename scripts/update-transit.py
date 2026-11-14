@@ -11,15 +11,9 @@ import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
 
-FEEDS = [{
-    'id': 'ugokotsu-tazawako',
-    'url': 'https://api.gtfs-data.jp/v2/organizations/ugokotsu/feeds/ugokotsu_tazawako/files/feed.zip',
-    'publisher': '羽後交通株式会社',
-    'license': 'CC BY 4.0',
-    'license_url': 'https://creativecommons.org/licenses/by/4.0/',
-    'selectors': ['current', 'next_1'],
-}]
-OUTPUT = Path('public/data/transit')
+ROOT = Path(__file__).resolve().parent.parent
+FEED_LIST = ROOT / 'src/data/transit-feeds.json'
+OUTPUT = ROOT / 'public/data/transit'
 
 
 def rows(archive, name, required=True):
@@ -70,8 +64,17 @@ def fetch_feed(config):
 
 
 def main():
+    feeds = json.loads(FEED_LIST.read_text(encoding='utf-8'))
+    if not isinstance(feeds, list) or not feeds:
+        raise ValueError('交通機関のデータ一覧が空、または不正です')
+    ids = set()
+    for config in feeds:
+        feed_id = config['id']
+        if not isinstance(feed_id, str) or not feed_id or not all(c.isascii() and (c.isalnum() or c in '-_') for c in feed_id) or feed_id in ids:
+            raise ValueError('交通機関のデータIDが不正、または重複しています')
+        ids.add(feed_id)
     OUTPUT.mkdir(parents=True, exist_ok=True)
-    for config in FEEDS:
+    for config in feeds:
         result = fetch_feed(config)
         destination = OUTPUT / f"{config['id']}.json"
         with tempfile.NamedTemporaryFile('w', encoding='utf-8', dir=OUTPUT, delete=False) as out:
