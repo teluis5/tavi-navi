@@ -97,8 +97,10 @@ const formatAmount = (val: number | string) => {
 
 <div class="course-budget-section" aria-labelledby="course-budget">
   <div class="budget-section-header">
-    <span class="budget-badge">費用目安</span>
-    <h2 class="budget-title" id="course-budget">{title}</h2>
+    <h2 class="budget-title" id="course-budget">
+      <span class="budget-badge">費用目安</span>
+      <span>{title}</span>
+    </h2>
   </div>
 
   <div class="budget-summary-bar">
@@ -134,41 +136,25 @@ const formatAmount = (val: number | string) => {
 
 <style>
   .course-budget-section {
-    margin: 2.5rem 0 2rem;
+    margin: 1rem 0 2rem;
   }
 
   .budget-section-header {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.35rem;
-    margin-bottom: 0.85rem;
+    margin-bottom: 1rem;
   }
 
   .budget-badge {
-    align-self: flex-start;
-    font-size: 0.7rem;
-    font-weight: 700;
-    color: #475569;
-    background: #e2e8f0;
-    padding: 0.15rem 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.68rem;
+    font-weight: 800;
+    color: #ffffff;
+    background: var(--theme-accent, #0284c7);
+    padding: 0.2rem 0.55rem;
     border-radius: 4px;
     letter-spacing: 0.04em;
-    line-height: 1.3;
-  }
-
-  :global(.prose) .course-budget-section h2,
-  .budget-title {
-    margin: 0 !important;
-    font-size: 1.25rem !important;
-    font-weight: 800 !important;
-    color: #111827 !important;
-    line-height: 1.35 !important;
-    letter-spacing: -0.015em;
-    border: none !important;
-    padding: 0 !important;
-    background: transparent !important;
-    border-radius: 0 !important;
+    line-height: 1.2;
+    flex-shrink: 0;
   }
 
   .budget-summary-bar {
