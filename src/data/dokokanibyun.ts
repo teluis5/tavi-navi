@@ -48,6 +48,7 @@ export const DOKOKANI_STATIONS: DokokaniStation[] = [
     prefName: '秋田県',
     noCarRating: '◎ 駅前完結',
     highlight: '稲庭うどん・きりたんぽ・秋田犬。駅前エリアでグルメ＆文化満喫',
+    courseUrl: '/akita/dokokani-akita-station-courses/',
     travelTimeFromTokyo: '約3時間40分（こまち）',
     bestSpot: '千秋公園・秋田市民市場',
   },

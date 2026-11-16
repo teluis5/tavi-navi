@@ -9,13 +9,14 @@ season: "6月上旬"
 departure: "all"
 duration: "2泊3日"
 cities: ["furano", "biei", "shakotan"]
-tags: ["北海道", "6月上旬", "初夏", "富良野", "美瑛", "積丹ウニ", "車なしプランあり", "子連れ安心", "梅雨なし"]
+tags: ["北海道", "6月上旬", "初夏", "富良野", "美瑛", "積丹ウニ", "飛行機", "レンタカー", "車なしプランあり", "子連れ安心", "梅雨なし"]
 ---
 import ProblemBox from '../../components/ProblemBox.astro';
 import ConclusionBox from '../../components/ConclusionBox.astro';
 import QuickJumpBar from '../../components/QuickJumpBar.astro';
 import TravelTimeline from '../../components/TravelTimeline.astro';
 import TravelBookingBox from '../../components/TravelBookingBox.astro';
+import TransitBookingHub from '../../components/TransitBookingHub.astro';
 
 <ProblemBox>
 - 本州が梅雨に入る6月に、カラッと晴れた爽やかな場所へ旅行したい！
@@ -146,6 +147,13 @@ import TravelBookingBox from '../../components/TravelBookingBox.astro';
 />
 
 <TravelBookingBox destination="富良野・美瑛・札幌" station="札幌駅" pref="hokkaido" lang="ja" />
+
+<TransitBookingHub
+  destination="富良野・美瑛・札幌"
+  station="札幌駅"
+  pref="hokkaido"
+  ticketType="flight"
+/>
 
 ---
 

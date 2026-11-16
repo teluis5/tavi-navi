@@ -7,13 +7,14 @@ pref: "akita"
 category: "温泉"
 season: "12月上旬"
 cities: ["semboku"]
-tags: ["秋田", "仙北市", "乳頭温泉", "鶴の湯温泉", "秘湯", "雪見風呂", "日帰り温泉", "車なしプランあり"]
+tags: ["秋田", "仙北市", "乳頭温泉", "鶴の湯温泉", "秘湯", "雪見風呂", "日帰り温泉", "車なしプランあり", "新幹線", "レンタカー"]
 ---
 import ProblemBox from '../../components/ProblemBox.astro';
 import ConclusionBox from '../../components/ConclusionBox.astro';
 import TourismPhoto from '../../components/TourismPhoto.astro';
 import Carousel from '../../components/Carousel.astro';
 import TravelBookingBox from '../../components/TravelBookingBox.astro';
+import TransitBookingHub from '../../components/TransitBookingHub.astro';
 import photoTsurunoyuSnow from '../../assets/photos/akita_compressed/nyuto-tsurunoyu-snow.webp';
 import photoTsurunoyuNight from '../../assets/photos/akita_compressed/nyuto-tsurunoyu-night.webp';
 import photoKanibaSnow from '../../assets/photos/akita_compressed/nyuto-kaniba-roten-snow.webp';
@@ -204,6 +205,13 @@ import photoKiritanpo from '../blog/tazawako-shared/kiritanpo-nabe.jpg';
   description="乳頭温泉郷の各宿（鶴の湯、妙乃湯、休暇村など）は直前割や空室が出ることがあります。楽天トラベルでリアルタイムの空室状況と宿泊プランを確認しましょう。"
   rakutenUrl="https://travel.rakuten.co.jp/HOTEL/29841/29841.html"
   rakutenLabel="鶴の湯温泉の宿泊プラン・空室を見る"
+/>
+
+<TransitBookingHub
+  destination="乳頭温泉郷・鶴の湯温泉"
+  station="田沢湖駅"
+  pref="akita"
+  ticketType="shinkansen"
 />
 
 ---

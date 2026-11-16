@@ -7,10 +7,11 @@ pref: "kyoto"
 category: "紅葉・花"
 season: "秋"
 cities: ["kyoto-arashiyama"]
-tags: ["京都", "嵐山", "渡月橋", "竹林の小径", "天龍寺", "紅葉"]
+tags: ["京都", "嵐山", "渡月橋", "竹林の小径", "天龍寺", "紅葉", "新幹線", "モデルコース"]
 ---
 import ProblemBox from '../../components/ProblemBox.astro';
 import ConclusionBox from '../../components/ConclusionBox.astro';
+import TransitBookingHub from '../../components/TransitBookingHub.astro';
 
 <ProblemBox>
 - 嵐山の紅葉はいつ頃が一番綺麗に見られる？
@@ -40,6 +41,13 @@ import ConclusionBox from '../../components/ConclusionBox.astro';
 - **JR嵯峨野線（山陰本線）**: 「嵯峨嵐山駅」より徒歩約10分（京都駅から快速で約12分）
 - **阪急嵐山線**: 「嵐山駅」より徒歩約5分
 - **京福電鉄（嵐電）**: 「嵐山駅」下車すぐ
+
+<TransitBookingHub
+  destination="京都・嵐山"
+  station="京都駅"
+  pref="kyoto"
+  ticketType="shinkansen"
+/>
 
 <ConclusionBox>
 - 11月中旬〜下旬が紅葉のベストシーズン。

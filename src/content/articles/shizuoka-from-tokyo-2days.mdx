@@ -9,13 +9,14 @@ season: "11月中旬"
 departure: "tokyo"
 duration: "1泊2日"
 cities: ["atami", "mishima"]
-tags: ["東京発", "1泊2日", "静岡", "熱海", "三島", "富士山", "新幹線", "車なしプランあり", "子連れ安心", "温泉"]
+tags: ["東京発", "1泊2日", "静岡", "熱海", "三島", "富士山", "新幹線", "レンタカー", "車なしプランあり", "子連れ安心", "温泉"]
 ---
 import ProblemBox from '../../components/ProblemBox.astro';
 import ConclusionBox from '../../components/ConclusionBox.astro';
 import QuickJumpBar from '../../components/QuickJumpBar.astro';
 import TravelTimeline from '../../components/TravelTimeline.astro';
 import TravelBookingBox from '../../components/TravelBookingBox.astro';
+import TransitBookingHub from '../../components/TransitBookingHub.astro';
 
 <ProblemBox>
 - 東京から1泊2日で気軽に行けて、美味しい温泉と絶景を楽しめる旅先はどこ？
@@ -150,6 +151,13 @@ import TravelBookingBox from '../../components/TravelBookingBox.astro';
 />
 
 <TravelBookingBox destination="熱海・三島" station="熱海駅" pref="shizuoka" lang="ja" />
+
+<TransitBookingHub
+  destination="熱海・三島"
+  station="熱海駅"
+  pref="shizuoka"
+  ticketType="shinkansen"
+/>
 
 ---
 

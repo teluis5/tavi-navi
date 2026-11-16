@@ -9,11 +9,12 @@ season: "通年"
 departure: "秋田空港"
 duration: "1泊2日"
 cities: ["akita-city"]
-tags: ["秋田", "秋田市", "秋田空港", "1泊2日", "車なし", "子連れ", "モデルコース"]
+tags: ["秋田", "秋田市", "秋田空港", "1泊2日", "飛行機", "レンタカー", "車なし", "子連れ", "モデルコース"]
 ---
 import ProblemBox from '../../components/ProblemBox.astro';
 import ConclusionBox from '../../components/ConclusionBox.astro';
 import TravelBookingBox from '../../components/TravelBookingBox.astro';
+import TransitBookingHub from '../../components/TransitBookingHub.astro';
 
 <ProblemBox>
 - 秋田空港から車なしで秋田市を回るなら、どこを拠点にすればよい？
@@ -78,6 +79,13 @@ import TravelBookingBox from '../../components/TravelBookingBox.astro';
   description="空港リムジンバスの発着と市内散策に便利な秋田駅西口エリア。1泊2日を組みやすい宿泊拠点です。"
   rakutenUrl="https://travel.rakuten.co.jp/yado/akita/akita.html"
   jalanUrl="https://www.jalan.net/010000/LRG_050200/"
+/>
+
+<TransitBookingHub
+  destination="秋田市・秋田空港"
+  station="秋田駅"
+  pref="akita"
+  ticketType="flight"
 />
 
 ## よくある質問（FAQ）

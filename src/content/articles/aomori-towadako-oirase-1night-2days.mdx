@@ -9,11 +9,12 @@ season: "新緑〜紅葉"
 departure: "hachinohe"
 duration: "1泊2日"
 cities: ["towada"]
-tags: ["青森", "十和田湖", "奥入瀬渓流", "八戸発", "1泊2日", "レンタカー", "子連れ"]
+tags: ["青森", "十和田湖", "奥入瀬渓流", "八戸発", "1泊2日", "新幹線", "レンタカー", "子連れ"]
 ---
 import ProblemBox from '../../components/ProblemBox.astro';
 import ConclusionBox from '../../components/ConclusionBox.astro';
 import TravelBookingBox from '../../components/TravelBookingBox.astro';
+import TransitBookingHub from '../../components/TransitBookingHub.astro';
 
 <ProblemBox>
 - 十和田湖と奥入瀬渓流は、1泊2日でどこまで回れば満足できる？
@@ -68,6 +69,13 @@ import TravelBookingBox from '../../components/TravelBookingBox.astro';
   description="湖畔の夕景と朝の散策を楽しむなら、十和田湖・休屋エリアでの宿泊が便利です。紅葉期と連休は早めに空室を確認します。"
   rakutenUrl="https://travel.rakuten.co.jp/yado/aomori/towada.html"
   jalanUrl="https://www.jalan.net/020000/LRG_021100/"
+/>
+
+<TransitBookingHub
+  destination="十和田湖・奥入瀬渓流"
+  station="八戸駅"
+  pref="aomori"
+  ticketType="shinkansen"
 />
 
 ## よくある質問（FAQ）

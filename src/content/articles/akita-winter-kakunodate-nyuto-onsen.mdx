@@ -9,13 +9,14 @@ season: "12月上旬"
 departure: "tokyo"
 duration: "2泊3日"
 cities: ["semboku", "akita-city"]
-tags: ["秋田", "仙北市", "角館", "田沢湖", "乳頭温泉", "冬旅", "雪景色", "車なしプランあり", "温泉", "新幹線"]
+tags: ["秋田", "仙北市", "角館", "田沢湖", "乳頭温泉", "冬旅", "雪景色", "車なしプランあり", "温泉", "新幹線", "レンタカー"]
 ---
 import ProblemBox from '../../components/ProblemBox.astro';
 import ConclusionBox from '../../components/ConclusionBox.astro';
 import QuickJumpBar from '../../components/QuickJumpBar.astro';
 import TravelTimeline from '../../components/TravelTimeline.astro';
 import TravelBookingBox from '../../components/TravelBookingBox.astro';
+import TransitBookingHub from '../../components/TransitBookingHub.astro';
 import TourismPhoto from '../../components/TourismPhoto.astro';
 import Carousel from '../../components/Carousel.astro';
 import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
@@ -396,6 +397,13 @@ import photoSenshuSatake from '../../assets/photos/akita_compressed/senshu-park-
   description="乳頭温泉郷の宿は全国屈指の人気を誇るため、冬の雪見露天風呂シーズン（12月〜2月）は2〜3ヶ月前からの予約が鉄則です。"
   rakutenUrl="https://travel.rakuten.co.jp/search?f_cd=03&f_query=%E4%B9%B3%E9%A0%AD%E6%B8%A9%E6%B3%89%E9%83%B7"
   jalanUrl="https://www.jalan.net/uw/uwp3000/uwp3001.do?keyword=%E4%B9%B3%E9%A0%AD%E6%B8%A9%E6%B3%89%E9%83%B7"
+/>
+
+<TransitBookingHub
+  destination="角館・田沢湖・乳頭温泉郷"
+  station="角館駅"
+  pref="akita"
+  ticketType="shinkansen"
 />
 
 ---

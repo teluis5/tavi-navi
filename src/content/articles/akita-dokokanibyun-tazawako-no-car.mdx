@@ -11,11 +11,12 @@ departure: "tokyo"
 duration: "1泊2日"
 cities: ["senboku"]
 heroImage: "/thumbnails/akita-course-lake-v1.png"
-tags: ["どこかにビューン", "田沢湖", "秋田", "秋田新幹線", "乳頭温泉郷", "鶴の湯温泉", "車なしプランあり", "モデルコース", "温泉"]
+tags: ["どこかにビューーン！", "新幹線", "レンタカー", "田沢湖", "秋田", "秋田新幹線", "乳頭温泉郷", "鶴の湯温泉", "車なしプランあり", "モデルコース", "温泉"]
 ---
 import ConclusionBox from '../../components/ConclusionBox.astro';
 import TravelTimeline from '../../components/TravelTimeline.astro';
 import TrainCondition from '../../components/TrainCondition.astro';
+import TransitBookingHub from '../../components/TransitBookingHub.astro';
 import photoHanazen from '../blog/tazawako-shared/hanazen-torimeshi.jpg';
 import photoSoba from '../blog/tazawako-shared/akita-soba.jpg';
 import photoOyakodon from '../blog/tazawako-shared/hinai-oyakodon.jpg';
@@ -356,6 +357,13 @@ import photoKamenoiOpenAir from '../../assets/photos/akita/02亀の井ホテル�
 />
 
 
+
+<TransitBookingHub
+  destination="田沢湖・乳頭温泉郷"
+  station="田沢湖駅"
+  pref="akita"
+  ticketType="dokokani"
+/>
 
 ## 別のモデルコースを見る
 

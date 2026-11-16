@@ -10,10 +10,11 @@ departure: "tokyo"
 duration: "1泊2日"
 heroImage: "/thumbnails/akita-course-railpack-v1.png"
 cities: ["senboku"]
-tags: ["ダイナミックレールパック", "田沢湖", "乳頭温泉郷", "車なしプランあり"]
+tags: ["ダイナミックレールパック", "新幹線", "レンタカー", "田沢湖", "乳頭温泉郷", "車なしプランあり"]
 ---
 import TravelTimeline from '../../components/TravelTimeline.astro';
 import TrainCondition from '../../components/TrainCondition.astro';
+import TransitBookingHub from '../../components/TransitBookingHub.astro';
 import photoHanazen from '../blog/tazawako-shared/hanazen-torimeshi.jpg';
 import photoSoba from '../blog/tazawako-shared/akita-soba.jpg';
 import photoOyakodon from '../blog/tazawako-shared/hinai-oyakodon.jpg';
@@ -54,6 +55,13 @@ import photoHotel from '../../assets/photos/akita/02亀の井ホテル　田沢�
     { leadHeading: "こまちで東京へ", title: "田沢湖駅から帰路", image: photoKomachi, imageCredit: "Akita Prefecture", points: ["指定された列車の発車時刻を確認して乗車"] }
   ] }
 ]} />
+
+<TransitBookingHub
+  destination="田沢湖・乳頭温泉郷"
+  station="田沢湖駅"
+  pref="akita"
+  ticketType="dokokani"
+/>
 
 ## 別のモデルコースを見る
 

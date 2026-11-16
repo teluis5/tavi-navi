@@ -10,11 +10,12 @@ season: "通年"
 departure: "tokyo"
 duration: "1泊2日"
 cities: ["akita-city"]
-tags: ["どこかにビューン", "秋田駅", "秋田港", "セリオン", "1泊2日", "車なしプランあり", "モデルコース"]
+tags: ["どこかにビューーン！", "新幹線", "秋田駅", "秋田港", "セリオン", "1泊2日", "車なしプランあり", "モデルコース"]
 ---
 import ConclusionBox from '../../components/ConclusionBox.astro';
 import TravelTimeline from '../../components/TravelTimeline.astro';
 import TrainCondition from '../../components/TrainCondition.astro';
+import TransitBookingHub from '../../components/TransitBookingHub.astro';
 import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
 import photoSelionOut from '../../assets/photos/akita_compressed/01ポートタワーセリオン.webp';
 import photoSelionView from '../../assets/photos/akita_compressed/04ポートタワーセリオン.webp';
@@ -221,8 +222,16 @@ JR東日本・セリオン・秋田市の公式情報を基にした行程案で
   ]}
 />
 
+<TransitBookingHub
+  destination="秋田港・セリオン"
+  station="秋田駅"
+  pref="akita"
+  ticketType="dokokani"
+/>
+
 ## 別のモデルコースを見る
 
+- [どこかにビューーン！秋田駅ガイド](/special/dokokanibyun/station/akita/)
 - [秋田駅発・車なし4コースの比較ハブへ戻る](/akita/dokokani-akita-station-courses/)
 - [秋田市内・車なし1泊2日コース](/akita/dokokani-akita-city-1night-2days/)
 - [男鹿温泉郷・車なし1泊2日コース](/akita/dokokani-oga-onsen-1night-2days/)
