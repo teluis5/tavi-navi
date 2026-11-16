@@ -17,6 +17,11 @@ export interface Props {
   hotel?: number | string;
   localTransit?: number | string;
   meals?: number | string;
+  // 各項目の注記カスタマイズ用
+  shinkansenNote?: string;
+  hotelNote?: string;
+  localTransitNote?: string;
+  mealsNote?: string;
 }
 
 const {
@@ -30,6 +35,10 @@ const {
   hotel,
   localTransit,
   meals,
+  shinkansenNote,
+  hotelNote,
+  localTransitNote,
+  mealsNote,
 } = Astro.props;
 
 let budgetItems: BudgetItem[] = propItems || [];
@@ -40,28 +49,28 @@ if (!propItems || propItems.length === 0) {
     autoItems.push({
       category: '往復交通（新幹線・特急等）',
       amount: shinkansen,
-      note: typeof shinkansen === 'string' && shinkansen.includes('pt') ? 'JRE POINT利用' : '通常期指定席目安',
+      note: shinkansenNote || (typeof shinkansen === 'string' && shinkansen.includes('pt') ? 'JRE POINT利用' : '通常期指定席目安'),
     });
   }
   if (hotel !== undefined) {
     autoItems.push({
       category: '宿泊費（1泊）',
       amount: hotel,
-      note: '平日〜休前日の最安〜標準目安',
+      note: hotelNote || '1泊2食付（平日目安）',
     });
   }
   if (localTransit !== undefined) {
     autoItems.push({
       category: '現地交通（バス・路線）',
       amount: localTransit,
-      note: '周遊バス・路線バス運賃',
+      note: localTransitNote || '周遊バス・路線バス運賃',
     });
   }
   if (meals !== undefined) {
     autoItems.push({
       category: '飲食・現地体験',
       amount: meals,
-      note: 'ランチ・名物グルメ・入場料など',
+      note: mealsNote || 'ランチ・名物グルメ・入場料など',
     });
   }
   budgetItems = autoItems;
