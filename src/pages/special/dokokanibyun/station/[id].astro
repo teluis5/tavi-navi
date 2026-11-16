@@ -48,7 +48,18 @@ const description = `${station.name}駅からの旅を計画。${station.highlig
     <section class="section">
       <p class="eyebrow">HIGHLIGHTS</p>
       <h2>{station.name}駅からの見どころ</h2>
-      <p class="spot">{station.bestSpot}</p>
+      {station.id === 'akita' ? <div class="courses">
+        <a href="/akita/akitainu-station/">
+          <img src="/thumbnails/akita-course-akitainu-v1.webp" alt="秋田犬ステーション" loading="lazy" />
+          <strong>秋田犬ステーション（エリアなかいち）</strong>
+          <span>秋田駅徒歩10分。本物のモフモフ秋田犬にガラス越しで会える！出勤日・限定グッズ・見学ガイド。</span>
+        </a>
+        <a href="/akita/shimin-ichiba/">
+          <img src="/thumbnails/akita-course-gourmet-v1.webp" alt="秋田市民市場" loading="lazy" />
+          <strong>秋田市民市場（秋田の台所）</strong>
+          <span>秋田駅徒歩5分。約70店が並ぶ昭和レトロ市場。朝獲れ海鮮丼、名物筋子・たらこ、いぶりがっこ。</span>
+        </a>
+      </div> : <p class="spot">{station.bestSpot}</p>}
       <p class="note">観光地によって駅からの距離や交通手段は異なります。営業時間や移動方法を事前にご確認ください。</p>
     </section>
 
