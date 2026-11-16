@@ -3,6 +3,9 @@
  */
 
 export const RAKUTEN_AFFILIATE_ID = '5953a273.5cc8e490.5953a274.81eca08c';
+export const RAKUTEN_RENTACAR_AFFILIATE_ID = '59996df7.62348333.59996df9.f8832ab8';
+export const RAKUTEN_RENTACAR_AFFILIATE_URL =
+  'https://hb.afl.rakuten.co.jp/hgc/59996df7.62348333.59996df9.f8832ab8/?pc=https%3A%2F%2Ftravel.rakuten.co.jp%2Fcars%2F&link_type=hybrid_url&ut=eyJwYWdlIjoidXJsIiwidHlwZSI6Imh5YnJpZF91cmwiLCJjb2wiOjF9';
 export const VALUECOMMERCE_SID = '3787762';
 export const VC_PID_YAHOO = '892747331';
 export const VC_PID_JALAN = '892747339';

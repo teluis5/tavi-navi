@@ -1,5 +1,5 @@
 ---
-import { RAKUTEN_AFFILIATE_ID } from '../utils/affiliate';
+import { RAKUTEN_AFFILIATE_ID, RAKUTEN_RENTACAR_AFFILIATE_URL } from '../utils/affiliate';
 
 export interface Props {
   destination?: string;
@@ -10,6 +10,7 @@ export interface Props {
   pref?: string;
   asoviewAreaId?: string;
   asoviewUrl?: string;
+  rentacarUrl?: string;
 }
 
 const {
@@ -21,6 +22,7 @@ const {
   pref,
   asoviewAreaId: propAsoviewAreaId,
   asoviewUrl: propAsoviewUrl,
+  rentacarUrl: propRentacarUrl,
 } = Astro.props;
 
 // アソビュー！エリアIDマッピング（主要観光エリアの公式destinationId）
@@ -73,10 +75,7 @@ if (!asoviewUrl) {
 }
 
 // 楽天レンタカー公式アフィリエイトURL
-const rentacarTargetUrl = station
-  ? `https://travel.rakuten.co.jp/cars/search/?search_type=1&keyword=${encodeURIComponent(station)}`
-  : `https://travel.rakuten.co.jp/cars/`;
-const rakutenRentacarUrl = `https://hb.afl.rakuten.co.jp/hgc/${RAKUTEN_AFFILIATE_ID}/?pc=${encodeURIComponent(rentacarTargetUrl)}`;
+const rakutenRentacarUrl = propRentacarUrl || RAKUTEN_RENTACAR_AFFILIATE_URL;
 
 // JR東日本 / どこかにビューーン / ダイナミックレールパック
 const dokokaniByunUrl = 'https://dokokani-byun.com/';
