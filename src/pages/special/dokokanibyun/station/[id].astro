@@ -59,6 +59,12 @@ const description = `${station.name}駅からの旅を計画。${station.highlig
           <strong>秋田市民市場（秋田の台所）</strong>
           <span>秋田駅徒歩5分。約70店が並ぶ昭和レトロ市場。朝獲れ海鮮丼、名物筋子・たらこ、いぶりがっこ。</span>
         </a>
+      </div> : station.id === 'kakunodate' ? <div class="courses">
+        <a href="/akita/kakunodate-bukeyashiki/">
+          <img src="/thumbnails/akita-course-city-v1.webp" alt="角館 武家屋敷通り" loading="lazy" />
+          <strong>角館 武家屋敷通り（みちのくの小京都）</strong>
+          <span>角館駅徒歩15分。黒板塀の重厚な街並み、青柳家・石黒家見学、シダレザクラと四季の絶景。</span>
+        </a>
       </div> : <p class="spot">{station.bestSpot}</p>}
       <p class="note">観光地によって駅からの距離や交通手段は異なります。営業時間や移動方法を事前にご確認ください。</p>
     </section>

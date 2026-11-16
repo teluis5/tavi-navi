@@ -37,6 +37,7 @@ export const DOKOKANI_STATIONS: DokokaniStation[] = [
     prefName: '秋田県',
     noCarRating: '◎ 駅前完結',
     highlight: '「みちのくの小京都」。駅から徒歩で重厚な武家屋敷通りへ',
+    courseUrl: '/akita/kakunodate-bukeyashiki/',
     travelTimeFromTokyo: '約3時間（こまち）',
     bestSpot: '角館武家屋敷通り・桜並木',
   },
