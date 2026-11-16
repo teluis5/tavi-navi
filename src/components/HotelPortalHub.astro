@@ -79,6 +79,7 @@ const hasAnyBooking = hasHotelInfo && !!(rakutenBookingUrl || yahooData || jalan
 {hasAnyBooking ? (
   isSearchMore && !yahooData && !jalanData ? (
     <div class="hotel-portal-hub">
+      {showPrice && hotelNo && <HotelPrice hotelNo={hotelNo} />}
       <a
         href={rakutenBookingUrl}
         target="_blank"
@@ -88,10 +89,10 @@ const hasAnyBooking = hasHotelInfo && !!(rakutenBookingUrl || yahooData || jalan
         <span>楽天トラベルでこのエリアの宿を探す</span>
         <span class="cta-arrow">→</span>
       </a>
-      {showPrice && hotelNo && <HotelPrice hotelNo={hotelNo} />}
     </div>
   ) : (
     <div class="hotel-portal-hub">
+      {showPrice && hotelNo && <HotelPrice hotelNo={hotelNo} />}
       <div class="portal-hub-header">
         <span class="portal-hub-label">
           {isSearchMore ? '旅行サイトで周辺の宿を探す' : '旅行サイトでこの宿を確認'}
@@ -154,7 +155,6 @@ const hasAnyBooking = hasHotelInfo && !!(rakutenBookingUrl || yahooData || jalan
           </a>
         )}
       </div>
-      {showPrice && hotelNo && <HotelPrice hotelNo={hotelNo} />}
     </div>
   )
 ) : (
@@ -199,6 +199,14 @@ const hasAnyBooking = hasHotelInfo && !!(rakutenBookingUrl || yahooData || jalan
     border-top: 1px solid #e2e8f0;
     background: transparent;
     border-radius: 0;
+  }
+  .hotel-portal-hub :global(.hotel-price-box) {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed #e2e8f0;
   }
   .portal-hub-header {
     display: flex;
