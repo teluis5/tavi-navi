@@ -6,7 +6,11 @@ import {
   JALAN_RENTACAR_TRACKING_PIXEL,
   BUDGET_RENTACAR_AFFILIATE_URL,
   BUDGET_RENTACAR_TRACKING_PIXEL,
+  buildRakutenRentacarUrl,
+  buildJalanRentacarUrl,
+  buildBudgetRentacarUrl,
 } from '../utils/affiliate';
+import { PREFECTURES } from '../data/prefectures';
 
 export interface Props {
   destination?: string;
@@ -85,10 +89,16 @@ if (!asoviewUrl) {
   }
 }
 
-// レンタカー公式アフィリエイトURL（楽天・じゃらん・バジェット）
-const rakutenRentacarUrl = propRentacarUrl || RAKUTEN_RENTACAR_AFFILIATE_URL;
-const jalanRentacarUrl = propJalanRentacarUrl || JALAN_RENTACAR_AFFILIATE_URL;
-const budgetRentacarUrl = propBudgetRentacarUrl || BUDGET_RENTACAR_AFFILIATE_URL;
+// 都道府県情報の取得（JISコード解決用）
+const prefObj = pref ? PREFECTURES.find((p) => p.id === pref) : undefined;
+const prefCode = prefObj?.code;
+
+// レンタカー公式アフィリエイトURL（駅・地区自動プレフィックス、店舗なし時nullで非表示）
+const rakutenRentacarUrl = propRentacarUrl || buildRakutenRentacarUrl({ station, pref });
+const jalanRentacarUrl = propJalanRentacarUrl || buildJalanRentacarUrl({ station, pref, prefCode });
+const budgetRentacarUrl = propBudgetRentacarUrl !== undefined
+  ? propBudgetRentacarUrl
+  : buildBudgetRentacarUrl({ station, pref });
 
 // JR東日本 / どこかにビューーン / ダイナミックレールパック
 const dokokaniByunUrl = 'https://dokokani-byun.com/';
@@ -143,51 +153,61 @@ const jreDynamicRailUrl = 'https://www.jre-travel.com/';
           <span class="card-tag">駅前レンタカー</span>
           <h4 class="card-name">レンタカー比較・予約</h4>
           <p class="card-text">
-            {station ? `${station}周辺` : `${destination}周辺`}の各社レンタカーを最安値比較。楽天・じゃらん・バジェットの割引プランやポイントが使えます。
+            {station ? `${station}周辺` : `${destination}周辺`}の各社レンタカーを最安値比較。{budgetRentacarUrl ? '楽天・じゃらん・バジェットの割引プランやポイントが使えます。' : '楽天トラベル・じゃらんの割引プランやポイントが使えます。'}
           </p>
         </div>
         <div class="card-actions">
-          <a
-            href={rakutenRentacarUrl}
-            target="_blank"
-            rel="noopener sponsored"
-            class="hub-btn btn-rentacar-rakuten"
-            title="楽天トラベルでレンタカーを最安値比較"
-          >
-            楽天トラベル レンタカー →
-          </a>
-          <a
-            href={jalanRentacarUrl}
-            target="_blank"
-            rel="noopener sponsored"
-            class="hub-btn btn-rentacar-jalan"
-            title="じゃらんでレンタカーを最安値比較"
-          >
-            じゃらんレンタカー →
-          </a>
-          <a
-            href={budgetRentacarUrl}
-            target="_blank"
-            rel="noopener sponsored"
-            class="hub-btn btn-rentacar-budget"
-            title="バジェット・レンタカーで最安値比較・予約"
-          >
-            バジェット・レンタカー →
-          </a>
-          <img
-            src={JALAN_RENTACAR_TRACKING_PIXEL}
-            height="1"
-            width="1"
-            alt=""
-            style="display:none;"
-          />
-          <img
-            src={BUDGET_RENTACAR_TRACKING_PIXEL}
-            height="1"
-            width="1"
-            alt=""
-            style="display:none;"
-          />
+          {rakutenRentacarUrl && (
+            <a
+              href={rakutenRentacarUrl}
+              target="_blank"
+              rel="noopener sponsored"
+              class="hub-btn btn-rentacar-rakuten"
+              title="楽天トラベルでレンタカーを最安値比較"
+            >
+              楽天トラベル レンタカー →
+            </a>
+          )}
+          {jalanRentacarUrl && (
+            <a
+              href={jalanRentacarUrl}
+              target="_blank"
+              rel="noopener sponsored"
+              class="hub-btn btn-rentacar-jalan"
+              title="じゃらんでレンタカーを最安値比較"
+            >
+              じゃらんレンタカー →
+            </a>
+          )}
+          {budgetRentacarUrl && (
+            <a
+              href={budgetRentacarUrl}
+              target="_blank"
+              rel="noopener sponsored"
+              class="hub-btn btn-rentacar-budget"
+              title="バジェット・レンタカーで最安値比較・予約"
+            >
+              バジェット・レンタカー →
+            </a>
+          )}
+          {jalanRentacarUrl && (
+            <img
+              src={JALAN_RENTACAR_TRACKING_PIXEL}
+              height="1"
+              width="1"
+              alt=""
+              style="display:none;"
+            />
+          )}
+          {budgetRentacarUrl && (
+            <img
+              src={BUDGET_RENTACAR_TRACKING_PIXEL}
+              height="1"
+              width="1"
+              alt=""
+              style="display:none;"
+            />
+          )}
         </div>
       </div>
     )}
