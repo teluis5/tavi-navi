@@ -1,8 +1,8 @@
 ---
-title: "どこかにビューーン！秋田市内｜車なし1泊2日モデルコース"
-description: "どこかにビューーン！で秋田駅が当たった人向けの車なし1泊2日モデルコース。千秋公園、秋田県立美術館、ねぶり流し館、駅周辺の郷土料理と宿を徒歩中心で巡る行程を公式情報を基にまとめます。"
+title: "どこかにビューーン！秋田市内｜名所・秋田犬ふれあい車なし1泊2日モデルコース"
+description: "どこかにビューーン！で秋田駅が当たった人向けの車なし1泊2日モデルコース。千秋公園、秋田犬ステーションでの秋田犬ふれあい、秋田県立美術館、ねぶり流し館、駅周辺の郷土料理と宿を徒歩中心で巡る行程を公式情報を基にまとめます。"
 pubDate: 2026-11-14
-updatedDate: 2026-11-14
+updatedDate: 2026-11-16
 lang: "ja"
 pref: "akita"
 category: "モデルコース"
@@ -10,7 +10,7 @@ season: "通年"
 departure: "tokyo"
 duration: "1泊2日"
 cities: ["akita-city"]
-tags: ["どこかにビューーン！", "新幹線", "秋田駅", "秋田市", "1泊2日", "車なしプランあり", "モデルコース"]
+tags: ["どこかにビューーン！", "新幹線", "秋田駅", "秋田市", "秋田犬", "1泊2日", "車なしプランあり", "モデルコース"]
 ---
 import ConclusionBox from '../../components/ConclusionBox.astro';
 import TravelTimeline from '../../components/TravelTimeline.astro';
@@ -19,6 +19,7 @@ import TransitBookingHub from '../../components/TransitBookingHub.astro';
 import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
 import photoSenshuPark from '../../assets/photos/akita_compressed/senshu-park.webp';
 import photoSenshuSatake from '../../assets/photos/akita_compressed/senshu-park-satake.webp';
+import photoAkitaInu from '../../assets/photos/akita_compressed/05秋田犬ステーション.webp';
 import photoMuseum from '../../assets/photos/akita_compressed/01秋田県立美術館.webp';
 import photoNeburi from '../../assets/photos/akita_compressed/01秋田市民俗芸能伝承館 ねぶり流し館.webp';
 import photoKiritanpo from '../../assets/photos/akita_compressed/03きりたんぽ鍋.webp';
@@ -90,7 +91,27 @@ JR東日本および各施設の公式案内を基にした行程案です（202
           links: [{ label: "秋田県立美術館 交通案内", href: "https://www.akita-museum-of-art.jp/contents/contents_show.php?contents_id=76" }],
           points: [
             "秋田駅西口から徒歩約10分。開館10:00〜18:00（入館17:30まで）",
+            "平野政吉コレクションの大壁画「秋田の行事」や水庭の美しい眺望が見どころ",
             "不定休（展示替えやメンテナンスによる臨時休館あり）のため事前確認"
+          ],
+          transitDetail: {
+            method: "商業棟1Fへ徒歩すぐ",
+            route: "美術館 ➔ 秋田犬ステーション"
+          }
+        },
+        {
+          leadHeading: "エリアなかいち1階で本物の秋田犬に会える！",
+          areaLabel: "中通・エリアなかいち商業棟1F",
+          title: "秋田犬ステーション（秋田犬ふれあい）",
+          categoryLabel: "観光施設・動物ふれあい",
+          duration: "目安 30分",
+          image: photoAkitaInu,
+          imageCredit: "Akita Prefecture",
+          links: [{ label: "秋田犬ステーション 公式情報（ONE FOR AKITA）", href: "https://www.oneforakita.jp/" }],
+          points: [
+            "エリアなかいち商業棟1Fで、ガラス越しに本物の秋田犬を見学・ふれあい可能",
+            "出勤日時は公式Web・SNSで要確認（主に火・木・土・日・祝など）",
+            "可愛い秋田犬モチーフのオリジナル雑貨やお土産も人気"
           ],
           transitDetail: {
             method: "徒歩で駅周辺・川反方面へ",
@@ -285,12 +306,12 @@ JR東日本および各施設の公式案内を基にした行程案です（202
 
 - [どこかにビューーン！秋田駅ガイド](/special/dokokanibyun/station/akita/)
 - [秋田駅発・車なし4コースの比較ハブへ戻る](/akita/dokokani-akita-station-courses/)
-- [秋田港セリオン・車なし1泊2日コース](/akita/dokokani-akita-port-1night-2days/)
+- [秋田グルメ食い倒れ・車なし1泊2日コース](/akita/dokokani-gourmet-1night-2days/)
 - [男鹿温泉郷・車なし1泊2日コース](/akita/dokokani-oga-onsen-1night-2days/)
 - [秋田市内＋男鹿温泉・車なし2泊3日コース](/akita/dokokani-akita-oga-2nights-3days/)
 
 <ConclusionBox>
-- 秋田駅周辺に泊まれば、千秋公園・秋田県立美術館・ねぶり流し館を徒歩中心で巡れる。
+- 秋田駅周辺に泊まれば、千秋公園・秋田県立美術館・秋田犬ステーション・ねぶり流し館を徒歩中心で巡れる。
+- エリアなかいちで本物の秋田犬に会える（出勤日は事前に公式確認）。
 - 到着が遅い日は1日目を夕食中心にし、2日目に観光を寄せて調整する。
-- 各施設の開館時間・休館日と、指定新幹線の時刻を出発前に確認する。
 </ConclusionBox>
