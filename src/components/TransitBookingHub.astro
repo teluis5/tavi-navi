@@ -9,16 +9,18 @@ import {
   buildRakutenRentacarUrl,
   buildJalanRentacarUrl,
   buildBudgetRentacarUrl,
+  buildRakutenTravelUrl,
 } from '../utils/affiliate';
-import { PREFECTURES } from '../data/prefectures';
+import { PREFECTURES, type Prefecture } from '../data/prefectures';
 
 export interface Props {
   destination?: string;
   station?: string;
-  transportType?: 'shinkansen' | 'rentacar' | 'all';
-  showExperience?: boolean;
-  title?: string;
   pref?: string;
+  title?: string;
+  transportType?: 'all' | 'rentacar' | 'transit' | 'shinkansen';
+  ticketType?: 'auto' | 'dokokani' | 'shinkansen' | 'jr-pack' | 'flight' | 'bus';
+  showExperience?: boolean;
   asoviewAreaId?: string;
   asoviewUrl?: string;
   rentacarUrl?: string;
@@ -27,12 +29,13 @@ export interface Props {
 }
 
 const {
-  destination = '目的地',
+  destination = '',
   station = '',
-  transportType = 'all',
-  showExperience = true,
+  pref = '',
   title,
-  pref,
+  transportType = 'all',
+  ticketType = 'auto',
+  showExperience = true,
   asoviewAreaId: propAsoviewAreaId,
   asoviewUrl: propAsoviewUrl,
   rentacarUrl: propRentacarUrl,
@@ -40,7 +43,15 @@ const {
   budgetRentacarUrl: propBudgetRentacarUrl,
 } = Astro.props;
 
-// アソビュー！エリアIDマッピング（主要観光エリアの公式destinationId）
+// 都道府県情報の取得（JISコードおよびエリア解決用）
+const prefObj = pref ? PREFECTURES.find((p) => p.id === pref) : undefined;
+const prefCode = prefObj?.code;
+const prefName = prefObj?.nameJa || '';
+
+// 表示用ラベルの決定
+const displayDestination = destination || (station ? `${station}周辺` : prefName ? `${prefName}エリア` : '目的地');
+
+// アソビュー！エリアIDマッピング（全国主要観光エリアの公式destinationId）
 const ASOVIEW_AREA_MAP: Record<string, string> = {
   // 秋田
   '田沢湖': 'are0050300',
@@ -49,6 +60,7 @@ const ASOVIEW_AREA_MAP: Record<string, string> = {
   '仙北': 'are0050300',
   '横手': 'are0050300',
   '秋田市': 'are0050100',
+  '秋田': 'are0050100',
   '男鹿': 'are0050200',
   '白神': 'are0050200',
   '十和田': 'are0050400',
@@ -58,6 +70,7 @@ const ASOVIEW_AREA_MAP: Record<string, string> = {
   '青森': 'are0020100',
   '弘前': 'are0020200',
   '八戸': 'are0020300',
+  '奥入瀬': 'are0020400',
   // 岩手
   '盛岡': 'are0030100',
   '花巻': 'are0030200',
@@ -65,6 +78,32 @@ const ASOVIEW_AREA_MAP: Record<string, string> = {
   // 宮城
   '仙台': 'are0040100',
   '松島': 'are0040200',
+  // 山形
+  '山形': 'are0060100',
+  '米沢': 'are0060200',
+  '蔵王': 'are0060100',
+  // 福島
+  '会津若松': 'are0070200',
+  '郡山': 'are0070100',
+  'いわき': 'are0070300',
+  // 静岡・神奈川・東京
+  '熱海': 'are0220100',
+  '伊東': 'are0220200',
+  '伊豆': 'are0220300',
+  '横浜': 'are0140100',
+  '箱根': 'are0140300',
+  '鎌倉': 'are0140200',
+  // 京都・関西
+  '京都': 'are0260100',
+  '嵐山': 'are0260200',
+  '宇治': 'are0260300',
+  '大阪': 'are0270100',
+  // 北海道
+  '札幌': 'are0010100',
+  '小樽': 'are0010200',
+  '富良野': 'are0010400',
+  '美瑛': 'are0010400',
+  '函館': 'are0010300',
 };
 
 // アソビュー！地域絞り込みURL解決
@@ -72,7 +111,7 @@ let asoviewUrl = propAsoviewUrl || '';
 if (!asoviewUrl) {
   let resolvedAreaId = propAsoviewAreaId;
   if (!resolvedAreaId) {
-    const searchTarget = `${destination} ${station}`;
+    const searchTarget = `${displayDestination} ${station} ${prefName}`;
     for (const [key, code] of Object.entries(ASOVIEW_AREA_MAP)) {
       if (searchTarget.includes(key)) {
         resolvedAreaId = code;
@@ -84,14 +123,11 @@ if (!asoviewUrl) {
   if (resolvedAreaId) {
     asoviewUrl = `https://www.asoview.com/search/?adultQuantity=1&destinationId=${resolvedAreaId}&destinationType=area`;
   } else {
-    // 未設定時のフォールバック（田沢湖・角館エリア）
-    asoviewUrl = 'https://www.asoview.com/search/?adultQuantity=1&destinationId=are0050300&destinationType=area';
+    // 未設定時は目的地キーワードによる全国対応検索
+    const query = destination || station || prefName || '観光';
+    asoviewUrl = `https://www.asoview.com/search/?keyword=${encodeURIComponent(query)}`;
   }
 }
-
-// 都道府県情報の取得（JISコード解決用）
-const prefObj = pref ? PREFECTURES.find((p) => p.id === pref) : undefined;
-const prefCode = prefObj?.code;
 
 // レンタカー公式アフィリエイトURL（駅・地区自動プレフィックス、店舗なし時nullで非表示）
 const rakutenRentacarUrl = propRentacarUrl || buildRakutenRentacarUrl({ station, pref });
@@ -100,24 +136,55 @@ const budgetRentacarUrl = propBudgetRentacarUrl !== undefined
   ? propBudgetRentacarUrl
   : buildBudgetRentacarUrl({ station, pref });
 
-// JR東日本 / どこかにビューーン / ダイナミックレールパック
-const dokokaniByunUrl = 'https://dokokani-byun.com/';
-const jreDynamicRailUrl = 'https://www.jre-travel.com/';
+// チケット種別の自動判定（全国展開対応）
+const isEastJapan = [
+  'aomori', 'iwate', 'miyagi', 'akita', 'yamagata', 'fukushima',
+  'ibaraki', 'tochigi', 'gunma', 'saitama', 'chiba', 'tokyo', 'kanagawa',
+  'niigata', 'nagano', 'yamanashi'
+].includes(pref);
+
+const isTokaidoSanyo = [
+  'shizuoka', 'aichi', 'gifu', 'mie', 'shiga', 'kyoto', 'osaka', 'hyogo',
+  'okayama', 'hiroshima', 'yamaguchi'
+].includes(pref);
+
+const isHokuriku = ['toyama', 'ishikawa', 'fukui'].includes(pref);
+const isKyushu = ['fukuoka', 'saga', 'nagasaki', 'kumamoto', 'oita', 'miyazaki', 'kagoshima'].includes(pref);
+const isFlightArea = ['hokkaido', 'okinawa'].includes(pref);
+
+let resolvedTicketType = ticketType;
+if (resolvedTicketType === 'auto') {
+  if (isFlightArea) {
+    resolvedTicketType = 'flight';
+  } else if (isEastJapan) {
+    // 東日本エリアはどこかにビューーン＋ダイナミックレールパックが最も高CVR
+    resolvedTicketType = 'dokokani';
+  } else if (isTokaidoSanyo || isHokuriku) {
+    resolvedTicketType = 'shinkansen';
+  } else if (isKyushu) {
+    resolvedTicketType = 'shinkansen';
+  } else {
+    resolvedTicketType = 'shinkansen';
+  }
+}
+
+const showTransitCard = transportType === 'all' || transportType === 'transit' || transportType === 'shinkansen';
+const showRentacarCard = transportType === 'all' || transportType === 'rentacar';
 ---
 
 <aside class="transit-booking-section" aria-labelledby="transit-booking">
   <div class="transit-hub-section-header">
     <h2 class="transit-hub-title" id="transit-booking">
       <span class="transit-hub-badge">予約ハブ</span>
-      <span>{title || `${destination}への移動・現地チケットを予約する`}</span>
+      <span>{title || `${displayDestination}への移動・現地チケットを予約する`}</span>
     </h2>
     <p class="transit-hub-desc">
-      新幹線チケットや駅前レンタカー、周辺の観光前売り券は事前予約がスムーズです。
+      新幹線・交通チケットや駅前レンタカー、周辺の観光前売り券は事前予約がスムーズです。
     </p>
   </div>
 
   <div class="transit-hub-grid">
-    {(transportType === 'all' || transportType === 'shinkansen') && (
+    {showTransitCard && resolvedTicketType === 'dokokani' && (
       <div class="transit-card">
         <div class="card-body">
           <span class="card-tag">新幹線・JRセット</span>
@@ -126,7 +193,7 @@ const jreDynamicRailUrl = 'https://www.jre-travel.com/';
         </div>
         <div class="card-actions">
           <a
-            href={dokokaniByunUrl}
+            href="https://dokokani-byun.com/"
             target="_blank"
             rel="noopener noreferrer"
             class="hub-btn btn-dokokani"
@@ -135,7 +202,7 @@ const jreDynamicRailUrl = 'https://www.jre-travel.com/';
             どこかにビューーン！公式 →
           </a>
           <a
-            href={jreDynamicRailUrl}
+            href="https://www.jre-travel.com/"
             target="_blank"
             rel="noopener noreferrer"
             class="hub-btn btn-jr-pack"
@@ -147,13 +214,77 @@ const jreDynamicRailUrl = 'https://www.jre-travel.com/';
       </div>
     )}
 
-    {(transportType === 'all' || transportType === 'rentacar') && (
+    {showTransitCard && resolvedTicketType === 'shinkansen' && (
+      <div class="transit-card">
+        <div class="card-body">
+          <span class="card-tag">新幹線・特急予約</span>
+          <h4 class="card-name">新幹線・JRチケット</h4>
+          <p class="card-text">
+            {isTokaidoSanyo ? '東海道・山陽新幹線はスマートEXで簡単予約。JR・新幹線＋宿泊パックならさらにお得です。' : '新幹線・特急チケットの事前予約や、列車＋宿泊がセットになったお得なパックプラン。'}
+          </p>
+        </div>
+        <div class="card-actions">
+          <a
+            href={isTokaidoSanyo ? "https://smart-ex.jp/" : "https://www.eki-net.com/"}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hub-btn btn-dokokani"
+            title="新幹線・JR公式予約ページへ"
+          >
+            {isTokaidoSanyo ? 'スマートEXで予約 →' : '新幹線チケット予約 →'}
+          </a>
+          <a
+            href={buildRakutenTravelUrl({ keyword: `${displayDestination} 新幹線 パック` })}
+            target="_blank"
+            rel="noopener sponsored"
+            class="hub-btn btn-jr-pack"
+            title="新幹線＋宿泊セットを検索"
+          >
+            新幹線＋宿セット予約 →
+          </a>
+        </div>
+      </div>
+    )}
+
+    {showTransitCard && resolvedTicketType === 'flight' && (
+      <div class="transit-card">
+        <div class="card-body">
+          <span class="card-tag">航空券・ツアー</span>
+          <h4 class="card-name">飛行機・ツアー予約</h4>
+          <p class="card-text">
+            {displayDestination}への航空券＋宿泊がセットになったダイナミックパッケージでお得に予約。
+          </p>
+        </div>
+        <div class="card-actions">
+          <a
+            href={buildRakutenTravelUrl({ keyword: `${displayDestination} ツアー 航空券` })}
+            target="_blank"
+            rel="noopener sponsored"
+            class="hub-btn btn-jr-pack"
+            title="楽天トラベルで航空券＋宿セットを予約"
+          >
+            航空券＋宿泊パック予約 →
+          </a>
+          <a
+            href="https://www.jal.co.jp/jp/ja/domtour/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hub-btn btn-dokokani"
+            title="JALダイナミックパッケージへ"
+          >
+            JAL航空パックを探す →
+          </a>
+        </div>
+      </div>
+    )}
+
+    {showRentacarCard && (
       <div class="transit-card">
         <div class="card-body">
           <span class="card-tag">駅前レンタカー</span>
           <h4 class="card-name">レンタカー比較・予約</h4>
           <p class="card-text">
-            {station ? `${station}周辺` : `${destination}周辺`}の各社レンタカーを最安値比較。{budgetRentacarUrl ? '楽天・じゃらん・バジェットの割引プランやポイントが使えます。' : '楽天トラベル・じゃらんの割引プランやポイントが使えます。'}
+            {station ? `${station}周辺` : `${displayDestination}周辺`}の各社レンタカーを最安値比較。{budgetRentacarUrl ? '楽天・じゃらん・バジェットの割引プランやポイントが使えます。' : '楽天トラベル・じゃらんの割引プランやポイントが使えます。'}
           </p>
         </div>
         <div class="card-actions">
@@ -212,13 +343,13 @@ const jreDynamicRailUrl = 'https://www.jre-travel.com/';
       </div>
     )}
 
-    {(transportType === 'all' || showExperience) && (
+    {showExperience && (
       <div class="transit-card">
         <div class="card-body">
           <span class="card-tag">遊び・体験・温泉チケット</span>
           <h4 class="card-name">アソビュー！</h4>
           <p class="card-text">
-            {destination ? `${destination}周辺` : '現地エリア'}の日帰り温泉・アクティビティ・前売り電子チケットを事前予約。
+            {displayDestination}周辺の日帰り温泉・アクティビティ・前売り電子チケットを事前予約。
           </p>
         </div>
         <div class="card-actions">

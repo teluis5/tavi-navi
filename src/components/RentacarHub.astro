@@ -1,0 +1,22 @@
+---
+import TransitBookingHub from './TransitBookingHub.astro';
+
+export interface Props {
+  station?: string;
+  pref?: string;
+  destination?: string;
+  title?: string;
+  rentacarUrl?: string;
+  jalanRentacarUrl?: string;
+  budgetRentacarUrl?: string;
+}
+
+const props = Astro.props;
+---
+
+<TransitBookingHub
+  transportType="rentacar"
+  showExperience={false}
+  title={props.title || (props.station ? `${props.station}周辺のレンタカー最安値予約` : 'レンタカー比較・最安値予約')}
+  {...props}
+/>
