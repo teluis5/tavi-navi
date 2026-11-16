@@ -492,8 +492,12 @@ const sortedCategories = Array.from(categoryPostsMap.entries())
 				btn.setAttribute('aria-selected', 'true');
 				btn.setAttribute('tabindex', '0');
 
-				// タブがスクロール領域で見切れている場合はフォーカス位置にスクロール
-				btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+				// タブがスクロール領域で見切れている場合はフォーカス位置に横スクロール（縦スクロール巻き込み防止）
+				const tabNav = container.querySelector<HTMLElement>('.tab-nav');
+				if (tabNav) {
+					const targetScroll = btn.offsetLeft - tabNav.clientWidth / 2 + btn.clientWidth / 2;
+					tabNav.scrollTo({ left: Math.max(0, targetScroll), behavior: 'smooth' });
+				}
 
 				// パネルの表示切り替え
 				tabPanels.forEach((p) => {

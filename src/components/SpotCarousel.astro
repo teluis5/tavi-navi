@@ -92,18 +92,20 @@ function cleanText(text?: string): string {
     containers.forEach((container) => {
       const track = container.querySelector<HTMLElement>('.peeking-carousel-track');
       const tabs = container.querySelectorAll<HTMLButtonElement>('.swipe-tab-btn');
+      const tabScroll = container.querySelector<HTMLElement>('.swipe-tab-scroll');
       const dots = container.querySelectorAll<HTMLElement>('.indicator-dot');
       const slides = container.querySelectorAll<HTMLElement>('.carousel-slide-item');
 
       if (!track || slides.length === 0) return;
 
-      const updateActive = (idx: number) => {
+      const updateActive = (idx: number, scrollTab = false) => {
         tabs.forEach((tab, i) => {
           const isActive = i === idx;
           tab.classList.toggle('is-active', isActive);
           tab.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-          if (isActive) {
-            tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+          if (isActive && scrollTab && tabScroll) {
+            const targetScroll = tab.offsetLeft - tabScroll.clientWidth / 2 + tab.clientWidth / 2;
+            tabScroll.scrollTo({ left: Math.max(0, targetScroll), behavior: 'smooth' });
           }
         });
 
@@ -116,20 +118,27 @@ function cleanText(text?: string): string {
         });
       };
 
-      // タブクリック
+      // タブクリック：画面全体の縦スクロールを一切巻き込まず、トラック内のみ横スクロール
       tabs.forEach((tab) => {
         tab.addEventListener('click', () => {
           const idx = Number(tab.dataset.slideIndex);
           if (slides[idx]) {
-            slides[idx].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-            updateActive(idx);
+            track.scrollTo({ left: slides[idx].offsetLeft, behavior: 'smooth' });
+            updateActive(idx, true);
           }
         });
       });
 
-      // スクロール検知
+      // スクロール検知：初回読み込み時やページ遷移時の誤爆自動スクロールを完全防止
       let scrollTimer: any;
+      let isUserInteracting = false;
+
+      track.addEventListener('touchstart', () => { isUserInteracting = true; }, { passive: true });
+      track.addEventListener('mousedown', () => { isUserInteracting = true; }, { passive: true });
+
       track.addEventListener('scroll', () => {
+        if (!isUserInteracting) return;
+
         clearTimeout(scrollTimer);
         scrollTimer = setTimeout(() => {
           const trackRect = track.getBoundingClientRect();
@@ -148,7 +157,7 @@ function cleanText(text?: string): string {
             }
           });
 
-          updateActive(closestIdx);
+          updateActive(closestIdx, true);
         }, 50);
       }, { passive: true });
     });
