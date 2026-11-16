@@ -9,6 +9,11 @@ export const RAKUTEN_RENTACAR_AFFILIATE_URL =
 export const VALUECOMMERCE_SID = '3787762';
 export const VC_PID_YAHOO = '892747331';
 export const VC_PID_JALAN = '892747339';
+export const VC_PID_JALAN_RENTACAR = '892749661';
+export const JALAN_RENTACAR_AFFILIATE_URL =
+  'https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3787762&pid=892749661&vc_url=https%3A%2F%2Fwww.jalan.net%2Frentacar%2F%3Fvos%3Dafjlrpvczzzzx00000001';
+export const JALAN_RENTACAR_TRACKING_PIXEL =
+  'https://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3787762&pid=892749661';
 
 /**
  * 楽天トラベルの正規アフィリエイトリンクを生成

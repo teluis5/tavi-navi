@@ -1,5 +1,10 @@
 ---
-import { RAKUTEN_AFFILIATE_ID, RAKUTEN_RENTACAR_AFFILIATE_URL } from '../utils/affiliate';
+import {
+  RAKUTEN_AFFILIATE_ID,
+  RAKUTEN_RENTACAR_AFFILIATE_URL,
+  JALAN_RENTACAR_AFFILIATE_URL,
+  JALAN_RENTACAR_TRACKING_PIXEL,
+} from '../utils/affiliate';
 
 export interface Props {
   destination?: string;
@@ -11,6 +16,7 @@ export interface Props {
   asoviewAreaId?: string;
   asoviewUrl?: string;
   rentacarUrl?: string;
+  jalanRentacarUrl?: string;
 }
 
 const {
@@ -23,6 +29,7 @@ const {
   asoviewAreaId: propAsoviewAreaId,
   asoviewUrl: propAsoviewUrl,
   rentacarUrl: propRentacarUrl,
+  jalanRentacarUrl: propJalanRentacarUrl,
 } = Astro.props;
 
 // アソビュー！エリアIDマッピング（主要観光エリアの公式destinationId）
@@ -74,8 +81,9 @@ if (!asoviewUrl) {
   }
 }
 
-// 楽天レンタカー公式アフィリエイトURL
+// レンタカー公式アフィリエイトURL（楽天・じゃらん）
 const rakutenRentacarUrl = propRentacarUrl || RAKUTEN_RENTACAR_AFFILIATE_URL;
+const jalanRentacarUrl = propJalanRentacarUrl || JALAN_RENTACAR_AFFILIATE_URL;
 
 // JR東日本 / どこかにビューーン / ダイナミックレールパック
 const dokokaniByunUrl = 'https://dokokani-byun.com/';
@@ -128,9 +136,9 @@ const jreDynamicRailUrl = 'https://www.jre-travel.com/';
       <div class="transit-card">
         <div class="card-body">
           <span class="card-tag">駅前レンタカー</span>
-          <h4 class="card-name">楽天トラベル レンタカー</h4>
+          <h4 class="card-name">レンタカー比較・予約</h4>
           <p class="card-text">
-            {station ? `${station}周辺` : `${destination}周辺`}の各社レンタカーを最安値比較。楽天ポイントも貯まります。
+            {station ? `${station}周辺` : `${destination}周辺`}の各社レンタカーを最安値比較。楽天ポイントやdポイント・Pontaポイントも貯まります。
           </p>
         </div>
         <div class="card-actions">
@@ -138,11 +146,27 @@ const jreDynamicRailUrl = 'https://www.jre-travel.com/';
             href={rakutenRentacarUrl}
             target="_blank"
             rel="noopener sponsored"
-            class="hub-btn btn-rentacar"
-            title="楽天レンタカーで最安値を比較"
+            class="hub-btn btn-rentacar-rakuten"
+            title="楽天トラベルでレンタカーを最安値比較"
           >
-            レンタカーを比較・予約 →
+            楽天トラベル レンタカー →
           </a>
+          <a
+            href={jalanRentacarUrl}
+            target="_blank"
+            rel="noopener sponsored"
+            class="hub-btn btn-rentacar-jalan"
+            title="じゃらんでレンタカーを最安値比較"
+          >
+            じゃらんレンタカー →
+          </a>
+          <img
+            src={JALAN_RENTACAR_TRACKING_PIXEL}
+            height="1"
+            width="1"
+            alt=""
+            style="display:none;"
+          />
         </div>
       </div>
     )}
@@ -269,8 +293,13 @@ const jreDynamicRailUrl = 'https://www.jre-travel.com/';
     background: #16a34a;
     color: #ffffff !important;
   }
+  .btn-rentacar-rakuten,
   .btn-rentacar {
-    background: #dc2626;
+    background: #bf0000;
+    color: #ffffff !important;
+  }
+  .btn-rentacar-jalan {
+    background: #ff5a00;
     color: #ffffff !important;
   }
   .btn-asoview {
