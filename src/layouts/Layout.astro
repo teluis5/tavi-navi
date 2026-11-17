@@ -10,9 +10,10 @@ interface Props {
   image?: string;
   lang?: 'ja' | 'en';
   currentPref?: string;
+  fullWidth?: boolean;
 }
 
-const { title, description, image, lang = 'ja', currentPref } = Astro.props;
+const { title, description, image, lang = 'ja', currentPref, fullWidth = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -20,11 +21,22 @@ const { title, description, image, lang = 'ja', currentPref } = Astro.props;
   <head>
     <BaseHead title={title} description={description} image={image} lang={lang} />
   </head>
-  <body>
+  <body class={fullWidth ? 'layout-full-width' : undefined}>
     <Header lang={lang} currentPref={currentPref} />
-    <main>
+    <main class={fullWidth ? 'main-full-width' : undefined}>
       <slot />
     </main>
     <Footer lang={lang} />
   </body>
 </html>
+
+<style>
+  body.layout-full-width {
+    background: #ffffff;
+  }
+  main.main-full-width {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+</style>
