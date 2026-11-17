@@ -82,7 +82,7 @@ import TourismPhoto from '../../components/TourismPhoto.astro';
 
 ---
 
-## 3. アクセス・行き方
+## 3. アクセス・行き方（〇〇駅からのアクセス）
 
 <TransitStepBlock
   transitDetail={{
@@ -94,6 +94,13 @@ import TourismPhoto from '../../components/TourismPhoto.astro';
       "運行間隔：1時間に1〜2本（最終便〇〇:〇〇発に注意）"
     ]
   }}
+/>
+
+<SpotMap
+  title="{スポット名}"
+  query="{スポット名} 秋田県〇〇市〇〇町1-2-3"
+  address="〒000-0000 秋田県〇〇市〇〇町1-2-3"
+  note="駅前の観光案内所で手荷物預かりやレンタサイクルの利用も可能です。"
 />
 
 {/* ※ GTFS時刻表を表示する場合は timetable プロパティを併用
@@ -161,14 +168,6 @@ import TourismPhoto from '../../components/TourismPhoto.astro';
   extraItems={[
     { label: "バリアフリー", value: "スロープ・多目的トイレあり（ベビーカー利用可）" }
   ]}
-/>
-
-{/* ▼ 現地マップ（基本データとセットで記事終盤に配置） */}
-<SpotMap
-  title="{スポット名}"
-  query="{スポット名} 秋田県〇〇市〇〇町1-2-3"
-  address="〒000-0000 秋田県〇〇市〇〇町1-2-3"
-  note="駅前の観光案内所で手荷物預かりやレンタサイクルの利用も可能です。"
 />
 
 <RelatedCourseCards
