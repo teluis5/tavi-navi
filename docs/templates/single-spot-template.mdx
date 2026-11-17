@@ -1,0 +1,191 @@
+---
+# ★ 単一スポット特集テンプレート（src/content/articles/{pref}-{slug}.mdx へコピーして使用）
+# ※ スラッグ（ファイル名）は都道府県・市町村スラッグと衝突しない名前にすること。
+title: "【{スポット名} 完全ガイド】見どころ・混雑回避・営業時間・車なしアクセス"
+description: "{都道府県}{エリア}の人気スポット『{スポット名}』の完全ガイド。見どころやベストシーズン、営業時間・料金、最寄り駅からの車なしアクセス、周辺のモデルコースまで徹底解説します。"
+pubDate: 2026-11-17
+updatedDate: 2026-11-17
+lang: "ja"
+pref: "akita"
+category: "観光スポット" # 例: "観光スポット" / "温泉・宿" / "食・市場" / "自然・絶景"
+season: "通年"           # 例: "通年" / "11月中旬" / "春・秋"
+cities: ["semboku"]      # src/data/cities.ts に登録された市町村ID
+tags: ["秋田", "仙北市", "{スポット名}", "観光スポット", "車なしプランあり"]
+---
+import ProblemBox from '../../components/ProblemBox.astro';
+import TrainCondition from '../../components/TrainCondition.astro';
+import SpotPhotoGallery from '../../components/SpotPhotoGallery.astro';
+import SpotInfoBox from '../../components/SpotInfoBox.astro';
+import TransitStepBlock from '../../components/TransitStepBlock.astro';
+import SpotMap from '../../components/SpotMap.astro';
+import HotelPortalHub from '../../components/HotelPortalHub.astro';
+import TransitBookingHub from '../../components/TransitBookingHub.astro';
+import RelatedCourseCards from '../../components/RelatedCourseCards.astro';
+import ConclusionBox from '../../components/ConclusionBox.astro';
+import TourismPhoto from '../../components/TourismPhoto.astro';
+
+{/* 使用する実写写真を src/assets/photos/ からインポート */}
+{/* import photoMain from '../../assets/photos/akita_compressed/example-main.webp'; */}
+{/* import photoSub1 from '../../assets/photos/akita_compressed/example-sub1.webp'; */}
+{/* import photoSub2 from '../../assets/photos/akita_compressed/example-sub2.webp'; */}
+
+<ProblemBox>
+- {スポット名}の見どころや所要時間はどれくらい？
+- 営業時間・定休日・入場料金や、混雑を避けるおすすめの時間帯は？
+- 最寄り駅から車なし（徒歩・バス）で行ける？駐車場はある？
+</ProblemBox>
+
+（ここに導入リード文を3〜4行で簡潔に記述。そのスポットの最大の魅力、歴史・自然の背景、どんな旅行者におすすめかを提示します。）
+
+<TrainCondition
+  title="訪問前の注意点"
+  text={"・営業時間は季節（夏季・冬季）によって変動する場合があります。訪問前に公式サイトで最新情報をご確認ください。\n・（例）週末の11:00〜14:00は混雑しやすいため、開館直後または夕方の訪問がおすすめです。"}
+/>
+
+{/* ▼ 複数写真ギャラリー（単体配置時は standalone={true} を必ず付与） */}
+{/* imageLayout は 'grid-3' / 'grid-2' / 'pip' / 'carousel' / 'single' から選択 */}
+{/*
+<SpotPhotoGallery
+  standalone={true}
+  title="{スポット名}"
+  pillText="観光スポット"
+  imageLayout="grid-3"
+  images={[
+    { image: photoMain, imageCredit: "写真提供元名称" },
+    { image: photoSub1, imageCredit: "写真提供元名称" },
+    { image: photoSub2, imageCredit: "写真提供元名称" }
+  ]}
+/>
+*/}
+
+{/* ▼ 基本データボックス（Markdownテーブルの代わりに標準使用） */}
+<SpotInfoBox
+  name="{スポット名}"
+  category="観光スポット"
+  address="秋田県〇〇市〇〇町1-2-3"
+  hours="9:00〜17:00（最終入館 16:30）"
+  closed="毎週〇曜日（祝日の場合は翌日）・年末年始"
+  fee="大人 500円 / 小中学生 250円（散策・外観見学は無料）"
+  stayTime="約60分〜90分"
+  access="JR「〇〇駅」より徒歩約15分（または路線バス約5分）"
+  parking="あり（普通車〇〇台・無料／有料）"
+  officialUrl="https://example.com/"
+  officialLabel="{スポット名} 公式サイト"
+  extraItems={[
+    { label: "バリアフリー", value: "スロープ・多目的トイレあり（ベビーカー利用可）" }
+  ]}
+/>
+
+---
+
+## 1. {スポット名}の最大の見どころ
+
+（ここに主軸となる体験・景観・歴史的背景を具体的に記載します。実写写真を挟む場合は `<TourismPhoto>` または `<SpotPhotoGallery standalone={true} />` を使用します。）
+
+{/*
+<TourismPhoto
+  src={photoMain}
+  credit="写真提供元名称"
+  alt="{スポット名}の〇〇"
+  caption="（写真の解説キャプション）"
+/>
+*/}
+
+### 見どころポイント①：{小見出し}
+（具体的な解説・滞在のコツ）
+
+### 見どころポイント②：{小見出し}
+（具体的な解説・写真撮影のベストポジションなど）
+
+---
+
+## 2. 混雑回避とベストシーズン・おすすめの時間帯
+
+- **ベストシーズン**: （例：春は桜、秋は紅葉が見頃。冬は雪景色と静かな雰囲気を楽しめます）
+- **狙い目の時間帯**: （例：開館直後の9:00〜10:30は団体客が少なく、ゆっくり撮影できます）
+- **服装・持ち物の目安**: （例：屋外散策が中心のため、歩きやすい靴と季節に応じた防寒・日差し対策を推奨）
+
+---
+
+## 3. アクセス・行き方と現地マップ
+
+### 公共交通機関（車なし）でのアクセス
+<TransitStepBlock
+  transitDetail={{
+    method: "JR路線バス / 徒歩",
+    route: "JR〇〇駅 ➔ {スポット名}前",
+    specs: [
+      "所要時間：バス約10分（徒歩の場合は約15〜20分）",
+      "運賃：大人〇〇円（交通系ICカード利用可否を明記）",
+      "運行間隔：1時間に1〜2本（最終便〇〇:〇〇発に注意）"
+    ]
+  }}
+/>
+
+{/* ※ GTFS時刻表を表示する場合は timetable プロパティを併用
+<TransitStepBlock
+  transitDetail={{ method: "羽後交通 路線バス", route: "田沢湖駅 ➔ 〇〇" }}
+  timetable={{ stationId: "tazawako", destination: "〇〇", direction: "outbound" }}
+/>
+*/}
+
+### 所在地・Googleマップ
+<SpotMap
+  title="{スポット名}"
+  query="{スポット名} 秋田県〇〇市〇〇町1-2-3"
+  address="〒000-0000 秋田県〇〇市〇〇町1-2-3"
+  note="駅前の観光案内所で手荷物預かりやレンタサイクルの利用も可能です。"
+/>
+
+---
+
+{/* ▼ 宿泊施設・温泉宿スポットの場合は HotelPortalHub を有効化（一般観光スポットでは削除） */}
+{/*
+## 4. 宿泊予約・料金目安（3大旅行サイト比較）
+
+<HotelPortalHub
+  title="{宿名}"
+  hotelData={{
+    hotelNo: 12345,
+    yahooUrl: "https://travel.yahoo.co.jp/00000000/",
+    jalanUrl: "https://www.jalan.net/yad000000/",
+    rating: "4.5"
+  }}
+/>
+*/}
+
+## 4. 周辺の交通・レンタカー・体験を予約する
+
+<TransitBookingHub
+  destination="{エリア・スポット名}"
+  station="{最寄り駅名}"
+  pref="akita"
+  ticketType="auto"
+  showExperience={true}
+/>
+
+---
+
+## よくある質問（FAQ）
+
+### Q. {スポット名}の観光にかかる所要時間は？
+**A. 約60分〜90分が目安です。**
+（施設見学と写真撮影・お土産選びを含めた現実的な滞在時間を記載します。）
+
+### Q. 雨の日や冬でも楽しめますか？
+**A. （屋内施設の有無や冬季の営業状況・足元の注意点を記載します。）**
+
+---
+
+<RelatedCourseCards
+  pref="akita"
+  currentSlug="akita-example-spot"
+  title="{スポット名}周辺を巡るおすすめモデルコース"
+  limit={3}
+/>
+
+<ConclusionBox>
+- {スポット名}は（最大の価値・特徴を1行で要約）。
+- 営業時間は〇〇:〇〇〜〇〇:〇〇、定休日は〇〇曜日（訪問前に最新情報を要確認）。
+- 最寄り「〇〇駅」から車なしでもアクセスしやすく、モデルコースと組み合わせた観光がおすすめ。
+</ConclusionBox>

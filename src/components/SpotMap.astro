@@ -1,0 +1,126 @@
+---
+export interface Props {
+  title: string;
+  query: string;
+  address?: string;
+  note?: string;
+}
+
+const { title, query, address, note } = Astro.props;
+
+const encodedQuery = encodeURIComponent(query);
+const embedSrc = `https://www.google.com/maps?q=${encodedQuery}&output=embed`;
+const externalHref = `https://www.google.com/maps/search/?api=1&query=${encodedQuery}`;
+---
+
+<figure class="spot-map-card">
+  <div class="spot-map-frame">
+    <iframe
+      src={embedSrc}
+      loading="lazy"
+      title={`${title}の地図`}
+      referrerpolicy="no-referrer-when-downgrade"
+      allowfullscreen
+    ></iframe>
+  </div>
+
+  <figcaption class="spot-map-footer">
+    <div class="spot-map-meta">
+      {address && <p class="spot-map-address">{address}</p>}
+      {note && <p class="spot-map-note">{note}</p>}
+    </div>
+    <a
+      href={externalHref}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="spot-map-btn"
+    >
+      Googleマップで開く
+      <span aria-hidden="true"> ↗</span>
+    </a>
+  </figcaption>
+</figure>
+
+<style>
+  .spot-map-card {
+    margin: 1.5rem 0 2rem;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .spot-map-frame {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #f1f5f9;
+  }
+
+  .spot-map-frame iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .spot-map-footer {
+    padding: 0.9rem 1.25rem;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .spot-map-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .spot-map-address {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #1f2937;
+    line-height: 1.5;
+  }
+
+  .spot-map-note {
+    margin: 0;
+    font-size: 0.82rem;
+    color: #475569;
+    line-height: 1.5;
+  }
+
+  .spot-map-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.45rem 0.9rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #0284c7;
+    background: #ffffff;
+    text-decoration: none;
+    transition: background-color 0.2s ease-out, border-color 0.2s ease-out;
+    white-space: nowrap;
+  }
+
+  .spot-map-btn:hover {
+    background: #f8fafc;
+    border-color: #0284c7;
+    text-decoration: none;
+  }
+
+  @media (min-width: 600px) {
+    .spot-map-footer {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.5rem;
+    }
+  }
+</style>

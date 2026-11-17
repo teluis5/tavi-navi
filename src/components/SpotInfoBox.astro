@@ -1,0 +1,196 @@
+---
+import BusinessHours from './BusinessHours.astro';
+
+export interface ExtraInfoItem {
+  label: string;
+  value: string;
+}
+
+export interface Props {
+  name: string;
+  category?: string;
+  address?: string;
+  hours?: string;
+  businessHoursId?: string;
+  closed?: string;
+  fee?: string;
+  stayTime?: string;
+  access?: string;
+  parking?: string;
+  officialUrl?: string;
+  officialLabel?: string;
+  extraItems?: ExtraInfoItem[];
+}
+
+const {
+  name,
+  category,
+  address,
+  hours,
+  businessHoursId,
+  closed,
+  fee,
+  stayTime,
+  access,
+  parking,
+  officialUrl,
+  officialLabel = '公式サイトを確認する',
+  extraItems = [],
+} = Astro.props;
+
+const rows: { label: string; value?: string; isBusinessHours?: boolean; isUrl?: boolean }[] = [
+  { label: 'スポット名', value: name },
+  ...(address ? [{ label: '所在地', value: address }] : []),
+  ...(businessHoursId
+    ? [{ label: '営業時間', isBusinessHours: true }]
+    : hours
+      ? [{ label: '営業時間', value: hours }]
+      : []),
+  ...(closed ? [{ label: '定休日', value: closed }] : []),
+  ...(fee ? [{ label: '料金・入場料', value: fee }] : []),
+  ...(stayTime ? [{ label: '滞在目安', value: stayTime }] : []),
+  ...(access ? [{ label: 'アクセス', value: access }] : []),
+  ...(parking ? [{ label: '駐車場', value: parking }] : []),
+  ...extraItems.map((item) => ({ label: item.label, value: item.value })),
+  ...(officialUrl ? [{ label: '公式情報', value: officialUrl, isUrl: true }] : []),
+];
+---
+
+<section class="spot-info-card" aria-label={`${name}の基本データ`}>
+  <div class="spot-info-header">
+    {category && <span class="spot-info-badge">{category}</span>}
+    <h2 class="spot-info-title">{name}の基本データ</h2>
+  </div>
+
+  <dl class="spot-info-list">
+    {rows.map((row) => (
+      <div class="spot-info-row">
+        <dt class="spot-info-label">{row.label}</dt>
+        <dd class="spot-info-value">
+          {row.isBusinessHours && businessHoursId ? (
+            <ul class="spot-info-bh-reset">
+              <BusinessHours id={businessHoursId} />
+            </ul>
+          ) : row.isUrl && row.value ? (
+            <a
+              href={row.value}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="spot-info-link"
+            >
+              {officialLabel}
+              <span aria-hidden="true"> ↗</span>
+            </a>
+          ) : (
+            row.value
+          )}
+        </dd>
+      </div>
+    ))}
+  </dl>
+</section>
+
+<style>
+  .spot-info-card {
+    margin: 1.5rem 0 2rem;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .spot-info-header {
+    padding: 1rem 1.25rem 0.85rem;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+
+  .spot-info-badge {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: #0369a1;
+    background: #e0f2fe;
+    padding: 0.15rem 0.55rem;
+    border-radius: 4px;
+    line-height: 1.4;
+  }
+
+  .spot-info-title {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.35;
+    color: #111827;
+  }
+
+  .spot-info-list {
+    margin: 0;
+    padding: 0 1.25rem;
+  }
+
+  .spot-info-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #f1f5f9;
+  }
+
+  .spot-info-row:last-child {
+    border-bottom: none;
+  }
+
+  .spot-info-label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #475569;
+    line-height: 1.5;
+  }
+
+  .spot-info-value {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #1f2937;
+    line-height: 1.65;
+    font-variant-numeric: tabular-nums;
+    word-break: break-word;
+  }
+
+  .spot-info-bh-reset {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .spot-info-link {
+    color: #0284c7;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .spot-info-link:hover {
+    color: #0369a1;
+  }
+
+  @media (min-width: 600px) {
+    .spot-info-header {
+      padding: 1.125rem 1.5rem 0.9rem;
+    }
+
+    .spot-info-list {
+      padding: 0 1.5rem;
+    }
+
+    .spot-info-row {
+      grid-template-columns: 140px 1fr;
+      gap: 1rem;
+      padding: 0.8rem 0;
+    }
+  }
+</style>
