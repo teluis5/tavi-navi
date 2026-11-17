@@ -484,7 +484,7 @@ thead th {
 }
 
 /* H3: 中見出し（パターンD：先頭ブルースクエア 10px ＋ 淡色破線下線） */
-.prose h3 {
+.prose :where(h3:not([class])) {
 	display: flex;
 	align-items: center;
 	gap: 0.6rem;
@@ -498,7 +498,7 @@ thead th {
 	margin-bottom: 1.1rem;
 }
 
-.prose h3::before {
+.prose :where(h3:not([class]))::before {
 	content: '';
 	display: inline-block;
 	width: 10px;
@@ -509,7 +509,7 @@ thead th {
 }
 
 /* H4: 小見出し（案1の塗りスクエア形状 8px × 案2のブランドブルー #0284c7・下線なし） */
-.prose h4 {
+.prose :where(h4:not([class])) {
 	display: flex;
 	align-items: center;
 	gap: 0.55rem;
@@ -523,7 +523,7 @@ thead th {
 	border: none;
 }
 
-.prose h4::before {
+.prose :where(h4:not([class]))::before {
 	content: '';
 	display: inline-block;
 	width: 8px;
@@ -534,7 +534,7 @@ thead th {
 }
 
 /* H5: 細目見出し（案1：先頭中抜きブルースクエア 7px・下線なし） */
-.prose h5 {
+.prose :where(h5:not([class])) {
 	display: flex;
 	align-items: center;
 	gap: 0.5rem;
@@ -546,7 +546,7 @@ thead th {
 	margin-bottom: 0.65rem;
 }
 
-.prose h5::before {
+.prose :where(h5:not([class]))::before {
 	content: '';
 	display: inline-block;
 	width: 7px;
@@ -559,7 +559,7 @@ thead th {
 }
 
 /* H6: 補足ラベル見出し（小スレートスクエア 5px ＋ 補足グレー文字） */
-.prose h6 {
+.prose :where(h6:not([class])) {
 	display: flex;
 	align-items: center;
 	gap: 0.45rem;
@@ -572,7 +572,7 @@ thead th {
 	margin-bottom: 0.5rem;
 }
 
-.prose h6::before {
+.prose :where(h6:not([class]))::before {
 	content: '';
 	display: inline-block;
 	width: 5px;
@@ -595,12 +595,12 @@ thead th {
 	.prose h2::after {
 		width: 68px;
 	}
-	.prose h3 {
+	.prose :where(h3:not([class])) {
 		font-size: 1.12rem;
 		margin-top: 2rem;
 		margin-bottom: 0.95rem;
 	}
-	.prose h4 {
+	.prose :where(h4:not([class])) {
 		font-size: 1.02rem;
 	}
 }
