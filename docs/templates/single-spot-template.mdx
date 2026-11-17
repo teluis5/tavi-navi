@@ -37,7 +37,7 @@ import TourismPhoto from '../../components/TourismPhoto.astro';
   text={"・営業時間は季節（夏季・冬季）によって変動する場合があります。訪問前に公式サイトで最新情報をご確認ください。\n・（例）週末の11:00〜14:00は混雑しやすいため、開館直後または夕方の訪問がおすすめです。"}
 />
 
-{/* ▼ 複数写真ギャラリー（単体配置時は standalone={true} を必ず付与） */}
+{/* ▼ 複数写真ギャラリー（Frontmatterに heroImage がありページ最上部に .e-hero-img-wrap が表示される場合は不要・重複禁止。heroImage がないページのみ standalone={true} で配置） */}
 {/* imageLayout は 'grid-3' / 'grid-2' / 'pip' / 'carousel' / 'single' から選択 */}
 {/*
 <SpotPhotoGallery
