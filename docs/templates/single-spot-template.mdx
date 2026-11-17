@@ -89,7 +89,7 @@ import TourismPhoto from '../../components/TourismPhoto.astro';
 
 ---
 
-## 3. アクセス・行き方と現地マップ
+## 3. アクセス・行き方
 
 ### 公共交通機関（車なし）でのアクセス
 <TransitStepBlock
@@ -110,14 +110,6 @@ import TourismPhoto from '../../components/TourismPhoto.astro';
   timetable={{ stationId: "tazawako", destination: "〇〇", direction: "outbound" }}
 />
 */}
-
-### 所在地・Googleマップ
-<SpotMap
-  title="{スポット名}"
-  query="{スポット名} 秋田県〇〇市〇〇町1-2-3"
-  address="〒000-0000 秋田県〇〇市〇〇町1-2-3"
-  note="駅前の観光案内所で手荷物預かりやレンタサイクルの利用も可能です。"
-/>
 
 ---
 
@@ -175,6 +167,14 @@ import TourismPhoto from '../../components/TourismPhoto.astro';
   extraItems={[
     { label: "バリアフリー", value: "スロープ・多目的トイレあり（ベビーカー利用可）" }
   ]}
+/>
+
+{/* ▼ 現地マップ（基本データとセットで記事終盤に配置） */}
+<SpotMap
+  title="{スポット名}"
+  query="{スポット名} 秋田県〇〇市〇〇町1-2-3"
+  address="〒000-0000 秋田県〇〇市〇〇町1-2-3"
+  note="駅前の観光案内所で手荷物預かりやレンタサイクルの利用も可能です。"
 />
 
 <RelatedCourseCards
