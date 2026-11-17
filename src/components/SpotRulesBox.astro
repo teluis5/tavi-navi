@@ -46,7 +46,6 @@ function getBadge(type?: string) {
 
 <div class="spot-rules-card" role="region" aria-label={title}>
   <div class="spot-rules-header">
-    <span class="spot-rules-icon" aria-hidden="true">📋</span>
     <h3 class="spot-rules-heading">{title}</h3>
   </div>
 
@@ -57,13 +56,7 @@ function getBadge(type?: string) {
       const badge = getBadge(item.type);
       return (
         <li class={`spot-rules-item is-${item.type || 'info'}`}>
-          <span
-            class="spot-rules-badge"
-            style={`color: ${badge.color}; background: ${badge.bg}; border-color: ${badge.border};`}
-            aria-hidden="true"
-          >
-            {item.icon || badge.icon}
-          </span>
+          <span class="spot-rules-badge">{item.icon && <span aria-hidden="true">{item.icon} </span>}{badge.label}</span>
           <div class="spot-rules-content">
             <strong class="spot-rules-item-title">{item.title}</strong>
             {item.desc && <p class="spot-rules-item-desc">{item.desc}</p>}
@@ -75,100 +68,20 @@ function getBadge(type?: string) {
 </div>
 
 <style>
-  .spot-rules-card {
-    margin: 1.5rem 0 2rem;
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-left: 4px solid #0284c7;
-    border-radius: 12px;
-    padding: 1.25rem 1.35rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
-  }
-
-  .spot-rules-header {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .spot-rules-icon {
-    font-size: 1.25rem;
-    line-height: 1;
-  }
-
-  .spot-rules-heading {
-    font-size: 1.05rem;
-    font-weight: 800;
-    color: #0f172a;
-    margin: 0;
-  }
-
-  .spot-rules-lead {
-    font-size: 0.9rem;
-    color: #64748b;
-    line-height: 1.6;
-    margin: 0 0 1rem;
-  }
-
-  .spot-rules-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .spot-rules-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
-    padding: 0.65rem 0.85rem;
-    background: #f8fafc;
-    border-radius: 8px;
-    border: 1px solid #f1f5f9;
-  }
-
-  .spot-rules-badge {
-    flex-shrink: 0;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.75rem;
-    font-weight: 800;
-    border: 1px solid;
-    margin-top: 1px;
-  }
-
-  .spot-rules-content {
-    flex: 1;
-  }
-
-  .spot-rules-item-title {
-    font-size: 0.925rem;
-    font-weight: 700;
-    color: #1e293b;
-    line-height: 1.5;
-    display: block;
-  }
-
-  .spot-rules-item-desc {
-    font-size: 0.85rem;
-    color: #64748b;
-    line-height: 1.55;
-    margin: 0.25rem 0 0;
-  }
-
-  @media (max-width: 640px) {
-    .spot-rules-card {
-      padding: 1rem 1.1rem;
-    }
-    .spot-rules-item {
-      padding: 0.55rem 0.75rem;
-    }
-  }
+  .spot-rules-card { --spot-ink: #1e293b; --spot-muted: #475569; --spot-accent: #075985; margin: 1.5rem 0 2rem; padding: 24px; background: #f2f7fa; border-radius: 8px; color: var(--spot-ink); }
+  .spot-rules-header { margin-bottom: 16px; }
+  .spot-rules-heading { margin: 0; font-size: 1.125rem; line-height: 1.3; font-weight: 700; color: var(--spot-ink); }
+  .spot-rules-lead { margin: 0 0 16px; color: var(--spot-muted); font-size: 1rem; line-height: 1.7; }
+  .spot-rules-list { list-style: none; margin: 0; padding: 0; }
+  .spot-rules-item { display: grid; grid-template-columns: 3.5rem minmax(0, 1fr); gap: 16px; padding: 16px 0; }
+  .spot-rules-item + .spot-rules-item { border-top: 1px solid #d5e2e9; }
+  .spot-rules-item:last-child { padding-bottom: 0; }
+  .spot-rules-badge { align-self: start; color: var(--spot-accent); font-size: .875rem; font-weight: 700; line-height: 1.7; }
+  .is-ng .spot-rules-badge { color: #a12626; }
+  .is-warn .spot-rules-badge { color: #805500; }
+  .is-ok .spot-rules-badge { color: #166534; }
+  .spot-rules-content { min-width: 0; }
+  .spot-rules-item-title { display: block; font-size: 1rem; font-weight: 700; line-height: 1.7; }
+  .spot-rules-item-desc { margin: 4px 0 0; color: var(--spot-muted); font-size: 1rem; line-height: 1.7; }
+  @media (max-width: 640px) { .spot-rules-card { padding: 24px 16px; } .spot-rules-item { grid-template-columns: 3rem minmax(0, 1fr); gap: 8px; } }
 </style>
