@@ -59,6 +59,9 @@ const featuredPrefs = PREFECTURES.filter((p) =>
 
     <div class="e-header-inner">
       <h1 class="e-title">{article.data.title}</h1>
+      {article.data.subtitle && (
+        <p class="e-subtitle">{article.data.subtitle}</p>
+      )}
 
       <div class="e-meta-row">
         <div class="e-badges">
@@ -356,12 +359,19 @@ const featuredPrefs = PREFECTURES.filter((p) =>
     border: 1px solid #cbd5e1;
   }
   .e-title {
-    margin: 0 0 0.85rem;
+    margin: 0 0 0.5rem;
     font-size: 2.05rem;
     font-weight: 900;
     line-height: 1.35;
     color: #0f172a;
     letter-spacing: -0.02em;
+  }
+  .e-subtitle {
+    margin: 0 0 1rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.6;
+    color: #475569;
   }
   .e-meta-row {
     display: flex;
