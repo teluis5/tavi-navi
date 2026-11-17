@@ -45,6 +45,11 @@ const featuredPrefs = PREFECTURES.filter((p) =>
   <section class="e-hero-section">
     {article.data.heroImage && (
       <figure class="e-hero-figure">
+        <div
+          class="e-hero-blur-bg"
+          style={`background-image: url('${article.data.heroImage}')`}
+          aria-hidden="true"
+        ></div>
         <div class="e-hero-img-wrap">
           <img
             src={article.data.heroImage}
@@ -392,17 +397,30 @@ const featuredPrefs = PREFECTURES.filter((p) =>
     color: #64748b;
   }
 
-  /* 全幅ヒーロー画像 */
+  /* 全幅ヒーロー画像（ぼかし背景で左右を自然に埋める） */
   .e-hero-figure {
+    position: relative;
     margin: 0;
     width: 100%;
-    background: #0f172a;
+    overflow: hidden;
+    background: #1e293b;
+  }
+  .e-hero-blur-bg {
+    position: absolute;
+    inset: -28px;
+    background-position: center;
+    background-size: cover;
+    filter: blur(26px) saturate(1.15) brightness(0.72);
+    transform: scale(1.06);
+    pointer-events: none;
+    z-index: 0;
   }
   .e-hero-img-wrap {
     position: relative;
     max-width: 1440px;
     margin: 0 auto;
     overflow: hidden;
+    z-index: 1;
   }
   .e-hero-img-wrap img {
     display: block;
@@ -410,6 +428,8 @@ const featuredPrefs = PREFECTURES.filter((p) =>
     height: clamp(320px, 52vw, 620px);
     object-fit: cover;
     border-radius: 0;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 3.5%, #000 96.5%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, #000 3.5%, #000 96.5%, transparent 100%);
   }
   .e-hero-credit {
     position: absolute;
