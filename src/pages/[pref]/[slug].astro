@@ -237,37 +237,16 @@ if (props.pageType === 'article') {
       </div>
     </section>
 
-    <!-- 2段目：左タブパネル（目次 / メニュー）＋ 右本文 -->
+    <!-- 2段目：左サイドバー（上部目次:固定 ＋ 下部メニュー:スクロール）＋ 右本文 -->
     <div class="e-body-shell">
       <aside class="e-sidebar" aria-label="目次とサイトメニュー">
-        <div class="e-sidebar-sticky">
-          <div class="e-tab-bar" role="tablist" aria-label="サイドパネル切り替え">
-            <button
-              type="button"
-              role="tab"
-              id="tab-toc"
-              aria-selected="true"
-              aria-controls="panel-toc"
-              class="e-tab-btn is-active"
-              data-side-tab="toc"
-            >
-              目次
-            </button>
-            <button
-              type="button"
-              role="tab"
-              id="tab-menu"
-              aria-selected="false"
-              aria-controls="panel-menu"
-              class="e-tab-btn"
-              data-side-tab="menu"
-            >
-              メニュー
-            </button>
-          </div>
-
-          <!-- タブ1：記事の目次 -->
-          <div id="panel-toc" role="tabpanel" aria-labelledby="tab-toc" class="e-tab-panel is-active" data-side-panel="toc">
+        <div class="e-sidebar-container">
+          <!-- 上部：目次（固定表示エリア） -->
+          <div class="e-sidebar-toc-box">
+            <div class="e-sidebar-heading">
+              <span class="e-sidebar-heading-icon">📑</span>
+              <span class="e-sidebar-heading-text">目次</span>
+            </div>
             {tocHeadings.length > 0 ? (
               <nav class="e-toc-nav" aria-label="この記事の目次">
                 <ul>
@@ -285,8 +264,13 @@ if (props.pageType === 'article') {
             )}
           </div>
 
-          <!-- タブ2：サイトメニュー -->
-          <div id="panel-menu" role="tabpanel" aria-labelledby="tab-menu" class="e-tab-panel" data-side-panel="menu" hidden>
+          <!-- 下部：サイトメニュー（スクロール可能エリア） -->
+          <div class="e-sidebar-menu-scroll" tabindex="0" aria-label="サイトメニュー">
+            <div class="e-sidebar-heading">
+              <span class="e-sidebar-heading-icon">🧭</span>
+              <span class="e-sidebar-heading-text">メニュー</span>
+            </div>
+
             <div class="menu-group">
               <p class="menu-label">サイト案内</p>
               <ul class="menu-list">
@@ -431,25 +415,6 @@ if (props.pageType === 'article') {
 ) : null}
 
 <script>
-  const tabButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-side-tab]'));
-  const tabPanels = Array.from(document.querySelectorAll<HTMLElement>('[data-side-panel]'));
-
-  tabButtons.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const target = btn.dataset.sideTab;
-      tabButtons.forEach((b) => {
-        const active = b.dataset.sideTab === target;
-        b.classList.toggle('is-active', active);
-        b.setAttribute('aria-selected', String(active));
-      });
-      tabPanels.forEach((p) => {
-        const active = p.dataset.sidePanel === target;
-        p.classList.toggle('is-active', active);
-        p.hidden = !active;
-      });
-    });
-  });
-
   const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-toc-link]'));
   const targets = links
     .map((link) => {
@@ -602,36 +567,54 @@ if (props.pageType === 'article') {
   .e-sidebar {
     position: sticky;
     top: 84px;
-    max-height: calc(100vh - 104px);
+    height: calc(100vh - 104px);
+    display: flex;
+    flex-direction: column;
+  }
+  .e-sidebar-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+  }
+  .e-sidebar-toc-box {
+    flex-shrink: 0;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .e-sidebar-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: #475569;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .e-sidebar-heading-icon {
+    font-size: 0.9rem;
+  }
+  .e-sidebar-heading-text {
+    font-size: 0.78rem;
+    font-weight: 800;
+  }
+  .e-sidebar-menu-scroll {
+    flex: 1 1 0%;
+    min-height: 0;
     overflow-y: auto;
     padding-right: 0.25rem;
     scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
   }
-  .e-tab-bar {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4px;
-    background: #f1f5f9;
-    padding: 4px;
-    border-radius: 10px;
-    margin-bottom: 1rem;
+  .e-sidebar-menu-scroll::-webkit-scrollbar {
+    width: 4px;
   }
-  .e-tab-btn {
-    appearance: none;
-    border: none;
-    background: transparent;
-    padding: 0.48rem 0.5rem;
-    border-radius: 7px;
-    font-size: 0.84rem;
-    font-weight: 700;
-    color: #475569;
-    cursor: pointer;
-    transition: background-color 0.2s ease-out, color 0.2s ease-out, box-shadow 0.2s ease-out;
-  }
-  .e-tab-btn.is-active {
-    background: #ffffff;
-    color: #0284c7;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  .e-sidebar-menu-scroll::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
   }
 
   .e-toc-nav ul {
@@ -785,11 +768,20 @@ if (props.pageType === 'article') {
     }
     .e-sidebar {
       position: static;
+      height: auto;
       max-height: none;
       background: #f8fafc;
       border: 1px solid #e2e8f0;
       border-radius: 10px;
       padding: 0.85rem;
+    }
+    .e-sidebar-container {
+      height: auto;
+    }
+    .e-sidebar-menu-scroll {
+      flex: none;
+      max-height: none;
+      overflow-y: visible;
     }
   }
 </style>
