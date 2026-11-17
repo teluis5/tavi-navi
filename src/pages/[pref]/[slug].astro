@@ -140,7 +140,7 @@ if (props.pageType === 'article') {
   article = props.article;
   const rendered = await render(article);
   ContentComponent = rendered.Content;
-  tocHeadings = (rendered.headings || []).filter((h) => h.depth >= 2 && h.depth <= 3);
+  tocHeadings = (rendered.headings || []).filter((h) => h.depth === 2);
 
   const prefObj = PREFECTURES.find((p) => p.id === article.data.pref);
   isSpecial = article.data.pref === 'special';

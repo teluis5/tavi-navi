@@ -6,8 +6,8 @@ export interface Props {
 }
 
 const { headings } = Astro.props;
-// depth 2 (H2) and 3 (H3) 
-const tocHeadings = headings ? headings.filter((h) => h.depth === 2 || h.depth === 3) : [];
+// depth 2 (H2) only
+const tocHeadings = headings ? headings.filter((h) => h.depth === 2) : [];
 ---
 
 {tocHeadings.length > 0 && (
