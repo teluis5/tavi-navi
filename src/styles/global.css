@@ -508,7 +508,7 @@ thead th {
 	flex-shrink: 0;
 }
 
-/* H4: 小見出し（パターンB：先頭ブルースクエア 8px・下線なし） */
+/* H4: 小見出し（案1の塗りスクエア形状 8px × 案2のブランドブルー #0284c7・下線なし） */
 .prose h4 {
 	display: flex;
 	align-items: center;
@@ -529,18 +529,18 @@ thead th {
 	width: 8px;
 	height: 8px;
 	border-radius: 2px;
-	background-color: #38bdf8;
+	background-color: var(--theme-accent, #0284c7);
 	flex-shrink: 0;
 }
 
-/* H5: 細目見出し（先頭中抜きブルースクエア 7px・下線なし） */
+/* H5: 細目見出し（案2：先頭スレートスクエア 6px ＋ 落ち着いたスレート文字） */
 .prose h5 {
 	display: flex;
 	align-items: center;
 	gap: 0.5rem;
 	font-size: 0.98rem;
 	font-weight: 700;
-	color: #334155;
+	color: #475569;
 	line-height: 1.45;
 	margin-top: 1.5rem;
 	margin-bottom: 0.65rem;
@@ -549,16 +549,14 @@ thead th {
 .prose h5::before {
 	content: '';
 	display: inline-block;
-	width: 7px;
-	height: 7px;
-	border-radius: 2px;
-	border: 2px solid #0284c7;
-	background-color: transparent;
-	box-sizing: border-box;
+	width: 6px;
+	height: 6px;
+	border-radius: 1px;
+	background-color: #94a3b8;
 	flex-shrink: 0;
 }
 
-/* H6: 補足ラベル見出し（小スクエア 5px ＋ スレート文字） */
+/* H6: 補足ラベル見出し（案2延長：先頭ミニ中抜きスレートスクエア 5px ＋ 補足グレー文字） */
 .prose h6 {
 	display: flex;
 	align-items: center;
@@ -578,7 +576,7 @@ thead th {
 	width: 5px;
 	height: 5px;
 	border-radius: 1px;
-	background-color: #94a3b8;
+	background-color: #cbd5e1;
 	flex-shrink: 0;
 }
 
