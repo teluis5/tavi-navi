@@ -1,0 +1,613 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getEntry, render } from 'astro:content';
+import { CITIES } from '../data/cities';
+import { PREFECTURES } from '../data/prefectures';
+import { MONTHLY_THEMES } from '../data/monthlyThemes';
+
+const article = await getEntry('articles', 'akita-akitainu-station');
+if (!article) {
+  throw new Error('Sample article akita-akitainu-station not found');
+}
+
+const { Content, headings } = await render(article);
+const tocHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
+const akitaCities = CITIES.filter((c) => c.prefId === 'akita');
+const featuredPrefs = PREFECTURES.filter((p) =>
+  ['hokkaido', 'aomori', 'iwate', 'akita', 'tokyo', 'kanagawa', 'shizuoka', 'kyoto'].includes(p.id)
+);
+---
+
+<Layout
+  title={`[案E比較] ${article.data.title} - tavi-navi`}
+  description={article.data.description}
+  image={article.data.heroImage}
+  lang="ja"
+  currentPref="akita"
+>
+  <!-- 比較切り替えバー -->
+  <div class="preview-switcher-wrap">
+    <div class="preview-switcher">
+      <div class="preview-switcher-inner">
+        <span class="preview-badge">レイアウト比較プレビュー</span>
+        <span class="preview-desc">現在表示中：<strong>案E（全幅ヒーロー ＋ 左タブ切替［目次／メニュー］）</strong></span>
+        <div class="preview-links">
+          <a href="/preview-layout-b/" class="preview-btn">案B：左目次</a>
+          <a href="/preview-layout-d/" class="preview-btn">案D：左常駐ナビ</a>
+          <a href="/preview-layout-e/" class="preview-btn active">案E：全幅＋タブ切替</a>
+          <a href="/akita/akitainu-station/" class="preview-btn ghost">現行本番 ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1段目：タイトルヘッダー ＋ 全幅ヒーロー画像 -->
+  <section class="e-hero-section">
+    <div class="e-header-inner">
+      <nav class="e-crumbs" aria-label="パンくず">
+        <a href="/">ホーム</a>
+        <span>›</span>
+        <a href="/akita/">秋田県</a>
+        <span>›</span>
+        <span>{article.data.title}</span>
+      </nav>
+
+      <div class="e-badges">
+        <a href="/akita/" class="e-badge primary">📍 秋田県</a>
+        <span class="e-badge">{article.data.category}</span>
+        {article.data.season && <span class="e-badge season">{article.data.season}</span>}
+        <span class="e-badge outline">車なし</span>
+      </div>
+
+      <h1 class="e-title">{article.data.title}</h1>
+
+      <div class="e-dates">
+        <span>公開日: {article.data.pubDate.toLocaleDateString('ja-JP')}</span>
+        {article.data.updatedDate && (
+          <span>更新日: {article.data.updatedDate.toLocaleDateString('ja-JP')}</span>
+        )}
+      </div>
+    </div>
+
+    {article.data.heroImage && (
+      <figure class="e-hero-figure">
+        <div class="e-hero-img-wrap">
+          <img
+            src={article.data.heroImage}
+            alt={article.data.title}
+            width="1200"
+            height="630"
+          />
+          <figcaption class="e-hero-credit">写真提供：一般社団法人 秋田県観光連盟</figcaption>
+        </div>
+      </figure>
+    )}
+  </section>
+
+  <!-- 2段目：左タブパネル（目次 / メニュー）＋ 右本文 -->
+  <div class="e-body-shell">
+    <aside class="e-sidebar" aria-label="目次とサイトメニュー">
+      <div class="e-sidebar-sticky">
+        <!-- セグメントタブ -->
+        <div class="e-tab-bar" role="tablist" aria-label="サイドパネル切り替え">
+          <button
+            type="button"
+            role="tab"
+            id="tab-toc"
+            aria-selected="true"
+            aria-controls="panel-toc"
+            class="e-tab-btn is-active"
+            data-side-tab="toc"
+          >
+            目次
+          </button>
+          <button
+            type="button"
+            role="tab"
+            id="tab-menu"
+            aria-selected="false"
+            aria-controls="panel-menu"
+            class="e-tab-btn"
+            data-side-tab="menu"
+          >
+            メニュー
+          </button>
+        </div>
+
+        <!-- タブ1：記事の目次 -->
+        <div id="panel-toc" role="tabpanel" aria-labelledby="tab-toc" class="e-tab-panel is-active" data-side-panel="toc">
+          <nav class="e-toc-nav" aria-label="この記事の目次">
+            <ul>
+              {tocHeadings.map((h) => (
+                <li class={`e-toc-item depth-${h.depth}`}>
+                  <a href={`#${h.slug}`} class="e-toc-link" data-toc-link={h.slug}>
+                    {h.text}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+
+        <!-- タブ2：サイトメニュー（エリア・月別・都道府県） -->
+        <div id="panel-menu" role="tabpanel" aria-labelledby="tab-menu" class="e-tab-panel" data-side-panel="menu" hidden>
+          <div class="menu-group">
+            <p class="menu-label">サイト案内</p>
+            <ul class="menu-list">
+              <li><a href="/" class="menu-link">🏠 全国トップ</a></li>
+              <li><a href="/special/dokokanibyun/" class="menu-link">🚅 どこかにビューーン！</a></li>
+              <li><a href="/season/" class="menu-link">🗓️ 旬の季節・月別ガイド</a></li>
+            </ul>
+          </div>
+
+          <div class="menu-group">
+            <p class="menu-label">📍 秋田県のエリア</p>
+            <div class="menu-chips">
+              <a href="/akita/" class="menu-chip is-current">秋田県トップ</a>
+              {akitaCities.map((city) => (
+                <a href={`/akita/${city.id}/`} class="menu-chip">{city.nameJa}</a>
+              ))}
+            </div>
+          </div>
+
+          <div class="menu-group">
+            <p class="menu-label">📅 秋田の月別ガイド</p>
+            <div class="menu-month-grid">
+              {MONTHLY_THEMES.map((m) => (
+                <a href={`/akita/${m.month}/`} class="menu-month-chip">{m.month}月</a>
+              ))}
+            </div>
+          </div>
+
+          <div class="menu-group">
+            <p class="menu-label">🗾 人気の都道府県</p>
+            <div class="menu-chips">
+              {featuredPrefs.map((p) => (
+                <a href={`/${p.id}/`} class={`menu-chip ${p.id === 'akita' ? 'is-current' : ''}`}>
+                  {p.nameJa}
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- メイン本文カラム -->
+    <article class="e-article google-anno-skip">
+      <div class="prose google-anno-skip">
+        <Content />
+      </div>
+
+      <footer class="e-footer">
+        <div class="e-tags">
+          {article.data.tags.map((tag: string) => (
+            <span class="e-tag">#{tag}</span>
+          ))}
+        </div>
+        <div class="e-footer-nav">
+          <a href="/akita/">← 秋田県の旅情報一覧へ</a>
+          <a href="/">全国トップへ戻る</a>
+        </div>
+      </footer>
+    </article>
+  </div>
+</Layout>
+
+<script>
+  // タブ切り替え
+  const tabButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-side-tab]'));
+  const tabPanels = Array.from(document.querySelectorAll<HTMLElement>('[data-side-panel]'));
+
+  tabButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.sideTab;
+      tabButtons.forEach((b) => {
+        const active = b.dataset.sideTab === target;
+        b.classList.toggle('is-active', active);
+        b.setAttribute('aria-selected', String(active));
+      });
+      tabPanels.forEach((p) => {
+        const active = p.dataset.sidePanel === target;
+        p.classList.toggle('is-active', active);
+        p.hidden = !active;
+      });
+    });
+  });
+
+  // 目次の現在地ハイライト
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-toc-link]'));
+  const targets = links
+    .map((link) => {
+      const id = link.dataset.tocLink;
+      return id ? document.getElementById(id) : null;
+    })
+    .filter((el): el is HTMLElement => Boolean(el));
+
+  if (targets.length > 0 && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            links.forEach((l) => l.classList.remove('is-active'));
+            const active = links.find((l) => l.dataset.tocLink === entry.target.id);
+            if (active) active.classList.add('is-active');
+          }
+        }
+      },
+      { rootMargin: '-90px 0px -70% 0px', threshold: 0 }
+    );
+    targets.forEach((t) => observer.observe(t));
+  }
+</script>
+
+<style>
+  :global(body) {
+    background: #ffffff !important;
+  }
+  :global(main) {
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* 比較切り替えバー */
+  .preview-switcher-wrap {
+    max-width: 1120px;
+    margin: 1rem auto 0;
+    padding: 0 1.25rem;
+  }
+  .preview-switcher {
+    background: #0f172a;
+    color: #f8fafc;
+    border-radius: 10px;
+    padding: 0.75rem 1.25rem;
+  }
+  .preview-switcher-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  .preview-badge {
+    font-size: 0.72rem;
+    font-weight: 800;
+    background: #0284c7;
+    color: #ffffff;
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+  }
+  .preview-desc {
+    font-size: 0.88rem;
+    color: #cbd5e1;
+  }
+  .preview-desc strong {
+    color: #ffffff;
+  }
+  .preview-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-left: auto;
+  }
+  .preview-btn {
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.35rem 0.75rem;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #e2e8f0;
+    background: #1e293b;
+    border: 1px solid #334155;
+  }
+  .preview-btn.active {
+    background: #0284c7;
+    border-color: #0284c7;
+    color: #ffffff;
+  }
+  .preview-btn.ghost {
+    background: transparent;
+  }
+
+  /* 1段目：タイトル＋全幅ヒーロー */
+  .e-hero-section {
+    padding-top: 1.75rem;
+    margin-bottom: 2.5rem;
+  }
+  .e-header-inner {
+    max-width: 1080px;
+    margin: 0 auto 1.5rem;
+    padding: 0 1.25rem;
+  }
+  .e-crumbs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    font-size: 0.82rem;
+    color: #64748b;
+    margin-bottom: 1rem;
+  }
+  .e-crumbs a {
+    color: #0284c7;
+  }
+  .e-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-bottom: 0.75rem;
+  }
+  .e-badge {
+    font-size: 0.76rem;
+    font-weight: 700;
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
+    background: #f1f5f9;
+    color: #334155;
+    text-decoration: none;
+  }
+  .e-badge.primary {
+    background: #e0f2fe;
+    color: #0369a1;
+  }
+  .e-badge.season {
+    background: #fef08a;
+    color: #854d0e;
+  }
+  .e-badge.outline {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+  }
+  .e-title {
+    margin: 0 0 0.75rem;
+    font-size: 2.05rem;
+    font-weight: 900;
+    line-height: 1.35;
+    color: #0f172a;
+    letter-spacing: -0.02em;
+  }
+  .e-dates {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.84rem;
+    color: #64748b;
+  }
+
+  /* 全幅ヒーロー画像 */
+  .e-hero-figure {
+    margin: 0;
+    width: 100%;
+    background: #0f172a;
+  }
+  .e-hero-img-wrap {
+    position: relative;
+    max-width: 1280px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  .e-hero-img-wrap img {
+    display: block;
+    width: 100%;
+    height: clamp(240px, 42vw, 480px);
+    object-fit: cover;
+    border-radius: 0;
+  }
+  .e-hero-credit {
+    position: absolute;
+    right: 0.9rem;
+    bottom: 0.7rem;
+    margin: 0;
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.92);
+    background: rgba(15, 23, 42, 0.6);
+    padding: 0.18rem 0.55rem;
+    border-radius: 4px;
+    backdrop-filter: blur(4px);
+  }
+
+  /* 2段目：左タブパネル＋本文 */
+  .e-body-shell {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 1.25rem 4.5rem;
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr);
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .e-sidebar {
+    position: sticky;
+    top: 84px;
+    max-height: calc(100vh - 104px);
+    overflow-y: auto;
+    padding-right: 0.25rem;
+    scrollbar-width: thin;
+  }
+
+  /* セグメントタブ */
+  .e-tab-bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    background: #f1f5f9;
+    padding: 4px;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+  }
+  .e-tab-btn {
+    appearance: none;
+    border: none;
+    background: transparent;
+    padding: 0.48rem 0.5rem;
+    border-radius: 7px;
+    font-size: 0.84rem;
+    font-weight: 700;
+    color: #475569;
+    cursor: pointer;
+    transition: background-color 0.2s ease-out, color 0.2s ease-out, box-shadow 0.2s ease-out;
+  }
+  .e-tab-btn.is-active {
+    background: #ffffff;
+    color: #0284c7;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  }
+
+  /* 目次パネル */
+  .e-toc-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-left: 1px solid #e2e8f0;
+  }
+  .e-toc-link {
+    display: block;
+    padding: 0.4rem 0 0.4rem 0.9rem;
+    margin-left: -1px;
+    border-left: 2px solid transparent;
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: #475569;
+    text-decoration: none;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .e-toc-item.depth-3 .e-toc-link {
+    padding-left: 1.6rem;
+    font-size: 0.78rem;
+    color: #64748b;
+  }
+  .e-toc-link:hover,
+  .e-toc-link.is-active {
+    color: #0284c7;
+    border-left-color: #0284c7;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  /* メニューパネル */
+  .menu-group {
+    margin-bottom: 1.4rem;
+  }
+  .menu-label {
+    margin: 0 0 0.5rem;
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: #64748b;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .menu-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .menu-link {
+    display: block;
+    padding: 0.42rem 0.6rem;
+    border-radius: 7px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #334155;
+    text-decoration: none;
+  }
+  .menu-link:hover {
+    background: #f1f5f9;
+    color: #0284c7;
+    text-decoration: none;
+  }
+  .menu-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+  .menu-chip {
+    font-size: 0.76rem;
+    font-weight: 600;
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    color: #334155;
+    text-decoration: none;
+  }
+  .menu-chip.is-current,
+  .menu-chip:hover {
+    background: #e0f2fe;
+    border-color: #bae6fd;
+    color: #0369a1;
+    text-decoration: none;
+  }
+  .menu-month-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.35rem;
+  }
+  .menu-month-chip {
+    text-align: center;
+    font-size: 0.76rem;
+    font-weight: 600;
+    padding: 0.28rem 0;
+    border-radius: 6px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    color: #334155;
+    text-decoration: none;
+  }
+  .menu-month-chip:hover {
+    border-color: #0284c7;
+    color: #0284c7;
+    text-decoration: none;
+  }
+
+  /* 本文 */
+  .e-article {
+    min-width: 0;
+  }
+
+  .e-footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e2e8f0;
+  }
+  .e-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .e-tag {
+    font-size: 0.8rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
+    color: #475569;
+  }
+  .e-footer-nav {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  @media (max-width: 960px) {
+    .e-title {
+      font-size: 1.55rem;
+    }
+    .e-body-shell {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    .e-sidebar {
+      position: static;
+      max-height: none;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 0.85rem;
+    }
+  }
+</style>
