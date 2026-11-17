@@ -58,28 +58,24 @@ const featuredPrefs = PREFECTURES.filter((p) =>
     )}
 
     <div class="e-header-inner">
-      <nav class="e-crumbs" aria-label="パンくず">
-        <a href="/">ホーム</a>
-        <span>›</span>
-        <a href="/akita/">秋田県</a>
-        <span>›</span>
-        <span>{article.data.title}</span>
-      </nav>
-
-      <div class="e-badges">
-        <a href="/akita/" class="e-badge primary">📍 秋田県</a>
-        <span class="e-badge">{article.data.category}</span>
-        {article.data.season && <span class="e-badge season">{article.data.season}</span>}
-        <span class="e-badge outline">車なし</span>
-      </div>
-
       <h1 class="e-title">{article.data.title}</h1>
 
-      <div class="e-dates">
-        <span>公開日: {article.data.pubDate.toLocaleDateString('ja-JP')}</span>
-        {article.data.updatedDate && (
-          <span>更新日: {article.data.updatedDate.toLocaleDateString('ja-JP')}</span>
-        )}
+      <div class="e-meta-row">
+        <div class="e-badges">
+          <a href="/akita/" class="e-badge primary">📍 秋田県</a>
+          <span class="e-badge">{article.data.category}</span>
+          {article.data.season && <span class="e-badge season">{article.data.season}</span>}
+          <span class="e-badge outline">車なし</span>
+        </div>
+
+        <span class="e-meta-divider" aria-hidden="true">|</span>
+
+        <div class="e-dates">
+          <span>公開日: {article.data.pubDate.toLocaleDateString('ja-JP')}</span>
+          {article.data.updatedDate && (
+            <span>更新日: {article.data.updatedDate.toLocaleDateString('ja-JP')}</span>
+          )}
+        </div>
       </div>
     </div>
   </section>
@@ -313,7 +309,7 @@ const featuredPrefs = PREFECTURES.filter((p) =>
   /* 1段目：全幅ヒーロー ➔ タイトル */
   .e-hero-section {
     padding-top: 0;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
   }
   .e-header-inner {
     max-width: 1180px;
@@ -360,16 +356,28 @@ const featuredPrefs = PREFECTURES.filter((p) =>
     border: 1px solid #cbd5e1;
   }
   .e-title {
-    margin: 0 0 0.75rem;
+    margin: 0 0 0.85rem;
     font-size: 2.05rem;
     font-weight: 900;
     line-height: 1.35;
     color: #0f172a;
     letter-spacing: -0.02em;
   }
+  .e-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1rem;
+  }
+  .e-meta-divider {
+    color: #cbd5e1;
+    font-size: 0.9rem;
+    font-weight: 300;
+  }
   .e-dates {
     display: flex;
-    gap: 1rem;
+    flex-wrap: wrap;
+    gap: 0.85rem;
     font-size: 0.84rem;
     color: #64748b;
   }
