@@ -58,24 +58,6 @@ import TourismPhoto from '../../components/TourismPhoto.astro';
 />
 */}
 
-{/* ▼ 基本データボックス（Markdownテーブルの代わりに標準使用） */}
-<SpotInfoBox
-  name="{スポット名}"
-  category="観光スポット"
-  address="秋田県〇〇市〇〇町1-2-3"
-  hours="9:00〜17:00（最終入館 16:30）"
-  closed="毎週〇曜日（祝日の場合は翌日）・年末年始"
-  fee="大人 500円 / 小中学生 250円（散策・外観見学は無料）"
-  stayTime="約60分〜90分"
-  access="JR「〇〇駅」より徒歩約15分（または路線バス約5分）"
-  parking="あり（普通車〇〇台・無料／有料）"
-  officialUrl="https://example.com/"
-  officialLabel="{スポット名} 公式サイト"
-  extraItems={[
-    { label: "バリアフリー", value: "スロープ・多目的トイレあり（ベビーカー利用可）" }
-  ]}
-/>
-
 ---
 
 ## 1. {スポット名}の最大の見どころ
@@ -176,6 +158,24 @@ import TourismPhoto from '../../components/TourismPhoto.astro';
 **A. （屋内施設の有無や冬季の営業状況・足元の注意点を記載します。）**
 
 ---
+
+{/* ▼ 基本データボックス（記事終盤に配置） */}
+<SpotInfoBox
+  name="{スポット名}"
+  category="観光スポット"
+  address="秋田県〇〇市〇〇町1-2-3"
+  hours="9:00〜17:00（最終入館 16:30）"
+  closed="毎週〇曜日（祝日の場合は翌日）・年末年始"
+  fee="大人 500円 / 小中学生 250円（散策・外観見学は無料）"
+  stayTime="約60分〜90分"
+  access="JR「〇〇駅」より徒歩約15分（または路線バス約5分）"
+  parking="あり（普通車〇〇台・無料／有料）"
+  officialUrl="https://example.com/"
+  officialLabel="{スポット名} 公式サイト"
+  extraItems={[
+    { label: "バリアフリー", value: "スロープ・多目的トイレあり（ベビーカー利用可）" }
+  ]}
+/>
 
 <RelatedCourseCards
   pref="akita"
