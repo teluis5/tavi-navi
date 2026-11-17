@@ -263,13 +263,13 @@ if (props.pageType === 'article') {
             )}
           </div>
 
-          <!-- 下部：サイトメニューエリア（スクロールなし固定） -->
+          <!-- 下部：サイトメニューエリア（サイト案内は固定、その下をスクロール可能） -->
           <div class="e-sidebar-menu-box" aria-label="サイトメニュー">
             <div class="e-sidebar-heading">
               <span class="e-sidebar-heading-text">メニュー</span>
             </div>
 
-            <div class="menu-group">
+            <div class="menu-group e-menu-fixed-group">
               <p class="menu-label">サイト案内</p>
               <ul class="menu-list">
                 <li><a href="/" class="menu-link">🏠 全国トップ</a></li>
@@ -278,38 +278,54 @@ if (props.pageType === 'article') {
               </ul>
             </div>
 
-            {!isSpecial && CITIES.filter((c) => c.prefId === prefSlug).length > 0 && (
-              <div class="menu-group">
-                <p class="menu-label">📍 {prefName}のエリア</p>
-                <div class="menu-chips">
-                  <a href={hubHref} class="menu-chip is-current">{prefName}トップ</a>
-                  {CITIES.filter((c) => c.prefId === prefSlug).map((city) => (
-                    <a href={`/${prefSlug}/${city.id}/`} class="menu-chip">{city.nameJa}</a>
-                  ))}
+            <div class="e-menu-scroll-wrap">
+              <div class="e-menu-scroll" id="menu-scroll-area" tabindex="0" aria-label="エリア・月別・都道府県メニュー">
+                {!isSpecial && CITIES.filter((c) => c.prefId === prefSlug).length > 0 && (
+                  <div class="menu-group">
+                    <p class="menu-label">📍 {prefName}のエリア</p>
+                    <div class="menu-chips">
+                      <a href={hubHref} class="menu-chip is-current">{prefName}トップ</a>
+                      {CITIES.filter((c) => c.prefId === prefSlug).map((city) => (
+                        <a href={`/${prefSlug}/${city.id}/`} class="menu-chip">{city.nameJa}</a>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                <div class="menu-group">
+                  <p class="menu-label">📅 {isSpecial ? '全国の月別ガイド' : `${prefName}の月別ガイド`}</p>
+                  <div class="menu-month-grid">
+                    {MONTHLY_THEMES.map((m) => (
+                      <a href={isSpecial ? `/season/${m.month}/` : `/${prefSlug}/${m.month}/`} class="menu-month-chip">
+                        {m.month}月
+                      </a>
+                    ))}
+                  </div>
+                </div>
+
+                <div class="menu-group">
+                  <p class="menu-label">🗾 人気の都道府県</p>
+                  <div class="menu-chips">
+                    {featuredPrefs.map((p) => (
+                      <a href={`/${p.id}/`} class={`menu-chip ${p.id === prefSlug ? 'is-current' : ''}`}>
+                        {p.nameJa}
+                      </a>
+                    ))}
+                  </div>
                 </div>
               </div>
-            )}
 
-            <div class="menu-group">
-              <p class="menu-label">📅 {isSpecial ? '全国の月別ガイド' : `${prefName}の月別ガイド`}</p>
-              <div class="menu-month-grid">
-                {MONTHLY_THEMES.map((m) => (
-                  <a href={isSpecial ? `/season/${m.month}/` : `/${prefSlug}/${m.month}/`} class="menu-month-chip">
-                    {m.month}月
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            <div class="menu-group">
-              <p class="menu-label">🗾 人気の都道府県</p>
-              <div class="menu-chips">
-                {featuredPrefs.map((p) => (
-                  <a href={`/${p.id}/`} class={`menu-chip ${p.id === prefSlug ? 'is-current' : ''}`}>
-                    {p.nameJa}
-                  </a>
-                ))}
-              </div>
+              <button
+                type="button"
+                class="e-menu-scroll-hint"
+                id="menu-scroll-hint"
+                aria-label="下にスクロール"
+                hidden
+              >
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
             </div>
           </div>
         </div>
@@ -435,6 +451,22 @@ if (props.pageType === 'article') {
       { rootMargin: '-90px 0px -70% 0px', threshold: 0 }
     );
     targets.forEach((t) => observer.observe(t));
+  }
+
+  const menuScroll = document.getElementById('menu-scroll-area');
+  const scrollHint = document.getElementById('menu-scroll-hint');
+  if (menuScroll && scrollHint) {
+    const updateScrollHint = () => {
+      const hasOverflow = menuScroll.scrollHeight > menuScroll.clientHeight + 4;
+      const atBottom = menuScroll.scrollTop + menuScroll.clientHeight >= menuScroll.scrollHeight - 4;
+      scrollHint.hidden = !hasOverflow || atBottom;
+    };
+    updateScrollHint();
+    menuScroll.addEventListener('scroll', updateScrollHint, { passive: true });
+    window.addEventListener('resize', updateScrollHint, { passive: true });
+    scrollHint.addEventListener('click', () => {
+      menuScroll.scrollBy({ top: 140, behavior: 'smooth' });
+    });
   }
 </script>
 
@@ -565,21 +597,71 @@ if (props.pageType === 'article') {
   .e-sidebar {
     position: sticky;
     top: 84px;
+    height: calc(100vh - 104px);
     display: flex;
     flex-direction: column;
   }
   .e-sidebar-container {
     display: flex;
     flex-direction: column;
+    height: 100%;
+    min-height: 0;
   }
   .e-sidebar-toc-box {
+    flex-shrink: 0;
     margin-bottom: 1.35rem;
     padding-bottom: 1.1rem;
     border-bottom: 1px solid #cbd5e1;
   }
   .e-sidebar-menu-box {
+    flex: 1 1 0%;
+    min-height: 0;
     display: flex;
     flex-direction: column;
+  }
+  .e-sidebar-menu-box .e-sidebar-heading,
+  .e-menu-fixed-group {
+    flex-shrink: 0;
+  }
+  .e-menu-scroll-wrap {
+    position: relative;
+    flex: 1 1 0%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .e-menu-scroll {
+    flex: 1 1 0%;
+    min-height: 0;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 1.75rem;
+  }
+  .e-menu-scroll::-webkit-scrollbar {
+    display: none;
+  }
+  .e-menu-scroll-hint {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2.25rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 0.15rem;
+    border: none;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.92) 55%, #ffffff 100%);
+    color: #0284c7;
+    cursor: pointer;
+    transition: opacity 0.2s ease, color 0.15s ease;
+  }
+  .e-menu-scroll-hint[hidden] {
+    display: none;
+  }
+  .e-menu-scroll-hint:hover {
+    color: #0369a1;
   }
   .e-sidebar-heading {
     display: block;
@@ -755,9 +837,15 @@ if (props.pageType === 'article') {
     .e-sidebar-container {
       height: auto;
     }
-    .e-sidebar-menu-box {
-      display: flex;
-      flex-direction: column;
+    .e-sidebar-menu-box,
+    .e-menu-scroll-wrap,
+    .e-menu-scroll {
+      flex: none;
+      overflow-y: visible;
+      padding-bottom: 0;
+    }
+    .e-menu-scroll-hint {
+      display: none !important;
     }
   }
 </style>
