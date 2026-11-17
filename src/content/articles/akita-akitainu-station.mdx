@@ -23,7 +23,12 @@ import TourismPhoto from '../../components/TourismPhoto.astro';
 import photoDogMain from '../../assets/photos/akita_compressed/05秋田犬ステーション.webp';
 import photoExterior from '../../assets/photos/akita_compressed/01秋田犬ステーション.webp';
 import photoGoods from '../../assets/photos/akita_compressed/02秋田犬ステーション.webp';
+import photoWalk from '../../assets/photos/akita_compressed/03秋田犬ステーション.webp';
+import photoInteraction from '../../assets/photos/akita_compressed/04秋田犬ステーション.webp';
 import photoSenshuPark from '../../assets/photos/akita_compressed/senshu-park.webp';
+import photoSenshuWinter from '../../assets/photos/akita_compressed/16千秋公園・久保田城.webp';
+import photoArtMuseum from '../../assets/photos/akita_compressed/01秋田県立美術館.webp';
+import photoMarket from '../../assets/photos/akita_compressed/02秋田市民市場.webp';
 
 <ProblemBox>
 - 本物の秋田犬には毎日会える？出勤スケジュールやふれあい時間は？
@@ -44,11 +49,13 @@ import photoSenshuPark from '../../assets/photos/akita_compressed/senshu-park.we
   standalone={true}
   title="秋田犬ステーション"
   pillText="観光スポット"
-  imageLayout="grid-3"
+  imageLayout="carousel"
   images={[
-    { image: photoDogMain, imageCredit: "一般社団法人 秋田県観光連盟" },
-    { image: photoGoods, imageCredit: "一般社団法人 秋田県観光連盟" },
-    { image: photoExterior, imageCredit: "一般社団法人 秋田県観光連盟" }
+    { image: photoDogMain, caption: "つぶらな瞳が愛らしい秋田犬", imageCredit: "一般社団法人 秋田県観光連盟" },
+    { image: photoInteraction, caption: "室内で元気に過ごす秋田犬", imageCredit: "一般社団法人 秋田県観光連盟" },
+    { image: photoWalk, caption: "エリアなかいち周辺をお散歩する様子", imageCredit: "一般社団法人 秋田県観光連盟" },
+    { image: photoGoods, caption: "可愛い秋田犬グッズがずらりと並ぶ物販コーナー", imageCredit: "一般社団法人 秋田県観光連盟" },
+    { image: photoExterior, caption: "エリアなかいち商業棟1階の店舗外観", imageCredit: "一般社団法人 秋田県観光連盟" }
   ]}
 />
 
@@ -58,9 +65,23 @@ import photoSenshuPark from '../../assets/photos/akita_compressed/senshu-park.we
 
 ### ガラス越しに間近で観察！愛らしい仕草に癒やされる
 
+<TourismPhoto
+  src={photoInteraction}
+  credit="一般社団法人 秋田県観光連盟"
+  alt="秋田犬ステーションの秋田犬とのふれあい"
+  caption="スタッフと遊ぶ元気な秋田犬。自然体のリラックスした姿を間近で観察できる"
+/>
+
 秋田犬ステーションの展示スペースは、見学エリアとガラスで仕切られた快適な室内ドッグラン仕様になっています。
 
 スタッフと元気に遊んだり、床でごろんとお昼寝したり、ガラス越しにこちらをじっと見つめてくれたりと、自然体で過ごす秋田犬の姿を間近で観察できます。
+
+<TourismPhoto
+  src={photoWalk}
+  credit="一般社団法人 秋田県観光連盟"
+  alt="秋田犬ステーションでお散歩する秋田犬"
+  caption="タイミングが良ければ、エリアなかいちの広場をお散歩する凛々しい姿に出会えることも"
+/>
 
 ### 見学・写真撮影のマナーとルール
 
@@ -138,8 +159,31 @@ JR秋田駅直結の商業施設「トピコ」2階にも出張サテライト�
 />
 
 - **秋田県立美術館（徒歩1分）**: エリアなかいち内に隣接。安藤忠雄氏設計のモダン建築で、2階ラウンジの水庭越しに千秋公園を眺める景観が見事です。
-- **千秋公園（徒歩5分）**: 久保田藩主・佐竹氏の城跡。御隅櫓や表門が復元され、春の桜や秋の紅葉の名所として親しまれています。
+
+<TourismPhoto
+  src={photoArtMuseum}
+  credit="一般社団法人 秋田県観光連盟"
+  alt="秋田県立美術館の螺旋階段と天窓"
+  caption="秋田県立美術館の美しい螺旋階段と三角形の天窓。雨の日でも楽しめるアートスポット"
+/>
+
+- **千秋公園（徒歩5分）**: 久保田藩主・佐竹氏の城跡。御隅櫓や表門が復元され、春の桜や秋の紅葉、冬の雪景色と四季折々の名所として親しまれています。
+
+<TourismPhoto
+  src={photoSenshuWinter}
+  credit="一般社団法人 秋田県観光連盟"
+  alt="千秋公園（久保田城跡）の佐竹義堯公銅像と雪景色"
+  caption="冬の千秋公園に佇む佐竹義堯公銅像。雪に包まれた城跡の静寂な美しさは圧巻"
+/>
+
 - **秋田市民市場（徒歩10分）**: 「秋田の台所」と呼ばれる活気ある市場。新鮮な海鮮丼や筋子・いぶりがっこなどのお土産が揃います（日曜定休）。
+
+<TourismPhoto
+  src={photoMarket}
+  credit="一般社団法人 秋田県観光連盟"
+  alt="活気あふれる秋田市民市場の鮮魚通り"
+  caption="秋田駅から徒歩5分の秋田市民市場。日本海沿岸の朝獲れ鮮魚やご当地食材が並ぶ"
+/>
 
 ---
 
