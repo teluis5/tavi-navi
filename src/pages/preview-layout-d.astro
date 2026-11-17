@@ -1,0 +1,451 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getEntry, render } from 'astro:content';
+import { CITIES } from '../data/cities';
+import { PREFECTURES } from '../data/prefectures';
+import { MONTHLY_THEMES } from '../data/monthlyThemes';
+
+const article = await getEntry('articles', 'akita-akitainu-station');
+if (!article) {
+  throw new Error('Sample article akita-akitainu-station not found');
+}
+
+const { Content } = await render(article);
+const akitaCities = CITIES.filter((c) => c.prefId === 'akita');
+const featuredPrefs = PREFECTURES.filter((p) =>
+  ['hokkaido', 'aomori', 'iwate', 'akita', 'tokyo', 'kanagawa', 'shizuoka', 'kyoto'].includes(p.id)
+);
+---
+
+<Layout
+  title={`[案D比較] ${article.data.title} - tavi-navi`}
+  description={article.data.description}
+  image={article.data.heroImage}
+  lang="ja"
+  currentPref="akita"
+>
+  <div class="layout-d-app">
+    <!-- 左サイドナビ常駐レール -->
+    <aside class="layout-d-rail" aria-label="サイトナビゲーション">
+      <div class="rail-section">
+        <p class="rail-label">メニュー</p>
+        <ul class="rail-list">
+          <li><a href="/" class="rail-link">🏠 全国トップ</a></li>
+          <li><a href="/special/dokokanibyun/" class="rail-link">🚅 どこかにビューーン！</a></li>
+          <li><a href="/season/" class="rail-link">🗓️ 旬の季節・月別ガイド</a></li>
+        </ul>
+      </div>
+
+      <div class="rail-section">
+        <p class="rail-label">📍 秋田県のエリア</p>
+        <ul class="rail-list">
+          <li><a href="/akita/" class="rail-link is-active">秋田県トップ</a></li>
+          {akitaCities.map((city) => (
+            <li>
+              <a href={`/akita/${city.id}/`} class="rail-link">{city.nameJa}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="rail-section">
+        <p class="rail-label">📅 月別ガイド</p>
+        <div class="rail-month-grid">
+          {MONTHLY_THEMES.map((m) => (
+            <a href={`/akita/${m.month}/`} class="rail-month-chip">{m.month}月</a>
+          ))}
+        </div>
+      </div>
+
+      <div class="rail-section">
+        <p class="rail-label">🗾 人気の都道府県</p>
+        <div class="rail-pref-grid">
+          {featuredPrefs.map((p) => (
+            <a href={`/${p.id}/`} class={`rail-pref-chip ${p.id === 'akita' ? 'is-current' : ''}`}>
+              {p.nameJa}
+            </a>
+          ))}
+        </div>
+      </div>
+    </aside>
+
+    <!-- 右側メインキャンバス -->
+    <div class="layout-d-canvas">
+      <div class="preview-switcher">
+        <div class="preview-switcher-inner">
+          <span class="preview-badge">レイアウト比較プレビュー</span>
+          <span class="preview-desc">現在表示中：<strong>案D（左サイドナビ常駐 ＋ メインキャンバス）</strong></span>
+          <div class="preview-links">
+            <a href="/preview-layout-b/" class="preview-btn">案B：左目次＋本文</a>
+            <a href="/preview-layout-d/" class="preview-btn active">案D：左サイドナビ常駐</a>
+            <a href="/akita/akitainu-station/" class="preview-btn ghost">現行本番を見る ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <article class="layout-d-article google-anno-skip">
+        <nav class="d-crumbs" aria-label="パンくず">
+          <a href="/">ホーム</a>
+          <span>›</span>
+          <a href="/akita/">秋田県</a>
+          <span>›</span>
+          <span>{article.data.title}</span>
+        </nav>
+
+        <header class="d-header">
+          <div class="d-badges">
+            <a href="/akita/" class="d-badge primary">📍 秋田県</a>
+            <span class="d-badge">{article.data.category}</span>
+            {article.data.season && <span class="d-badge season">{article.data.season}</span>}
+            <span class="d-badge outline">車なし</span>
+          </div>
+
+          <h1 class="d-title">{article.data.title}</h1>
+
+          <div class="d-dates">
+            <span>公開日: {article.data.pubDate.toLocaleDateString('ja-JP')}</span>
+            {article.data.updatedDate && (
+              <span>更新日: {article.data.updatedDate.toLocaleDateString('ja-JP')}</span>
+            )}
+          </div>
+        </header>
+
+        {article.data.heroImage && (
+          <figure class="d-hero">
+            <img
+              src={article.data.heroImage}
+              alt={article.data.title}
+              width="1200"
+              height="630"
+            />
+            <figcaption>写真提供：一般社団法人 秋田県観光連盟</figcaption>
+          </figure>
+        )}
+
+        <div class="prose google-anno-skip">
+          <Content />
+        </div>
+
+        <footer class="d-footer">
+          <div class="d-tags">
+            {article.data.tags.map((tag: string) => (
+              <span class="d-tag">#{tag}</span>
+            ))}
+          </div>
+          <div class="d-footer-nav">
+            <a href="/akita/">← 秋田県の旅情報一覧へ</a>
+            <a href="/">全国トップへ戻る</a>
+          </div>
+        </footer>
+      </article>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  :global(body) {
+    background: #ffffff !important;
+  }
+  :global(main) {
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .layout-d-app {
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr);
+    min-height: calc(100vh - 64px);
+    align-items: start;
+  }
+
+  /* 左サイドナビ常駐レール */
+  .layout-d-rail {
+    position: sticky;
+    top: 64px;
+    height: calc(100vh - 64px);
+    overflow-y: auto;
+    background: #f8fafc;
+    border-right: 1px solid #e2e8f0;
+    padding: 1.5rem 1.15rem 2.5rem;
+    scrollbar-width: thin;
+  }
+
+  .rail-section {
+    margin-bottom: 1.75rem;
+  }
+  .rail-section:last-child {
+    margin-bottom: 0;
+  }
+
+  .rail-label {
+    margin: 0 0 0.55rem;
+    padding: 0 0.5rem;
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: #64748b;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .rail-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .rail-link {
+    display: block;
+    padding: 0.45rem 0.65rem;
+    border-radius: 8px;
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: #334155;
+    text-decoration: none;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+  .rail-link:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+    text-decoration: none;
+  }
+  .rail-link.is-active {
+    background: #e0f2fe;
+    color: #0369a1;
+    font-weight: 700;
+  }
+
+  .rail-month-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.35rem;
+    padding: 0 0.25rem;
+  }
+  .rail-month-chip {
+    text-align: center;
+    font-size: 0.76rem;
+    font-weight: 600;
+    padding: 0.3rem 0;
+    border-radius: 6px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    color: #334155;
+    text-decoration: none;
+  }
+  .rail-month-chip:hover {
+    border-color: #0284c7;
+    color: #0284c7;
+    text-decoration: none;
+  }
+
+  .rail-pref-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    padding: 0 0.25rem;
+  }
+  .rail-pref-chip {
+    font-size: 0.76rem;
+    font-weight: 600;
+    padding: 0.25rem 0.55rem;
+    border-radius: 6px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    color: #334155;
+    text-decoration: none;
+  }
+  .rail-pref-chip.is-current,
+  .rail-pref-chip:hover {
+    background: #e0f2fe;
+    border-color: #bae6fd;
+    color: #0369a1;
+    text-decoration: none;
+  }
+
+  /* 右側メインキャンバス */
+  .layout-d-canvas {
+    padding: 1.25rem 2rem 4rem;
+    min-width: 0;
+  }
+
+  .preview-switcher {
+    max-width: 960px;
+    margin: 0 auto 2rem;
+    background: #0f172a;
+    color: #f8fafc;
+    border-radius: 10px;
+    padding: 0.75rem 1.25rem;
+  }
+  .preview-switcher-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  .preview-badge {
+    font-size: 0.72rem;
+    font-weight: 800;
+    background: #0284c7;
+    color: #ffffff;
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+  }
+  .preview-desc {
+    font-size: 0.88rem;
+    color: #cbd5e1;
+  }
+  .preview-desc strong {
+    color: #ffffff;
+  }
+  .preview-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-left: auto;
+  }
+  .preview-btn {
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.35rem 0.75rem;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #e2e8f0;
+    background: #1e293b;
+    border: 1px solid #334155;
+  }
+  .preview-btn.active {
+    background: #0284c7;
+    border-color: #0284c7;
+    color: #ffffff;
+  }
+  .preview-btn.ghost {
+    background: transparent;
+  }
+
+  .layout-d-article {
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  .d-crumbs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    font-size: 0.82rem;
+    color: #64748b;
+    margin-bottom: 1.25rem;
+  }
+  .d-crumbs a {
+    color: #0284c7;
+  }
+
+  .d-header {
+    margin-bottom: 1.75rem;
+  }
+  .d-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-bottom: 0.85rem;
+  }
+  .d-badge {
+    font-size: 0.76rem;
+    font-weight: 700;
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
+    background: #f1f5f9;
+    color: #334155;
+    text-decoration: none;
+  }
+  .d-badge.primary {
+    background: #e0f2fe;
+    color: #0369a1;
+  }
+  .d-badge.season {
+    background: #fef08a;
+    color: #854d0e;
+  }
+  .d-badge.outline {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+  }
+
+  .d-title {
+    margin: 0 0 0.85rem;
+    font-size: 2rem;
+    font-weight: 900;
+    line-height: 1.35;
+    color: #0f172a;
+    letter-spacing: -0.02em;
+  }
+
+  .d-dates {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.84rem;
+    color: #64748b;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .d-hero {
+    margin: 0 0 2rem;
+  }
+  .d-hero img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+  }
+  .d-hero figcaption {
+    font-size: 0.72rem;
+    color: #64748b;
+    margin-top: 0.4rem;
+    text-align: right;
+  }
+
+  .d-footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e2e8f0;
+  }
+  .d-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .d-tag {
+    font-size: 0.8rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
+    color: #475569;
+  }
+  .d-footer-nav {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  @media (max-width: 960px) {
+    .layout-d-app {
+      grid-template-columns: 1fr;
+    }
+    .layout-d-rail {
+      display: none;
+    }
+    .layout-d-canvas {
+      padding: 1rem 1rem 3rem;
+    }
+    .d-title {
+      font-size: 1.55rem;
+    }
+  }
+</style>
