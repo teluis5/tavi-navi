@@ -13,7 +13,6 @@ heroImage: "/thumbnails/akita-course-akitainu-v1.webp"
 tags: ["秋田", "秋田市", "秋田犬", "秋田犬ステーション", "エリアなかいち", "動物ふれあい", "観光スポット", "車なしプランあり", "新幹線"]
 ---
 import TrainCondition from '../../components/TrainCondition.astro';
-import SpotPhotoGallery from '../../components/SpotPhotoGallery.astro';
 import SpotInfoBox from '../../components/SpotInfoBox.astro';
 import SpotAccess from '../../components/SpotAccess.astro';
 import NearbySpots from '../../components/NearbySpots.astro';
@@ -35,20 +34,6 @@ import photoInteraction from '../../assets/photos/akita_compressed/04秋田犬�
 <TrainCondition
   title="訪問前の注意点（出勤スケジュール要確認）"
   text={"・秋田犬はとてもデリケートな大型犬のため、健康管理・ストレス軽減を優先し、展示は主に土・日・祝および指定平日の特定時間帯のみとなっています。\n・平日はお休みの日もあるため、旅行前に必ず ONE FOR AKITA 公式Instagram または公式サイトの出勤カレンダーをご確認ください。"}
-/>
-
-<SpotPhotoGallery
-  standalone={true}
-  title="秋田犬ステーション"
-  pillText="観光スポット"
-  imageLayout="carousel"
-  images={[
-    { image: photoDogMain, caption: "つぶらな瞳が愛らしい秋田犬", imageCredit: "一般社団法人 秋田県観光連盟" },
-    { image: photoInteraction, caption: "室内で元気に過ごす秋田犬", imageCredit: "一般社団法人 秋田県観光連盟" },
-    { image: photoWalk, caption: "エリアなかいち周辺をお散歩する様子", imageCredit: "一般社団法人 秋田県観光連盟" },
-    { image: photoGoods, caption: "可愛い秋田犬グッズがずらりと並ぶ物販コーナー", imageCredit: "一般社団法人 秋田県観光連盟" },
-    { image: photoExterior, caption: "エリアなかいち商業棟1階の店舗外観", imageCredit: "一般社団法人 秋田県観光連盟" }
-  ]}
 />
 
 ---
