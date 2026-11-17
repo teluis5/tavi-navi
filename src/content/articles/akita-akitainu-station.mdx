@@ -16,6 +16,7 @@ import SpotPhotoGallery from '../../components/SpotPhotoGallery.astro';
 import SpotInfoBox from '../../components/SpotInfoBox.astro';
 import TransitStepBlock from '../../components/TransitStepBlock.astro';
 import SpotMap from '../../components/SpotMap.astro';
+import SpotQuoteCard from '../../components/SpotQuoteCard.astro';
 import TransitBookingHub from '../../components/TransitBookingHub.astro';
 import RelatedCourseCards from '../../components/RelatedCourseCards.astro';
 import ConclusionBox from '../../components/ConclusionBox.astro';
@@ -25,10 +26,6 @@ import photoExterior from '../../assets/photos/akita_compressed/01秋田犬ス�
 import photoGoods from '../../assets/photos/akita_compressed/02秋田犬ステーション.webp';
 import photoWalk from '../../assets/photos/akita_compressed/03秋田犬ステーション.webp';
 import photoInteraction from '../../assets/photos/akita_compressed/04秋田犬ステーション.webp';
-import photoSenshuPark from '../../assets/photos/akita_compressed/senshu-park.webp';
-import photoSenshuWinter from '../../assets/photos/akita_compressed/16千秋公園・久保田城.webp';
-import photoArtMuseum from '../../assets/photos/akita_compressed/01秋田県立美術館.webp';
-import photoMarket from '../../assets/photos/akita_compressed/02秋田市民市場.webp';
 
 <ProblemBox>
 - 本物の秋田犬には毎日会える？出勤スケジュールやふれあい時間は？
@@ -151,38 +148,21 @@ JR秋田駅直結の商業施設「トピコ」2階にも出張サテライト�
 
 ### あわせて立ち寄りたい周辺スポット
 
-<TourismPhoto
-  src={photoSenshuPark}
-  credit="一般社団法人 秋田県観光連盟"
-  alt="千秋公園とお堀の風景"
-  caption="秋田犬ステーションのすぐ北側に広がる千秋公園。四季折々の城下町の風情を楽しめる"
+秋田犬ステーションのある「エリアなかいち」の周辺には、徒歩で立ち寄れる秋田市屈指の名所が集まっています。各スポットの詳しい見どころやアクセスは、以下の個別ガイドをご覧ください。
+
+<SpotQuoteCard
+  slug="akita-art-museum"
+  label="徒歩1分（エリアなかいち内）"
 />
 
-- **秋田県立美術館（徒歩1分）**: エリアなかいち内に隣接。安藤忠雄氏設計のモダン建築で、2階ラウンジの水庭越しに千秋公園を眺める景観が見事です。
-
-<TourismPhoto
-  src={photoArtMuseum}
-  credit="一般社団法人 秋田県観光連盟"
-  alt="秋田県立美術館の螺旋階段と天窓"
-  caption="秋田県立美術館の美しい螺旋階段と三角形の天窓。雨の日でも楽しめるアートスポット"
+<SpotQuoteCard
+  slug="akita-senshu-park"
+  label="徒歩5分（お堀を渡ってすぐ）"
 />
 
-- **千秋公園（徒歩5分）**: 久保田藩主・佐竹氏の城跡。御隅櫓や表門が復元され、春の桜や秋の紅葉、冬の雪景色と四季折々の名所として親しまれています。
-
-<TourismPhoto
-  src={photoSenshuWinter}
-  credit="一般社団法人 秋田県観光連盟"
-  alt="千秋公園（久保田城跡）の佐竹義堯公銅像と雪景色"
-  caption="冬の千秋公園に佇む佐竹義堯公銅像。雪に包まれた城跡の静寂な美しさは圧巻"
-/>
-
-- **秋田市民市場（徒歩10分）**: 「秋田の台所」と呼ばれる活気ある市場。新鮮な海鮮丼や筋子・いぶりがっこなどのお土産が揃います（日曜定休）。
-
-<TourismPhoto
-  src={photoMarket}
-  credit="一般社団法人 秋田県観光連盟"
-  alt="活気あふれる秋田市民市場の鮮魚通り"
-  caption="秋田駅から徒歩5分の秋田市民市場。日本海沿岸の朝獲れ鮮魚やご当地食材が並ぶ"
+<SpotQuoteCard
+  slug="akita-shimin-ichiba"
+  label="徒歩10分（秋田駅西口すぐ）"
 />
 
 ---

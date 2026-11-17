@@ -1,0 +1,143 @@
+---
+import { getCollection } from 'astro:content';
+import { getArticleSlug } from '../utils/slug';
+
+export interface Props {
+  slug: string;
+  pref?: string;
+  label?: string;
+}
+
+const { slug: rawSlug, pref = 'akita', label = 'あわせて立ち寄りたい周辺スポット' } = Astro.props;
+
+const cleanQuery = rawSlug.replace(/^\//, '').replace(/\/$/, '').split('/').pop() || rawSlug;
+
+const allArticles = await getCollection('articles', ({ data }) => {
+  return data.lang === 'ja' && !data.draft;
+});
+
+const article = allArticles.find((art) => {
+  const artSlug = getArticleSlug(art.id, art.data.pref);
+  return art.id === cleanQuery || artSlug === cleanQuery || art.id.includes(cleanQuery);
+});
+
+let targetUrl = '';
+let targetTitle = '';
+let targetDesc = '';
+let targetCategory = '';
+let targetImage = '';
+
+if (article) {
+  const artSlug = getArticleSlug(article.id, article.data.pref);
+  targetUrl = `/${article.data.pref}/${artSlug}/`;
+  targetTitle = article.data.title;
+  targetDesc = article.data.description;
+  targetCategory = article.data.category;
+  targetImage = article.data.heroImage || '';
+}
+---
+
+{article && (
+  <aside class="spot-quote-card" aria-label={label}>
+    <div class="spot-quote-badge">
+      <span class="spot-quote-label">{label}</span>
+      {targetCategory && <span class="spot-quote-cat">{targetCategory}</span>}
+    </div>
+
+    <a href={targetUrl} class="spot-quote-body">
+      <div class="spot-quote-content">
+        <h4 class="spot-quote-title">{targetTitle}</h4>
+        <p class="spot-quote-desc">{targetDesc}</p>
+        <span class="spot-quote-link">
+          詳細ガイドを読む <span aria-hidden="true">&rarr;</span>
+        </span>
+      </div>
+    </a>
+  </aside>
+)}
+
+<style>
+  .spot-quote-card {
+    margin: 1.25rem 0 1.5rem;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-left: 4px solid #0284c7;
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, border-color 0.2s ease-out;
+  }
+
+  .spot-quote-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    border-color: #cbd5e1;
+    border-left-color: #0369a1;
+  }
+
+  .spot-quote-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.45rem;
+  }
+
+  .spot-quote-label {
+    font-size: 0.74rem;
+    font-weight: 800;
+    color: #0369a1;
+    letter-spacing: 0.03em;
+  }
+
+  .spot-quote-cat {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #475569;
+    background: #f1f5f9;
+    padding: 0.1rem 0.45rem;
+    border-radius: 4px;
+  }
+
+  .spot-quote-body {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .spot-quote-title {
+    margin: 0 0 0.35rem;
+    font-size: 1.02rem;
+    font-weight: 800;
+    line-height: 1.45;
+    color: #111827;
+  }
+
+  .spot-quote-body:hover .spot-quote-title {
+    color: #0284c7;
+  }
+
+  .spot-quote-desc {
+    margin: 0 0 0.5rem;
+    font-size: 0.84rem;
+    line-height: 1.6;
+    color: #4b5563;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .spot-quote-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #0284c7;
+  }
+
+  .spot-quote-body:hover .spot-quote-link {
+    color: #0369a1;
+    text-decoration: underline;
+  }
+</style>

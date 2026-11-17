@@ -18,6 +18,7 @@ import SpotPhotoGallery from '../../components/SpotPhotoGallery.astro';
 import SpotInfoBox from '../../components/SpotInfoBox.astro';
 import TransitStepBlock from '../../components/TransitStepBlock.astro';
 import SpotMap from '../../components/SpotMap.astro';
+import SpotQuoteCard from '../../components/SpotQuoteCard.astro';
 import HotelPortalHub from '../../components/HotelPortalHub.astro';
 import TransitBookingHub from '../../components/TransitBookingHub.astro';
 import RelatedCourseCards from '../../components/RelatedCourseCards.astro';
@@ -108,6 +109,16 @@ import TourismPhoto from '../../components/TourismPhoto.astro';
 <TransitStepBlock
   transitDetail={{ method: "羽後交通 路線バス", route: "田沢湖駅 ➔ 〇〇" }}
   timetable={{ stationId: "tazawako", destination: "〇〇", direction: "outbound" }}
+/>
+*/}
+
+### あわせて立ち寄りたい周辺スポット
+（周辺にサイト内の個別スポット紹介記事がある場合は <SpotQuoteCard> を使って引用・案内します。）
+
+{/*
+<SpotQuoteCard
+  slug="{pref}-{related-spot-slug}"
+  label="徒歩〇分（近隣施設）"
 />
 */}
 
