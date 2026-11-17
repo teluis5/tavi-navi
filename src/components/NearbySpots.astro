@@ -1,0 +1,53 @@
+---
+import SpotQuoteCard from './SpotQuoteCard.astro';
+
+export interface SpotItem {
+  slug: string;
+  label?: string;
+  pref?: string;
+}
+
+export interface Props {
+  spots: SpotItem[];
+  title?: string;
+  pref?: string;
+}
+
+const { spots = [], title, pref = 'akita' } = Astro.props;
+---
+
+<div class="nearby-spots-container">
+  {title && <h3 class="nearby-spots-title">{title}</h3>}
+  <div class="nearby-spots-grid">
+    {spots.map((item) => (
+      <SpotQuoteCard
+        slug={item.slug}
+        label={item.label}
+        pref={item.pref || pref}
+      />
+    ))}
+  </div>
+</div>
+
+<style>
+  .nearby-spots-container {
+    margin: 1.5rem 0 2rem;
+  }
+
+  .nearby-spots-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 1rem;
+  }
+
+  .nearby-spots-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .nearby-spots-grid :global(.spot-quote-card) {
+    margin: 0 !important;
+  }
+</style>

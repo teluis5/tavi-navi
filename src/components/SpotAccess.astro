@@ -1,0 +1,74 @@
+---
+import TransitStepBlock from './TransitStepBlock.astro';
+import SpotMap from './SpotMap.astro';
+
+export interface Props {
+  transitDetail?: {
+    method?: string;
+    route?: string;
+    specs?: string[];
+    links?: { label: string; href: string }[];
+  };
+  transit?: string;
+  transitBadge?: string;
+  transitRoute?: string;
+  transitSpecs?: string[];
+  timetable?: {
+    destination?: string;
+    finalStop?: string;
+    direction?: 'outbound' | 'return';
+    stationId?: string;
+    trainFilter?: string;
+    busFilter?: string;
+  };
+  map: {
+    title: string;
+    query: string;
+    address?: string;
+    note?: string;
+  };
+}
+
+const {
+  transitDetail,
+  transit,
+  transitBadge,
+  transitRoute,
+  transitSpecs,
+  timetable,
+  map,
+} = Astro.props;
+---
+
+<div class="spot-access-container">
+  <TransitStepBlock
+    transitDetail={transitDetail}
+    transit={transit}
+    transitBadge={transitBadge}
+    transitRoute={transitRoute}
+    transitSpecs={transitSpecs}
+    timetable={timetable}
+  />
+
+  {map && (
+    <div class="spot-access-map-wrap">
+      <SpotMap
+        title={map.title}
+        query={map.query}
+        address={map.address}
+        note={map.note}
+      />
+    </div>
+  )}
+</div>
+
+<style>
+  .spot-access-container {
+    margin: 1.5rem 0 2rem;
+  }
+
+  .spot-access-map-wrap :global(.spot-map-card) {
+    margin-top: 1rem;
+    margin-bottom: 0;
+  }
+</style>

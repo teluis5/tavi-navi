@@ -1,0 +1,174 @@
+---
+export interface RuleItem {
+  title: string;
+  desc?: string;
+  type?: 'ng' | 'ok' | 'info' | 'warn';
+  icon?: string;
+}
+
+export interface Props {
+  title?: string;
+  lead?: string;
+  rules: (RuleItem | string)[];
+}
+
+const {
+  title = "見学マナー・利用時の注意点",
+  lead,
+  rules = [],
+} = Astro.props;
+
+// 正規化
+const normalizedRules: RuleItem[] = rules.map((r) => {
+  if (typeof r === 'string') {
+    // プレフィックス判定（簡易）
+    if (r.startsWith('NG:') || r.includes('禁止') || r.includes('厳禁')) {
+      return { title: r, type: 'ng' };
+    }
+    return { title: r, type: 'info' };
+  }
+  return r;
+});
+
+function getBadge(type?: string) {
+  switch (type) {
+    case 'ng':
+      return { label: '禁止', color: '#ef4444', bg: '#fef2f2', border: '#fecaca', icon: '✕' };
+    case 'ok':
+      return { label: '推奨', color: '#10b981', bg: '#f0fdf4', border: '#bbf7d0', icon: '✓' };
+    case 'warn':
+      return { label: '注意', color: '#f59e0b', bg: '#fffbeb', border: '#fde68a', icon: '!' };
+    default:
+      return { label: 'マナー', color: '#0284c7', bg: '#f0f9ff', border: '#bae6fd', icon: '●' };
+  }
+}
+---
+
+<div class="spot-rules-card" role="region" aria-label={title}>
+  <div class="spot-rules-header">
+    <span class="spot-rules-icon" aria-hidden="true">📋</span>
+    <h3 class="spot-rules-heading">{title}</h3>
+  </div>
+
+  {lead && <p class="spot-rules-lead">{lead}</p>}
+
+  <ul class="spot-rules-list">
+    {normalizedRules.map((item) => {
+      const badge = getBadge(item.type);
+      return (
+        <li class={`spot-rules-item is-${item.type || 'info'}`}>
+          <span
+            class="spot-rules-badge"
+            style={`color: ${badge.color}; background: ${badge.bg}; border-color: ${badge.border};`}
+            aria-hidden="true"
+          >
+            {item.icon || badge.icon}
+          </span>
+          <div class="spot-rules-content">
+            <strong class="spot-rules-item-title">{item.title}</strong>
+            {item.desc && <p class="spot-rules-item-desc">{item.desc}</p>}
+          </div>
+        </li>
+      );
+    })}
+  </ul>
+</div>
+
+<style>
+  .spot-rules-card {
+    margin: 1.5rem 0 2rem;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-left: 4px solid #0284c7;
+    border-radius: 12px;
+    padding: 1.25rem 1.35rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  }
+
+  .spot-rules-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .spot-rules-icon {
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+
+  .spot-rules-heading {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0;
+  }
+
+  .spot-rules-lead {
+    font-size: 0.9rem;
+    color: #64748b;
+    line-height: 1.6;
+    margin: 0 0 1rem;
+  }
+
+  .spot-rules-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .spot-rules-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.65rem 0.85rem;
+    background: #f8fafc;
+    border-radius: 8px;
+    border: 1px solid #f1f5f9;
+  }
+
+  .spot-rules-badge {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 800;
+    border: 1px solid;
+    margin-top: 1px;
+  }
+
+  .spot-rules-content {
+    flex: 1;
+  }
+
+  .spot-rules-item-title {
+    font-size: 0.925rem;
+    font-weight: 700;
+    color: #1e293b;
+    line-height: 1.5;
+    display: block;
+  }
+
+  .spot-rules-item-desc {
+    font-size: 0.85rem;
+    color: #64748b;
+    line-height: 1.55;
+    margin: 0.25rem 0 0;
+  }
+
+  @media (max-width: 640px) {
+    .spot-rules-card {
+      padding: 1rem 1.1rem;
+    }
+    .spot-rules-item {
+      padding: 0.55rem 0.75rem;
+    }
+  }
+</style>

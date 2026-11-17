@@ -13,9 +13,9 @@ tags: ["秋田", "秋田市", "秋田県立美術館", "安藤忠雄", "美術�
 import TrainCondition from '../../components/TrainCondition.astro';
 import SpotPhotoGallery from '../../components/SpotPhotoGallery.astro';
 import SpotInfoBox from '../../components/SpotInfoBox.astro';
-import TransitStepBlock from '../../components/TransitStepBlock.astro';
-import SpotMap from '../../components/SpotMap.astro';
-import SpotQuoteCard from '../../components/SpotQuoteCard.astro';
+import SpotAccess from '../../components/SpotAccess.astro';
+import NearbySpots from '../../components/NearbySpots.astro';
+import SpotFaq from '../../components/SpotFaq.astro';
 import RelatedCourseCards from '../../components/RelatedCourseCards.astro';
 import ConclusionBox from '../../components/ConclusionBox.astro';
 import TourismPhoto from '../../components/TourismPhoto.astro';
@@ -75,7 +75,7 @@ import photoDog from '../../assets/photos/akita_compressed/05秋田犬ステー�
 
 ## 2. 秋田駅からのアクセス
 
-<TransitStepBlock
+<SpotAccess
   transitDetail={{
     method: "徒歩 約10分 / 市街地循環バス 約5分",
     route: "JR秋田駅西口 ➔ エリアなかいち（秋田県立美術館）",
@@ -85,13 +85,12 @@ import photoDog from '../../assets/photos/akita_compressed/05秋田犬ステー�
       "雨・雪の日：秋田駅直結の連絡通路「ぽぽろーど」やアーケードを活用可能"
     ]
   }}
-/>
-
-<SpotMap
-  title="秋田県立美術館"
-  query="秋田県立美術館 秋田市中通一丁目4番2号"
-  address="〒010-0001 秋田県秋田市中通一丁目4番2号 エリアなかいち内"
-  note="エリアなかいち内に秋田犬ステーションや飲食店・カフェも隣接しています。"
+  map={{
+    title: "秋田県立美術館",
+    query: "秋田県立美術館 秋田市中通一丁目4番2号",
+    address: "〒010-0001 秋田県秋田市中通一丁目4番2号 エリアなかいち内",
+    note: "エリアなかいち内に秋田犬ステーションや飲食店・カフェも隣接しています。"
+  }}
 />
 
 ---
@@ -100,32 +99,30 @@ import photoDog from '../../assets/photos/akita_compressed/05秋田犬ステー�
 
 秋田県立美術館のある「エリアなかいち」の周辺には、徒歩ですぐに立ち寄れる秋田市の主要観光名所が隣接しています。
 
-<SpotQuoteCard
-  slug="akita-akitainu-station"
-  label="徒歩1分（エリアなかいち内）"
-/>
-
-<SpotQuoteCard
-  slug="akita-senshu-park"
-  label="徒歩5分（お堀を渡ってすぐ）"
-/>
-
-<SpotQuoteCard
-  slug="akita-shimin-ichiba"
-  label="徒歩10分（秋田駅西口すぐ）"
+<NearbySpots
+  spots={[
+    { slug: "akita-akitainu-station", label: "徒歩1分（エリアなかいち内）" },
+    { slug: "akita-senshu-park", label: "徒歩5分（お堀を渡ってすぐ）" },
+    { slug: "akita-shimin-ichiba", label: "徒歩10分（秋田駅西口すぐ）" }
+  ]}
 />
 
 ---
 
 ## よくある質問（FAQ）
 
-### Q. 館内の写真撮影はできますか？
-**A. 1階エントランス（螺旋階段）や2階ラウンジは撮影可能ですが、展示室内は原則撮影禁止です。**
-（企画展や所蔵作品展のエリアでは作品保護のため撮影ルールが制限されます。現地の案内表示をご確認ください。）
-
-### Q. 雨の日でも楽しめますか？
-**A. 屋内施設のため、雨や雪の日でも快適に楽しめます。**
-2階ラウンジから雨煙に煙る千秋公園の水墨画のような風情を眺めるのも人気です。
+<SpotFaq
+  items={[
+    {
+      q: "館内の写真撮影はできますか？",
+      a: "1階エントランス（螺旋階段）や2階ラウンジは撮影可能ですが、展示室内は原則撮影禁止です。企画展や所蔵作品展のエリアでは作品保護のため撮影ルールが制限されます。現地の案内表示をご確認ください。"
+    },
+    {
+      q: "雨の日でも楽しめますか？",
+      a: "屋内施設のため、雨や雪の日でも快適に楽しめます。2階ラウンジから雨煙に煙る千秋公園の水墨画のような風情を眺めるのも人気です。"
+    }
+  ]}
+/>
 
 ---
 

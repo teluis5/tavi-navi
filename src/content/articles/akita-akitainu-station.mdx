@@ -15,9 +15,10 @@ tags: ["秋田", "秋田市", "秋田犬", "秋田犬ステーション", "エ�
 import TrainCondition from '../../components/TrainCondition.astro';
 import SpotPhotoGallery from '../../components/SpotPhotoGallery.astro';
 import SpotInfoBox from '../../components/SpotInfoBox.astro';
-import TransitStepBlock from '../../components/TransitStepBlock.astro';
-import SpotMap from '../../components/SpotMap.astro';
-import SpotQuoteCard from '../../components/SpotQuoteCard.astro';
+import SpotAccess from '../../components/SpotAccess.astro';
+import NearbySpots from '../../components/NearbySpots.astro';
+import SpotRulesBox from '../../components/SpotRulesBox.astro';
+import SpotFaq from '../../components/SpotFaq.astro';
 import RelatedCourseCards from '../../components/RelatedCourseCards.astro';
 import ConclusionBox from '../../components/ConclusionBox.astro';
 import TourismPhoto from '../../components/TourismPhoto.astro';
@@ -76,12 +77,32 @@ import photoInteraction from '../../assets/photos/akita_compressed/04秋田犬�
 
 ### 見学・写真撮影のマナーとルール
 
-秋田犬たちが安心して過ごせるよう、見学時は以下のルールを守って楽しみましょう。
-
-- **フラッシュ撮影は厳禁**: 秋田犬の目を傷めたり驚かせたりするため、カメラ・スマートフォンのフラッシュは必ずOFFにします。
-- **ガラスを叩かない**: 音に敏感なため、ガラスを叩いて気を引く行為は禁止です。
-- **大声を出さない**: 静かに見守りながら写真や動画を撮影しましょう。
-- **食べ物を与えない**: 持ち込みのフードやおやつを与えることはできません。
+<SpotRulesBox
+  title="秋田犬ステーション 見学ルール＆マナー"
+  lead="秋田犬たちが安心してリラックスして過ごせるよう、見学時は以下のルールを守って楽しみましょう。"
+  rules={[
+    {
+      type: "ng",
+      title: "フラッシュ撮影は厳禁",
+      desc: "秋田犬の目を傷めたり驚かせたりするため、カメラやスマートフォンのフラッシュ・補助光は必ずOFFにしてください。"
+    },
+    {
+      type: "ng",
+      title: "ガラスを叩かない",
+      desc: "犬たちは音に非常に敏感です。気を引こうとしてガラスを叩く行為は固く禁止されています。"
+    },
+    {
+      type: "warn",
+      title: "大声を出さず静かに見学",
+      desc: "大きな声や急な動きはストレスになります。静かに見守りながら写真や動画を撮影しましょう。"
+    },
+    {
+      type: "ng",
+      title: "食べ物・おやつを与えない",
+      desc: "健康管理のため、持ち込みのフードやおやつを与えることは一切できません。"
+    }
+  ]}
+/>
 
 ---
 
@@ -128,7 +149,7 @@ JR秋田駅直結の商業施設「トピコ」2階にも出張サテライト�
 
 ## 4. 秋田駅からのアクセス
 
-<TransitStepBlock
+<SpotAccess
   transitDetail={{
     method: "徒歩 約10分 / 循環バス約5分",
     route: "JR秋田駅西口 ➔ エリアなかいち（秋田犬ステーション）",
@@ -138,13 +159,12 @@ JR秋田駅直結の商業施設「トピコ」2階にも出張サテライト�
       "悪天候時：駅前のアーケード街を経由すると雨や雪を避けて移動しやすい"
     ]
   }}
-/>
-
-<SpotMap
-  title="秋田犬ステーション（エリアなかいち商業棟1F）"
-  query="秋田犬ステーション 秋田県秋田市中通一丁目4番1号"
-  address="〒010-0001 秋田県秋田市中通一丁目4番1号 エリアなかいち商業棟1F"
-  note="車の場合はエリアなかいち有料駐車場が利用できます。"
+  map={{
+    title: "秋田犬ステーション（エリアなかいち商業棟1F）",
+    query: "秋田犬ステーション 秋田県秋田市中通一丁目4番1号",
+    address: "〒010-0001 秋田県秋田市中通一丁目4番1号 エリアなかいち商業棟1F",
+    note: "車の場合はエリアなかいち有料駐車場が利用できます。"
+  }}
 />
 
 ---
@@ -153,36 +173,34 @@ JR秋田駅直結の商業施設「トピコ」2階にも出張サテライト�
 
 秋田犬ステーションのある「エリアなかいち」の周辺には、徒歩で立ち寄れる秋田市屈指の名所が集まっています。各スポットの詳しい見どころやアクセスは、以下の個別ガイドをご覧ください。
 
-<SpotQuoteCard
-  slug="akita-art-museum"
-  label="徒歩1分（エリアなかいち内）"
-/>
-
-<SpotQuoteCard
-  slug="akita-senshu-park"
-  label="徒歩5分（お堀を渡ってすぐ）"
-/>
-
-<SpotQuoteCard
-  slug="akita-shimin-ichiba"
-  label="徒歩10分（秋田駅西口すぐ）"
+<NearbySpots
+  spots={[
+    { slug: "akita-art-museum", label: "徒歩1分（エリアなかいち内）" },
+    { slug: "akita-senshu-park", label: "徒歩5分（お堀を渡ってすぐ）" },
+    { slug: "akita-shimin-ichiba", label: "徒歩10分（秋田駅西口すぐ）" }
+  ]}
 />
 
 ---
 
 ## よくある質問（FAQ）
 
-### Q. 秋田犬を直接手で撫でたり抱っこしたりできる？
-**A. 原則としてガラス越しでの見学となります。**  
-秋田犬は大型犬であり、感染症予防や犬たちのストレス・体調管理を徹底しているため、一般見学での直接の抱っこやタッチは行っていません。ガラスのすぐそばまで寄ってきてくれるため、至近距離で愛らしい表情や仕草を楽しめます。
-
-### Q. 見学に予約は必要ですか？
-**A. 通常の見学は予約不要（無料）です。**  
-出勤時間内であれば、どなたでも自由に立ち寄って見学できます。混雑時は順番に譲り合ってご見学ください。
-
-### Q. 車なしでも行けますか？
-**A. 秋田駅から徒歩約10分で、完全に車なしでアクセス可能です。**  
-秋田新幹線こまちの停車駅であるJR秋田駅から平坦な道を歩いてすぐの好立地にあります。
+<SpotFaq
+  items={[
+    {
+      q: "秋田犬を直接手で撫でたり抱っこしたりできる？",
+      a: "原則としてガラス越しでの見学となります。秋田犬は大型犬であり、感染症予防や犬たちのストレス・体調管理を徹底しているため、一般見学での直接の抱っこやタッチは行っていません。ガラスのすぐそばまで寄ってきてくれるため、至近距離で愛らしい表情や仕草を楽しめます。"
+    },
+    {
+      q: "見学に予約は必要ですか？",
+      a: "通常の見学は予約不要（無料）です。出勤時間内であれば、どなたでも自由に立ち寄って見学できます。混雑時は順番に譲り合ってご見学ください。"
+    },
+    {
+      q: "車なしでも行けますか？",
+      a: "秋田駅から徒歩約10分で、完全に車なしでアクセス可能です。秋田新幹線こまちの停車駅であるJR秋田駅から平坦な道を歩いてすぐの好立地にあります。"
+    }
+  ]}
+/>
 
 ---
 

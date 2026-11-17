@@ -15,9 +15,11 @@ tags: ["秋田", "仙北市", "{スポット名}", "観光スポット", "車な
 import TrainCondition from '../../components/TrainCondition.astro';
 import SpotPhotoGallery from '../../components/SpotPhotoGallery.astro';
 import SpotInfoBox from '../../components/SpotInfoBox.astro';
-import TransitStepBlock from '../../components/TransitStepBlock.astro';
-import SpotMap from '../../components/SpotMap.astro';
-import SpotQuoteCard from '../../components/SpotQuoteCard.astro';
+import SpotAccess from '../../components/SpotAccess.astro';
+import NearbySpots from '../../components/NearbySpots.astro';
+import SpotRulesBox from '../../components/SpotRulesBox.astro';
+import SpotSeasonGuide from '../../components/SpotSeasonGuide.astro';
+import SpotFaq from '../../components/SpotFaq.astro';
 import HotelPortalHub from '../../components/HotelPortalHub.astro';
 import RelatedCourseCards from '../../components/RelatedCourseCards.astro';
 import ConclusionBox from '../../components/ConclusionBox.astro';
@@ -74,17 +76,69 @@ import TourismPhoto from '../../components/TourismPhoto.astro';
 
 ---
 
-## 2. 混雑回避とベストシーズン・おすすめの時間帯
+## 2. 混雑回避とベストシーズン・見学マナー
 
-- **ベストシーズン**: （例：春は桜、秋は紅葉が見頃。冬は雪景色と静かな雰囲気を楽しめます）
-- **狙い目の時間帯**: （例：開館直後の9:00〜10:30は団体客が少なく、ゆっくり撮影できます）
-- **服装・持ち物の目安**: （例：屋外散策が中心のため、歩きやすい靴と季節に応じた防寒・日差し対策を推奨）
+{/* ▼ 四季の見どころ・ベストシーズンカレンダー（自然・公園・景勝地等で活用） */}
+<SpotSeasonGuide
+  title="{スポット名} 四季の見どころ・ベストシーズン"
+  lead="季節によって様々な表情を見せる{スポット名}。おすすめの時期と見どころです。"
+  seasons={[
+    {
+      season: "春",
+      months: "4月〜5月",
+      highlight: "桜と新緑の景観",
+      desc: "心地よい気候の中で散策や写真撮影を楽しめます。",
+      recommended: true
+    },
+    {
+      season: "夏",
+      months: "6月〜8月",
+      highlight: "青空と豊かな緑",
+      desc: "開館直後の午前中が涼しく快適に散策できます。"
+    },
+    {
+      season: "秋",
+      months: "10月〜11月",
+      highlight: "鮮やかな紅葉と秋の味覚",
+      desc: "周辺の山々やお堀端が色づき、散策に最適なシーズンです。"
+    },
+    {
+      season: "冬",
+      months: "12月〜2月",
+      highlight: "風情ある雪景色",
+      desc: "静寂に包まれた東北ならではの冬景色を満喫できます。"
+    }
+  ]}
+/>
+
+{/* ▼ 見学ルール・注意点ボックス（マナーや注意事項があるスポットで活用） */}
+<SpotRulesBox
+  title="{スポット名} 見学マナー＆利用上の注意"
+  lead="快適に見学を楽しむために、以下のマナーやルールを確認しておきましょう。"
+  rules={[
+    {
+      type: "warn",
+      title: "歩きやすい靴での来訪を推奨",
+      desc: "敷地内には石畳や階段・坂道があるため、スニーカー等での散策が安心です。"
+    },
+    {
+      type: "ng",
+      title: "指定場所以外での飲食・喫煙禁止",
+      desc: "文化財・景観保護のため、飲食・喫煙は指定の休憩所をご利用ください。"
+    },
+    {
+      type: "info",
+      title: "写真撮影時のマナー",
+      desc: "他のお客様のプライバシーに配慮し、三脚使用禁止エリアではルールに従いましょう。"
+    }
+  ]}
+/>
 
 ---
 
 ## 3. アクセス・行き方（〇〇駅からのアクセス）
 
-<TransitStepBlock
+<SpotAccess
   transitDetail={{
     method: "JR路線バス / 徒歩",
     route: "JR〇〇駅 ➔ {スポット名}前",
@@ -94,39 +148,31 @@ import TourismPhoto from '../../components/TourismPhoto.astro';
       "運行間隔：1時間に1〜2本（最終便〇〇:〇〇発に注意）"
     ]
   }}
+  map={{
+    title: "{スポット名}",
+    query: "{スポット名} 秋田県〇〇市〇〇町1-2-3",
+    address: "〒000-0000 秋田県〇〇市〇〇町1-2-3",
+    note: "駅前の観光案内所で手荷物預かりやレンタサイクルの利用も可能です。"
+  }}
 />
-
-<SpotMap
-  title="{スポット名}"
-  query="{スポット名} 秋田県〇〇市〇〇町1-2-3"
-  address="〒000-0000 秋田県〇〇市〇〇町1-2-3"
-  note="駅前の観光案内所で手荷物預かりやレンタサイクルの利用も可能です。"
-/>
-
-{/* ※ GTFS時刻表を表示する場合は timetable プロパティを併用
-<TransitStepBlock
-  transitDetail={{ method: "羽後交通 路線バス", route: "田沢湖駅 ➔ 〇〇" }}
-  timetable={{ stationId: "tazawako", destination: "〇〇", direction: "outbound" }}
-/>
-*/}
 
 ---
 
 ## 4. あわせて立ち寄りたい周辺スポット
-（周辺にサイト内の個別スポット紹介記事がある場合は <SpotQuoteCard> を使って引用・案内します。）
 
-{/*
-<SpotQuoteCard
-  slug="{pref}-{related-spot-slug}"
-  label="徒歩〇分（近隣施設）"
+{/* ▼ 周辺スポット一覧（サイト内の個別記事をグリッドカードで案内） */}
+<NearbySpots
+  spots={[
+    { slug: "{pref}-{related-spot-1}", label: "徒歩〇分（近隣施設）" },
+    { slug: "{pref}-{related-spot-2}", label: "車で〇分" }
+  ]}
 />
-*/}
 
 ---
 
 {/* ▼ 宿泊施設・温泉宿スポットの場合は HotelPortalHub を有効化（一般観光スポットでは削除） */}
 {/*
-## 4. 宿泊予約・料金目安（3大旅行サイト比較）
+## 5. 宿泊予約・料金目安（3大旅行サイト比較）
 
 <HotelPortalHub
   title="{宿名}"
@@ -143,12 +189,18 @@ import TourismPhoto from '../../components/TourismPhoto.astro';
 
 ## よくある質問（FAQ）
 
-### Q. {スポット名}の観光にかかる所要時間は？
-**A. 約60分〜90分が目安です。**
-（施設見学と写真撮影・お土産選びを含めた現実的な滞在時間を記載します。）
-
-### Q. 雨の日や冬でも楽しめますか？
-**A. （屋内施設の有無や冬季の営業状況・足元の注意点を記載します。）**
+<SpotFaq
+  items={[
+    {
+      q: "{スポット名}の観光にかかる所要時間は？",
+      a: "約60分〜90分が目安です。施設見学とお土産選びを含め、ゆったり楽しめます。"
+    },
+    {
+      q: "雨の日や冬でも楽しめますか？",
+      a: "屋内展示エリアがあるため雨天でも安心して楽しめます。冬季は足元の防寒対策をおすすめします。"
+    }
+  ]}
+/>
 
 ---
 

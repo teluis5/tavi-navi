@@ -1,0 +1,198 @@
+---
+export interface SeasonItem {
+  season: '春' | '夏' | '秋' | '冬' | string;
+  months?: string;
+  highlight: string;
+  desc?: string;
+  recommended?: boolean;
+}
+
+export interface Props {
+  title?: string;
+  lead?: string;
+  seasons: SeasonItem[];
+}
+
+const {
+  title = "四季の見どころ・ベストシーズン",
+  lead,
+  seasons = [],
+} = Astro.props;
+
+function getSeasonMeta(season: string) {
+  if (season.includes('春')) {
+    return { tag: '春', color: '#db2777', bg: '#fdf2f8', border: '#fbcfe8', icon: '🌸' };
+  } else if (season.includes('夏')) {
+    return { tag: '夏', color: '#0284c7', bg: '#f0f9ff', border: '#bae6fd', icon: '🌻' };
+  } else if (season.includes('秋')) {
+    return { tag: '秋', color: '#ea580c', bg: '#fff7ed', border: '#fed7aa', icon: '🍁' };
+  } else if (season.includes('冬')) {
+    return { tag: '冬', color: '#4f46e5', bg: '#eef2ff', border: '#c7d2fe', icon: '❄️' };
+  }
+  return { tag: season, color: '#0d9488', bg: '#f0fdfa', border: '#99f6e4', icon: '✨' };
+}
+---
+
+<div class="spot-season-card" role="region" aria-label={title}>
+  <div class="spot-season-header">
+    <span class="spot-season-icon" aria-hidden="true">🗓️</span>
+    <h3 class="spot-season-heading">{title}</h3>
+  </div>
+
+  {lead && <p class="spot-season-lead">{lead}</p>}
+
+  <div class="spot-season-grid">
+    {seasons.map((item) => {
+      const meta = getSeasonMeta(item.season);
+      return (
+        <div class={`spot-season-col ${item.recommended ? 'is-recommended' : ''}`}>
+          <div class="spot-season-col-header" style={`border-color: ${meta.border}; background: ${meta.bg};`}>
+            <span class="spot-season-col-icon" aria-hidden="true">{meta.icon}</span>
+            <div class="spot-season-col-title-wrap">
+              <span class="spot-season-tag" style={`color: ${meta.color};`}>{item.season}</span>
+              {item.months && <span class="spot-season-months">{item.months}</span>}
+            </div>
+            {item.recommended && <span class="spot-season-rec-badge">Best!</span>}
+          </div>
+          <div class="spot-season-col-body">
+            <strong class="spot-season-highlight">{item.highlight}</strong>
+            {item.desc && <p class="spot-season-desc">{item.desc}</p>}
+          </div>
+        </div>
+      );
+    })}
+  </div>
+</div>
+
+<style>
+  .spot-season-card {
+    margin: 1.5rem 0 2rem;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1.25rem 1.35rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  }
+
+  .spot-season-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .spot-season-icon {
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+
+  .spot-season-heading {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0;
+  }
+
+  .spot-season-lead {
+    font-size: 0.9rem;
+    color: #64748b;
+    line-height: 1.6;
+    margin: 0 0 1rem;
+  }
+
+  .spot-season-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0.85rem;
+  }
+
+  .spot-season-col {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .spot-season-col:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  }
+
+  .spot-season-col.is-recommended {
+    border-color: #0284c7;
+    box-shadow: 0 0 0 1px #0284c7;
+  }
+
+  .spot-season-col-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 0.85rem;
+    border-bottom: 1px solid;
+    position: relative;
+  }
+
+  .spot-season-col-icon {
+    font-size: 1.1rem;
+    line-height: 1;
+  }
+
+  .spot-season-col-title-wrap {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    flex: 1;
+  }
+
+  .spot-season-tag {
+    font-size: 0.925rem;
+    font-weight: 800;
+  }
+
+  .spot-season-months {
+    font-size: 0.75rem;
+    color: #64748b;
+  }
+
+  .spot-season-rec-badge {
+    background: #0284c7;
+    color: #ffffff;
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 0.15rem 0.45rem;
+    border-radius: 4px;
+    letter-spacing: 0.02em;
+  }
+
+  .spot-season-col-body {
+    padding: 0.85rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .spot-season-highlight {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1.5;
+    margin-bottom: 0.35rem;
+    display: block;
+  }
+
+  .spot-season-desc {
+    font-size: 0.8rem;
+    color: #64748b;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    .spot-season-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -13,9 +13,10 @@ tags: ["秋田", "秋田市", "千秋公園", "久保田城跡", "城跡", "桜�
 import TrainCondition from '../../components/TrainCondition.astro';
 import SpotPhotoGallery from '../../components/SpotPhotoGallery.astro';
 import SpotInfoBox from '../../components/SpotInfoBox.astro';
-import TransitStepBlock from '../../components/TransitStepBlock.astro';
-import SpotMap from '../../components/SpotMap.astro';
-import SpotQuoteCard from '../../components/SpotQuoteCard.astro';
+import SpotAccess from '../../components/SpotAccess.astro';
+import NearbySpots from '../../components/NearbySpots.astro';
+import SpotSeasonGuide from '../../components/SpotSeasonGuide.astro';
+import SpotFaq from '../../components/SpotFaq.astro';
 import RelatedCourseCards from '../../components/RelatedCourseCards.astro';
 import ConclusionBox from '../../components/ConclusionBox.astro';
 import TourismPhoto from '../../components/TourismPhoto.astro';
@@ -79,16 +80,43 @@ import photoSenshuWinter from '../../assets/photos/akita_compressed/16千秋公�
 
 ## 2. 四季の移ろい：桜・ツツジ・紅葉・雪景色
 
-- **春（4月中旬〜下旬）**: 「日本さくら名所100選」に選ばれ、ソメイヨシノやシダレザクラなど約700本が咲き誇る「千秋公園桜まつり」で大いに賑わいます。
-- **初夏（5月中旬〜下旬）**: 約4,000株のツツジが園内の斜面を色鮮やかに染め上げます。
-- **秋（10月下旬〜11月中旬）**: お堀沿いやモミジが真っ赤に色づき、城跡の石垣と紅葉の風情ある散策が楽しめます。
-- **冬（12月〜2月）**: 静寂に包まれた雪景色。白銀の雪帽子をかぶった松林や雪吊りの景観は東北ならではの美しさです。
+<SpotSeasonGuide
+  title="千秋公園 四季の見どころ・ベストシーズン"
+  lead="四季折々に劇的な表情を見せる千秋公園。日本さくら名所100選の春から冬の静寂まで、季節ごとのハイライトです。"
+  seasons={[
+    {
+      season: "春",
+      months: "4月中旬〜5月",
+      highlight: "千秋公園桜まつり＆約4,000株のツツジ",
+      desc: "ソメイヨシノやシダレザクラなど約700本が咲き誇る県内屈指の名所。5月には斜面を彩るツツジも見事です。",
+      recommended: true
+    },
+    {
+      season: "夏",
+      months: "6月〜8月",
+      highlight: "深緑の木陰とお堀を埋めるハスの花",
+      desc: "大手門通りのお堀一面に広がる蓮の花と、城跡の木々がもたらす涼やかな木陰散策が楽しめます。"
+    },
+    {
+      season: "秋",
+      months: "10月下旬〜11月中旬",
+      highlight: "城跡の石垣を彩る錦秋の紅葉",
+      desc: "本丸跡や表門周辺のモミジ・イチョウが鮮やかに色づき、歴史ある城跡と紅葉の情緒あるコラボレーションを堪能できます。"
+    },
+    {
+      season: "冬",
+      months: "12月〜2月",
+      highlight: "白銀の雪景色と與次郎稲荷神社の朱鳥居",
+      desc: "雪化粧した松林と静寂の城跡。真っ白な雪の中に佇む鮮やかな朱塗りの鳥居は冬ならではの絶景です。"
+    }
+  ]}
+/>
 
 ---
 
 ## 3. 秋田駅からのアクセス
 
-<TransitStepBlock
+<SpotAccess
   transitDetail={{
     method: "徒歩 約10分（平坦・駅前通り直進）",
     route: "JR秋田駅西口 ➔ 千秋公園（中道ポケットパーク・お堀端）",
@@ -98,13 +126,12 @@ import photoSenshuWinter from '../../assets/photos/akita_compressed/16千秋公�
       "手荷物は秋田駅構内または駅前蔵のコインロッカーに預けておくのが快適"
     ]
   }}
-/>
-
-<SpotMap
-  title="千秋公園（久保田城跡）"
-  query="千秋公園 秋田県秋田市千秋公園1"
-  address="〒010-0876 秋田県秋田市千秋公園1"
-  note="秋田駅西口からお堀端を抜けてすぐの場所に位置します。"
+  map={{
+    title: "千秋公園（久保田城跡）",
+    query: "千秋公園 秋田県秋田市千秋公園1",
+    address: "〒010-0876 秋田県秋田市千秋公園1",
+    note: "秋田駅西口からお堀端を抜けてすぐの場所に位置します。"
+  }}
 />
 
 ---
@@ -113,32 +140,30 @@ import photoSenshuWinter from '../../assets/photos/akita_compressed/16千秋公�
 
 千秋公園を散策した後は、お堀端のすぐ向かいや秋田駅周辺の徒歩圏内スポットと組み合わせるのがおすすめです。
 
-<SpotQuoteCard
-  slug="akita-art-museum"
-  label="徒歩5分（お堀を渡ってすぐ）"
-/>
-
-<SpotQuoteCard
-  slug="akita-akitainu-station"
-  label="徒歩5分（エリアなかいち内）"
-/>
-
-<SpotQuoteCard
-  slug="akita-shimin-ichiba"
-  label="徒歩10分（秋田駅西口すぐ）"
+<NearbySpots
+  spots={[
+    { slug: "akita-art-museum", label: "徒歩5分（お堀を渡ってすぐ）" },
+    { slug: "akita-akitainu-station", label: "徒歩5分（エリアなかいち内）" },
+    { slug: "akita-shimin-ichiba", label: "徒歩10分（秋田駅西口すぐ）" }
+  ]}
 />
 
 ---
 
 ## よくある質問（FAQ）
 
-### Q. 散策の所要時間はどれくらい？
-**A. お堀端から本丸跡を一通り巡るなら約45分〜60分が目安です。**
-御隅櫓の内部見学や、隣接するエリアなかいち（秋田犬ステーション・県立美術館）とセットで巡る場合は約2時間〜半日確保するとゆったり楽しめます。
-
-### Q. 入園料はかかりますか？
-**A. 公園内の散策は無料（24時間出入り自由）です。**
-（復元された御隅櫓など一部有料施設があります。）
+<SpotFaq
+  items={[
+    {
+      q: "散策の所要時間はどれくらい？",
+      a: "お堀端から本丸跡を一通り巡るなら約45分〜60分が目安です。御隅櫓の内部見学や、隣接するエリアなかいち（秋田犬ステーション・県立美術館）とセットで巡る場合は約2時間〜半日確保するとゆったり楽しめます。"
+    },
+    {
+      q: "入園料はかかりますか？",
+      a: "公園内の散策は無料（24時間出入り自由）です。復元された御隅櫓など一部有料施設があります。"
+    }
+  ]}
+/>
 
 ---
 
