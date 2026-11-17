@@ -479,29 +479,54 @@ thead th {
 }
 
 .prose h3 {
-	padding-bottom: 0.5rem;
-	border-bottom: 2px solid #e2e8f0;
-	font-size: 1.25rem;
-	margin-top: 2.5rem;
-	margin-bottom: 1.2rem;
 	position: relative;
+	padding: 0.1rem 0 0.1rem 0.9rem;
+	border-bottom: none;
+	font-size: 1.22rem;
+	font-weight: 800;
+	color: #1e293b;
+	line-height: 1.4;
+	margin-top: 2.35rem;
+	margin-bottom: 1.05rem;
 }
-.prose h3::after {
+.prose h3::before {
 	content: '';
 	position: absolute;
 	left: 0;
-	bottom: -2px;
-	width: 60px;
-	height: 2px;
-	background-color: var(--theme-accent);
+	top: 0.18em;
+	bottom: 0.18em;
+	width: 4px;
+	background-color: var(--theme-accent, #0284c7);
+	border-radius: 999px;
+}
+
+@media (max-width: 640px) {
+	.prose h3 {
+		font-size: 1.1rem;
+		padding-left: 0.75rem;
+		margin-top: 2rem;
+		margin-bottom: 0.9rem;
+	}
 }
 
 .prose h4 {
-	font-size: 1.1rem;
-	margin-top: 2rem;
-	margin-bottom: 1rem;
-	padding-left: 0.5rem;
-	border-left: 3px solid #cbd5e1;
+	position: relative;
+	font-size: 1.05rem;
+	font-weight: 700;
+	color: #334155;
+	margin-top: 1.75rem;
+	margin-bottom: 0.75rem;
+	padding-left: 0.85rem;
+}
+.prose h4::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0.55em;
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background-color: #94a3b8;
 }
 
 .prose h5 {
