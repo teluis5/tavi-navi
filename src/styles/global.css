@@ -457,7 +457,7 @@ thead th {
 }
 
 /* H2: 大見出し（グレー実線＋左端ブルー太線のツートーン下線） */
-.prose h2 {
+.prose :where(h2:not([class])) {
 	position: relative;
 	padding: 0 0 0.65rem 0;
 	background: none;
@@ -473,7 +473,7 @@ thead th {
 	margin-bottom: 1.5rem;
 }
 
-.prose h2::after {
+.prose :where(h2:not([class]))::after {
 	content: '';
 	position: absolute;
 	left: 0;
@@ -586,13 +586,13 @@ thead th {
 	.prose h1 {
 		font-size: 1.5rem;
 	}
-	.prose h2 {
+	.prose :where(h2:not([class])) {
 		font-size: 1.25rem;
 		padding: 0 0 0.55rem 0;
 		margin-top: 2.5rem;
 		margin-bottom: 1.2rem;
 	}
-	.prose h2::after {
+	.prose :where(h2:not([class]))::after {
 		width: 68px;
 	}
 	.prose :where(h3:not([class])) {
