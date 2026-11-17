@@ -12,7 +12,6 @@ season: "通年"           # 例: "通年" / "11月中旬" / "春・秋"
 cities: ["semboku"]      # src/data/cities.ts に登録された市町村ID
 tags: ["秋田", "仙北市", "{スポット名}", "観光スポット", "車なしプランあり"]
 ---
-import ProblemBox from '../../components/ProblemBox.astro';
 import TrainCondition from '../../components/TrainCondition.astro';
 import SpotPhotoGallery from '../../components/SpotPhotoGallery.astro';
 import SpotInfoBox from '../../components/SpotInfoBox.astro';
@@ -28,12 +27,6 @@ import TourismPhoto from '../../components/TourismPhoto.astro';
 {/* import photoMain from '../../assets/photos/akita_compressed/example-main.webp'; */}
 {/* import photoSub1 from '../../assets/photos/akita_compressed/example-sub1.webp'; */}
 {/* import photoSub2 from '../../assets/photos/akita_compressed/example-sub2.webp'; */}
-
-<ProblemBox>
-- {スポット名}の見どころや所要時間はどれくらい？
-- 営業時間・定休日・入場料金や、混雑を避けるおすすめの時間帯は？
-- 最寄り駅から車なし（徒歩・バス）で行ける？駐車場はある？
-</ProblemBox>
 
 （ここに導入リード文を3〜4行で簡潔に記述。そのスポットの最大の魅力、歴史・自然の背景、どんな旅行者におすすめかを提示します。）
 
