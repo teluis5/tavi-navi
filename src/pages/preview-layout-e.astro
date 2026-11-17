@@ -41,8 +41,22 @@ const featuredPrefs = PREFECTURES.filter((p) =>
     </div>
   </div>
 
-  <!-- 1段目：タイトルヘッダー ＋ 全幅ヒーロー画像 -->
+  <!-- 1段目：全幅ヒーロー画像 ➔ その下にタイトルヘッダー -->
   <section class="e-hero-section">
+    {article.data.heroImage && (
+      <figure class="e-hero-figure">
+        <div class="e-hero-img-wrap">
+          <img
+            src={article.data.heroImage}
+            alt={article.data.title}
+            width="1200"
+            height="630"
+          />
+          <figcaption class="e-hero-credit">写真提供：一般社団法人 秋田県観光連盟</figcaption>
+        </div>
+      </figure>
+    )}
+
     <div class="e-header-inner">
       <nav class="e-crumbs" aria-label="パンくず">
         <a href="/">ホーム</a>
@@ -68,20 +82,6 @@ const featuredPrefs = PREFECTURES.filter((p) =>
         )}
       </div>
     </div>
-
-    {article.data.heroImage && (
-      <figure class="e-hero-figure">
-        <div class="e-hero-img-wrap">
-          <img
-            src={article.data.heroImage}
-            alt={article.data.title}
-            width="1200"
-            height="630"
-          />
-          <figcaption class="e-hero-credit">写真提供：一般社団法人 秋田県観光連盟</figcaption>
-        </div>
-      </figure>
-    )}
   </section>
 
   <!-- 2段目：左タブパネル（目次 / メニュー）＋ 右本文 -->
@@ -310,15 +310,16 @@ const featuredPrefs = PREFECTURES.filter((p) =>
     background: transparent;
   }
 
-  /* 1段目：タイトル＋全幅ヒーロー */
+  /* 1段目：全幅ヒーロー ➔ タイトル */
   .e-hero-section {
-    padding-top: 1.75rem;
-    margin-bottom: 2.5rem;
+    padding-top: 0;
+    margin-bottom: 1.5rem;
   }
   .e-header-inner {
-    max-width: 1080px;
-    margin: 0 auto 1.5rem;
-    padding: 0 1.25rem;
+    max-width: 1180px;
+    margin: 1.25rem auto 0;
+    padding: 0 1.25rem 1.25rem;
+    border-bottom: 1px solid #e2e8f0;
   }
   .e-crumbs {
     display: flex;
@@ -407,12 +408,12 @@ const featuredPrefs = PREFECTURES.filter((p) =>
 
   /* 2段目：左タブパネル＋本文 */
   .e-body-shell {
-    max-width: 1080px;
+    max-width: 1180px;
     margin: 0 auto;
-    padding: 0 1.25rem 4.5rem;
+    padding: 0 1.25rem 3.5rem;
     display: grid;
-    grid-template-columns: 260px minmax(0, 1fr);
-    gap: 3rem;
+    grid-template-columns: 250px minmax(0, 1fr);
+    gap: 2rem;
     align-items: start;
   }
 
