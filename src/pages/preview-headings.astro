@@ -1,156 +1,150 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const title = 'H2・H3 見出しデザイン比較サンプル（実UIプレビュー）';
-const description = 'H2（ツートーン下線）と組み合わせるH3見出しのデザイン候補を実際の記事レイアウト上で比較するプレビューページです。';
+const title = 'H1〜H6 見出しデザイン階層システム（B・D基調）';
+const description = 'パターンB（スクエア・ドット）とパターンD（破線＋スクエア）を基調とした H1〜H6 全階層のデザイン比較プレビューです。';
 ---
 
 <Layout title={title} description={description} noindex={true}>
   <div class="sample-page">
     <header class="sample-header">
-      <span class="sample-badge">UI PREVIEW (NOINDEX)</span>
+      <span class="sample-badge">HEADING SYSTEM PREVIEW (NOINDEX)</span>
       <h1>{title}</h1>
       <p>
-        H2見出しはお気に入りの<strong>「ツートーン下線（グレー下線＋左端ブルー下線）」</strong>で固定し、<br />
-        その下に並ぶ<strong>H3見出し（中見出し）の8つのデザイン候補（パターンA〜H）</strong>を実際の記事本文と同じフォント・余白で並べています。
+        お選びいただいた <strong>B（先頭スクエア・ドット）</strong> と <strong>D（淡色破線＋先頭スクエア）</strong> を軸に、<br />
+        H1〜H6 までの6段階すべてが「スクエア＆ライン」の統一モチーフで美しく段階変化するシステムを構築しました。
       </p>
       <div class="sample-jump">
-        <a href="#pattern-a">A. 丸角ブルー縦バー（現在）</a>
-        <a href="#pattern-b">B. 先頭スクエア・ドット</a>
-        <a href="#pattern-c">C. 左ブルー横ダッシュ</a>
-        <a href="#pattern-d">D. 淡色破線（ドット下線）</a>
-        <a href="#pattern-e">E. ツートーン縦バー（上下2色）</a>
-        <a href="#pattern-f">F. 左バー＋ごく薄い水色背景</a>
-        <a href="#pattern-g">G. 斜めスラッシュ・アクセント</a>
-        <a href="#pattern-h">H. チェック/シェブロン記号</a>
+        <a href="#plan-1">構成案 1（現在サイトに適用中：H3=D / H4=B）</a>
+        <a href="#plan-2">構成案 2（シンプル派：H3=B / H4=中抜きB）</a>
+        <a href="#spec-table">H1〜H6 全階層スペック一覧</a>
       </div>
     </header>
 
-    <!-- パターンA -->
-    <section id="pattern-a" class="sample-card">
+    <!-- 構成案1（現在適用中） -->
+    <section id="plan-1" class="sample-card">
       <div class="sample-card-head">
-        <span class="pattern-tag is-current">パターン A（現在適用中）</span>
-        <span class="pattern-desc">左端の丸角ブルー縦バー（シンプル＆王道・H2の横ラインに対して縦ラインで対比）</span>
+        <span class="pattern-tag is-current">構成案 1（現在サイト全体に適用中・おすすめ）</span>
+        <span class="pattern-desc">H2＝ツートーン実線 ／ H3＝D（スクエア＋破線） ／ H4＝B（スクエアのみ） ／ H5＝中抜きスクエア ／ H6＝ミニスクエア</span>
       </div>
-      <div class="sample-prose">
-        <h2 class="h2-twotone">1. 秋田犬ステーションの3つの見どころ</h2>
-        <p>エリアなかいち1階にある「秋田犬ステーション」は、コンパクトながら秋田犬ファンにはたまらない魅力が詰まっています。</p>
-        <h3 class="h3-pattern-a">ガラス越しに出会えるモフモフの本物秋田犬</h3>
-        <p>最大の見どころは、やはり本物の秋田犬との対面です。衛生管理と犬たちのストレス軽減のためガラス越しでの見学となりますが、すぐ目の前まで寄ってきてくれることも多く、大きな前足や愛くるしい瞳を間近で観察できます。</p>
-        <h3 class="h3-pattern-a">売上の一部が保護・育成に繋がる限定グッズ</h3>
-        <p>施設内のショップには、ぬいぐるみ、トートバッグ、お菓子、文房具など、秋田犬モチーフのオリジナルグッズがずらりと並んでいます。</p>
+
+      <div class="sample-article-header">
+        <h1 class="page-h1-demo">【秋田犬ステーション完全ガイド】本物の秋田犬に会える展示スケジュール・アクセス</h1>
+        <p class="page-subtitle-demo">JR秋田駅から徒歩10分「エリアなかいち」でモフモフの秋田犬と対面＆限定グッズ探し</p>
+      </div>
+
+      <div class="prose sample-prose">
+        <h2>H2 大見出し：1. 秋田犬ステーションの3つの見どころ</h2>
+        <p>
+          H2（大見出し）は<strong>「グレー3px実線 ＋ 左端ブルー84px太線」</strong>のツートーン下線です。章の切り替わりを最も力強く示します。
+        </p>
+
+        <h3>H3 中見出し（D）：ガラス越しに出会えるモフモフの本物秋田犬</h3>
+        <p>
+          H3（中見出し）は<strong>パターンD「先頭10pxブルースクエア ＋ 1px淡色破線（dashed）」</strong>です。H2の太い実線に対して「破線＋角丸スクエア」になるため、H2との違いが一目でわかり、横方向のまとまりも保たれます。
+        </p>
+
+        <h4>H4 小見出し（B）：見学時の写真撮影ルールと注意点</h4>
+        <p>
+          H4（小見出し）は<strong>パターンB「先頭8pxスカイブルースクエア（下線なし）」</strong>です。H3から破線を抜いたスッキリした形になるため、H3の配下であることが直感的に伝わります。
+        </p>
+
+        <h5>H5 細目見出し：フラッシュ撮影が禁止されている理由</h5>
+        <p>
+          H5（細目見出し）は<strong>「先頭7px中抜きブルースクエア（白抜き枠）」</strong>です。塗りつぶしから中抜きに変わることで、さらに1段細かい補足見出しであることを表現します。
+        </p>
+
+        <h6>H6 補足ラベル見出し：冬季（12月〜3月）の出勤スケジュール補足</h6>
+        <p>
+          H6（最小見出し）は<strong>「5pxスレートミニスクエア ＋ 落ち着いたグレー文字」</strong>です。注釈やコラム内の小ラベルとして邪魔にならず機能します。
+        </p>
       </div>
     </section>
 
-    <!-- パターンB -->
-    <section id="pattern-b" class="sample-card">
+    <!-- 構成案2（比較用：H3にBを使う場合） -->
+    <section id="plan-2" class="sample-card">
       <div class="sample-card-head">
-        <span class="pattern-tag">パターン B</span>
-        <span class="pattern-desc">先頭スクエア・ドット（角丸の青い四角アイコンを添える雑誌・エディトリアル風）</span>
+        <span class="pattern-tag">構成案 2（よりミニマルな比較案）</span>
+        <span class="pattern-desc">H2＝ツートーン実線 ／ H3＝B（スクエアのみ・下線なし） ／ H4＝中抜きスクエア ／ H5＝スラッシュ</span>
       </div>
+
       <div class="sample-prose">
-        <h2 class="h2-twotone">1. 秋田犬ステーションの3つの見どころ</h2>
-        <p>エリアなかいち1階にある「秋田犬ステーション」は、コンパクトながら秋田犬ファンにはたまらない魅力が詰まっています。</p>
-        <h3 class="h3-pattern-b">ガラス越しに出会えるモフモフの本物秋田犬</h3>
-        <p>最大の見どころは、やはり本物の秋田犬との対面です。衛生管理と犬たちのストレス軽減のためガラス越しでの見学となりますが、すぐ目の前まで寄ってきてくれることも多く、大きな前足や愛くるしい瞳を間近で観察できます。</p>
-        <h3 class="h3-pattern-b">売上の一部が保護・育成に繋がる限定グッズ</h3>
-        <p>施設内のショップには、ぬいぐるみ、トートバッグ、お菓子、文房具など、秋田犬モチーフのオリジナルグッズがずらりと並んでいます。</p>
+        <h2 class="alt-h2">H2 大見出し：1. 秋田犬ステーションの3つの見どころ</h2>
+        <p>下線を持つ見出しをH2だけに限定し、H3以下はすべて下線なし（アイコンのみ）で統一するミニマル案です。</p>
+
+        <h3 class="alt-h3">H3 中見出し（B）：ガラス越しに出会えるモフモフの本物秋田犬</h3>
+        <p>H3にパターンB（10pxブルースクエア・下線なし）を採用した見え方です。</p>
+
+        <h4 class="alt-h4">H4 小見出し：見学時の写真撮影ルールと注意点</h4>
+        <p>H4に中抜きブルースクエア（8px）を採用した見え方です。</p>
+
+        <h5 class="alt-h5">H5 細目見出し：フラッシュ撮影が禁止されている理由</h5>
+        <p>H5に小ドット（6px）を採用した見え方です。</p>
       </div>
     </section>
 
-    <!-- パターンC -->
-    <section id="pattern-c" class="sample-card">
+    <!-- スペック一覧表 -->
+    <section id="spec-table" class="sample-card">
       <div class="sample-card-head">
-        <span class="pattern-tag">パターン C</span>
-        <span class="pattern-desc">左ブルー横ダッシュ（文字の左に短いブルーの横線をスッと添えるミニマルデザイン）</span>
+        <span class="pattern-tag">H1〜H6 デザイン階層一覧（構成案1）</span>
+        <span class="pattern-desc">サイズ・太さ・装飾モチーフの段階変化</span>
       </div>
       <div class="sample-prose">
-        <h2 class="h2-twotone">1. 秋田犬ステーションの3つの見どころ</h2>
-        <p>エリアなかいち1階にある「秋田犬ステーション」は、コンパクトながら秋田犬ファンにはたまらない魅力が詰まっています。</p>
-        <h3 class="h3-pattern-c">ガラス越しに出会えるモフモフの本物秋田犬</h3>
-        <p>最大の見どころは、やはり本物の秋田犬との対面です。衛生管理と犬たちのストレス軽減のためガラス越しでの見学となりますが、すぐ目の前まで寄ってきてくれることも多く、大きな前足や愛くるしい瞳を間近で観察できます。</p>
-        <h3 class="h3-pattern-c">売上の一部が保護・育成に繋がる限定グッズ</h3>
-        <p>施設内のショップには、ぬいぐるみ、トートバッグ、お菓子、文房具など、秋田犬モチーフのオリジナルグッズがずらりと並んでいます。</p>
-      </div>
-    </section>
-
-    <!-- パターンD -->
-    <section id="pattern-d" class="sample-card">
-      <div class="sample-card-head">
-        <span class="pattern-tag">パターン D</span>
-        <span class="pattern-desc">淡色破線（ドット/ダッシュ下線）＋先頭アクセント（H2の太い実線と線の種類で差をつける）</span>
-      </div>
-      <div class="sample-prose">
-        <h2 class="h2-twotone">1. 秋田犬ステーションの3つの見どころ</h2>
-        <p>エリアなかいち1階にある「秋田犬ステーション」は、コンパクトながら秋田犬ファンにはたまらない魅力が詰まっています。</p>
-        <h3 class="h3-pattern-d">ガラス越しに出会えるモフモフの本物秋田犬</h3>
-        <p>最大の見どころは、やはり本物の秋田犬との対面です。衛生管理と犬たちのストレス軽減のためガラス越しでの見学となりますが、すぐ目の前まで寄ってきてくれることも多く、大きな前足や愛くるしい瞳を間近で観察できます。</p>
-        <h3 class="h3-pattern-d">売上の一部が保護・育成に繋がる限定グッズ</h3>
-        <p>施設内のショップには、ぬいぐるみ、トートバッグ、お菓子、文房具など、秋田犬モチーフのオリジナルグッズがずらりと並んでいます。</p>
-      </div>
-    </section>
-
-    <!-- パターンE -->
-    <section id="pattern-e" class="sample-card">
-      <div class="sample-card-head">
-        <span class="pattern-tag">パターン E</span>
-        <span class="pattern-desc">ツートーン縦バー（H2の「横ツートーン」をそのまま90度回転させた「縦ツートーン」で統一感を極める）</span>
-      </div>
-      <div class="sample-prose">
-        <h2 class="h2-twotone">1. 秋田犬ステーションの3つの見どころ</h2>
-        <p>エリアなかいち1階にある「秋田犬ステーション」は、コンパクトながら秋田犬ファンにはたまらない魅力が詰まっています。</p>
-        <h3 class="h3-pattern-e">ガラス越しに出会えるモフモフの本物秋田犬</h3>
-        <p>最大の見どころは、やはり本物の秋田犬との対面です。衛生管理と犬たちのストレス軽減のためガラス越しでの見学となりますが、すぐ目の前まで寄ってきてくれることも多く、大きな前足や愛くるしい瞳を間近で観察できます。</p>
-        <h3 class="h3-pattern-e">売上の一部が保護・育成に繋がる限定グッズ</h3>
-        <p>施設内のショップには、ぬいぐるみ、トートバッグ、お菓子、文房具など、秋田犬モチーフのオリジナルグッズがずらりと並んでいます。</p>
-      </div>
-    </section>
-
-    <!-- パターンF -->
-    <section id="pattern-f" class="sample-card">
-      <div class="sample-card-head">
-        <span class="pattern-tag">パターン F</span>
-        <span class="pattern-desc">左ブルー縦バー ＋ ごく淡いアイスブルー背景（見出しの塊がパッと目に入りやすいガイドブック風）</span>
-      </div>
-      <div class="sample-prose">
-        <h2 class="h2-twotone">1. 秋田犬ステーションの3つの見どころ</h2>
-        <p>エリアなかいち1階にある「秋田犬ステーション」は、コンパクトながら秋田犬ファンにはたまらない魅力が詰まっています。</p>
-        <h3 class="h3-pattern-f">ガラス越しに出会えるモフモフの本物秋田犬</h3>
-        <p>最大の見どころは、やはり本物の秋田犬との対面です。衛生管理と犬たちのストレス軽減のためガラス越しでの見学となりますが、すぐ目の前まで寄ってきてくれることも多く、大きな前足や愛くるしい瞳を間近で観察できます。</p>
-        <h3 class="h3-pattern-f">売上の一部が保護・育成に繋がる限定グッズ</h3>
-        <p>施設内のショップには、ぬいぐるみ、トートバッグ、お菓子、文房具など、秋田犬モチーフのオリジナルグッズがずらりと並んでいます。</p>
-      </div>
-    </section>
-
-    <!-- パターンG -->
-    <section id="pattern-g" class="sample-card">
-      <div class="sample-card-head">
-        <span class="pattern-tag">パターン G</span>
-        <span class="pattern-desc">斜めダブルスラッシュ（//）アクセント（軽快でモダンな旅行メディア風）</span>
-      </div>
-      <div class="sample-prose">
-        <h2 class="h2-twotone">1. 秋田犬ステーションの3つの見どころ</h2>
-        <p>エリアなかいち1階にある「秋田犬ステーション」は、コンパクトながら秋田犬ファンにはたまらない魅力が詰まっています。</p>
-        <h3 class="h3-pattern-g">ガラス越しに出会えるモフモフの本物秋田犬</h3>
-        <p>最大の見どころは、やはり本物の秋田犬との対面です。衛生管理と犬たちのストレス軽減のためガラス越しでの見学となりますが、すぐ目の前まで寄ってきてくれることも多く、大きな前足や愛くるしい瞳を間近で観察できます。</p>
-        <h3 class="h3-pattern-g">売上の一部が保護・育成に繋がる限定グッズ</h3>
-        <p>施設内のショップには、ぬいぐるみ、トートバッグ、お菓子、文房具など、秋田犬モチーフのオリジナルグッズがずらりと並んでいます。</p>
-      </div>
-    </section>
-
-    <!-- パターンH -->
-    <section id="pattern-h" class="sample-card">
-      <div class="sample-card-head">
-        <span class="pattern-tag">パターン H</span>
-        <span class="pattern-desc">文字幅だけのショート下線（画面全幅のグレー線を引かず、左端の短いブルーラインのみを下部に配置）</span>
-      </div>
-      <div class="sample-prose">
-        <h2 class="h2-twotone">1. 秋田犬ステーションの3つの見どころ</h2>
-        <p>エリアなかいち1階にある「秋田犬ステーション」は、コンパクトながら秋田犬ファンにはたまらない魅力が詰まっています。</p>
-        <h3 class="h3-pattern-h">ガラス越しに出会えるモフモフの本物秋田犬</h3>
-        <p>最大の見どころは、やはり本物の秋田犬との対面です。衛生管理と犬たちのストレス軽減のためガラス越しでの見学となりますが、すぐ目の前まで寄ってきてくれることも多く、大きな前足や愛くるしい瞳を間近で観察できます。</p>
-        <h3 class="h3-pattern-h">売上の一部が保護・育成に繋がる限定グッズ</h3>
-        <p>施設内のショップには、ぬいぐるみ、トートバッグ、お菓子、文房具など、秋田犬モチーフのオリジナルグッズがずらりと並んでいます。</p>
+        <table>
+          <thead>
+            <tr>
+              <th>階層</th>
+              <th>役割</th>
+              <th>サイズ / 太さ</th>
+              <th>アイコン・先頭装飾</th>
+              <th>下線（ボーダー）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>H1</strong></td>
+              <td>記事タイトル</td>
+              <td>2.05rem / 900</td>
+              <td>なし（全幅ヒーロー直下）</td>
+              <td>メタ情報下に1px実線</td>
+            </tr>
+            <tr>
+              <td><strong>H2</strong></td>
+              <td>大見出し（目次対象）</td>
+              <td>1.50rem / 850</td>
+              <td>なし</td>
+              <td><strong>3px ツートーン実線</strong>（青84px＋灰）</td>
+            </tr>
+            <tr>
+              <td><strong>H3</strong></td>
+              <td>中見出し（D案）</td>
+              <td>1.24rem / 800</td>
+              <td><strong>10px 角丸ブルースクエア（塗り）</strong></td>
+              <td><strong>1px 淡色破線（dashed）</strong></td>
+            </tr>
+            <tr>
+              <td><strong>H4</strong></td>
+              <td>小見出し（B案）</td>
+              <td>1.08rem / 750</td>
+              <td><strong>8px スカイブルースクエア（塗り）</strong></td>
+              <td>なし</td>
+            </tr>
+            <tr>
+              <td><strong>H5</strong></td>
+              <td>細目見出し</td>
+              <td>0.98rem / 700</td>
+              <td><strong>7px ブルースクエア（中抜き枠）</strong></td>
+              <td>なし</td>
+            </tr>
+            <tr>
+              <td><strong>H6</strong></td>
+              <td>補足ラベル</td>
+              <td>0.90rem / 700</td>
+              <td><strong>5px スレートミニスクエア</strong></td>
+              <td>なし</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
   </div>
@@ -242,23 +236,40 @@ const description = 'H2（ツートーン下線）と組み合わせるH3見出�
     color: #ffffff;
   }
   .pattern-desc {
-    font-size: 0.88rem;
+    font-size: 0.86rem;
     font-weight: 700;
     color: #334155;
+  }
+
+  .sample-article-header {
+    padding: 1.75rem 2rem 1.25rem;
+    border-bottom: 1px solid #e2e8f0;
+    background: #fcfdfe;
+  }
+  .page-h1-demo {
+    margin: 0 0 0.5rem;
+    font-size: 1.85rem;
+    font-weight: 900;
+    line-height: 1.35;
+    color: #0f172a;
+    letter-spacing: -0.02em;
+  }
+  .page-subtitle-demo {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #475569;
   }
 
   .sample-prose {
     padding: 1.75rem 2rem 2rem;
   }
-  .sample-prose p {
-    font-size: 16px;
-    line-height: 1.8;
-    color: #333333;
-    margin: 0 0 1.25rem;
+  .sample-prose h2:first-child {
+    margin-top: 0.25rem;
   }
 
-  /* 共通H2（ツートーン下線） */
-  .h2-twotone {
+  /* 構成案2（比較用カスタムクラス） */
+  .alt-h2 {
     position: relative;
     padding: 0 0 0.65rem 0;
     border-bottom: 3px solid #e2e8f0;
@@ -266,10 +277,9 @@ const description = 'H2（ツートーン下線）と組み合わせるH3見出�
     font-weight: 850;
     color: #0f172a;
     line-height: 1.35;
-    letter-spacing: -0.02em;
     margin: 0 0 1.35rem;
   }
-  .h2-twotone::after {
+  .alt-h2::after {
     content: '';
     position: absolute;
     left: 0;
@@ -278,40 +288,19 @@ const description = 'H2（ツートーン下線）と組み合わせるH3見出�
     height: 3px;
     background-color: #0284c7;
   }
-
-  /* パターンA：左端の丸角ブルー縦バー（現在） */
-  .h3-pattern-a {
-    position: relative;
-    padding: 0.1rem 0 0.1rem 0.9rem;
-    font-size: 1.22rem;
-    font-weight: 800;
-    color: #1e293b;
-    line-height: 1.4;
-    margin: 2rem 0 0.85rem;
-  }
-  .h3-pattern-a::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.18em;
-    bottom: 0.18em;
-    width: 4px;
-    background-color: #0284c7;
-    border-radius: 999px;
-  }
-
-  /* パターンB：先頭スクエア・ドット */
-  .h3-pattern-b {
+  .alt-h3 {
     display: flex;
     align-items: center;
     gap: 0.6rem;
-    font-size: 1.22rem;
+    font-size: 1.24rem;
     font-weight: 800;
     color: #1e293b;
     line-height: 1.4;
-    margin: 2rem 0 0.85rem;
+    margin: 2rem 0 0.9rem;
+    border: none;
+    padding: 0;
   }
-  .h3-pattern-b::before {
+  .alt-h3::before {
     content: '';
     display: inline-block;
     width: 10px;
@@ -320,134 +309,54 @@ const description = 'H2（ツートーン下線）と組み合わせるH3見出�
     background: #0284c7;
     flex-shrink: 0;
   }
-
-  /* パターンC：左ブルー横ダッシュ */
-  .h3-pattern-c {
-    display: flex;
-    align-items: center;
-    gap: 0.65rem;
-    font-size: 1.22rem;
-    font-weight: 800;
-    color: #1e293b;
-    line-height: 1.4;
-    margin: 2rem 0 0.85rem;
-  }
-  .h3-pattern-c::before {
-    content: '';
-    display: inline-block;
-    width: 18px;
-    height: 3px;
-    border-radius: 999px;
-    background: #0284c7;
-    flex-shrink: 0;
-  }
-
-  /* パターンD：淡色破線（ドット/ダッシュ下線）＋先頭スクエア */
-  .h3-pattern-d {
+  .alt-h4 {
     display: flex;
     align-items: center;
     gap: 0.55rem;
-    padding-bottom: 0.45rem;
-    border-bottom: 1px dashed #cbd5e1;
-    font-size: 1.22rem;
-    font-weight: 800;
+    font-size: 1.08rem;
+    font-weight: 750;
     color: #1e293b;
-    line-height: 1.4;
-    margin: 2rem 0 0.85rem;
+    line-height: 1.45;
+    margin: 1.6rem 0 0.75rem;
   }
-  .h3-pattern-d::before {
+  .alt-h4::before {
     content: '';
     display: inline-block;
     width: 8px;
     height: 8px;
     border-radius: 2px;
-    background: #0284c7;
+    border: 2px solid #0284c7;
+    background: transparent;
+    box-sizing: border-box;
     flex-shrink: 0;
   }
-
-  /* パターンE：ツートーン縦バー（上半分ブルー＋下半分グレー） */
-  .h3-pattern-e {
-    position: relative;
-    padding: 0.15rem 0 0.15rem 0.95rem;
-    font-size: 1.22rem;
-    font-weight: 800;
-    color: #1e293b;
-    line-height: 1.4;
-    margin: 2rem 0 0.85rem;
-  }
-  .h3-pattern-e::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.12em;
-    bottom: 0.12em;
-    width: 4px;
-    background: linear-gradient(to bottom, #0284c7 0%, #0284c7 55%, #cbd5e1 55%, #cbd5e1 100%);
-    border-radius: 2px;
-  }
-
-  /* パターンF：左ブルー縦バー ＋ ごく淡いアイスブルー背景 */
-  .h3-pattern-f {
-    padding: 0.5rem 0.95rem;
-    background: #f8fafc;
-    border-left: 4px solid #0284c7;
-    border-radius: 0 6px 6px 0;
-    font-size: 1.2rem;
-    font-weight: 800;
-    color: #1e293b;
-    line-height: 1.4;
-    margin: 2rem 0 0.85rem;
-  }
-
-  /* パターンG：斜めダブルスラッシュ（//）アクセント */
-  .h3-pattern-g {
+  .alt-h5 {
     display: flex;
     align-items: center;
-    gap: 0.55rem;
-    font-size: 1.22rem;
-    font-weight: 800;
-    color: #1e293b;
-    line-height: 1.4;
-    margin: 2rem 0 0.85rem;
+    gap: 0.5rem;
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: #475569;
+    margin: 1.4rem 0 0.6rem;
   }
-  .h3-pattern-g::before {
-    content: '//';
-    font-family: "JetBrains Mono", Consolas, monospace;
-    font-size: 1.1rem;
-    font-weight: 900;
-    letter-spacing: -0.1em;
-    color: #0284c7;
-    flex-shrink: 0;
-  }
-
-  /* パターンH：文字下ショートブルーラインのみ（全幅グレー線なし） */
-  .h3-pattern-h {
-    position: relative;
-    padding: 0 0 0.45rem 0;
-    font-size: 1.22rem;
-    font-weight: 800;
-    color: #1e293b;
-    line-height: 1.4;
-    margin: 2rem 0 0.85rem;
-  }
-  .h3-pattern-h::after {
+  .alt-h5::before {
     content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 36px;
-    height: 3px;
-    border-radius: 999px;
-    background-color: #38bdf8;
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 1px;
+    background: #94a3b8;
+    flex-shrink: 0;
   }
 
   @media (max-width: 640px) {
     .sample-header,
+    .sample-article-header,
     .sample-prose {
       padding: 1.25rem 1rem;
     }
-    .h2-twotone {
-      font-size: 1.25rem;
+    .page-h1-demo {
+      font-size: 1.45rem;
     }
   }
 </style>
