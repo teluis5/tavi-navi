@@ -237,11 +237,11 @@ if (props.pageType === 'article') {
       </div>
     </section>
 
-    <!-- 2段目：左サイドバー（上部目次:固定 ＋ 下部メニュー:スクロール）＋ 右本文 -->
+    <!-- 2段目：左サイドバー（上部目次 ＋ 下部メニュー：全体固定）＋ 右本文 -->
     <div class="e-body-shell">
       <aside class="e-sidebar" aria-label="目次とサイトメニュー">
         <div class="e-sidebar-container">
-          <!-- 上部：目次（固定表示エリア） -->
+          <!-- 上部：目次エリア -->
           <div class="e-sidebar-toc-box">
             <div class="e-sidebar-heading">
               <span class="e-sidebar-heading-icon">📑</span>
@@ -264,8 +264,8 @@ if (props.pageType === 'article') {
             )}
           </div>
 
-          <!-- 下部：サイトメニュー（スクロール可能エリア） -->
-          <div class="e-sidebar-menu-scroll" tabindex="0" aria-label="サイトメニュー">
+          <!-- 下部：サイトメニューエリア（スクロールなし固定） -->
+          <div class="e-sidebar-menu-box" aria-label="サイトメニュー">
             <div class="e-sidebar-heading">
               <span class="e-sidebar-heading-icon">🧭</span>
               <span class="e-sidebar-heading-text">メニュー</span>
@@ -567,77 +567,64 @@ if (props.pageType === 'article') {
   .e-sidebar {
     position: sticky;
     top: 84px;
-    height: calc(100vh - 104px);
     display: flex;
     flex-direction: column;
   }
   .e-sidebar-container {
     display: flex;
     flex-direction: column;
-    height: 100%;
-    min-height: 0;
   }
   .e-sidebar-toc-box {
-    flex-shrink: 0;
-    margin-bottom: 1.25rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid #e2e8f0;
+    margin-bottom: 1.35rem;
+    padding-bottom: 1.1rem;
+    border-bottom: 1px solid #cbd5e1;
+  }
+  .e-sidebar-menu-box {
+    display: flex;
+    flex-direction: column;
   }
   .e-sidebar-heading {
     display: flex;
     align-items: center;
-    gap: 0.35rem;
-    margin-bottom: 0.5rem;
-    font-size: 0.78rem;
+    gap: 0.45rem;
+    margin-bottom: 0.65rem;
+    font-size: 0.92rem;
     font-weight: 800;
-    color: #475569;
+    color: #1e293b;
     letter-spacing: 0.04em;
     text-transform: uppercase;
   }
   .e-sidebar-heading-icon {
-    font-size: 0.9rem;
+    font-size: 1.05rem;
   }
   .e-sidebar-heading-text {
-    font-size: 0.78rem;
+    font-size: 0.92rem;
     font-weight: 800;
-  }
-  .e-sidebar-menu-scroll {
-    flex: 1 1 0%;
-    min-height: 0;
-    overflow-y: auto;
-    padding-right: 0.25rem;
-    scrollbar-width: thin;
-    scrollbar-color: #cbd5e1 transparent;
-  }
-  .e-sidebar-menu-scroll::-webkit-scrollbar {
-    width: 4px;
-  }
-  .e-sidebar-menu-scroll::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
-    border-radius: 4px;
+    color: #0f172a;
   }
 
   .e-toc-nav ul {
     list-style: none;
     margin: 0;
     padding: 0;
-    border-left: 1px solid #e2e8f0;
+    border-left: 2px solid #cbd5e1;
   }
   .e-toc-link {
     display: block;
-    padding: 0.4rem 0 0.4rem 0.9rem;
-    margin-left: -1px;
-    border-left: 2px solid transparent;
-    font-size: 0.82rem;
+    padding: 0.42rem 0 0.42rem 0.9rem;
+    margin-left: -2px;
+    border-left: 3px solid transparent;
+    font-size: 0.88rem;
+    font-weight: 600;
     line-height: 1.45;
-    color: #475569;
+    color: #334155;
     text-decoration: none;
     transition: color 0.15s ease, border-color 0.15s ease;
   }
   .e-toc-item.depth-3 .e-toc-link {
     padding-left: 1.6rem;
-    font-size: 0.78rem;
-    color: #64748b;
+    font-size: 0.82rem;
+    color: #475569;
   }
   .e-toc-link:hover,
   .e-toc-link.is-active {
@@ -647,19 +634,19 @@ if (props.pageType === 'article') {
     text-decoration: none;
   }
   .e-toc-empty {
-    font-size: 0.82rem;
+    font-size: 0.85rem;
     color: #64748b;
     margin: 0;
   }
 
   .menu-group {
-    margin-bottom: 1.4rem;
+    margin-bottom: 1.1rem;
   }
   .menu-label {
-    margin: 0 0 0.5rem;
-    font-size: 0.72rem;
+    margin: 0 0 0.45rem;
+    font-size: 0.78rem;
     font-weight: 800;
-    color: #64748b;
+    color: #334155;
     letter-spacing: 0.04em;
     text-transform: uppercase;
   }
@@ -675,13 +662,13 @@ if (props.pageType === 'article') {
     display: block;
     padding: 0.42rem 0.6rem;
     border-radius: 7px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #334155;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #1e293b;
     text-decoration: none;
   }
   .menu-link:hover {
-    background: #f1f5f9;
+    background: #e0f2fe;
     color: #0284c7;
     text-decoration: none;
   }
@@ -691,19 +678,19 @@ if (props.pageType === 'article') {
     gap: 0.35rem;
   }
   .menu-chip {
-    font-size: 0.76rem;
-    font-weight: 600;
-    padding: 0.25rem 0.6rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.28rem 0.65rem;
     border-radius: 6px;
     background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    color: #334155;
+    border: 1px solid #cbd5e1;
+    color: #1e293b;
     text-decoration: none;
   }
   .menu-chip.is-current,
   .menu-chip:hover {
     background: #e0f2fe;
-    border-color: #bae6fd;
+    border-color: #7dd3fc;
     color: #0369a1;
     text-decoration: none;
   }
@@ -714,17 +701,18 @@ if (props.pageType === 'article') {
   }
   .menu-month-chip {
     text-align: center;
-    font-size: 0.76rem;
-    font-weight: 600;
-    padding: 0.28rem 0;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.3rem 0;
     border-radius: 6px;
     background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    color: #334155;
+    border: 1px solid #cbd5e1;
+    color: #1e293b;
     text-decoration: none;
   }
   .menu-month-chip:hover {
     border-color: #0284c7;
+    background: #e0f2fe;
     color: #0284c7;
     text-decoration: none;
   }
@@ -778,10 +766,9 @@ if (props.pageType === 'article') {
     .e-sidebar-container {
       height: auto;
     }
-    .e-sidebar-menu-scroll {
-      flex: none;
-      max-height: none;
-      overflow-y: visible;
+    .e-sidebar-menu-box {
+      display: flex;
+      flex-direction: column;
     }
   }
 </style>
