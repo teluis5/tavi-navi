@@ -244,7 +244,6 @@ if (props.pageType === 'article') {
           <!-- 上部：目次エリア -->
           <div class="e-sidebar-toc-box">
             <div class="e-sidebar-heading">
-              <span class="e-sidebar-heading-icon">📑</span>
               <span class="e-sidebar-heading-text">目次</span>
             </div>
             {tocHeadings.length > 0 ? (
@@ -267,7 +266,6 @@ if (props.pageType === 'article') {
           <!-- 下部：サイトメニューエリア（スクロールなし固定） -->
           <div class="e-sidebar-menu-box" aria-label="サイトメニュー">
             <div class="e-sidebar-heading">
-              <span class="e-sidebar-heading-icon">🧭</span>
               <span class="e-sidebar-heading-text">メニュー</span>
             </div>
 
@@ -584,15 +582,10 @@ if (props.pageType === 'article') {
     flex-direction: column;
   }
   .e-sidebar-heading {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    display: block;
     margin-bottom: 0.75rem;
     padding-bottom: 0.35rem;
     border-bottom: 2px solid #0284c7;
-  }
-  .e-sidebar-heading-icon {
-    font-size: 1.25rem;
   }
   .e-sidebar-heading-text {
     font-size: 1.05rem;
