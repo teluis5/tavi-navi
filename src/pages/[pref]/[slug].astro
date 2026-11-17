@@ -220,10 +220,10 @@ if (props.pageType === 'article') {
           </div>
         </header>
 
-        {article.data.heroImage?.startsWith('/thumbnails/akita-course-') && (
+        {article.data.heroImage && (
           <figure style="margin: 0 0 2rem;">
-            <img src={article.data.heroImage} alt={article.data.title} width="1200" height="630" style="display: block; width: 100%; height: auto; border-radius: 8px;" />
-            <figcaption style="font-size: 0.7rem; color: var(--text-light); margin-top: 0.25rem;">写真提供：Akita Prefecture</figcaption>
+            <img src={article.data.heroImage} alt={article.data.title} width="1200" height="630" style="display: block; width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 14px rgba(0,0,0,0.06);" />
+            <figcaption style="font-size: 0.72rem; color: var(--text-light); margin-top: 0.4rem; text-align: right;">写真提供：一般社団法人 秋田県観光連盟</figcaption>
           </figure>
         )}
 
