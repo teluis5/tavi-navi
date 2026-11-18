@@ -32,7 +32,7 @@ const sharedCredit = layout === 'collage' && visiblePhotos.every((photo) => phot
           <Image src={photo.src} alt={photo.alt} widths={[480, 800, 1200]} sizes="(max-width: 700px) 100vw, 900px" format="webp" loading="lazy" decoding="async" style={photo.position ? `object-position:${photo.position}` : undefined} />
         )}
         {layout === 'collage' && photo.caption && <div class="photo-caption">
-          <details><summary aria-label={`${photo.alt}の写真説明`}>ⓘ</summary><span class="sr-caption">{photo.caption}</span></details>
+          <details><summary aria-label={`${photo.alt}の写真説明`}><span aria-hidden="true" class="info-mark">i</span></summary><span class="sr-caption">{photo.caption}</span></details>
           <span class="caption-overlay" aria-hidden="true">{photo.caption}</span>
         </div>}
         </div>
@@ -61,7 +61,8 @@ const sharedCredit = layout === 'collage' && visiblePhotos.every((photo) => phot
   img { display: block; width: 100%; height: auto; border-radius: 4px; }
   .photo-frame { position: relative; min-width: 0; }
   .photo-caption { position: absolute; inset: 0; pointer-events: none; }
-  .photo-caption summary { position: absolute; z-index: 1; right: 8px; bottom: 8px; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: rgba(17, 24, 39, .72); color: white; font-size: 1.15rem; cursor: pointer; list-style: none; pointer-events: auto; }
+  .photo-caption summary { position: absolute; z-index: 1; right: 0; bottom: 0; display: grid; place-items: center; width: 44px; height: 44px; color: white; cursor: pointer; list-style: none; pointer-events: auto; }
+  .info-mark { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: rgba(17, 24, 39, .58); font-family: Georgia, serif; font-size: 13px; font-style: italic; line-height: 1; }
   .photo-caption summary::-webkit-details-marker { display: none; }
   .photo-caption summary:focus-visible { outline: 3px solid white; outline-offset: 2px; }
   .sr-caption { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
