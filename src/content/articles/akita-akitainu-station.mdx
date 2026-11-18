@@ -3,7 +3,7 @@ title: "【秋田犬ステーション 完全ガイド】本物の秋田犬に�
 subtitle: "秋田駅徒歩10分「エリアなかいち」でモフモフの秋田犬と対面！見学時間・写真ルールから限定グッズまで徹底解説"
 description: "秋田駅徒歩10分の『秋田犬ステーション』（エリアなかいち）完全攻略ガイド。本物のモフモフ秋田犬に会える出勤スケジュールや見学時間、ガラス越しのふれあいルール、人気の限定オリジナルグッズ、駅周辺の秋田犬スポットまで徹底解説。"
 pubDate: 2026-11-16
-updatedDate: 2026-11-17
+updatedDate: 2026-11-18
 lang: "ja"
 pref: "akita"
 category: "観光スポット"
@@ -21,7 +21,7 @@ import SpotSeasonGuide from '../../components/SpotSeasonGuide.astro';
 import SpotFaq from '../../components/SpotFaq.astro';
 import RelatedCourseCards from '../../components/RelatedCourseCards.astro';
 import ConclusionBox from '../../components/ConclusionBox.astro';
-import TourismPhoto from '../../components/TourismPhoto.astro';
+import SpotEditorial from '../../components/SpotEditorial.astro';
 import photoDogMain from '../../assets/photos/akita_compressed/05秋田犬ステーション.webp';
 import photoExterior from '../../assets/photos/akita_compressed/01秋田犬ステーション.webp';
 import photoGoods from '../../assets/photos/akita_compressed/02秋田犬ステーション.webp';
@@ -41,25 +41,13 @@ import photoInteraction from '../../assets/photos/akita_compressed/04秋田犬�
 
 ## 1. 秋田犬ステーションの見どころと見学マナー
 
-### ガラス越しに間近で観察！愛らしい仕草に癒やされる
-
-<TourismPhoto
-  src={photoInteraction}
-  credit="一般社団法人 秋田県観光連盟"
-  alt="秋田犬ステーションの秋田犬とのふれあい"
-  caption="スタッフと遊ぶ元気な秋田犬。自然体のリラックスした姿を間近で観察できる"
-/>
-
-秋田犬ステーションの展示スペースは、見学エリアとガラスで仕切られた快適な室内ドッグラン仕様になっています。
-
-スタッフと元気に遊んだり、床でごろんとお昼寝したり、ガラス越しにこちらをじっと見つめてくれたりと、自然体で過ごす秋田犬の姿を間近で観察できます。
-
-<TourismPhoto
-  src={photoWalk}
-  credit="一般社団法人 秋田県観光連盟"
-  alt="秋田犬ステーションでお散歩する秋田犬"
-  caption="タイミングが良ければ、エリアなかいちの広場をお散歩する凛々しい姿に出会えることも"
-/>
+<SpotEditorial layout="collage" eyebrow="MEET THE AKITA INU" title="ガラス越しに出会う、秋田犬の表情" photos={[
+  { src: photoInteraction, alt: "スタッフと過ごす秋田犬", caption: "スタッフと過ごす秋田犬", credit: "写真提供：一般社団法人 秋田県観光連盟「あきたファン」" },
+  { src: photoWalk, alt: "屋外を歩く秋田犬", caption: "屋外を歩く姿", credit: "写真提供：一般社団法人 秋田県観光連盟「あきたファン」" },
+  { src: photoDogMain, alt: "秋田犬ステーションの秋田犬", caption: "秋田犬の表情", credit: "写真提供：一般社団法人 秋田県観光連盟「あきたファン」" }
+]}>
+  <p>ガラスで仕切られた見学エリアから、秋田犬たちの自然な姿を観察できます。遊んだり、くつろいだり。どんな表情に出会えるかも楽しみのひとつです。</p>
+</SpotEditorial>
 
 ### 見学・写真撮影のマナーとルール
 
@@ -94,14 +82,11 @@ import photoInteraction from '../../assets/photos/akita_compressed/04秋田犬�
 
 ## 2. ここでしか買えない！可愛い秋田犬限定グッズとお土産
 
-<TourismPhoto
-  src={photoGoods}
-  credit="一般社団法人 秋田県観光連盟"
-  alt="秋田犬ステーションのグッズコーナー"
-  caption="店内にはぬいぐるみ、ステーショナリー、愛犬用おやつなど秋田犬グッズがずらり"
-/>
-
-ショップスペースには、オリジナルデザインの秋田犬グッズが豊富に並んでいます。売上の一部は秋田犬の保護や育成活動に充てられるため、お土産を購入することで秋田犬の未来を応援できるのも魅力です。
+<SpotEditorial layout="split" imageSide="right" eyebrow="SOUVENIRS" title="秋田犬を連れて帰る、おみやげ選び" photos={[
+  { src: photoGoods, alt: "秋田犬グッズが並ぶ店内", caption: "秋田犬モチーフのグッズが並ぶ店内", credit: "写真提供：一般社団法人 秋田県観光連盟「あきたファン」" }
+]}>
+  <p>ショップには、秋田犬をモチーフにした雑貨やおみやげが並びます。旅の思い出に、お気に入りを探してみてはいかがでしょう。</p>
+</SpotEditorial>
 
 ### 人気の定番アイテム
 1. **秋田犬ぬいぐるみ・マスコット**: 手触り抜群のモフモフぬいぐるみや、バッグに付けられるキーチェーン。
@@ -113,14 +98,11 @@ import photoInteraction from '../../assets/photos/akita_compressed/04秋田犬�
 
 ## 3. 秋田駅周辺で秋田犬と出会える・楽しめるスポット巡り
 
-<TourismPhoto
-  src={photoExterior}
-  credit="一般社団法人 秋田県観光連盟"
-  alt="秋田犬ステーションの店舗外観"
-  caption="エリアなかいち商業棟1階の店舗外観。秋田犬の大きなフラッグとのぼりが目印"
-/>
-
-秋田犬ステーションの前後には、秋田駅周辺にある秋田犬ゆかりのスポットもあわせて巡るのがおすすめです。
+<SpotEditorial layout="wide" eyebrow="AROUND AKITA STATION" title="秋田駅周辺を、もう少し散歩" photos={[
+  { src: photoExterior, alt: "秋田犬ステーションの外観", caption: "エリアなかいちにある秋田犬ステーション", credit: "写真提供：一般社団法人 秋田県観光連盟「あきたファン」" }
+]}>
+  <p>秋田犬ステーションの前後には、秋田駅周辺の秋田犬ゆかりのスポットもあわせて巡れます。</p>
+</SpotEditorial>
 
 ### ① JR秋田駅「ぽぽろーど」の巨大秋田犬バルーン
 新幹線改札を出てすぐの東西連絡自由通路「ぽぽろーど」に、高さ数メートルの**巨大な秋田犬のバルーン**が鎮座しています。秋田到着の記念写真スポットとして定番です。
