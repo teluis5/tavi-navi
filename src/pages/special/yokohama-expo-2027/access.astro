@@ -1,5 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import ExpoGuideNav from '../../../components/ExpoGuideNav.astro';
+import '../../../styles/expo-detail.css';
 
 const title = '横浜花博（GREEN×EXPO 2027）アクセス・シャトルバス完全ガイド';
 const description =
@@ -7,7 +9,7 @@ const description =
 ---
 
 <Layout title={title} description={description}>
-  <article class="page">
+  <article class="page expo-detail">
     <nav class="breadcrumbs" aria-label="パンくずリスト">
       <a href="/">トップ</a><span aria-hidden="true"> / </span>
       <a href="/special/yokohama-expo-2027/">横浜花博特設ガイド</a><span aria-hidden="true"> / </span>
@@ -56,11 +58,7 @@ const description =
       </p>
     </section>
 
-    <nav class="sub-nav" aria-label="横浜花博 関連ガイド">
-      <a href="/special/yokohama-expo-2027/">← 横浜花博 特設トップへ戻る</a>
-      <a href="/special/yokohama-expo-2027/hotels/">周辺ホテル・前泊拠点ガイド →</a>
-      <a href="/special/yokohama-expo-2027/model-course/">モデルコース（日帰り・1泊2日） →</a>
-    </nav>
+    <ExpoGuideNav current="access" />
   </article>
 </Layout>
 

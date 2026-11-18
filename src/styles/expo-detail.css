@@ -1,0 +1,27 @@
+.expo-detail.page { max-width: 1080px; }
+.expo-detail .breadcrumbs { line-height: 1.7; }
+.expo-detail .hero { position: relative; overflow: hidden; padding: 44px 26px; background: #e8f1e9; border: 0; border-radius: 18px; }
+.expo-detail .hero::after { content: ''; position: absolute; right: -80px; bottom: -140px; width: 320px; height: 320px; border: 45px solid rgba(78,130,93,.1); border-radius: 50%; pointer-events: none; }
+.expo-detail .hero > * { position: relative; z-index: 1; }
+.expo-detail .hero h1 { font-size: clamp(28px, 4vw, 40px); }
+.expo-detail .hero p:last-child { max-width: 700px; }
+.expo-detail .block { padding-top: 42px; }
+.expo-detail .block h2 { font-size: clamp(21px, 3vw, 26px); line-height: 1.4; }
+.expo-detail .card, .expo-detail .steps li { border: 1px solid #d7e4d9; border-radius: 10px; padding: 20px; }
+.expo-detail .hotel-card { border-color: #d7e4d9; transition: border-color .2s ease-out, background-color .2s ease-out; }
+.expo-detail .hotel-card:hover { background: #f3f8f3; box-shadow: none; }
+.expo-detail .table-wrap { border-top: 2px solid #56896a; }
+.expo-detail table { min-width: 550px; }
+.expo-detail th:not(:first-child), .expo-detail td:not(:first-child) { text-align: right; font-variant-numeric: tabular-nums; }
+.expo-detail .expo-guide-nav { margin-top: 48px; padding-top: 28px; border-top: 1px solid #d7e4d9; }
+.expo-detail .expo-guide-eyebrow { margin: 0 0 8px; color: #15803d; font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+.expo-detail .expo-guide-nav h2 { margin: 0 0 16px; color: #173e2a; font-size: 22px; }
+.expo-detail .expo-guide-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.expo-detail .expo-guide-links a { position: relative; display: flex; flex-direction: column; min-height: 100px; padding: 17px 35px 17px 16px; border: 1px solid #d7e4d9; border-radius: 10px; color: #173e2a; text-decoration: none; transition: border-color .2s ease-out, background-color .2s ease-out; }
+.expo-detail .expo-guide-links a:hover { border-color: #43845b; background: #f3f8f3; }
+.expo-detail .expo-guide-links strong { font-size: 15px; line-height: 1.4; }
+.expo-detail .expo-guide-links span { margin-top: 5px; color: #52665c; font-size: 12px; }
+.expo-detail .expo-guide-links b { position: absolute; right: 16px; top: 16px; }
+.expo-detail .expo-guide-back { display: inline-block; margin-top: 20px; color: #166534; font-size: 14px; font-weight: 700; }
+.expo-detail a:focus-visible, .expo-detail .table-wrap:focus-visible { outline: 3px solid #15803d; outline-offset: 3px; }
+@media (min-width: 600px) { .expo-detail .hero { padding: 44px 36px; } .expo-detail .expo-guide-links { grid-template-columns: repeat(4, minmax(0, 1fr)); } }

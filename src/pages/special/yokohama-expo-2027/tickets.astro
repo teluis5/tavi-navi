@@ -1,5 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import ExpoGuideNav from '../../../components/ExpoGuideNav.astro';
+import '../../../styles/expo-detail.css';
 
 const title = '横浜花博（GREEN×EXPO 2027）チケット・予約攻略ガイド｜料金・早割・来場日時予約';
 const description =
@@ -7,7 +9,7 @@ const description =
 ---
 
 <Layout title={title} description={description}>
-  <article class="page">
+  <article class="page expo-detail">
     <nav class="breadcrumbs" aria-label="パンくずリスト">
       <a href="/">トップ</a><span aria-hidden="true"> / </span>
       <a href="/special/yokohama-expo-2027/">横浜花博特設ガイド</a><span aria-hidden="true"> / </span>
@@ -25,7 +27,7 @@ const description =
     <section class="block">
       <h2>チケット料金一覧（税込）</h2>
       <p class="lead">3歳以下は無料です。前売限定（早割など）は会期前日の2027年3月18日まで購入できます。</p>
-      <div class="table-wrap">
+      <div class="table-wrap" tabindex="0" role="region" aria-label="チケット料金表（横にスクロールできます）">
         <table>
           <thead>
             <tr>
@@ -95,11 +97,7 @@ const description =
       </ol>
     </section>
 
-    <nav class="sub-nav" aria-label="横浜花博 関連ガイド">
-      <a href="/special/yokohama-expo-2027/">← 横浜花博 特設トップへ戻る</a>
-      <a href="/special/yokohama-expo-2027/access/">アクセス・シャトルバス完全ガイド →</a>
-      <a href="/special/yokohama-expo-2027/hotels/">周辺ホテル・前泊拠点ガイド →</a>
-    </nav>
+    <ExpoGuideNav current="tickets" />
   </article>
 </Layout>
 

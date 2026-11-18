@@ -80,10 +80,21 @@ const HOTEL_AREAS = [
         会期・会場アクセス・シャトルバス発着駅・おすすめ宿泊エリアをわかりやすくまとめました。
       </p>
       <div class="hero-meta">
-        <span>会期：2027年3月19日(金)〜9月26日(日)</span>
-        <span>会場：旧上瀬谷通信施設（横浜市瀬谷区・旭区）</span>
+        <span><b>会期</b> 2027.3.19（金）— 9.26（日）</span>
+        <span><b>会場</b> 旧上瀬谷通信施設（横浜市瀬谷区・旭区）</span>
       </div>
     </header>
+
+    <nav class="guide-nav" aria-label="花博ガイドを選ぶ">
+      <div class="guide-nav-heading"><div><p class="eyebrow">PLAN YOUR VISIT</p><h2>知りたいことから探す</h2></div><span>花博に行く準備を、ここから。</span></div>
+      <div class="guide-nav-grid">
+        <a href="/special/yokohama-expo-2027/tickets/"><span class="guide-number">01</span><strong>チケット・予約</strong><small>券種や予約の流れを確認</small><span class="guide-arrow" aria-hidden="true">↗</span></a>
+        <a href="/special/yokohama-expo-2027/access/"><span class="guide-number">02</span><strong>アクセス</strong><small>電車・シャトルバスで行く</small><span class="guide-arrow" aria-hidden="true">↗</span></a>
+        <a href="/special/yokohama-expo-2027/pavilions/"><span class="guide-number">03</span><strong>パビリオン・見どころ</strong><small>会場での楽しみを探す</small><span class="guide-arrow" aria-hidden="true">↗</span></a>
+        <a href="/special/yokohama-expo-2027/model-course/"><span class="guide-number">04</span><strong>モデルコース</strong><small>日帰り・宿泊のプランを見る</small><span class="guide-arrow" aria-hidden="true">↗</span></a>
+        <a href="/special/yokohama-expo-2027/hotels/"><span class="guide-number">05</span><strong>周辺ホテル</strong><small>目的に合う宿泊エリアを探す</small><span class="guide-arrow" aria-hidden="true">↗</span></a>
+      </div>
+    </nav>
 
     <nav class="section-nav" aria-label="ページ内目次">
       <a href="#news">最新ニュース・見どころ</a>
@@ -94,7 +105,7 @@ const HOTEL_AREAS = [
 
     <section class="block" id="news" aria-labelledby="news-title">
       <p class="eyebrow">LATEST NEWS &amp; HIGHLIGHTS</p>
-      <h2 id="news-title">公開されている最新ニュース・イベント情報</h2>
+      <h2 id="news-title">花博のニュース・見どころ</h2>
       <p class="lead-note">
         2027年3月の開幕に向けて、チケットの来場日時予約や主要パビリオン・ゾーンの概要が順次公開されています。
       </p>
@@ -227,7 +238,7 @@ const HOTEL_AREAS = [
 
 <style>
   .page {
-    max-width: 780px;
+    max-width: 1080px;
     margin: 0 auto;
     padding: 0 20px 64px;
     color: #172b23;
@@ -245,11 +256,24 @@ const HOTEL_AREAS = [
     text-decoration: underline;
   }
   .hero {
-    padding: 32px 24px;
-    background: linear-gradient(135deg, #ecfdf5 0%, #dcfce7 100%);
-    border: 1px solid #bbf7d0;
-    border-radius: 14px;
+    position: relative;
+    overflow: hidden;
+    padding: 44px 26px;
+    background: #e8f1e9;
+    border-radius: 18px;
   }
+  .hero::after {
+    content: '';
+    position: absolute;
+    right: -80px;
+    bottom: -140px;
+    width: 320px;
+    height: 320px;
+    border: 45px solid rgba(78, 130, 93, .1);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero > * { position: relative; z-index: 1; }
   .eyebrow {
     margin: 0 0 8px;
     color: #15803d;
@@ -260,7 +284,7 @@ const HOTEL_AREAS = [
   .hero h1 {
     margin: 0 0 14px;
     color: #14532d;
-    font-size: clamp(24px, 5.5vw, 34px);
+    font-size: clamp(30px, 5.5vw, 48px);
     line-height: 1.35;
   }
   .hero > p:not(.eyebrow) {
@@ -285,6 +309,18 @@ const HOTEL_AREAS = [
     font-weight: 700;
     color: #14532d;
   }
+  .hero-meta b { margin-right: 6px; color: #52765d; }
+  .guide-nav { margin-top: 38px; }
+  .guide-nav-heading { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 15px; }
+  .guide-nav-heading h2 { margin: 0; color: #173e2a; font-size: clamp(21px, 3vw, 26px); }
+  .guide-nav-heading > span { color: #52665c; font-size: 13px; }
+  .guide-nav-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .guide-nav-grid a { position: relative; display: flex; flex-direction: column; min-height: 132px; padding: 16px 38px 16px 16px; border: 1px solid #d7e4d9; border-radius: 10px; background: #fff; color: #173e2a; text-decoration: none; transition: border-color .2s ease-out, background-color .2s ease-out; }
+  .guide-nav-grid a:hover { border-color: #43845b; background: #f3f8f3; }
+  .guide-number { color: #56896a; font-size: 11px; font-weight: 700; letter-spacing: .1em; }
+  .guide-nav-grid strong { margin-top: 9px; font-size: 15px; line-height: 1.4; }
+  .guide-nav-grid small { margin-top: 5px; color: #52665c; font-size: 12px; line-height: 1.5; }
+  .guide-arrow { position: absolute; right: 16px; top: 16px; font-size: 18px; }
   .section-nav {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -507,13 +543,31 @@ const HOTEL_AREAS = [
     outline: 3px solid #16a34a;
     outline-offset: 3px;
   }
+  @media (max-width: 599px) {
+    .guide-nav-heading { align-items: start; flex-direction: column; gap: 5px; }
+    .news-item { flex-direction: column; gap: 8px; }
+    .spec-row { grid-template-columns: 1fr; gap: 4px; }
+  }
   @media (min-width: 600px) {
     .hero {
       padding: 44px 36px;
     }
-    .section-nav {
+    .hero-meta b { margin-right: 6px; color: #52765d; }
+  .guide-nav { margin-top: 38px; }
+  .guide-nav-heading { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 15px; }
+  .guide-nav-heading h2 { margin: 0; color: #173e2a; font-size: clamp(21px, 3vw, 26px); }
+  .guide-nav-heading > span { color: #52665c; font-size: 13px; }
+  .guide-nav-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .guide-nav-grid a { position: relative; display: flex; flex-direction: column; min-height: 132px; padding: 16px 38px 16px 16px; border: 1px solid #d7e4d9; border-radius: 10px; background: #fff; color: #173e2a; text-decoration: none; transition: border-color .2s ease-out, background-color .2s ease-out; }
+  .guide-nav-grid a:hover { border-color: #43845b; background: #f3f8f3; }
+  .guide-number { color: #56896a; font-size: 11px; font-weight: 700; letter-spacing: .1em; }
+  .guide-nav-grid strong { margin-top: 9px; font-size: 15px; line-height: 1.4; }
+  .guide-nav-grid small { margin-top: 5px; color: #52665c; font-size: 12px; line-height: 1.5; }
+  .guide-arrow { position: absolute; right: 16px; top: 16px; font-size: 18px; }
+  .section-nav {
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
+    .guide-nav-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
     .station-grid,
     .hotel-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));

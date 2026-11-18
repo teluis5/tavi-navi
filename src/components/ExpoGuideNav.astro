@@ -1,0 +1,23 @@
+---
+interface Props { current: string; }
+const { current } = Astro.props;
+const guides = [
+  { slug: 'tickets', label: 'チケット・予約', detail: '券種と予約の流れ' },
+  { slug: 'access', label: 'アクセス', detail: '電車・シャトルバス' },
+  { slug: 'pavilions', label: 'パビリオン・見どころ', detail: '会場での楽しみ' },
+  { slug: 'model-course', label: 'モデルコース', detail: '日帰り・宿泊プラン' },
+  { slug: 'hotels', label: '周辺ホテル', detail: '宿泊エリアを探す' },
+];
+---
+<nav class="expo-guide-nav" aria-label="横浜花博の関連ガイド">
+  <p class="expo-guide-eyebrow">EXPLORE THE GUIDE</p>
+  <h2>花博の情報をもっと見る</h2>
+  <div class="expo-guide-links">
+    {guides.filter((guide) => guide.slug !== current).map((guide) => (
+      <a href={`/special/yokohama-expo-2027/${guide.slug}/`}>
+        <strong>{guide.label}</strong><span>{guide.detail}</span><b aria-hidden="true">↗</b>
+      </a>
+    ))}
+  </div>
+  <a class="expo-guide-back" href="/special/yokohama-expo-2027/">← 花博特設ガイドのトップへ</a>
+</nav>
