@@ -17,6 +17,7 @@ import SpotInfoBox from '../../components/SpotInfoBox.astro';
 import SpotAccess from '../../components/SpotAccess.astro';
 import NearbySpots from '../../components/NearbySpots.astro';
 import SpotRulesBox from '../../components/SpotRulesBox.astro';
+import SpotSeasonGuide from '../../components/SpotSeasonGuide.astro';
 import SpotFaq from '../../components/SpotFaq.astro';
 import RelatedCourseCards from '../../components/RelatedCourseCards.astro';
 import ConclusionBox from '../../components/ConclusionBox.astro';
@@ -129,6 +130,39 @@ JR秋田駅直結の商業施設「トピコ」2階にも出張サテライト�
 
 ### ③ 千秋公園 秋田犬ふれあい処（春〜秋限定）
 秋田犬ステーションから徒歩5分のお堀を渡った「千秋公園（久保田城跡）」では、春から秋（主に5月〜11月頃）の期間限定で「秋田犬ふれあい処」が開設されます。青空と緑の下で秋田犬を見学できる屋外スポットです。
+
+<SpotSeasonGuide
+  title="秋田犬ステーション＆駅周辺の季節別楽しみ方"
+  lead="秋田犬ステーションは冷暖房完備の屋内施設のため通年快適に見学できます。季節ごとの秋田犬の姿や周辺スポットとの組み合わせ方です。"
+  seasons={[
+    {
+      season: "春",
+      months: "4月〜5月",
+      highlight: "千秋公園の桜散策＆ふれあい処オープン",
+      desc: "お堀端の桜並木を歩きながらエリアなかいちへ。5月頃からは千秋公園内の屋外「秋田犬ふれあい処」も始まります。",
+      recommended: true
+    },
+    {
+      season: "夏",
+      months: "6月〜8月",
+      highlight: "涼しい屋内ドッグランで快適に見学",
+      desc: "暑さに弱い秋田犬ですが、空調が効いた室内展示スペースで元気に過ごす姿や可愛いお昼寝姿を涼しく観察できます。"
+    },
+    {
+      season: "秋",
+      months: "9月〜11月",
+      highlight: "お散歩シーズン＆千秋公園の紅葉",
+      desc: "涼しくなり秋田犬たちにとっても快適なお散歩日和。エリアなかいち広場をお散歩する姿に出会えるチャンスも増えます。"
+    },
+    {
+      season: "冬",
+      months: "12月〜3月",
+      highlight: "冬毛でモフモフ度が最高潮に達する秋田犬",
+      desc: "寒さに強い秋田犬の本領発揮！冬の厳しい寒さに備えて最も毛並みが豊かでモフモフになった愛らしい姿に出会えます。",
+      recommended: true
+    }
+  ]}
+/>
 
 ---
 
