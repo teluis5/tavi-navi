@@ -206,7 +206,7 @@ if (props.pageType === 'article') {
       )}
 
       <div class="e-header-inner">
-        <h1 class="e-title">{article.data.title}</h1>
+        <h1 class="e-title">{article.data.displayTitle || article.data.title}</h1>
         {article.data.subtitle && (
           <p class="e-subtitle">{article.data.subtitle}</p>
         )}

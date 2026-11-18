@@ -7,6 +7,7 @@ const articles = defineCollection({
   schema: ({ image }) =>
     z.object({
       title: z.string(),
+      displayTitle: z.string().optional(), // 記事ページに表示する短い見出し
       description: z.string(),
       pubDate: z.coerce.date(),
       updatedDate: z.coerce.date().optional(),
