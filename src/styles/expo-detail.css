@@ -43,3 +43,12 @@
 .expo-detail .lead, .expo-detail .card p, .expo-detail .steps p, .expo-detail .desc, .expo-detail .notes, .expo-detail .timeline li { font-size: 15px; line-height: 1.8; color: #39484b; }
 .expo-detail .badge, .expo-detail th { background: #f0f2f0; color: #303d40; }
 .expo-detail .expo-guide-links small { font-size: 13px; }
+
+/* Shared type scale for all expo detail guides. */
+.expo-detail .hero h1 { font-size: clamp(28px, 4vw, 40px); line-height: 1.3; }
+.expo-detail .hero p:last-child { font-size: 16px; line-height: 1.75; }
+.expo-detail .block h2, .expo-detail .expo-guide-nav h2 { font-size: clamp(23px, 2.7vw, 28px); line-height: 1.35; }
+.expo-detail .card h3, .expo-detail .steps h3, .expo-detail .hotel-card h3 { font-size: 18px; line-height: 1.45; }
+.expo-detail .lead, .expo-detail .card p, .expo-detail .steps p, .expo-detail .desc, .expo-detail .notes, .expo-detail .timeline li, .expo-detail table { font-size: 16px; line-height: 1.75; }
+.expo-detail .expo-guide-links strong { font-size: 17px; }
+.expo-detail .expo-guide-links small, .expo-detail .expo-guide-back, .expo-detail .cta, .expo-detail .cta-link { font-size: 14px; }
