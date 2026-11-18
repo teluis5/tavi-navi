@@ -16,7 +16,7 @@ const guides = [
   <div class="expo-guide-links">
     {guides.filter((guide) => guide.slug !== current).map((guide) => (
       <a href={`/special/yokohama-expo-2027/${guide.slug}/`}>
-        <span class="expo-nav-icon"><Icon name={guide.icon} aria-hidden="true" /></span><strong>{guide.label}</strong><span>{guide.detail}</span><b aria-hidden="true">↗</b>
+        <span class="expo-nav-icon"><Icon name={guide.icon} aria-hidden="true" /></span><span class="expo-nav-copy"><strong>{guide.label}</strong><small>{guide.detail}</small></span><b aria-hidden="true">→</b>
       </a>
     ))}
   </div>
@@ -24,6 +24,6 @@ const guides = [
 </nav>
 
 <style>
-  .expo-nav-icon { display: grid; place-items: center; width: 40px; height: 40px; margin-bottom: 10px; border-radius: 11px; color: #286744; background: #e8f1e9; }
+  .expo-nav-icon { display: grid; place-items: center; width: 40px; height: 40px; flex: none; margin: 0; border-radius: 11px; color: #286744; background: #e8f1e9; }
   .expo-nav-icon :global(svg) { width: 22px; height: 22px; }
 </style>

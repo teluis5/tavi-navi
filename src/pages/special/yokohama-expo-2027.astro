@@ -87,17 +87,17 @@ const HOTEL_AREAS = [
     </header>
 
     <nav class="guide-nav" aria-label="花博ガイドを選ぶ">
-      <div class="guide-nav-heading"><div><p class="eyebrow">PLAN YOUR VISIT</p><h2>知りたいことから探す</h2></div><span>花博に行く準備を、ここから。</span></div>
+      <div class="guide-nav-heading"><div><p class="eyebrow">PLAN YOUR VISIT</p><h2>知りたいことから探す</h2></div></div>
       <div class="guide-nav-grid">
-        <a href="/special/yokohama-expo-2027/tickets/"><span class="guide-icon"><Icon name="heroicons:ticket" aria-hidden="true" /></span><span class="guide-number">01</span><strong>チケット・予約</strong><small>券種や予約の流れを確認</small><span class="guide-arrow" aria-hidden="true">↗</span></a>
-        <a href="/special/yokohama-expo-2027/access/"><span class="guide-icon"><Icon name="heroicons:map-pin" aria-hidden="true" /></span><span class="guide-number">02</span><strong>アクセス</strong><small>電車・シャトルバスで行く</small><span class="guide-arrow" aria-hidden="true">↗</span></a>
-        <a href="/special/yokohama-expo-2027/pavilions/"><span class="guide-icon"><Icon name="heroicons:sparkles" aria-hidden="true" /></span><span class="guide-number">03</span><strong>パビリオン・見どころ</strong><small>会場での楽しみを探す</small><span class="guide-arrow" aria-hidden="true">↗</span></a>
-        <a href="/special/yokohama-expo-2027/model-course/"><span class="guide-icon"><Icon name="heroicons:map" aria-hidden="true" /></span><span class="guide-number">04</span><strong>モデルコース</strong><small>日帰り・宿泊のプランを見る</small><span class="guide-arrow" aria-hidden="true">↗</span></a>
-        <a href="/special/yokohama-expo-2027/hotels/"><span class="guide-icon"><Icon name="heroicons:building-office-2" aria-hidden="true" /></span><span class="guide-number">05</span><strong>周辺ホテル</strong><small>目的に合う宿泊エリアを探す</small><span class="guide-arrow" aria-hidden="true">↗</span></a>
+        <a href="/special/yokohama-expo-2027/tickets/"><span class="guide-icon"><Icon name="heroicons:ticket" aria-hidden="true" /></span><span class="guide-copy"><strong>チケット・予約</strong><small>券種や予約の流れを確認</small></span><span class="guide-arrow" aria-hidden="true">→</span></a>
+        <a href="/special/yokohama-expo-2027/access/"><span class="guide-icon"><Icon name="heroicons:map-pin" aria-hidden="true" /></span><span class="guide-copy"><strong>アクセス</strong><small>電車・シャトルバスで行く</small></span><span class="guide-arrow" aria-hidden="true">→</span></a>
+        <a href="/special/yokohama-expo-2027/pavilions/"><span class="guide-icon"><Icon name="heroicons:sparkles" aria-hidden="true" /></span><span class="guide-copy"><strong>パビリオン・見どころ</strong><small>会場での楽しみを探す</small></span><span class="guide-arrow" aria-hidden="true">→</span></a>
+        <a href="/special/yokohama-expo-2027/model-course/"><span class="guide-icon"><Icon name="heroicons:map" aria-hidden="true" /></span><span class="guide-copy"><strong>モデルコース</strong><small>日帰り・宿泊のプランを見る</small></span><span class="guide-arrow" aria-hidden="true">→</span></a>
+        <a href="/special/yokohama-expo-2027/hotels/"><span class="guide-icon"><Icon name="heroicons:building-office-2" aria-hidden="true" /></span><span class="guide-copy"><strong>周辺ホテル</strong><small>目的に合う宿泊エリアを探す</small></span><span class="guide-arrow" aria-hidden="true">→</span></a>
       </div>
     </nav>
 
-    <nav class="section-nav" aria-label="ページ内目次">
+    <nav class="section-nav" aria-label="ページ内目次"><span>このページ</span>
       <a href="#news">最新ニュース・見どころ</a>
       <a href="#overview">開催概要・チケット</a>
       <a href="#access">アクセス・シャトルバス</a>
@@ -221,11 +221,6 @@ const HOTEL_AREAS = [
         <li>最新のチケット情報・パビリオン・イベントスケジュールは必ず公式サイトをご確認ください。</li>
       </ul>
       <div class="guide-links">
-        <a class="back-kanagawa" href="/special/yokohama-expo-2027/tickets/">チケット・予約攻略ガイドを見る →</a>
-        <a class="back-kanagawa" href="/special/yokohama-expo-2027/access/">アクセス・シャトルバス完全ガイドを見る →</a>
-        <a class="back-kanagawa" href="/special/yokohama-expo-2027/hotels/">周辺ホテル・前泊拠点ガイドを見る →</a>
-        <a class="back-kanagawa" href="/special/yokohama-expo-2027/pavilions/">パビリオン・見どころまとめを見る →</a>
-        <a class="back-kanagawa" href="/special/yokohama-expo-2027/model-course/">モデルコース（日帰り・1泊2日）を見る →</a>
         <a class="official" href="https://expo2027yokohama.or.jp/" target="_blank" rel="noopener noreferrer">
           GREEN×EXPO 2027 公式ウェブサイトを見る <span aria-hidden="true">↗</span>
         </a>
@@ -585,5 +580,31 @@ const HOTEL_AREAS = [
     .hotel-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+  }
+  /* A quiet hierarchy keeps the guide choices together and lets the content lead. */
+  .page { max-width: 960px; }
+  .guide-nav { margin-top: 36px; }
+  .guide-nav-grid { grid-template-columns: 1fr; gap: 0; border-top: 1px solid #d7e4d9; }
+  .guide-nav-grid a { display: flex; flex-direction: row; align-items: center; min-height: 76px; gap: 14px; padding: 13px 4px; border: 0; border-bottom: 1px solid #d7e4d9; border-radius: 0; }
+  .guide-nav-grid a:hover { background: #f3f8f3; }
+  .guide-icon { flex: none; width: 38px; height: 38px; margin: 0; border-radius: 9px; }
+  .guide-icon :global(svg) { width: 21px; height: 21px; }
+  .guide-copy { display: flex; flex-direction: column; min-width: 0; }
+  .guide-nav-grid strong { margin: 0; }
+  .guide-nav-grid small { margin-top: 2px; }
+  .guide-arrow { position: static; margin-left: auto; color: #56896a; }
+  .section-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 18px; margin: 32px 0 0; padding: 14px 0; border-top: 1px solid #d7e4d9; border-bottom: 1px solid #d7e4d9; }
+  .section-nav > span { font-size: 12px; font-weight: 700; color: #52665c; }
+  .section-nav a { min-height: 32px; padding: 0; border: 0; border-radius: 0; background: transparent; font-size: 13px; }
+  .section-nav a:hover { background: transparent; text-decoration: underline; }
+  .block { padding-top: 52px; }
+  .news-list { gap: 0; border-top: 1px solid #dce5df; }
+  .news-item { padding: 18px 0; border: 0; border-bottom: 1px solid #dce5df; border-radius: 0; }
+  .news-tag { min-width: 84px; text-align: center; }
+  .news-item p { max-width: 68ch; font-size: 14px; }
+  .guide { background: #f5f8f5; border-color: #e1e9e2; }
+  @media (min-width: 600px) {
+    .guide-nav-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; }
+    .guide-nav-grid a { padding-right: 8px; }
   }
 </style>
