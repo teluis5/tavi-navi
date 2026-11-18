@@ -1,0 +1,522 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const title = '横浜花博（GREEN×EXPO 2027）特設ガイド｜会期・アクセス・シャトルバス・周辺ホテル';
+const description =
+  '2027年3月19日開幕の横浜花博「GREEN×EXPO 2027（2027年国際園芸博覧会）」特設ページ。会期・開場時間、旧上瀬谷通信施設へのアクセス（瀬谷・三ツ境・南町田・十日市場からのシャトルバス）、目的別おすすめ宿泊エリアをまとめました。';
+
+const ACCESS_STATIONS = [
+  {
+    name: '瀬谷駅',
+    line: '相鉄本線',
+    bus: 'シャトルバス約10分',
+    walk: '徒歩約25〜30分（約2km）',
+    note: '会場に最も近い駅。徒歩アクセスも可能な距離です。',
+  },
+  {
+    name: '三ツ境駅',
+    line: '相鉄本線',
+    bus: 'シャトルバス約15分',
+    walk: '—',
+    note: '相鉄線沿線からの主要シャトルバス発着駅。',
+  },
+  {
+    name: '南町田グランベリーパーク駅',
+    line: '東急田園都市線',
+    bus: 'シャトルバス約20分',
+    walk: '—',
+    note: '渋谷・二子玉川・中央林間方面からのアクセスに便利。',
+  },
+  {
+    name: '十日市場駅',
+    line: 'JR横浜線',
+    bus: 'シャトルバス約25分',
+    walk: '—',
+    note: '新横浜・町田・八王子方面からのJR利用者に便利。',
+  },
+];
+
+const HOTEL_AREAS = [
+  {
+    area: '新横浜エリア',
+    badge: '新幹線・遠方組におすすめ',
+    desc: '東海道新幹線が停車し、JR横浜線（十日市場駅）や相鉄・東急直通線で会場方面へスムーズにアクセス可能。',
+    url: 'https://hb.afl.rakuten.co.jp/hgc/5953a273.5cc8e490.5953a274.81eca08c/?pc=https%3A%2F%2Ftravel.rakuten.co.jp%2Fyado%2Fkanagawa%2Fshinyokohama.html',
+  },
+  {
+    area: '横浜駅・みなとみらいエリア',
+    badge: '観光・グルメも満喫',
+    desc: '相鉄本線の始発「横浜駅」から瀬谷・三ツ境へ1本。みなとみらいや中華街観光と組み合わせる王道拠点。',
+    url: 'https://hb.afl.rakuten.co.jp/hgc/5953a273.5cc8e490.5953a274.81eca08c/?pc=https%3A%2F%2Ftravel.rakuten.co.jp%2Fyado%2Fkanagawa%2Fyokohama.html',
+  },
+  {
+    area: '海老名・大和・瀬谷周辺',
+    badge: '会場アクセス最短',
+    desc: '相鉄本線沿線で会場に近く、朝一番の入場や混雑回避を狙う前泊・後泊に最適です。',
+    url: 'https://hb.afl.rakuten.co.jp/hgc/5953a273.5cc8e490.5953a274.81eca08c/?pc=https%3A%2F%2Ftravel.rakuten.co.jp%2Fyado%2Fkanagawa%2Febina.html',
+  },
+  {
+    area: '町田・南町田エリア',
+    badge: '田園都市線・横浜線利用',
+    desc: '南町田グランベリーパーク駅や十日市場駅への移動が快適。ショッピングや食事処も豊富です。',
+    url: 'https://hb.afl.rakuten.co.jp/hgc/5953a273.5cc8e490.5953a274.81eca08c/?pc=https%3A%2F%2Ftravel.rakuten.co.jp%2Fyado%2Ftokyo%2Fmachida.html',
+  },
+];
+---
+
+<Layout title={title} description={description}>
+  <article class="page">
+    <nav class="breadcrumbs" aria-label="パンくずリスト">
+      <a href="/">トップ</a><span aria-hidden="true"> / </span>
+      <a href="/kanagawa/">神奈川</a><span aria-hidden="true"> / </span>
+      <span>横浜花博（GREEN×EXPO 2027）特設ガイド</span>
+    </nav>
+
+    <header class="hero">
+      <p class="eyebrow">SPECIAL GUIDE · GREEN×EXPO 2027</p>
+      <h1>横浜花博<br />GREEN×EXPO 2027 特設ガイド</h1>
+      <p>
+        2027年3月19日開幕の「2027年国際園芸博覧会（横浜花博）」。<br />
+        会期・会場アクセス・シャトルバス発着駅・おすすめ宿泊エリアをわかりやすくまとめました。
+      </p>
+      <div class="hero-meta">
+        <span>会期：2027年3月19日(金)〜9月26日(日)</span>
+        <span>会場：旧上瀬谷通信施設（横浜市瀬谷区・旭区）</span>
+      </div>
+    </header>
+
+    <nav class="section-nav" aria-label="ページ内目次">
+      <a href="#news">最新ニュース・見どころ</a>
+      <a href="#overview">開催概要・チケット</a>
+      <a href="#access">アクセス・シャトルバス</a>
+      <a href="#hotels">周辺ホテルを探す</a>
+    </nav>
+
+    <section class="block" id="news" aria-labelledby="news-title">
+      <p class="eyebrow">LATEST NEWS &amp; HIGHLIGHTS</p>
+      <h2 id="news-title">公開されている最新ニュース・イベント情報</h2>
+      <p class="lead-note">
+        2027年3月の開幕に向けて、チケットの来場日時予約や主要パビリオン・ゾーンの概要が順次公開されています。
+      </p>
+      <ul class="news-list">
+        <li class="news-item">
+          <span class="news-tag">予約開始</span>
+          <div>
+            <h3>「来場日時予約」の受付がスタート（2026年9月18日〜）</h3>
+            <p>入場にはチケット購入に加えて事前の「来場日時予約（先着順）」が必須です。早割1日券（大人4,900円／通常5,500円）は2027年3月18日まで販売されています。</p>
+          </div>
+        </li>
+        <li class="news-item">
+          <span class="news-tag">パビリオン</span>
+          <div>
+            <h3>テーマ館「ねっこ」・日本政府苑・専門ビレッジ</h3>
+            <p>最先端のグリーン技術を体験できる「Urban GX Village」や、農業・食をテーマにした「Farm &amp; Food Village」、世界各国の庭園文化が集う「国際ゾーン」などが予定されています。</p>
+          </div>
+        </li>
+        <li class="news-item">
+          <span class="news-tag">観覧ルール</span>
+          <div>
+            <h3>完全事前予約制は少なめ・一部「当日観覧予約」を導入予定</h3>
+            <p>基本的には事前予約なしで回れる展示が中心となる見通しですが、一部の人気展示では来場当日に取得できる「観覧予約」の導入が予定されています。</p>
+          </div>
+        </li>
+        <li class="news-item">
+          <span class="news-tag">キャラクター</span>
+          <div>
+            <h3>公式マスコット「トゥンクトゥンク」グッズ・コラボ展開</h3>
+            <p>自然界の幸せなエネルギーに反応する公式マスコット「トゥンクトゥンク」の公式グッズやコラボチケットも展開中です。</p>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <section class="block" id="overview" aria-labelledby="overview-title">
+      <p class="eyebrow">EVENT OVERVIEW</p>
+      <h2 id="overview-title">開催概要・チケット料金</h2>
+      <dl class="spec-list">
+        <div class="spec-row">
+          <dt>正式名称</dt>
+          <dd>2027年国際園芸博覧会（略称：GREEN×EXPO 2027／横浜花博）</dd>
+        </div>
+        <div class="spec-row">
+          <dt>開催期間</dt>
+          <dd>2027年3月19日（金）〜 2027年9月26日（日）</dd>
+        </div>
+        <div class="spec-row">
+          <dt>開場時間</dt>
+          <dd>9:30 〜 21:30（予定）</dd>
+        </div>
+        <div class="spec-row">
+          <dt>会場</dt>
+          <dd>旧上瀬谷通信施設（神奈川県横浜市瀬谷区・旭区）</dd>
+        </div>
+        <div class="spec-row">
+          <dt>主な券種</dt>
+          <dd>1日券（早割 大人4,900円／通常5,500円）、夜間券（17時以降 大人3,500円）、夏パス（大人12,000円）、通期パス（大人28,000円）※3歳以下無料</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="block" id="access" aria-labelledby="access-title">
+      <p class="eyebrow">ACCESS &amp; SHUTTLE BUS</p>
+      <h2 id="access-title">アクセス・最寄り駅（4つの発着駅）</h2>
+      <p class="lead-note">
+        会場に直結する鉄道駅はありません。周辺の主要4駅から<strong>事前予約制のシャトルバス</strong>を利用するか、瀬谷駅から徒歩でアクセスします（会場駐車場も事前予約制です）。
+      </p>
+
+      <ul class="station-grid">
+        {ACCESS_STATIONS.map((st) => (
+          <li class="station-card">
+            <div class="station-head">
+              <h3>{st.name}</h3>
+              <span class="line-badge">{st.line}</span>
+            </div>
+            <p class="station-time">
+              <strong>{st.bus}</strong>
+              {st.walk !== '—' && <span> ／ {st.walk}</span>}
+            </p>
+            <p class="station-note">{st.note}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="block" id="hotels" aria-labelledby="hotels-title">
+      <p class="eyebrow">STAY &amp; HOTELS</p>
+      <h2 id="hotels-title">目的別・おすすめ宿泊エリア</h2>
+      <p class="lead-note">
+        会期中の週末や大型連休は混雑が予想されます。アクセス路線に合わせて早めに拠点ホテルを押さえておくのがおすすめです。
+      </p>
+
+      <div class="hotel-grid">
+        {HOTEL_AREAS.map((item) => (
+          <a class="hotel-card" href={item.url} target="_blank" rel="noopener noreferrer sponsored">
+            <span class="hotel-badge">{item.badge}</span>
+            <h3>{item.area}</h3>
+            <p>{item.desc}</p>
+            <span class="hotel-cta">楽天トラベルで空室を見る ↗</span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="guide" id="tips" aria-labelledby="tips-title">
+      <p class="eyebrow">BEFORE YOU GO</p>
+      <h2 id="tips-title">来園前のチェックポイント</h2>
+      <ul class="tips-list">
+        <li>シャトルバスおよび会場駐車場は<strong>事前予約制</strong>のため、チケット手配とあわせて早めの予約が必要です。</li>
+        <li>春〜夏の屋外会場となるため、季節に応じた紫外線対策・熱中症対策・歩きやすい靴の準備をおすすめします。</li>
+        <li>最新のチケット情報・パビリオン・イベントスケジュールは必ず公式サイトをご確認ください。</li>
+      </ul>
+      <div class="guide-links">
+        <a class="back-kanagawa" href="/special/yokohama-expo-2027/tickets/">🎫 チケット・予約攻略ガイドを見る →</a>
+        <a class="back-kanagawa" href="/special/yokohama-expo-2027/access/">🚌 アクセス・シャトルバス完全ガイドを見る →</a>
+        <a class="back-kanagawa" href="/special/yokohama-expo-2027/hotels/">🏨 周辺ホテル・前泊拠点ガイドを見る →</a>
+        <a class="back-kanagawa" href="/special/yokohama-expo-2027/pavilions/">🌿 パビリオン・見どころまとめを見る →</a>
+        <a class="back-kanagawa" href="/special/yokohama-expo-2027/model-course/">🗺️ モデルコース（日帰り・1泊2日）を見る →</a>
+        <a class="official" href="https://expo2027yokohama.or.jp/" target="_blank" rel="noopener noreferrer">
+          GREEN×EXPO 2027 公式ウェブサイトを見る <span aria-hidden="true">↗</span>
+        </a>
+        <a class="back-kanagawa" href="/kanagawa/">
+          神奈川県の旬・お出かけガイド一覧へ →
+        </a>
+      </div>
+    </section>
+  </article>
+</Layout>
+
+<style>
+  .page {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 20px 64px;
+    color: #172b23;
+  }
+  .breadcrumbs {
+    padding: 16px 0;
+    font-size: 12px;
+    color: #52665c;
+  }
+  .breadcrumbs a {
+    color: #166534;
+    text-decoration: none;
+  }
+  .breadcrumbs a:hover {
+    text-decoration: underline;
+  }
+  .hero {
+    padding: 32px 24px;
+    background: linear-gradient(135deg, #ecfdf5 0%, #dcfce7 100%);
+    border: 1px solid #bbf7d0;
+    border-radius: 14px;
+  }
+  .eyebrow {
+    margin: 0 0 8px;
+    color: #15803d;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+  .hero h1 {
+    margin: 0 0 14px;
+    color: #14532d;
+    font-size: clamp(24px, 5.5vw, 34px);
+    line-height: 1.35;
+  }
+  .hero > p:not(.eyebrow) {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.8;
+    color: #1e3a2f;
+  }
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+  }
+  .hero-meta span {
+    display: inline-block;
+    padding: 6px 12px;
+    background: #ffffff;
+    border: 1px solid #bbf7d0;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #14532d;
+  }
+  .section-nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin: 20px 0 8px;
+  }
+  .section-nav a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 8px 12px;
+    background: #f0fdf4;
+    border: 1px solid #dcfce7;
+    border-radius: 8px;
+    color: #166534;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .section-nav a:hover {
+    background: #dcfce7;
+  }
+  .block {
+    padding-top: 36px;
+    scroll-margin-top: 72px;
+  }
+  .block h2,
+  .guide h2 {
+    margin: 0 0 10px;
+    font-size: 22px;
+    line-height: 1.3;
+    color: #14532d;
+  }
+  .lead-note {
+    margin: 0 0 18px;
+    font-size: 14px;
+    line-height: 1.75;
+    color: #3f5248;
+  }
+  .news-list {
+    display: grid;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .news-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+    background: #ffffff;
+    border: 1px solid #dce5df;
+    border-radius: 10px;
+  }
+  .news-tag {
+    flex: none;
+    padding: 4px 10px;
+    background: #dcfce7;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #14532d;
+  }
+  .news-item h3 {
+    margin: 0 0 4px;
+    font-size: 15px;
+    color: #14532d;
+  }
+  .news-item p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.65;
+    color: #3f5248;
+  }
+  .spec-list {
+    margin: 14px 0 0;
+    border-top: 2px solid #16a34a;
+  }
+  .spec-row {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 12px;
+    padding: 14px 4px;
+    border-bottom: 1px solid #dce5df;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .spec-row dt {
+    font-weight: 700;
+    color: #14532d;
+  }
+  .spec-row dd {
+    margin: 0;
+  }
+  .station-grid {
+    display: grid;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .station-card {
+    padding: 16px 18px;
+    background: #ffffff;
+    border: 1px solid #dce5df;
+    border-left: 4px solid #16a34a;
+    border-radius: 10px;
+  }
+  .station-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .station-head h3 {
+    margin: 0;
+    font-size: 17px;
+    color: #14532d;
+  }
+  .line-badge {
+    padding: 3px 9px;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #166534;
+  }
+  .station-time {
+    margin: 0 0 4px;
+    font-size: 14px;
+    color: #172b23;
+  }
+  .station-note {
+    margin: 0;
+    font-size: 13px;
+    color: #52665c;
+    line-height: 1.6;
+  }
+  .hotel-grid {
+    display: grid;
+    gap: 12px;
+  }
+  .hotel-card {
+    display: block;
+    padding: 18px;
+    background: #ffffff;
+    border: 1px solid #dce5df;
+    border-radius: 12px;
+    color: inherit;
+    text-decoration: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .hotel-card:hover {
+    border-color: #16a34a;
+    box-shadow: 0 4px 12px rgba(20, 83, 45, 0.08);
+  }
+  .hotel-badge {
+    display: inline-block;
+    margin-bottom: 8px;
+    padding: 3px 9px;
+    background: #dcfce7;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #14532d;
+  }
+  .hotel-card h3 {
+    margin: 0 0 6px;
+    font-size: 17px;
+    color: #14532d;
+  }
+  .hotel-card p {
+    margin: 0 0 12px;
+    font-size: 13px;
+    line-height: 1.65;
+    color: #3f5248;
+  }
+  .hotel-cta {
+    font-size: 13px;
+    font-weight: 700;
+    color: #15803d;
+  }
+  .guide {
+    margin-top: 40px;
+    padding: 24px;
+    background: #f0fdf4;
+    border: 1px solid #dcfce7;
+    border-radius: 12px;
+    scroll-margin-top: 72px;
+  }
+  .tips-list {
+    margin: 12px 0 0;
+    padding-left: 20px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: #1e3a2f;
+  }
+  .guide-links {
+    display: grid;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  .official,
+  .back-kanagawa {
+    display: inline-block;
+    color: #15803d;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .official:hover,
+  .back-kanagawa:hover {
+    text-decoration: underline;
+  }
+  a:focus-visible {
+    outline: 3px solid #16a34a;
+    outline-offset: 3px;
+  }
+  @media (min-width: 600px) {
+    .hero {
+      padding: 44px 36px;
+    }
+    .section-nav {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    .station-grid,
+    .hotel-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>

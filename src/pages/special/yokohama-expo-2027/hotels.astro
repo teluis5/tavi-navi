@@ -1,0 +1,101 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+
+const title = '横浜花博（GREEN×EXPO 2027）周辺ホテル・前泊拠点ガイド｜楽天トラベル予約';
+const description =
+  '横浜花博（GREEN×EXPO 2027）に便利な周辺ホテル・前泊拠点ガイド。新横浜・横浜駅/みなとみらい・海老名/大和・町田エリア別の特徴と楽天トラベルの空室検索リンクをまとめました。';
+
+const HOTEL_AREAS = [
+  {
+    area: '新横浜エリア',
+    badge: '新幹線・遠方組におすすめ',
+    access: 'JR横浜線「十日市場駅」へ約15分 ／ 相鉄・東急直通線も利用可',
+    desc: '東海道新幹線が停車するため、遠方からの前泊・後泊に最も便利。駅直結や徒歩圏内のビジネス・シティホテルが充実しています。',
+    url: 'https://hb.afl.rakuten.co.jp/hgc/5953a273.5cc8e490.5953a274.81eca08c/?pc=https%3A%2F%2Ftravel.rakuten.co.jp%2Fyado%2Fkanagawa%2Fshinyokohama.html',
+  },
+  {
+    area: '横浜駅・みなとみらいエリア',
+    badge: '観光・グルメも満喫',
+    access: '相鉄本線「横浜駅」から瀬谷駅・三ツ境駅へ約20〜25分',
+    desc: '相鉄本線の始発駅で座って移動しやすく、みなとみらいや中華街観光と組み合わせる1泊2日プランの王道拠点です。',
+    url: 'https://hb.afl.rakuten.co.jp/hgc/5953a273.5cc8e490.5953a274.81eca08c/?pc=https%3A%2F%2Ftravel.rakuten.co.jp%2Fyado%2Fkanagawa%2Fyokohama.html',
+  },
+  {
+    area: '海老名・大和・瀬谷周辺',
+    badge: '会場アクセス最短',
+    access: '相鉄本線「瀬谷駅」まで約5〜10分',
+    desc: '会場に最も近い相鉄線沿線エリア。朝一番の入場や混雑回避を狙う前泊拠点として穴場でおすすめです。',
+    url: 'https://hb.afl.rakuten.co.jp/hgc/5953a273.5cc8e490.5953a274.81eca08c/?pc=https%3A%2F%2Ftravel.rakuten.co.jp%2Fyado%2Fkanagawa%2Febina.html',
+  },
+  {
+    area: '町田・南町田エリア',
+    badge: '田園都市線・横浜線利用',
+    access: '南町田グランベリーパーク駅・十日市場駅へ好アクセス',
+    desc: '東急田園都市線・JR横浜線の両方が使いやすく、駅周辺の飲食店やショッピング施設も豊富です。',
+    url: 'https://hb.afl.rakuten.co.jp/hgc/5953a273.5cc8e490.5953a274.81eca08c/?pc=https%3A%2F%2Ftravel.rakuten.co.jp%2Fyado%2Ftokyo%2Fmachida.html',
+  },
+];
+---
+
+<Layout title={title} description={description}>
+  <article class="page">
+    <nav class="breadcrumbs" aria-label="パンくずリスト">
+      <a href="/">トップ</a><span aria-hidden="true"> / </span>
+      <a href="/special/yokohama-expo-2027/">横浜花博特設ガイド</a><span aria-hidden="true"> / </span>
+      <span>周辺ホテル・前泊拠点</span>
+    </nav>
+
+    <header class="hero">
+      <p class="eyebrow">HOTELS &amp; STAY</p>
+      <h1>横浜花博 周辺ホテル・前泊拠点ガイド</h1>
+      <p>
+        会期中の週末・連休は周辺ホテルの混雑が予想されます。利用するシャトルバス発着駅に合わせて、早めに拠点ホテルを押さえておきましょう。
+      </p>
+    </header>
+
+    <section class="block">
+      <h2>エリア別おすすめホテル（楽天トラベル）</h2>
+      <div class="hotel-grid">
+        {HOTEL_AREAS.map((item) => (
+          <a class="hotel-card" href={item.url} target="_blank" rel="noopener noreferrer sponsored">
+            <span class="badge">{item.badge}</span>
+            <h3>{item.area}</h3>
+            <p class="access">{item.access}</p>
+            <p class="desc">{item.desc}</p>
+            <span class="cta">楽天トラベルで空室・料金を見る ↗</span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <nav class="sub-nav" aria-label="横浜花博 関連ガイド">
+      <a href="/special/yokohama-expo-2027/">← 横浜花博 特設トップへ戻る</a>
+      <a href="/special/yokohama-expo-2027/access/">アクセス・シャトルバス完全ガイド →</a>
+      <a href="/special/yokohama-expo-2027/model-course/">モデルコース（日帰り・1泊2日） →</a>
+    </nav>
+  </article>
+</Layout>
+
+<style>
+  .page { max-width: 780px; margin: 0 auto; padding: 0 20px 64px; color: #172b23; }
+  .breadcrumbs { padding: 16px 0; font-size: 12px; color: #52665c; }
+  .breadcrumbs a { color: #166534; text-decoration: none; }
+  .hero { padding: 28px 24px; background: linear-gradient(135deg, #ecfdf5 0%, #dcfce7 100%); border: 1px solid #bbf7d0; border-radius: 14px; }
+  .eyebrow { margin: 0 0 8px; color: #15803d; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; }
+  .hero h1 { margin: 0 0 10px; color: #14532d; font-size: clamp(22px, 5vw, 30px); line-height: 1.35; }
+  .hero p:last-child { margin: 0; font-size: 14px; line-height: 1.75; color: #1e3a2f; }
+  .block { padding-top: 32px; }
+  .block h2 { margin: 0 0 14px; font-size: 20px; color: #14532d; }
+  .hotel-grid { display: grid; gap: 14px; }
+  .hotel-card { display: block; padding: 18px; background: #fff; border: 1px solid #dce5df; border-radius: 12px; color: inherit; text-decoration: none; }
+  .hotel-card:hover { border-color: #16a34a; box-shadow: 0 4px 12px rgba(20, 83, 45, 0.08); }
+  .badge { display: inline-block; margin-bottom: 8px; padding: 3px 9px; background: #dcfce7; border-radius: 999px; font-size: 11px; font-weight: 700; color: #14532d; }
+  .hotel-card h3 { margin: 0 0 4px; font-size: 17px; color: #14532d; }
+  .access { margin: 0 0 8px; font-size: 12px; font-weight: 700; color: #15803d; }
+  .desc { margin: 0 0 12px; font-size: 13px; line-height: 1.65; color: #3f5248; }
+  .cta { font-size: 13px; font-weight: 700; color: #15803d; }
+  .sub-nav { display: grid; gap: 10px; margin-top: 36px; padding: 20px; background: #f0fdf4; border-radius: 12px; }
+  .sub-nav a { color: #15803d; font-size: 14px; font-weight: 700; text-decoration: none; }
+  .sub-nav a:hover { text-decoration: underline; }
+  @media (min-width: 600px) { .hotel-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>

@@ -1,0 +1,129 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+
+const title = '横浜花博（GREEN×EXPO 2027）チケット・予約攻略ガイド｜料金・早割・来場日時予約';
+const description =
+  'GREEN×EXPO 2027（横浜花博）のチケット料金一覧（1日券・早割・夜間券・夏パス・通期パス）と、2026年9月18日から開始された必須の「来場日時予約」の手順・注意点をわかりやすく解説します。';
+---
+
+<Layout title={title} description={description}>
+  <article class="page">
+    <nav class="breadcrumbs" aria-label="パンくずリスト">
+      <a href="/">トップ</a><span aria-hidden="true"> / </span>
+      <a href="/special/yokohama-expo-2027/">横浜花博特設ガイド</a><span aria-hidden="true"> / </span>
+      <span>チケット・予約攻略</span>
+    </nav>
+
+    <header class="hero">
+      <p class="eyebrow">TICKETS &amp; RESERVATION</p>
+      <h1>横浜花博 チケット・予約攻略ガイド</h1>
+      <p>
+        早割1日券から夜間券・通期パスまでの料金比較と、入場に必須となる「来場日時予約」のポイントをまとめました。
+      </p>
+    </header>
+
+    <section class="block">
+      <h2>チケット料金一覧（税込）</h2>
+      <p class="lead">3歳以下は無料です。前売限定（早割など）は会期前日の2027年3月18日まで購入できます。</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>券種</th>
+              <th>大人（18歳〜）</th>
+              <th>中人（12〜17歳）</th>
+              <th>小人（4〜11歳）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1日券（早割）</strong><br /><small>〜2027/3/18</small></td>
+              <td>4,900円</td>
+              <td>3,000円</td>
+              <td>1,400円</td>
+            </tr>
+            <tr>
+              <td><strong>1日券（通常）</strong><br /><small>会期中</small></td>
+              <td>5,500円</td>
+              <td>3,300円</td>
+              <td>1,500円</td>
+            </tr>
+            <tr>
+              <td><strong>夜間券</strong><br /><small>17時以降入場</small></td>
+              <td>3,500円</td>
+              <td>1,900円</td>
+              <td>900円</td>
+            </tr>
+            <tr>
+              <td><strong>夏パス</strong><br /><small>7/1〜8/31</small></td>
+              <td>12,000円</td>
+              <td>7,000円</td>
+              <td>3,000円</td>
+            </tr>
+            <tr>
+              <td><strong>通期パス</strong><br /><small>会期中何度でも</small></td>
+              <td>28,000円</td>
+              <td>16,000円</td>
+              <td>6,500円</td>
+            </tr>
+            <tr>
+              <td><strong>特別割引券</strong><br /><small>障がい者手帳等</small></td>
+              <td>2,800円</td>
+              <td>1,700円</td>
+              <td>800円</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>購入〜入場までの3ステップ（来場日時予約が必須）</h2>
+      <ol class="steps">
+        <li>
+          <h3>1. チケットを購入する</h3>
+          <p>公式チケットサイト、プレイガイド（ローソンチケット等）、旅行代理店などで希望の券種を購入します。</p>
+        </li>
+        <li>
+          <h3>2. 「来場日時予約」を取る（2026年9月18日〜受付中）</h3>
+          <p>チケットを購入しただけでは入場できません。公式チケットサイト等で希望の日時枠を先着順で予約します。</p>
+        </li>
+        <li>
+          <h3>3. シャトルバス・駐車場を予約する</h3>
+          <p>会場直結駅がないため、シャトルバスや会場駐車場を利用する場合はあわせて事前予約を済ませておきます。</p>
+        </li>
+      </ol>
+    </section>
+
+    <nav class="sub-nav" aria-label="横浜花博 関連ガイド">
+      <a href="/special/yokohama-expo-2027/">← 横浜花博 特設トップへ戻る</a>
+      <a href="/special/yokohama-expo-2027/access/">アクセス・シャトルバス完全ガイド →</a>
+      <a href="/special/yokohama-expo-2027/hotels/">周辺ホテル・前泊拠点ガイド →</a>
+    </nav>
+  </article>
+</Layout>
+
+<style>
+  .page { max-width: 780px; margin: 0 auto; padding: 0 20px 64px; color: #172b23; }
+  .breadcrumbs { padding: 16px 0; font-size: 12px; color: #52665c; }
+  .breadcrumbs a { color: #166534; text-decoration: none; }
+  .hero { padding: 28px 24px; background: linear-gradient(135deg, #ecfdf5 0%, #dcfce7 100%); border: 1px solid #bbf7d0; border-radius: 14px; }
+  .eyebrow { margin: 0 0 8px; color: #15803d; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; }
+  .hero h1 { margin: 0 0 10px; color: #14532d; font-size: clamp(22px, 5vw, 30px); line-height: 1.35; }
+  .hero p:last-child { margin: 0; font-size: 14px; line-height: 1.75; color: #1e3a2f; }
+  .block { padding-top: 32px; }
+  .block h2 { margin: 0 0 10px; font-size: 20px; color: #14532d; }
+  .lead { margin: 0 0 14px; font-size: 14px; color: #3f5248; line-height: 1.7; }
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; background: #fff; }
+  th, td { padding: 12px 10px; border-bottom: 1px solid #dce5df; text-align: left; }
+  th { background: #f0fdf4; color: #14532d; font-weight: 700; }
+  td small { color: #52665c; font-size: 11px; }
+  .steps { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+  .steps li { padding: 16px; background: #fff; border: 1px solid #dce5df; border-left: 4px solid #16a34a; border-radius: 10px; }
+  .steps h3 { margin: 0 0 6px; font-size: 16px; color: #14532d; }
+  .steps p { margin: 0; font-size: 13px; line-height: 1.65; color: #3f5248; }
+  .sub-nav { display: grid; gap: 10px; margin-top: 36px; padding: 20px; background: #f0fdf4; border-radius: 12px; }
+  .sub-nav a { color: #15803d; font-size: 14px; font-weight: 700; text-decoration: none; }
+  .sub-nav a:hover { text-decoration: underline; }
+</style>

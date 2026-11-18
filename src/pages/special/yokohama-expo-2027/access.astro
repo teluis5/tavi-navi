@@ -1,0 +1,87 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+
+const title = '横浜花博（GREEN×EXPO 2027）アクセス・シャトルバス完全ガイド';
+const description =
+  '横浜花博（旧上瀬谷通信施設）へのアクセス方法まとめ。会場直結駅がないため、瀬谷・三ツ境・南町田グランベリーパーク・十日市場の4駅からの事前予約制シャトルバスや徒歩ルートを解説します。';
+---
+
+<Layout title={title} description={description}>
+  <article class="page">
+    <nav class="breadcrumbs" aria-label="パンくずリスト">
+      <a href="/">トップ</a><span aria-hidden="true"> / </span>
+      <a href="/special/yokohama-expo-2027/">横浜花博特設ガイド</a><span aria-hidden="true"> / </span>
+      <span>アクセス・シャトルバス</span>
+    </nav>
+
+    <header class="hero">
+      <p class="eyebrow">ACCESS &amp; SHUTTLE BUS</p>
+      <h1>横浜花博 アクセス・シャトルバス完全ガイド</h1>
+      <p>
+        会場の「旧上瀬谷通信施設」には直結する鉄道駅がありません。主要4駅からの事前予約制シャトルバスと、瀬谷駅からの徒歩ルートを整理しました。
+      </p>
+    </header>
+
+    <section class="block">
+      <h2>主要4駅からのシャトルバス・所要時間</h2>
+      <p class="lead">シャトルバスは<strong>事前予約制</strong>です。発着駅によって利用しやすい路線が異なります。</p>
+      <div class="grid">
+        <div class="card">
+          <h3>瀬谷駅（相鉄本線）</h3>
+          <p class="meta">シャトルバス約10分 ／ 徒歩約25〜30分（約2km）</p>
+          <p>会場に最も近い駅。バスが混み合う時間帯は徒歩でのアクセスも現実的な距離です。</p>
+        </div>
+        <div class="card">
+          <h3>三ツ境駅（相鉄本線）</h3>
+          <p class="meta">シャトルバス約15分</p>
+          <p>横浜駅・二俣川方面から相鉄線を利用する際の主要発着駅です。</p>
+        </div>
+        <div class="card">
+          <h3>南町田グランベリーパーク駅（東急田園都市線）</h3>
+          <p class="meta">シャトルバス約20分</p>
+          <p>渋谷・二子玉川・中央林間方面から直結で来られる便利な拠点です。</p>
+        </div>
+        <div class="card">
+          <h3>十日市場駅（JR横浜線）</h3>
+          <p class="meta">シャトルバス約25分</p>
+          <p>新横浜（新幹線）・町田・八王子方面からのJR利用者に最適です。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>車・駐車場利用の注意点</h2>
+      <p class="lead">
+        会場周辺の駐車場も<strong>事前予約制</strong>となっています。予約なしでの直接来場は渋滞や満車の原因となるため、必ず事前に予約枠を確保してください。
+      </p>
+    </section>
+
+    <nav class="sub-nav" aria-label="横浜花博 関連ガイド">
+      <a href="/special/yokohama-expo-2027/">← 横浜花博 特設トップへ戻る</a>
+      <a href="/special/yokohama-expo-2027/hotels/">周辺ホテル・前泊拠点ガイド →</a>
+      <a href="/special/yokohama-expo-2027/model-course/">モデルコース（日帰り・1泊2日） →</a>
+    </nav>
+  </article>
+</Layout>
+
+<style>
+  .page { max-width: 780px; margin: 0 auto; padding: 0 20px 64px; color: #172b23; }
+  .breadcrumbs { padding: 16px 0; font-size: 12px; color: #52665c; }
+  .breadcrumbs a { color: #166534; text-decoration: none; }
+  .hero { padding: 28px 24px; background: linear-gradient(135deg, #ecfdf5 0%, #dcfce7 100%); border: 1px solid #bbf7d0; border-radius: 14px; }
+  .eyebrow { margin: 0 0 8px; color: #15803d; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; }
+  .hero h1 { margin: 0 0 10px; color: #14532d; font-size: clamp(22px, 5vw, 30px); line-height: 1.35; }
+  .hero p:last-child { margin: 0; font-size: 14px; line-height: 1.75; color: #1e3a2f; }
+  .block { padding-top: 32px; }
+  .block h2 { margin: 0 0 10px; font-size: 20px; color: #14532d; }
+  .lead { margin: 0 0 14px; font-size: 14px; color: #3f5248; line-height: 1.7; }
+  .grid { display: grid; gap: 12px; }
+  .card { padding: 16px; background: #fff; border: 1px solid #dce5df; border-left: 4px solid #16a34a; border-radius: 10px; }
+  .card h3 { margin: 0 0 4px; font-size: 16px; color: #14532d; }
+  .card .meta { margin: 0 0 6px; font-size: 13px; font-weight: 700; color: #15803d; }
+  .card p:last-child { margin: 0; font-size: 13px; line-height: 1.6; color: #3f5248; }
+  .sub-nav { display: grid; gap: 10px; margin-top: 36px; padding: 20px; background: #f0fdf4; border-radius: 12px; }
+  .sub-nav a { color: #15803d; font-size: 14px; font-weight: 700; text-decoration: none; }
+  .sub-nav a:hover { text-decoration: underline; }
+  @media (min-width: 600px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>

@@ -1,0 +1,82 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+
+const title = '横浜花博（GREEN×EXPO 2027）パビリオン・イベント・見どころまとめ';
+const description =
+  'GREEN×EXPO 2027（横浜花博）の主要パビリオン（テーマ館「ねっこ」、日本政府苑、Urban GX Village、Farm & Food Village、国際ゾーン）と当日観覧予約の仕組みをまとめました。';
+---
+
+<Layout title={title} description={description}>
+  <article class="page">
+    <nav class="breadcrumbs" aria-label="パンくずリスト">
+      <a href="/">トップ</a><span aria-hidden="true"> / </span>
+      <a href="/special/yokohama-expo-2027/">横浜花博特設ガイド</a><span aria-hidden="true"> / </span>
+      <span>パビリオン・見どころ</span>
+    </nav>
+
+    <header class="hero">
+      <p class="eyebrow">PAVILIONS &amp; EVENTS</p>
+      <h1>横浜花博 パビリオン・見どころまとめ</h1>
+      <p>
+        自然・園芸・最先端グリーン技術が融合する主要パビリオンとゾーン、公式マスコット「トゥンクトゥンク」の展開を紹介します。
+      </p>
+    </header>
+
+    <section class="block">
+      <h2>注目のパビリオン・ゾーン</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>テーマ館「ねっこ」・日本政府苑</h3>
+          <p>博覧会の理念を象徴する中核パビリオン。植物や自然との共生をテーマにした没入型の展示が予定されています。</p>
+        </div>
+        <div class="card">
+          <h3>Urban GX Village</h3>
+          <p>都市のグリーントランスフォーメーション（GX）や最先端の環境技術を体験できるエリアです。</p>
+        </div>
+        <div class="card">
+          <h3>Farm &amp; Food Village</h3>
+          <p>持続可能な農業や食の未来をテーマに、食と緑のつながりを楽しめるビレッジです。</p>
+        </div>
+        <div class="card">
+          <h3>国際ゾーン</h3>
+          <p>世界各国や国際機関が出展し、各地の多彩な庭園文化や花き園芸の魅力を体感できます。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>観覧予約・マスコット情報</h2>
+      <ul class="notes">
+        <li><strong>観覧予約の仕組み：</strong>基本的には事前予約なしで回れる施設が中心となる見通しですが、一部展示では来場当日に取得できる「観覧予約」が導入予定です。</li>
+        <li><strong>公式マスコット「トゥンクトゥンク」：</strong>自然の幸せなエネルギーに反応する妖精キャラクター。公式グッズやコラボチケットも展開されています。</li>
+      </ul>
+    </section>
+
+    <nav class="sub-nav" aria-label="横浜花博 関連ガイド">
+      <a href="/special/yokohama-expo-2027/">← 横浜花博 特設トップへ戻る</a>
+      <a href="/special/yokohama-expo-2027/tickets/">チケット・予約攻略ガイド →</a>
+      <a href="/special/yokohama-expo-2027/model-course/">モデルコース（日帰り・1泊2日） →</a>
+    </nav>
+  </article>
+</Layout>
+
+<style>
+  .page { max-width: 780px; margin: 0 auto; padding: 0 20px 64px; color: #172b23; }
+  .breadcrumbs { padding: 16px 0; font-size: 12px; color: #52665c; }
+  .breadcrumbs a { color: #166534; text-decoration: none; }
+  .hero { padding: 28px 24px; background: linear-gradient(135deg, #ecfdf5 0%, #dcfce7 100%); border: 1px solid #bbf7d0; border-radius: 14px; }
+  .eyebrow { margin: 0 0 8px; color: #15803d; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; }
+  .hero h1 { margin: 0 0 10px; color: #14532d; font-size: clamp(22px, 5vw, 30px); line-height: 1.35; }
+  .hero p:last-child { margin: 0; font-size: 14px; line-height: 1.75; color: #1e3a2f; }
+  .block { padding-top: 32px; }
+  .block h2 { margin: 0 0 12px; font-size: 20px; color: #14532d; }
+  .grid { display: grid; gap: 12px; }
+  .card { padding: 16px; background: #fff; border: 1px solid #dce5df; border-left: 4px solid #16a34a; border-radius: 10px; }
+  .card h3 { margin: 0 0 6px; font-size: 16px; color: #14532d; }
+  .card p { margin: 0; font-size: 13px; line-height: 1.65; color: #3f5248; }
+  .notes { margin: 0; padding-left: 20px; font-size: 14px; line-height: 1.8; color: #1e3a2f; }
+  .sub-nav { display: grid; gap: 10px; margin-top: 36px; padding: 20px; background: #f0fdf4; border-radius: 12px; }
+  .sub-nav a { color: #15803d; font-size: 14px; font-weight: 700; text-decoration: none; }
+  .sub-nav a:hover { text-decoration: underline; }
+  @media (min-width: 600px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>

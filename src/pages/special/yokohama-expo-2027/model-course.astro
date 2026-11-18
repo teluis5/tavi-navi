@@ -1,0 +1,75 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+
+const title = '横浜花博（GREEN×EXPO 2027）モデルコース｜日帰り・1泊2日の回り方';
+const description =
+  '横浜花博（GREEN×EXPO 2027）を効率よく楽しむ日帰り・1泊2日モデルコース。朝活・夜間券の活用法や、横浜・みなとみらい観光と組み合わせるおすすめプランを紹介します。';
+---
+
+<Layout title={title} description={description}>
+  <article class="page">
+    <nav class="breadcrumbs" aria-label="パンくずリスト">
+      <a href="/">トップ</a><span aria-hidden="true"> / </span>
+      <a href="/special/yokohama-expo-2027/">横浜花博特設ガイド</a><span aria-hidden="true"> / </span>
+      <span>モデルコース</span>
+    </nav>
+
+    <header class="hero">
+      <p class="eyebrow">MODEL COURSE</p>
+      <h1>横浜花博 モデルコース（日帰り・1泊2日）</h1>
+      <p>
+        広大な会場を無理なく回る日帰りプランと、横浜・みなとみらい観光もあわせて楽しむ1泊2日プランを提案します。
+      </p>
+    </header>
+
+    <section class="block">
+      <h2>プランA：日帰り王道コース（朝活＋当日観覧予約）</h2>
+      <ol class="timeline">
+        <li><strong>09:00</strong> 瀬谷駅または三ツ境駅から事前予約シャトルバスで会場へ</li>
+        <li><strong>09:30</strong> 開場と同時に入場し、人気展示の「当日観覧予約」をチェック</li>
+        <li><strong>10:00〜12:30</strong> テーマ館「ねっこ」・日本政府苑・国際ゾーンを散策</li>
+        <li><strong>12:30〜14:00</strong> Farm &amp; Food Village でランチ・休憩</li>
+        <li><strong>14:00〜16:30</strong> Urban GX Village 見学・お土産（トゥンクトゥンクグッズ等）</li>
+      </ol>
+    </section>
+
+    <section class="block">
+      <h2>プランB：1泊2日 横浜満喫コース（前泊 or 後泊）</h2>
+      <ol class="timeline">
+        <li><strong>1日目 午前〜夕方</strong> 横浜花博をじっくり満喫（または17時以降の夜間券でライトアップ鑑賞）</li>
+        <li><strong>1日目 夜</strong> 相鉄線で横浜駅・みなとみらい、または新横浜エリアのホテルへ宿泊</li>
+        <li><strong>2日目</strong> みなとみらい・山下公園・中華街など横浜定番観光を楽しんで帰路へ</li>
+      </ol>
+      <p class="cta-wrap">
+        <a class="cta-link" href="/special/yokohama-expo-2027/hotels/">周辺ホテル・前泊拠点ガイドを見る →</a>
+      </p>
+    </section>
+
+    <nav class="sub-nav" aria-label="横浜花博 関連ガイド">
+      <a href="/special/yokohama-expo-2027/">← 横浜花博 特設トップへ戻る</a>
+      <a href="/special/yokohama-expo-2027/tickets/">チケット・予約攻略ガイド →</a>
+      <a href="/special/yokohama-expo-2027/access/">アクセス・シャトルバス完全ガイド →</a>
+    </nav>
+  </article>
+</Layout>
+
+<style>
+  .page { max-width: 780px; margin: 0 auto; padding: 0 20px 64px; color: #172b23; }
+  .breadcrumbs { padding: 16px 0; font-size: 12px; color: #52665c; }
+  .breadcrumbs a { color: #166534; text-decoration: none; }
+  .hero { padding: 28px 24px; background: linear-gradient(135deg, #ecfdf5 0%, #dcfce7 100%); border: 1px solid #bbf7d0; border-radius: 14px; }
+  .eyebrow { margin: 0 0 8px; color: #15803d; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; }
+  .hero h1 { margin: 0 0 10px; color: #14532d; font-size: clamp(22px, 5vw, 30px); line-height: 1.35; }
+  .hero p:last-child { margin: 0; font-size: 14px; line-height: 1.75; color: #1e3a2f; }
+  .block { padding-top: 32px; }
+  .block h2 { margin: 0 0 12px; font-size: 20px; color: #14532d; }
+  .timeline { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+  .timeline li { padding: 14px 16px; background: #fff; border: 1px solid #dce5df; border-left: 4px solid #16a34a; border-radius: 8px; font-size: 14px; line-height: 1.6; }
+  .timeline strong { color: #14532d; margin-right: 6px; }
+  .cta-wrap { margin: 14px 0 0; }
+  .cta-link { color: #15803d; font-size: 14px; font-weight: 700; text-decoration: none; }
+  .cta-link:hover { text-decoration: underline; }
+  .sub-nav { display: grid; gap: 10px; margin-top: 36px; padding: 20px; background: #f0fdf4; border-radius: 12px; }
+  .sub-nav a { color: #15803d; font-size: 14px; font-weight: 700; text-decoration: none; }
+  .sub-nav a:hover { text-decoration: underline; }
+</style>
