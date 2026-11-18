@@ -63,7 +63,8 @@ import SpotEditorial from '../../components/SpotEditorial.astro';
 {/* 写真と文章を組み合わせる例。layout は wide（大判）、split（横並び）、collage（組み写真）。
     split は imageSide="left" / "right" で写真の位置を変更できる。
     collage は写真を1〜3枚指定。各写真に alt・caption・credit を指定し、必要なら creditUrl と position も指定する。
-    見出しはコンポーネントが H3 として表示する。heroImage と同じ写真を本文冒頭に重複配置しない。 */}
+    title を指定すると H3 を表示する。すでに H2 が内容を表す場合は title を省き、見出しの重複を避ける。
+    目次に載せる章見出しは Markdown の H2 として記述する。heroImage と同じ写真を本文冒頭に重複配置しない。 */}
 {/*
 <SpotEditorial layout="collage" eyebrow="HIGHLIGHTS" title="{見どころの見出し}" photos={[
   { src: photoMain, alt: "写真の内容", caption: "写真の説明", credit: "写真提供：提供元" },

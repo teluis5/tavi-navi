@@ -15,7 +15,7 @@ interface Props {
   layout?: 'wide' | 'split' | 'collage';
   imageSide?: 'left' | 'right';
   eyebrow?: string;
-  title: string;
+  title?: string;
 }
 const { photos, layout = 'wide', imageSide = 'left', eyebrow, title } = Astro.props;
 const visiblePhotos = photos.slice(0, layout === 'collage' ? 3 : 1);
@@ -50,7 +50,7 @@ const sharedCredit = layout === 'collage' && visiblePhotos.every((photo) => phot
   ))}
   <div class="editorial-copy">
     {eyebrow && <span class="editorial-eyebrow">{eyebrow}</span>}
-    <h3>{title}</h3>
+    {title && <h3>{title}</h3>}
     <div class="editorial-body"><slot /></div>
   </div>
 </section>
