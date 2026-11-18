@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
 
 const title = '横浜花博（GREEN×EXPO 2027）特設ガイド｜会期・アクセス・シャトルバス・周辺ホテル';
 const description =
@@ -80,19 +81,19 @@ const HOTEL_AREAS = [
         会期・会場アクセス・シャトルバス発着駅・おすすめ宿泊エリアをわかりやすくまとめました。
       </p>
       <div class="hero-meta">
-        <span><b>会期</b> 2027.3.19（金）— 9.26（日）</span>
-        <span><b>会場</b> 旧上瀬谷通信施設（横浜市瀬谷区・旭区）</span>
+        <span><Icon name="heroicons:calendar-days" class="meta-icon" aria-hidden="true" /><b>会期</b> 2027.3.19（金）— 9.26（日）</span>
+        <span><Icon name="heroicons:map-pin" class="meta-icon" aria-hidden="true" /><b>会場</b> 旧上瀬谷通信施設（横浜市瀬谷区・旭区）</span>
       </div>
     </header>
 
     <nav class="guide-nav" aria-label="花博ガイドを選ぶ">
       <div class="guide-nav-heading"><div><p class="eyebrow">PLAN YOUR VISIT</p><h2>知りたいことから探す</h2></div><span>花博に行く準備を、ここから。</span></div>
       <div class="guide-nav-grid">
-        <a href="/special/yokohama-expo-2027/tickets/"><span class="guide-number">01</span><strong>チケット・予約</strong><small>券種や予約の流れを確認</small><span class="guide-arrow" aria-hidden="true">↗</span></a>
-        <a href="/special/yokohama-expo-2027/access/"><span class="guide-number">02</span><strong>アクセス</strong><small>電車・シャトルバスで行く</small><span class="guide-arrow" aria-hidden="true">↗</span></a>
-        <a href="/special/yokohama-expo-2027/pavilions/"><span class="guide-number">03</span><strong>パビリオン・見どころ</strong><small>会場での楽しみを探す</small><span class="guide-arrow" aria-hidden="true">↗</span></a>
-        <a href="/special/yokohama-expo-2027/model-course/"><span class="guide-number">04</span><strong>モデルコース</strong><small>日帰り・宿泊のプランを見る</small><span class="guide-arrow" aria-hidden="true">↗</span></a>
-        <a href="/special/yokohama-expo-2027/hotels/"><span class="guide-number">05</span><strong>周辺ホテル</strong><small>目的に合う宿泊エリアを探す</small><span class="guide-arrow" aria-hidden="true">↗</span></a>
+        <a href="/special/yokohama-expo-2027/tickets/"><span class="guide-icon"><Icon name="heroicons:ticket" aria-hidden="true" /></span><span class="guide-number">01</span><strong>チケット・予約</strong><small>券種や予約の流れを確認</small><span class="guide-arrow" aria-hidden="true">↗</span></a>
+        <a href="/special/yokohama-expo-2027/access/"><span class="guide-icon"><Icon name="heroicons:map-pin" aria-hidden="true" /></span><span class="guide-number">02</span><strong>アクセス</strong><small>電車・シャトルバスで行く</small><span class="guide-arrow" aria-hidden="true">↗</span></a>
+        <a href="/special/yokohama-expo-2027/pavilions/"><span class="guide-icon"><Icon name="heroicons:sparkles" aria-hidden="true" /></span><span class="guide-number">03</span><strong>パビリオン・見どころ</strong><small>会場での楽しみを探す</small><span class="guide-arrow" aria-hidden="true">↗</span></a>
+        <a href="/special/yokohama-expo-2027/model-course/"><span class="guide-icon"><Icon name="heroicons:map" aria-hidden="true" /></span><span class="guide-number">04</span><strong>モデルコース</strong><small>日帰り・宿泊のプランを見る</small><span class="guide-arrow" aria-hidden="true">↗</span></a>
+        <a href="/special/yokohama-expo-2027/hotels/"><span class="guide-icon"><Icon name="heroicons:building-office-2" aria-hidden="true" /></span><span class="guide-number">05</span><strong>周辺ホテル</strong><small>目的に合う宿泊エリアを探す</small><span class="guide-arrow" aria-hidden="true">↗</span></a>
       </div>
     </nav>
 
@@ -179,7 +180,7 @@ const HOTEL_AREAS = [
         {ACCESS_STATIONS.map((st) => (
           <li class="station-card">
             <div class="station-head">
-              <h3>{st.name}</h3>
+              <h3><Icon name="heroicons:map-pin" class="inline-icon" aria-hidden="true" />{st.name}</h3>
               <span class="line-badge">{st.line}</span>
             </div>
             <p class="station-time">
@@ -202,7 +203,7 @@ const HOTEL_AREAS = [
       <div class="hotel-grid">
         {HOTEL_AREAS.map((item) => (
           <a class="hotel-card" href={item.url} target="_blank" rel="noopener noreferrer sponsored">
-            <span class="hotel-badge">{item.badge}</span>
+            <span class="hotel-badge"><Icon name="heroicons:building-office-2" class="inline-icon" aria-hidden="true" />{item.badge}</span>
             <h3>{item.area}</h3>
             <p>{item.desc}</p>
             <span class="hotel-cta">楽天トラベルで空室を見る ↗</span>
@@ -220,11 +221,11 @@ const HOTEL_AREAS = [
         <li>最新のチケット情報・パビリオン・イベントスケジュールは必ず公式サイトをご確認ください。</li>
       </ul>
       <div class="guide-links">
-        <a class="back-kanagawa" href="/special/yokohama-expo-2027/tickets/">🎫 チケット・予約攻略ガイドを見る →</a>
-        <a class="back-kanagawa" href="/special/yokohama-expo-2027/access/">🚌 アクセス・シャトルバス完全ガイドを見る →</a>
-        <a class="back-kanagawa" href="/special/yokohama-expo-2027/hotels/">🏨 周辺ホテル・前泊拠点ガイドを見る →</a>
-        <a class="back-kanagawa" href="/special/yokohama-expo-2027/pavilions/">🌿 パビリオン・見どころまとめを見る →</a>
-        <a class="back-kanagawa" href="/special/yokohama-expo-2027/model-course/">🗺️ モデルコース（日帰り・1泊2日）を見る →</a>
+        <a class="back-kanagawa" href="/special/yokohama-expo-2027/tickets/">チケット・予約攻略ガイドを見る →</a>
+        <a class="back-kanagawa" href="/special/yokohama-expo-2027/access/">アクセス・シャトルバス完全ガイドを見る →</a>
+        <a class="back-kanagawa" href="/special/yokohama-expo-2027/hotels/">周辺ホテル・前泊拠点ガイドを見る →</a>
+        <a class="back-kanagawa" href="/special/yokohama-expo-2027/pavilions/">パビリオン・見どころまとめを見る →</a>
+        <a class="back-kanagawa" href="/special/yokohama-expo-2027/model-course/">モデルコース（日帰り・1泊2日）を見る →</a>
         <a class="official" href="https://expo2027yokohama.or.jp/" target="_blank" rel="noopener noreferrer">
           GREEN×EXPO 2027 公式ウェブサイトを見る <span aria-hidden="true">↗</span>
         </a>
@@ -309,6 +310,12 @@ const HOTEL_AREAS = [
     font-weight: 700;
     color: #14532d;
   }
+  .hero-meta span { display: inline-flex; align-items: center; gap: 6px; }
+  .hero-meta :global(.meta-icon), .page :global(.inline-icon) { width: 18px; height: 18px; flex: none; vertical-align: -3px; }
+  .station-head h3, .hotel-badge { display: inline-flex; align-items: center; gap: 6px; }
+  .guide-icon { display: grid; place-items: center; width: 42px; height: 42px; margin-bottom: 10px; border-radius: 12px; background: #e8f1e9; color: #286744; }
+  .guide-icon :global(svg) { width: 23px; height: 23px; }
+  .guide-number { position: absolute; top: 16px; right: 42px; }
   .hero-meta b { margin-right: 6px; color: #52765d; }
   .guide-nav { margin-top: 38px; }
   .guide-nav-heading { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 15px; }
@@ -552,7 +559,13 @@ const HOTEL_AREAS = [
     .hero {
       padding: 44px 36px;
     }
-    .hero-meta b { margin-right: 6px; color: #52765d; }
+    .hero-meta span { display: inline-flex; align-items: center; gap: 6px; }
+  .hero-meta :global(.meta-icon), .page :global(.inline-icon) { width: 18px; height: 18px; flex: none; vertical-align: -3px; }
+  .station-head h3, .hotel-badge { display: inline-flex; align-items: center; gap: 6px; }
+  .guide-icon { display: grid; place-items: center; width: 42px; height: 42px; margin-bottom: 10px; border-radius: 12px; background: #e8f1e9; color: #286744; }
+  .guide-icon :global(svg) { width: 23px; height: 23px; }
+  .guide-number { position: absolute; top: 16px; right: 42px; }
+  .hero-meta b { margin-right: 6px; color: #52765d; }
   .guide-nav { margin-top: 38px; }
   .guide-nav-heading { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 15px; }
   .guide-nav-heading h2 { margin: 0; color: #173e2a; font-size: clamp(21px, 3vw, 26px); }

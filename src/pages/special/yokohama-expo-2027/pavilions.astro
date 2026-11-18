@@ -1,5 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
 import ExpoGuideNav from '../../../components/ExpoGuideNav.astro';
 import '../../../styles/expo-detail.css';
 
@@ -17,6 +18,7 @@ const description =
     </nav>
 
     <header class="hero">
+      <div class="hero-icon"><Icon name="heroicons:sparkles" aria-hidden="true" /></div>
       <p class="eyebrow">PAVILIONS &amp; EVENTS</p>
       <h1>横浜花博 パビリオン・見どころまとめ</h1>
       <p>
@@ -28,19 +30,19 @@ const description =
       <h2>注目のパビリオン・ゾーン</h2>
       <div class="grid">
         <div class="card">
-          <h3>テーマ館「ねっこ」・日本政府苑</h3>
+          <h3><Icon name="heroicons:sparkles" class="card-icon" aria-hidden="true" />テーマ館「ねっこ」・日本政府苑</h3>
           <p>博覧会の理念を象徴する中核パビリオン。植物や自然との共生をテーマにした没入型の展示が予定されています。</p>
         </div>
         <div class="card">
-          <h3>Urban GX Village</h3>
+          <h3><Icon name="heroicons:building-office-2" class="card-icon" aria-hidden="true" />Urban GX Village</h3>
           <p>都市のグリーントランスフォーメーション（GX）や最先端の環境技術を体験できるエリアです。</p>
         </div>
         <div class="card">
-          <h3>Farm &amp; Food Village</h3>
+          <h3><Icon name="heroicons:sun" class="card-icon" aria-hidden="true" />Farm &amp; Food Village</h3>
           <p>持続可能な農業や食の未来をテーマに、食と緑のつながりを楽しめるビレッジです。</p>
         </div>
         <div class="card">
-          <h3>国際ゾーン</h3>
+          <h3><Icon name="heroicons:globe-alt" class="card-icon" aria-hidden="true" />国際ゾーン</h3>
           <p>世界各国や国際機関が出展し、各地の多彩な庭園文化や花き園芸の魅力を体感できます。</p>
         </div>
       </div>

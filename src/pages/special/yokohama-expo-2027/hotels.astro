@@ -1,5 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
 import ExpoGuideNav from '../../../components/ExpoGuideNav.astro';
 import '../../../styles/expo-detail.css';
 
@@ -48,6 +49,7 @@ const HOTEL_AREAS = [
     </nav>
 
     <header class="hero">
+      <div class="hero-icon"><Icon name="heroicons:building-office-2" aria-hidden="true" /></div>
       <p class="eyebrow">HOTELS &amp; STAY</p>
       <h1>横浜花博 周辺ホテル・前泊拠点ガイド</h1>
       <p>
@@ -60,7 +62,7 @@ const HOTEL_AREAS = [
       <div class="hotel-grid">
         {HOTEL_AREAS.map((item) => (
           <a class="hotel-card" href={item.url} target="_blank" rel="noopener noreferrer sponsored">
-            <span class="badge">{item.badge}</span>
+            <span class="badge"><Icon name="heroicons:building-office-2" class="card-icon" aria-hidden="true" /> {item.badge}</span>
             <h3>{item.area}</h3>
             <p class="access">{item.access}</p>
             <p class="desc">{item.desc}</p>

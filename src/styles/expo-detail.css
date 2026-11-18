@@ -25,3 +25,7 @@
 .expo-detail .expo-guide-back { display: inline-block; margin-top: 20px; color: #166534; font-size: 14px; font-weight: 700; }
 .expo-detail a:focus-visible, .expo-detail .table-wrap:focus-visible { outline: 3px solid #15803d; outline-offset: 3px; }
 @media (min-width: 600px) { .expo-detail .hero { padding: 44px 36px; } .expo-detail .expo-guide-links { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+.expo-detail .hero-icon { display: grid; place-items: center; width: 48px; height: 48px; margin-bottom: 18px; border-radius: 13px; color: #286744; background: #fff; }
+.expo-detail .hero-icon svg { width: 26px; height: 26px; }
+.expo-detail .card-icon { width: 19px; height: 19px; margin-right: 6px; vertical-align: -4px; color: #397653; }

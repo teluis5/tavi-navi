@@ -1,5 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
 import ExpoGuideNav from '../../../components/ExpoGuideNav.astro';
 import '../../../styles/expo-detail.css';
 
@@ -17,6 +18,7 @@ const description =
     </nav>
 
     <header class="hero">
+      <div class="hero-icon"><Icon name="heroicons:ticket" aria-hidden="true" /></div>
       <p class="eyebrow">TICKETS &amp; RESERVATION</p>
       <h1>横浜花博 チケット・予約攻略ガイド</h1>
       <p>

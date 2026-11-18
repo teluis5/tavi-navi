@@ -1,5 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
 import ExpoGuideNav from '../../../components/ExpoGuideNav.astro';
 import '../../../styles/expo-detail.css';
 
@@ -17,6 +18,7 @@ const description =
     </nav>
 
     <header class="hero">
+      <div class="hero-icon"><Icon name="heroicons:map-pin" aria-hidden="true" /></div>
       <p class="eyebrow">ACCESS &amp; SHUTTLE BUS</p>
       <h1>横浜花博 アクセス・シャトルバス完全ガイド</h1>
       <p>
@@ -29,22 +31,22 @@ const description =
       <p class="lead">シャトルバスは<strong>事前予約制</strong>です。発着駅によって利用しやすい路線が異なります。</p>
       <div class="grid">
         <div class="card">
-          <h3>瀬谷駅（相鉄本線）</h3>
+          <h3><Icon name="heroicons:map-pin" class="card-icon" aria-hidden="true" />瀬谷駅（相鉄本線）</h3>
           <p class="meta">シャトルバス約10分 ／ 徒歩約25〜30分（約2km）</p>
           <p>会場に最も近い駅。バスが混み合う時間帯は徒歩でのアクセスも現実的な距離です。</p>
         </div>
         <div class="card">
-          <h3>三ツ境駅（相鉄本線）</h3>
+          <h3><Icon name="heroicons:map-pin" class="card-icon" aria-hidden="true" />三ツ境駅（相鉄本線）</h3>
           <p class="meta">シャトルバス約15分</p>
           <p>横浜駅・二俣川方面から相鉄線を利用する際の主要発着駅です。</p>
         </div>
         <div class="card">
-          <h3>南町田グランベリーパーク駅（東急田園都市線）</h3>
+          <h3><Icon name="heroicons:map-pin" class="card-icon" aria-hidden="true" />南町田グランベリーパーク駅（東急田園都市線）</h3>
           <p class="meta">シャトルバス約20分</p>
           <p>渋谷・二子玉川・中央林間方面から直結で来られる便利な拠点です。</p>
         </div>
         <div class="card">
-          <h3>十日市場駅（JR横浜線）</h3>
+          <h3><Icon name="heroicons:map-pin" class="card-icon" aria-hidden="true" />十日市場駅（JR横浜線）</h3>
           <p class="meta">シャトルバス約25分</p>
           <p>新横浜（新幹線）・町田・八王子方面からのJR利用者に最適です。</p>
         </div>

@@ -1,12 +1,13 @@
 ---
+import { Icon } from 'astro-icon/components';
 interface Props { current: string; }
 const { current } = Astro.props;
 const guides = [
-  { slug: 'tickets', label: 'チケット・予約', detail: '券種と予約の流れ' },
-  { slug: 'access', label: 'アクセス', detail: '電車・シャトルバス' },
-  { slug: 'pavilions', label: 'パビリオン・見どころ', detail: '会場での楽しみ' },
-  { slug: 'model-course', label: 'モデルコース', detail: '日帰り・宿泊プラン' },
-  { slug: 'hotels', label: '周辺ホテル', detail: '宿泊エリアを探す' },
+  { slug: 'tickets', icon: 'heroicons:ticket', label: 'チケット・予約', detail: '券種と予約の流れ' },
+  { slug: 'access', icon: 'heroicons:map-pin', label: 'アクセス', detail: '電車・シャトルバス' },
+  { slug: 'pavilions', icon: 'heroicons:sparkles', label: 'パビリオン・見どころ', detail: '会場での楽しみ' },
+  { slug: 'model-course', icon: 'heroicons:map', label: 'モデルコース', detail: '日帰り・宿泊プラン' },
+  { slug: 'hotels', icon: 'heroicons:building-office-2', label: '周辺ホテル', detail: '宿泊エリアを探す' },
 ];
 ---
 <nav class="expo-guide-nav" aria-label="横浜花博の関連ガイド">
@@ -15,9 +16,14 @@ const guides = [
   <div class="expo-guide-links">
     {guides.filter((guide) => guide.slug !== current).map((guide) => (
       <a href={`/special/yokohama-expo-2027/${guide.slug}/`}>
-        <strong>{guide.label}</strong><span>{guide.detail}</span><b aria-hidden="true">↗</b>
+        <span class="expo-nav-icon"><Icon name={guide.icon} aria-hidden="true" /></span><strong>{guide.label}</strong><span>{guide.detail}</span><b aria-hidden="true">↗</b>
       </a>
     ))}
   </div>
   <a class="expo-guide-back" href="/special/yokohama-expo-2027/">← 花博特設ガイドのトップへ</a>
 </nav>
+
+<style>
+  .expo-nav-icon { display: grid; place-items: center; width: 40px; height: 40px; margin-bottom: 10px; border-radius: 11px; color: #286744; background: #e8f1e9; }
+  .expo-nav-icon :global(svg) { width: 22px; height: 22px; }
+</style>
