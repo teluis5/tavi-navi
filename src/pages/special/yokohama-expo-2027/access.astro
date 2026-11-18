@@ -26,9 +26,20 @@ const description =
       </p>
     </header>
 
+    <section class="block map-section" aria-labelledby="venue-map-title">
+      <h2 id="venue-map-title">会場周辺の地図</h2>
+      <p class="lead">会場は横浜市瀬谷区・旭区の旧上瀬谷通信施設の一部です。地図を拡大・縮小して、周辺の駅との位置関係を確認できます。</p>
+      <iframe class="venue-map" title="横浜花博会場周辺のGoogleマップ" src="https://maps.google.co.jp/maps?q=%E6%97%A7%E4%B8%8A%E7%80%AC%E8%B0%B7%E9%80%9A%E4%BF%A1%E6%96%BD%E8%A8%AD%20%E6%A8%AA%E6%B5%9C%E5%B8%82&amp;z=12&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      <p class="map-caption">地図は会場周辺の目安です。表示位置は入場ゲートやシャトルバス乗降場を示すものではありません。</p>
+      <div class="map-links">
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=%E6%97%A7%E4%B8%8A%E7%80%AC%E8%B0%B7%E9%80%9A%E4%BF%A1%E6%96%BD%E8%A8%AD%20%E6%A8%AA%E6%B5%9C%E5%B8%82" target="_blank" rel="noopener noreferrer">Googleマップで会場周辺を開く ↗</a>
+        <a href="https://expo2027yokohama.or.jp/news/detail/001555.html" target="_blank" rel="noopener noreferrer">シャトルバス・駐車場の公式案内 ↗</a>
+      </div>
+    </section>
+
     <section class="block">
       <h2>主要4駅からのシャトルバス・所要時間</h2>
-      <p class="lead">シャトルバスは<strong>事前予約制</strong>です。発着駅によって利用しやすい路線が異なります。</p>
+      <p class="lead">シャトルバスは<strong>往路・復路ともに事前予約制</strong>です。発着駅によって利用しやすい路線が異なります。所要時間は目安で、道路状況によって変わります。</p>
       <div class="grid">
         <div class="card">
           <h3><Icon name="heroicons:map-pin" class="card-icon" aria-hidden="true" />瀬谷駅（相鉄本線）</h3>
@@ -83,5 +94,9 @@ const description =
   .sub-nav { display: grid; gap: 10px; margin-top: 36px; padding: 20px; background: #f5f6f4; border-radius: 12px; }
   .sub-nav a { color: #256157; font-size: 14px; font-weight: 700; text-decoration: none; }
   .sub-nav a:hover { text-decoration: underline; }
+  .venue-map { display: block; width: 100%; aspect-ratio: 16 / 10; min-height: 260px; max-height: 480px; border: 0; border-radius: 12px; background: #f0f2f0; }
+  .map-caption { margin: 10px 0 0; color: #4b5a5d; font-size: 14px; line-height: 1.7; }
+  .map-links { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-top: 14px; }
+  .map-links a { color: #256157; font-size: 14px; font-weight: 700; }
   @media (min-width: 600px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 </style>
