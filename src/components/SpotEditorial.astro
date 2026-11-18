@@ -1,0 +1,74 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Photo {
+  src: ImageMetadata | string;
+  alt: string;
+  caption?: string;
+  credit?: string;
+  creditUrl?: string;
+  position?: string;
+}
+interface Props {
+  photos: [Photo, ...Photo[]];
+  layout?: 'wide' | 'split' | 'collage';
+  imageSide?: 'left' | 'right';
+  eyebrow?: string;
+  title: string;
+}
+const { photos, layout = 'wide', imageSide = 'left', eyebrow, title } = Astro.props;
+const visiblePhotos = photos.slice(0, layout === 'collage' ? 3 : 1);
+---
+<section class:list={['spot-editorial', `is-${layout}`, `image-${imageSide}`]}>
+  <div class:list={['editorial-photos', `count-${visiblePhotos.length}`]}>
+    {visiblePhotos.map((photo) => (
+      <figure>
+        {typeof photo.src === 'string' ? (
+          <img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" style={photo.position ? `object-position:${photo.position}` : undefined} />
+        ) : (
+          <Image src={photo.src} alt={photo.alt} widths={[480, 800, 1200]} sizes="(max-width: 700px) 100vw, 900px" format="webp" loading="lazy" decoding="async" style={photo.position ? `object-position:${photo.position}` : undefined} />
+        )}
+        {(photo.caption || photo.credit) && <figcaption>
+          {photo.caption && <span>{photo.caption}</span>}
+          {photo.credit && <small>{photo.creditUrl ? <a href={photo.creditUrl}>{photo.credit}</a> : photo.credit}</small>}
+        </figcaption>}
+      </figure>
+    ))}
+  </div>
+  <div class="editorial-copy">
+    {eyebrow && <span class="editorial-eyebrow">{eyebrow}</span>}
+    <h3>{title}</h3>
+    <div class="editorial-body"><slot /></div>
+  </div>
+</section>
+<style>
+  .spot-editorial { margin: 3.5rem 0; color: var(--color-text-main, #1f2937); }
+  .editorial-photos { display: grid; gap: 12px; align-items: start; min-width: 0; }
+  figure { margin: 0; min-width: 0; }
+  img { display: block; width: 100%; height: auto; border-radius: 4px; }
+  figcaption { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; font-size: .85rem; line-height: 1.5; }
+  figcaption small { color: #526171; font-size: .75rem; }
+  figcaption a { color: inherit; text-decoration: underline; }
+  .editorial-copy { padding-top: 24px; max-width: 42rem; }
+  .editorial-eyebrow { color: #25657b; font-size: .75rem; font-weight: 700; letter-spacing: .1em; }
+  .editorial-copy h3 { margin: 8px 0 16px; font-size: clamp(1.35rem, 2.5vw, 1.8rem); line-height: 1.3; }
+  .editorial-body { font-size: 1rem; line-height: 1.8; }
+  .editorial-body :global(p) { margin: 0 0 1em; }
+  .editorial-body :global(p:last-child) { margin-bottom: 0; }
+  .is-collage .editorial-photos.count-2 { grid-template-columns: 1.35fr 1fr; }
+  .is-collage .editorial-photos.count-3 { grid-template-columns: 1.4fr 1fr; }
+  .is-collage .count-3 figure:first-child { grid-row: span 2; }
+  @media (min-width: 701px) {
+    .is-split { display: grid; grid-template-columns: 1.15fr 1fr; gap: 32px; align-items: center; }
+    .is-split.image-right { grid-template-columns: 1fr 1.15fr; }
+    .is-split.image-right .editorial-photos { order: 2; }
+    .is-split .editorial-copy { padding-top: 0; }
+  }
+  @media (max-width: 700px) {
+    .spot-editorial { margin: 2.5rem 0; }
+    .editorial-copy { padding-top: 16px; }
+    .is-collage .editorial-photos.count-2, .is-collage .editorial-photos.count-3 { grid-template-columns: 1fr 1fr; }
+    .is-collage .count-3 figure:first-child { grid-column: 1 / -1; grid-row: auto; }
+  }
+</style>

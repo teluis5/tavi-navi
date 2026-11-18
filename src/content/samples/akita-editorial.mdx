@@ -1,0 +1,229 @@
+import TrainCondition from '../../components/TrainCondition.astro';
+import SpotInfoBox from '../../components/SpotInfoBox.astro';
+import SpotAccess from '../../components/SpotAccess.astro';
+import NearbySpots from '../../components/NearbySpots.astro';
+import SpotRulesBox from '../../components/SpotRulesBox.astro';
+import SpotSeasonGuide from '../../components/SpotSeasonGuide.astro';
+import SpotFaq from '../../components/SpotFaq.astro';
+import RelatedCourseCards from '../../components/RelatedCourseCards.astro';
+import ConclusionBox from '../../components/ConclusionBox.astro';
+import SpotEditorial from '../../components/SpotEditorial.astro';
+import photoDogMain from '../../assets/photos/akita_compressed/05秋田犬ステーション.webp';
+import photoExterior from '../../assets/photos/akita_compressed/01秋田犬ステーション.webp';
+import photoGoods from '../../assets/photos/akita_compressed/02秋田犬ステーション.webp';
+import photoWalk from '../../assets/photos/akita_compressed/03秋田犬ステーション.webp';
+import photoInteraction from '../../assets/photos/akita_compressed/04秋田犬ステーション.webp';
+
+ピンと立った三角形の耳、くるりと巻いた愛らしい巻き尾、そしてモフモフとした堂々たる立ち姿――。国の天然記念物にも指定されている「秋田犬（あきたいぬ）」に秋田市街地で会えるのが、JR秋田駅西口から徒歩約10分の複合施設「エリアなかいち」にある**『秋田犬ステーション』**です。
+
+一般社団法人 ONE FOR AKITAが運営するこの施設では、ガラス越しに元気な秋田犬と対面できるほか、ここでしか買えない限定オリジナルグッズのショッピングも楽しめます。
+
+<TrainCondition
+  title="訪問前の注意点（出勤スケジュール要確認）"
+  text={"・秋田犬はとてもデリケートな大型犬のため、健康管理・ストレス軽減を優先し、展示は主に土・日・祝および指定平日の特定時間帯のみとなっています。\n・平日はお休みの日もあるため、旅行前に必ず ONE FOR AKITA 公式Instagram または公式サイトの出勤カレンダーをご確認ください。"}
+/>
+
+---
+
+## 1. 秋田犬ステーションの見どころと見学マナー
+
+<SpotEditorial layout="collage" eyebrow="MEET THE AKITA INU" title="ガラス越しに出会う、秋田犬の表情" photos={[
+  { src: photoInteraction, alt: "スタッフと過ごす秋田犬", caption: "スタッフと過ごす秋田犬", credit: "写真提供：一般社団法人 秋田県観光連盟「あきたファン」" },
+  { src: photoWalk, alt: "屋外を歩く秋田犬", caption: "屋外を歩く姿", credit: "写真提供：一般社団法人 秋田県観光連盟「あきたファン」" },
+  { src: photoDogMain, alt: "秋田犬ステーションの秋田犬", caption: "秋田犬の表情", credit: "写真提供：一般社団法人 秋田県観光連盟「あきたファン」" }
+]}>
+  <p>ガラスで仕切られた見学エリアから、秋田犬たちの自然な姿を観察できます。遊んだり、くつろいだり。どんな表情に出会えるかも楽しみのひとつです。</p>
+</SpotEditorial>
+
+### 見学・写真撮影のマナーとルール
+
+<SpotRulesBox
+  title="秋田犬ステーション 見学ルール＆マナー"
+  lead="秋田犬たちが安心してリラックスして過ごせるよう、見学時は以下のルールを守って楽しみましょう。"
+  rules={[
+    {
+      type: "ng",
+      title: "フラッシュ撮影は厳禁",
+      desc: "秋田犬の目を傷めたり驚かせたりするため、カメラやスマートフォンのフラッシュ・補助光は必ずOFFにしてください。"
+    },
+    {
+      type: "ng",
+      title: "ガラスを叩かない",
+      desc: "犬たちは音に非常に敏感です。気を引こうとしてガラスを叩く行為は固く禁止されています。"
+    },
+    {
+      type: "warn",
+      title: "大声を出さず静かに見学",
+      desc: "大きな声や急な動きはストレスになります。静かに見守りながら写真や動画を撮影しましょう。"
+    },
+    {
+      type: "ng",
+      title: "食べ物・おやつを与えない",
+      desc: "健康管理のため、持ち込みのフードやおやつを与えることは一切できません。"
+    }
+  ]}
+/>
+
+---
+
+## 2. ここでしか買えない！可愛い秋田犬限定グッズとお土産
+
+<SpotEditorial layout="split" imageSide="right" eyebrow="SOUVENIRS" title="秋田犬を連れて帰る、おみやげ選び" photos={[
+  { src: photoGoods, alt: "秋田犬グッズが並ぶ店内", caption: "秋田犬モチーフのグッズが並ぶ店内", credit: "写真提供：一般社団法人 秋田県観光連盟「あきたファン」" }
+]}>
+  <p>ショップには、秋田犬をモチーフにした雑貨やおみやげが並びます。旅の思い出に、お気に入りを探してみてはいかがでしょう。</p>
+</SpotEditorial>
+
+### 人気の定番アイテム
+1. **秋田犬ぬいぐるみ・マスコット**: 手触り抜群のモフモフぬいぐるみや、バッグに付けられるキーチェーン。
+2. **オリジナル文具・雑貨**: クリアファイル、メモ帳、マスキングテープ、トートバッグなど普段使いしやすいアイテム。
+3. **愛犬家向けおやつ・ケア用品**: 自宅のワンちゃんへのお土産に喜ばれる無添加おやつなど。
+4. **秋田銘菓とのコラボお菓子**: 秋田犬パッケージの可愛いサブレや焼き菓子。
+
+---
+
+## 3. 秋田駅周辺で秋田犬と出会える・楽しめるスポット巡り
+
+<SpotEditorial layout="wide" eyebrow="AROUND AKITA STATION" title="秋田駅周辺を、もう少し散歩" photos={[
+  { src: photoExterior, alt: "秋田犬ステーションの外観", caption: "エリアなかいちにある秋田犬ステーション", credit: "写真提供：一般社団法人 秋田県観光連盟「あきたファン」" }
+]}>
+  <p>秋田犬ステーションの前後には、秋田駅周辺の秋田犬ゆかりのスポットもあわせて巡れます。</p>
+</SpotEditorial>
+
+### ① JR秋田駅「ぽぽろーど」の巨大秋田犬バルーン
+新幹線改札を出てすぐの東西連絡自由通路「ぽぽろーど」に、高さ数メートルの**巨大な秋田犬のバルーン**が鎮座しています。秋田到着の記念写真スポットとして定番です。
+
+### ② 秋田犬サテライトステーション（秋田駅ビル トピコ2F）
+JR秋田駅直結の商業施設「トピコ」2階にも出張サテライトブースがあり、特定の日時には秋田犬が出勤してグリーティングイベントが行われます。改札すぐの場所で秋田犬グッズも購入できます。
+
+### ③ 千秋公園 秋田犬ふれあい処（春〜秋限定）
+秋田犬ステーションから徒歩5分のお堀を渡った「千秋公園（久保田城跡）」では、春から秋（主に5月〜11月頃）の期間限定で「秋田犬ふれあい処」が開設されます。青空と緑の下で秋田犬を見学できる屋外スポットです。
+
+<SpotSeasonGuide
+  title="秋田犬ステーション＆駅周辺の季節別楽しみ方"
+  lead="秋田犬ステーションは冷暖房完備の屋内施設のため通年快適に見学できます。季節ごとの秋田犬の姿や周辺スポットとの組み合わせ方です。"
+  seasons={[
+    {
+      season: "春",
+      months: "4月〜5月",
+      highlight: "千秋公園の桜散策＆ふれあい処オープン",
+      desc: "お堀端の桜並木を歩きながらエリアなかいちへ。5月頃からは千秋公園内の屋外「秋田犬ふれあい処」も始まります。",
+      recommended: true
+    },
+    {
+      season: "夏",
+      months: "6月〜8月",
+      highlight: "涼しい屋内ドッグランで快適に見学",
+      desc: "暑さに弱い秋田犬ですが、空調が効いた室内展示スペースで元気に過ごす姿や可愛いお昼寝姿を涼しく観察できます。"
+    },
+    {
+      season: "秋",
+      months: "9月〜11月",
+      highlight: "お散歩シーズン＆千秋公園の紅葉",
+      desc: "涼しくなり秋田犬たちにとっても快適なお散歩日和。エリアなかいち広場をお散歩する姿に出会えるチャンスも増えます。"
+    },
+    {
+      season: "冬",
+      months: "12月〜3月",
+      highlight: "冬毛でモフモフ度が最高潮に達する秋田犬",
+      desc: "寒さに強い秋田犬の本領発揮！冬の厳しい寒さに備えて最も毛並みが豊かでモフモフになった愛らしい姿に出会えます。",
+      recommended: true
+    }
+  ]}
+/>
+
+---
+
+## 4. 秋田駅からのアクセス
+
+<SpotAccess
+  transitDetail={{
+    method: "徒歩 約10分 / 循環バス約5分",
+    route: "JR秋田駅西口 ➔ エリアなかいち（秋田犬ステーション）",
+    specs: [
+      "徒歩：駅前大通りを西へ直進し、お堀端を抜けて約10分（平坦な歩道）",
+      "バス：秋田市中心市街地循環バス「ぐるる」（1回100円）で「エリアなかいち」下車すぐ",
+      "悪天候時：駅前のアーケード街を経由すると雨や雪を避けて移動しやすい"
+    ]
+  }}
+  map={{
+    title: "秋田犬ステーション（エリアなかいち商業棟1F）",
+    query: "秋田犬ステーション 秋田県秋田市中通一丁目4番1号",
+    address: "〒010-0001 秋田県秋田市中通一丁目4番1号 エリアなかいち商業棟1F",
+    note: "車の場合はエリアなかいち有料駐車場が利用できます。"
+  }}
+/>
+
+---
+
+## 5. あわせて立ち寄りたい周辺スポット
+
+秋田犬ステーションのある「エリアなかいち」の周辺には、徒歩で立ち寄れる秋田市屈指の名所が集まっています。各スポットの詳しい見どころやアクセスは、以下の個別ガイドをご覧ください。
+
+<NearbySpots
+  spots={[
+    { slug: "akita-art-museum", label: "徒歩1分（エリアなかいち内）" },
+    { slug: "akita-senshu-park", label: "徒歩5分（お堀を渡ってすぐ）" },
+    { slug: "akita-shimin-ichiba", label: "徒歩10分（秋田駅西口すぐ）" }
+  ]}
+/>
+
+---
+
+## よくある質問（FAQ）
+
+<SpotFaq
+  items={[
+    {
+      q: "秋田犬を直接手で撫でたり抱っこしたりできる？",
+      a: "原則としてガラス越しでの見学となります。秋田犬は大型犬であり、感染症予防や犬たちのストレス・体調管理を徹底しているため、一般見学での直接の抱っこやタッチは行っていません。ガラスのすぐそばまで寄ってきてくれるため、至近距離で愛らしい表情や仕草を楽しめます。"
+    },
+    {
+      q: "見学に予約は必要ですか？",
+      a: "通常の見学は予約不要（無料）です。出勤時間内であれば、どなたでも自由に立ち寄って見学できます。混雑時は順番に譲り合ってご見学ください。"
+    },
+    {
+      q: "車なしでも行けますか？",
+      a: "秋田駅から徒歩約10分で、完全に車なしでアクセス可能です。秋田新幹線こまちの停車駅であるJR秋田駅から平坦な道を歩いてすぐの好立地にあります。"
+    }
+  ]}
+/>
+
+---
+
+## 秋田犬ステーションの基本データ
+
+<SpotInfoBox
+  name="秋田犬ステーション"
+  category="動物・観光スポット"
+  address="秋田県秋田市中通一丁目4番1号 エリアなかいち商業棟1F"
+  hours="物販 11:00 〜 18:00（秋田犬の展示時間は曜日・日程により異なる）"
+  closed="年中無休（年末年始・エリアなかいち休館日を除く ※犬の出勤日は別管理）"
+  fee="無料（ガラス越し見学自由）"
+  stayTime="約30分 〜 45分"
+  access="JR「秋田駅」西口より徒歩約10分（循環バス「ぐるる」で「エリアなかいち」下車すぐ）"
+  parking="あり（エリアなかいち有料駐車場・近隣コインパーキング）"
+  officialUrl="https://www.oneforakita.jp/"
+  officialLabel="ONE FOR AKITA 公式サイト"
+  extraItems={[
+    { label: "秋田犬の展示", value: "主に土・日・祝および指定平日の特定時間帯（交代制・休憩あり）" },
+    { label: "運営団体", value: "一般社団法人 ONE FOR AKITA（秋田犬の保護・育成活動）" }
+  ]}
+/>
+
+<RelatedCourseCards
+  pref="akita"
+  currentSlug="akita-akitainu-station"
+  courseSlugs={[
+    "akita-dokokani-akita-city-1night-2days",
+    "akita-dokokani-gourmet-1night-2days",
+    "akita-airport-city-1night-2days"
+  ]}
+  title="秋田犬ステーションとあわせて巡れるモデルコース"
+/>
+
+<ConclusionBox>
+- 秋田犬ステーションは秋田駅から徒歩10分の「エリアなかいち」にあり、車なしで本物の秋田犬に会える。
+- 見学は無料だが、秋田犬の出勤日・時間は限定されているため事前に公式カレンダーの確認が必須。
+- 店内には限定の秋田犬グッズが並び、隣接する千秋公園や県立美術館・秋田市民市場と合わせて半日の散策を楽しめる。
+</ConclusionBox>

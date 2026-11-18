@@ -21,7 +21,7 @@ export default defineConfig({
 	},
 	integrations: [mdx(), sitemap({ filter: (page) => {
 		const pathname = new URL(page).pathname;
-		return !/^\/en(?:\/|$)/.test(pathname) && pathname !== '/tokyo/dokokani-nannichimae/';
+		return !/^\/en(?:\/|$)/.test(pathname) && pathname !== '/tokyo/dokokani-nannichimae/' && pathname !== '/special/spot-editorial-sample/';
 	} }), icon()],
 	fonts: [
 		{

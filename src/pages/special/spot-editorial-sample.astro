@@ -1,0 +1,21 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Sample from '../../content/samples/akita-editorial.mdx';
+---
+<Layout title="秋田犬ステーション｜写真で楽しむ紹介ページのサンプル" description="秋田犬ステーションの写真を使ったスポット紹介ページのデザインサンプル。" currentPref="akita" noindex>
+  <article class="sample-article">
+    <p class="sample-label">DESIGN SAMPLE / AKITA</p>
+    <h1>秋田犬ステーション</h1>
+    <p class="sample-lead">秋田駅から、秋田犬に会いに。<br />写真で楽しむスポット紹介のサンプルです。</p>
+    <p class="sample-notice">このページはデザインのサンプルです。最新の営業情報は<a href="/akita/akitainu-station/">秋田犬ステーションのガイド</a>と公式情報をご確認ください。</p>
+    <Sample />
+  </article>
+</Layout>
+<style>
+  .sample-article { max-width: 920px; margin: 0 auto; padding: 48px 24px 80px; }
+  .sample-label { color: #25657b; font-size: .75rem; font-weight: 700; letter-spacing: .12em; }
+  h1 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.2; margin: 16px 0; }
+  .sample-lead { font-size: 1.15rem; line-height: 1.8; }
+  .sample-notice { background: #f2f6f6; padding: 16px 24px; line-height: 1.7; }
+  @media(max-width: 700px) { .sample-article { padding: 32px 20px 64px; } }
+</style>

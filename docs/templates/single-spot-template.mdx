@@ -24,6 +24,7 @@ import HotelPortalHub from '../../components/HotelPortalHub.astro';
 import RelatedCourseCards from '../../components/RelatedCourseCards.astro';
 import ConclusionBox from '../../components/ConclusionBox.astro';
 import TourismPhoto from '../../components/TourismPhoto.astro';
+import SpotEditorial from '../../components/SpotEditorial.astro';
 
 {/* 使用する実写写真を src/assets/photos/ からインポート */}
 {/* import photoMain from '../../assets/photos/akita_compressed/example-main.webp'; */}
@@ -56,6 +57,19 @@ import TourismPhoto from '../../components/TourismPhoto.astro';
 ---
 
 ## 1. {スポット名}の最大の見どころ
+
+{/* 写真と文章を組み合わせる例。layout は wide（大判）、split（横並び）、collage（組み写真）。
+    split は imageSide="left" / "right" で写真の位置を変更できる。
+    collage は写真を1〜3枚指定。各写真に alt・caption・credit を指定し、必要なら creditUrl と position も指定する。
+    見出しはコンポーネントが H3 として表示する。heroImage と同じ写真を本文冒頭に重複配置しない。 */}
+{/*
+<SpotEditorial layout="collage" eyebrow="HIGHLIGHTS" title="{見どころの見出し}" photos={[
+  { src: photoMain, alt: "写真の内容", caption: "写真の説明", credit: "写真提供：提供元" },
+  { src: photoSub1, alt: "別の写真の内容", credit: "写真提供：提供元" }
+]}>
+  <p>見どころを紹介する文章。<a href="https://example.com/">関連情報</a>も記載できます。</p>
+</SpotEditorial>
+*/}
 
 （ここに主軸となる体験・景観・歴史的背景を具体的に記載します。実写写真を挟む場合は `<TourismPhoto>` または `<SpotPhotoGallery standalone={true} />` を使用します。）
 

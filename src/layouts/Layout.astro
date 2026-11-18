@@ -11,15 +11,17 @@ interface Props {
   lang?: 'ja' | 'en';
   currentPref?: string;
   fullWidth?: boolean;
+  noindex?: boolean;
 }
 
-const { title, description, image, lang = 'ja', currentPref, fullWidth = false } = Astro.props;
+const { title, description, image, lang = 'ja', currentPref, fullWidth = false, noindex = false } = Astro.props;
 ---
 
 <!doctype html>
 <html lang={lang}>
   <head>
     <BaseHead title={title} description={description} image={image} lang={lang} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
   </head>
   <body class={fullWidth ? 'layout-full-width' : undefined}>
     <Header lang={lang} currentPref={currentPref} />
