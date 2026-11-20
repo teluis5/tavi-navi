@@ -19,9 +19,9 @@
     <!-- 相鉄本線 -->
     <path d="M 75 500 H 975" stroke="#8ca6bd" stroke-width="7" class="rail" />
     <!-- 相鉄・東急直通：西谷・新横浜・武蔵小杉・渋谷 -->
-    <path d="M 695 500 L 765 405.5 L 880 310 L 740 170" stroke="#8ca6bd" stroke-width="7" class="rail" />
+    <path d="M 695 500 L 765 405.5 L 860 290 L 740 170" stroke="#8ca6bd" stroke-width="7" class="rail" />
     <!-- 相鉄・JR直通：武蔵小杉・大崎・渋谷・新宿（山手線内側） -->
-    <path d="M 695 500 L 880 310 L 940 270 H 790 Q 740 270 740 220 V 100" stroke="#8ca6bd" stroke-width="7" class="rail" />
+    <path d="M 695 500 L 860 290 L 940 270 H 790 Q 740 270 740 220 V 100" stroke="#8ca6bd" stroke-width="7" class="rail" />
     <!-- 京急線：品川・羽田空港・横浜 -->
     <path d="M 1080 220 L 1040 360 L 975 500 M 1040 360 L 1130 440" stroke="#b9c3c6" stroke-width="4" class="rail" />
     <!-- 東京・成田／横浜・羽田の空港バス -->
@@ -40,7 +40,7 @@
     <circle cx="80" cy="97.25" r="7" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="205" cy="153.5" r="7" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="330" cy="209.75" r="7" fill="#fff" stroke="#b9c3c6" stroke-width="3" />
     <circle cx="75" cy="500" r="7" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="205" cy="500" r="7" fill="#fff" stroke="#b9c3c6" stroke-width="3" />
     <circle cx="740" cy="100" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="740" cy="170" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="1080" cy="100" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="1080" cy="220" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" />
-    <circle cx="880" cy="310" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="765" cy="405.5" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="975" cy="500" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="1095" cy="554" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" />
+    <circle cx="860" cy="290" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="765" cy="405.5" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="975" cy="500" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="1095" cy="554" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" />
     <circle cx="330" cy="315" r="13" fill="#e8ad59" stroke="#fff" stroke-width="3" /><circle cx="500" cy="286.25" r="13" fill="#e8ad59" stroke="#fff" stroke-width="3" /><circle cx="330" cy="500" r="13" fill="#e8ad59" stroke="#fff" stroke-width="3" /><circle cx="500" cy="500" r="13" fill="#e8ad59" stroke="#fff" stroke-width="3" />
     <circle cx="420" cy="395" r="31" fill="#2475a5" stroke="#fff" stroke-width="4" />
     <circle cx="1130" cy="40" r="15" fill="#f3f5f5" stroke="#a3b1b5" stroke-width="2" /><use href="#plane" transform="translate(1130,40) scale(.7)" />
