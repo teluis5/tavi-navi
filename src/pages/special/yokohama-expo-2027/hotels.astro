@@ -7,12 +7,12 @@ const description =
   '横浜花博（GREEN×EXPO 2027）に便利な周辺ホテルを沿線別に紹介。相鉄線・相鉄東急/埼京線直通・JR横浜線・東急田園都市線の4路線ごとに、シャトルバス発着駅とおすすめ宿泊エリア（楽天トラベル）をまとめました。';
 
 const MAP_AREAS = [
-  { name: '横浜', x: 910, y: 715, text: '相鉄線で瀬谷・三ツ境方面へ。横浜観光も楽しみたい人の拠点に。', target: 'sotetsu' },
-  { name: '新横浜', x: 760, y: 565, text: '新幹線の停車駅。JR横浜線や相鉄・東急直通線を利用できます。', target: 'direct' },
-  { name: '町田', x: 110, y: 355, text: 'JR横浜線で十日市場方面へ移動でき、飲食店や宿泊施設も探せます。', target: 'yokohama-line' },
-  { name: '渋谷', x: 800, y: 260, text: '東急田園都市線で南町田グランベリーパーク方面へ。都内観光と組み合わせたい人に。', target: 'denentoshi' },
-  { name: '海老名', x: 45, y: 715, text: '相鉄線で瀬谷・三ツ境方面へ向かえる、神奈川西部の宿泊拠点です。', target: 'sotetsu' },
-  { name: '武蔵小杉', x: 795, y: 490, text: '相鉄方面への直通列車が利用できる駅。列車の行き先や乗り換えをご確認ください。', target: 'direct' },
+  { name: '横浜', x: 910, y: 715, access: '相鉄線で瀬谷駅・三ツ境駅へ。各駅から会場行きシャトルバスを利用。', feature: 'ホテルや飲食店が多く、みなとみらい観光と組み合わせやすいエリア。', target: 'sotetsu', hotel: 0 },
+  { name: '新横浜', x: 760, y: 565, access: 'JR横浜線で十日市場駅へ。または相鉄・東急直通線で相鉄線方面へ。', feature: '東海道新幹線の停車駅。遠方からの前泊に便利な拠点。', target: 'direct', hotel: 0 },
+  { name: '町田', x: 110, y: 355, access: 'JR横浜線で十日市場駅へ。駅から会場行きシャトルバスを利用。', feature: '駅周辺に宿泊施設や飲食店が集まるエリア。', target: 'yokohama-line', hotel: 0 },
+  { name: '渋谷', x: 800, y: 260, access: '東急田園都市線で南町田グランベリーパーク駅へ。駅から会場行きシャトルバスを利用。', feature: '都内観光と花博を組み合わせたい人に便利な拠点。', target: 'denentoshi', hotel: 0 },
+  { name: '海老名', x: 45, y: 715, access: '相鉄線で瀬谷駅・三ツ境駅へ。各駅から会場行きシャトルバスを利用。', feature: '神奈川西部の宿泊拠点。横浜中心部以外で宿を探したい人に。', target: 'sotetsu', hotel: 1 },
+  { name: '武蔵小杉', x: 795, y: 490, access: '相鉄・JR直通線で相鉄線方面へ。列車の行き先と乗り換えをご確認ください。', feature: '都心や羽田方面からの移動にも使いやすい拠点。', target: 'direct', hotel: 1 },
 ];
 
 const RAILWAY_LINES = [
@@ -127,16 +127,20 @@ const RAILWAY_LINES = [
       <p class="map-instruction">駅にマウスを合わせるか、タップすると宿泊エリアの紹介を見られます。</p>
       <div class="map-layout">
         <div class="map-image">
+          <div class="map-canvas">
           <div class="map-svg" set:html={accessMap} />
           {MAP_AREAS.map((area) => (
-            <button class="map-point" type="button" style={`left:${area.x / 12}%;top:${area.y / 8.5}%`} data-name={area.name} data-text={area.text} data-target={area.target} aria-label={`${area.name}の宿泊エリアを紹介`} aria-pressed="false"><span aria-hidden="true"></span></button>
+            <button class="map-point" type="button" style={`left:${area.x / 12}%;top:${area.y / 8.5}%`} data-name={area.name} data-access={area.access} data-feature={area.feature} data-url={RAILWAY_LINES.find((line) => line.id === area.target)?.areas[area.hotel].url} data-x={area.x} data-y={area.y} aria-label={`${area.name}の宿泊エリアを紹介`} aria-pressed="false"><span aria-hidden="true"></span></button>
           ))}
-        </div>
-        <div class="map-detail" aria-live="polite">
-          <p class="map-detail-label">宿泊エリア</p>
-          <h3 id="map-area-name">駅を選んでください</h3>
-          <p id="map-area-text">地図上の丸印から、宿泊拠点の特徴を確認できます。</p>
-          <a id="map-area-link" href="#sotetsu" hidden>沿線のホテルを見る →</a>
+          </div>
+          <div class="map-detail" id="map-detail" hidden aria-live="polite">
+            <button type="button" class="map-close" aria-label="エリア紹介を閉じる">×</button>
+            <p class="map-detail-label">宿泊エリア</p>
+            <h3 id="map-area-name"></h3>
+            <p><strong>会場へのアクセス</strong><br /><span id="map-area-access"></span></p>
+            <p><strong>エリアの特徴</strong><br /><span id="map-area-feature"></span></p>
+            <a id="map-area-link" href="https://travel.rakuten.co.jp/" target="_blank" rel="noopener noreferrer sponsored">楽天トラベルでホテルを探す ↗</a>
+          </div>
         </div>
       </div>
       <p class="map-caption">駅間距離や実際の経路とは異なる模式図です。直通運転は一部列車のみです。運行・予約の最新情報は各公式サイトをご確認ください。</p>
@@ -188,20 +192,26 @@ const RAILWAY_LINES = [
   .map-section h2 { margin: 0 0 12px; font-size: 22px; line-height: 1.3; }
   .map-section p { line-height: 1.7; }
   .map-caption { color: #52665c; font-size: 13px; }
-  .map-layout { display: grid; grid-template-columns: minmax(0, 1fr) 240px; gap: 24px; align-items: start; }
+  .map-layout { position: relative; }
   .map-image { position: relative; min-width: 0; }
+  .map-canvas { position: relative; }
   .map-svg :global(svg) { display: block; width: 100%; height: auto; }
   .map-point { position: absolute; transform: translate(-50%, -50%); width: 36px; height: 36px; padding: 0; border: 0; border-radius: 50%; background: transparent; cursor: pointer; }
   .map-point span { display: block; width: 22px; height: 22px; margin: auto; border: 2px solid #14532d; border-radius: 50%; background: rgba(220, 252, 231, .45); }
   .map-point:hover span, .map-point[aria-pressed="true"] span { background: rgba(22, 163, 74, .35); box-shadow: 0 0 0 3px white; }
   .map-point:focus-visible { outline: 3px solid #14532d; outline-offset: 2px; }
-  .map-detail { padding: 20px; background: #f0fdf4; border-radius: 8px; }
+  .map-detail { position: absolute; z-index: 3; left: var(--popup-x); top: var(--popup-y); width: min(320px, 90%); padding: 20px; background: #fff; border-radius: 12px; box-shadow: 0 8px 32px rgba(23, 43, 35, .24); }
+  .map-detail[data-side="left"] { transform: translateX(-100%); }
+  .map-detail[data-vertical="above"] { transform: translateY(-100%); }
+  .map-detail[data-side="left"][data-vertical="above"] { transform: translate(-100%, -100%); }
+  .map-detail[hidden] { display: none; }
+  .map-close { position: absolute; top: 8px; right: 8px; width: 36px; height: 36px; border: 0; border-radius: 50%; background: #f0fdf4; color: #14532d; font-size: 24px; cursor: pointer; }
   .map-detail-label { margin: 0 0 8px; color: #166534; font-size: 13px; font-weight: 700; }
   .map-detail h3 { margin: 0 0 8px; font-size: 18px; }
   .map-detail p { margin: 0 0 12px; font-size: 14px; }
-  .map-detail a { color: #166534; font-weight: 700; }
+  .map-detail a { display: block; padding: 12px; background: #166534; border-radius: 8px; color: #fff; font-size: 14px; font-weight: 700; text-align: center; text-decoration: none; }
   .map-instruction { color: #52665c; font-size: 14px; }
-  @media (max-width: 800px) { .map-layout { grid-template-columns: minmax(0, 1fr); gap: 12px; } .map-point { width: 30px; height: 30px; } .map-point span { width: 18px; height: 18px; } }
+  @media (max-width: 800px) { .map-detail { position: relative; left: auto; top: auto; width: 100%; margin-top: 12px; } .map-detail[data-side][data-vertical] { transform: none; } .map-point { width: 30px; height: 30px; } .map-point span { width: 18px; height: 18px; } }
   .map-caption { margin: 8px 0; }
   .line-nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 20px 0 4px; }
   .line-nav a { display: flex; align-items: center; justify-content: center; text-align: center; min-height: 44px; padding: 8px 10px; background: #f0fdf4; border: 1px solid #dcfce7; border-radius: 8px; color: #166534; font-size: 12px; font-weight: 700; text-decoration: none; }
@@ -229,20 +239,35 @@ const RAILWAY_LINES = [
 
 <script>
   const name = document.querySelector<HTMLElement>('#map-area-name');
-  const text = document.querySelector<HTMLElement>('#map-area-text');
+  const access = document.querySelector<HTMLElement>('#map-area-access');
+  const feature = document.querySelector<HTMLElement>('#map-area-feature');
   const link = document.querySelector<HTMLAnchorElement>('#map-area-link');
+  const card = document.querySelector<HTMLElement>('#map-detail');
   const points = document.querySelectorAll<HTMLButtonElement>('.map-point');
   function selectArea(point: HTMLButtonElement) {
-    if (!name || !text || !link) return;
+    if (!name || !access || !feature || !link || !card || !point.dataset.url) return;
     name.textContent = `${point.dataset.name}エリア`;
-    text.textContent = point.dataset.text || '';
-    link.href = `#${point.dataset.target}`;
-    link.hidden = false;
+    access.textContent = point.dataset.access || '';
+    feature.textContent = point.dataset.feature || '';
+    link.href = point.dataset.url;
+    const x = Number(point.dataset.x);
+    const y = Number(point.dataset.y);
+    card.style.setProperty('--popup-x', `${x / 12}%`);
+    card.style.setProperty('--popup-y', `${y / 8.5}%`);
+    card.dataset.side = x > 600 ? 'left' : 'right';
+    card.dataset.vertical = y > 425 ? 'above' : 'below';
+    card.hidden = false;
     points.forEach((item) => item.setAttribute('aria-pressed', String(item === point)));
+  }
+  function closeCard() {
+    if (card) card.hidden = true;
+    points.forEach((item) => item.setAttribute('aria-pressed', 'false'));
   }
   points.forEach((point) => {
     point.addEventListener('pointerenter', (event) => { if (event.pointerType === 'mouse') selectArea(point); });
     point.addEventListener('focus', () => selectArea(point));
     point.addEventListener('click', () => selectArea(point));
   });
+  document.querySelector('.map-close')?.addEventListener('click', closeCard);
+  document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeCard(); });
 </script>
