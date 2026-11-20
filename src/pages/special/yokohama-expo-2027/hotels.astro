@@ -17,17 +17,17 @@ const STATION_URLS: Record<string, string> = {
 const affiliateUrl = (url: string) => `https://hb.afl.rakuten.co.jp/hgc/5953a273.5cc8e490.5953a274.81eca08c/?pc=${encodeURIComponent(url)}`;
 
 const MAP_AREAS = [
-  { name: '八王子', x: 80, y: 105, access: 'JR横浜線で十日市場駅へ。駅から会場行きシャトルバスを利用。', feature: '多摩エリアからの移動や八王子周辺の宿泊に便利な拠点。', target: 'yokohama-line', hotel: 0 },
-  { name: '橋本', x: 205, y: 105, access: 'JR横浜線で十日市場駅へ。駅から会場行きシャトルバスを利用。', feature: 'JR横浜線・相模線と京王相模原線が乗り入れる宿泊拠点。', target: 'yokohama-line', hotel: 0 },
-  { name: '大和', x: 205, y: 485, access: '相鉄線で瀬谷駅・三ツ境駅へ。駅から会場行きシャトルバスを利用。', feature: '会場に近い相鉄線沿線の宿泊拠点。駅周辺でホテルを探せます。', target: 'sotetsu', hotel: 1 },
-  { name: '桜木町', x: 1095, y: 650, access: 'JR横浜線直通列車などで十日市場駅へ。直通列車の運行をご確認ください。', feature: 'みなとみらい観光と花博を組み合わせやすいエリア。', target: 'yokohama-line', hotel: 2 },
+  { name: '八王子', x: 80, y: 97.25, access: 'JR横浜線で十日市場駅へ。駅から会場行きシャトルバスを利用。', feature: '多摩エリアからの移動や八王子周辺の宿泊に便利な拠点。', target: 'yokohama-line', hotel: 0 },
+  { name: '橋本', x: 205, y: 153.5, access: 'JR横浜線で十日市場駅へ。駅から会場行きシャトルバスを利用。', feature: 'JR横浜線・相模線と京王相模原線が乗り入れる宿泊拠点。', target: 'yokohama-line', hotel: 0 },
+  { name: '大和', x: 205, y: 500, access: '相鉄線で瀬谷駅・三ツ境駅へ。駅から会場行きシャトルバスを利用。', feature: '会場に近い相鉄線沿線の宿泊拠点。駅周辺でホテルを探せます。', target: 'sotetsu', hotel: 1 },
+  { name: '桜木町', x: 1095, y: 554, access: 'JR横浜線直通列車などで十日市場駅へ。直通列車の運行をご確認ください。', feature: 'みなとみらい観光と花博を組み合わせやすいエリア。', target: 'yokohama-line', hotel: 2 },
   { name: '新宿', x: 740, y: 100, access: '相鉄・JR直通列車などで相鉄線方面へ。列車の行き先と乗り換えをご確認ください。', feature: '都内観光も楽しみたい人に便利な宿泊拠点。', target: 'direct', hotel: 0 },
   { name: '品川', x: 1080, y: 220, access: '京急線などで横浜駅へ、相鉄線に乗り換えて瀬谷駅・三ツ境駅方面へ。', feature: '新幹線や羽田空港からのアクセスを重視する人に便利な拠点。', target: 'direct', hotel: 0 },
-  { name: '横浜', x: 975, y: 570, access: '相鉄線で瀬谷駅・三ツ境駅へ。各駅から会場行きシャトルバスを利用。', feature: 'ホテルや飲食店が多く、みなとみらい観光と組み合わせやすいエリア。', target: 'sotetsu', hotel: 0 },
-  { name: '新横浜', x: 765, y: 440, access: 'JR横浜線で十日市場駅へ。または相鉄・東急直通線で相鉄線方面へ。', feature: '東海道新幹線の停車駅。遠方からの前泊に便利な拠点。', target: 'direct', hotel: 0 },
-  { name: '町田', x: 330, y: 105, access: 'JR横浜線で十日市場駅へ。駅から会場行きシャトルバスを利用。', feature: '駅周辺に宿泊施設や飲食店が集まるエリア。', target: 'yokohama-line', hotel: 0 },
+  { name: '横浜', x: 975, y: 500, access: '相鉄線で瀬谷駅・三ツ境駅へ。各駅から会場行きシャトルバスを利用。', feature: 'ホテルや飲食店が多く、みなとみらい観光と組み合わせやすいエリア。', target: 'sotetsu', hotel: 0 },
+  { name: '新横浜', x: 765, y: 405.5, access: 'JR横浜線で十日市場駅へ。または相鉄・東急直通線で相鉄線方面へ。', feature: '東海道新幹線の停車駅。遠方からの前泊に便利な拠点。', target: 'direct', hotel: 0 },
+  { name: '町田', x: 330, y: 209.75, access: 'JR横浜線で十日市場駅へ。駅から会場行きシャトルバスを利用。', feature: '駅周辺に宿泊施設や飲食店が集まるエリア。', target: 'yokohama-line', hotel: 0 },
   { name: '渋谷', x: 740, y: 170, access: '東急田園都市線で南町田グランベリーパーク駅へ。駅から会場行きシャトルバスを利用。', feature: '都内観光と花博を組み合わせたい人に便利な拠点。', target: 'denentoshi', hotel: 0 },
-  { name: '海老名', x: 75, y: 485, access: '相鉄線で瀬谷駅・三ツ境駅へ。各駅から会場行きシャトルバスを利用。', feature: '神奈川西部の宿泊拠点。横浜中心部以外で宿を探したい人に。', target: 'sotetsu', hotel: 1 },
+  { name: '海老名', x: 75, y: 500, access: '相鉄線で瀬谷駅・三ツ境駅へ。各駅から会場行きシャトルバスを利用。', feature: '神奈川西部の宿泊拠点。横浜中心部以外で宿を探したい人に。', target: 'sotetsu', hotel: 1 },
   { name: '武蔵小杉', x: 880, y: 330, access: '相鉄・JR直通線で相鉄線方面へ。列車の行き先と乗り換えをご確認ください。', feature: '都心や羽田方面からの移動にも使いやすい拠点。', target: 'direct', hotel: 1 },
 ];
 
