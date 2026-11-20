@@ -8,6 +8,8 @@ const description =
 
 const STATION_URLS: Record<string, string> = {
   大和: 'https://travel.rakuten.co.jp/yado/traffic/kanagawa/00000000000000227143.html',
+  橋本: 'https://hotel.travel.rakuten.co.jp/hotellist/list/00000000000000229106.html?f_target_key=station',
+  八王子: 'https://hotel.travel.rakuten.co.jp/hotellist/list/00000000000000202854.html?f_target_key=station',
   桜木町: 'https://travel.rakuten.co.jp/yado/traffic/kanagawa/00000000000000229313.html',
   新宿: 'https://travel.rakuten.co.jp/yado/traffic/tokyo/00000000000000202276.html',
   品川: 'https://travel.rakuten.co.jp/yado/traffic/tokyo/00000000000000201974.html',
@@ -15,6 +17,8 @@ const STATION_URLS: Record<string, string> = {
 const affiliateUrl = (url: string) => `https://hb.afl.rakuten.co.jp/hgc/5953a273.5cc8e490.5953a274.81eca08c/?pc=${encodeURIComponent(url)}`;
 
 const MAP_AREAS = [
+  { name: '八王子', x: 35, y: 125, access: 'JR横浜線で十日市場駅へ。駅から会場行きシャトルバスを利用。', feature: '多摩エリアからの移動や八王子周辺の宿泊に便利な拠点。', target: 'yokohama-line', hotel: 0 },
+  { name: '橋本', x: 75, y: 165, access: 'JR横浜線で十日市場駅へ。駅から会場行きシャトルバスを利用。', feature: 'JR横浜線・相模線と京王相模原線が乗り入れる宿泊拠点。', target: 'yokohama-line', hotel: 0 },
   { name: '大和', x: 145, y: 636.25, access: '相鉄線で瀬谷駅・三ツ境駅へ。駅から会場行きシャトルバスを利用。', feature: '会場に近い相鉄線沿線の宿泊拠点。駅周辺でホテルを探せます。', target: 'sotetsu', hotel: 1 },
   { name: '桜木町', x: 950, y: 666.25, access: 'JR横浜線直通列車などで十日市場駅へ。直通列車の運行をご確認ください。', feature: 'みなとみらい観光と花博を組み合わせやすいエリア。', target: 'yokohama-line', hotel: 2 },
   { name: '新宿', x: 800, y: 128.6, access: '相鉄・JR直通列車などで相鉄線方面へ。列車の行き先と乗り換えをご確認ください。', feature: '都内観光も楽しみたい人に便利な宿泊拠点。', target: 'direct', hotel: 0 },
