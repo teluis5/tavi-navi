@@ -115,12 +115,10 @@ const RAILWAY_LINES = [
     <section class="map-section" aria-labelledby="access-map-title">
       <h2 id="access-map-title">路線図から宿泊エリアを探す</h2>
       <p>宿泊する駅から、会場行きシャトルバスの発着駅までのつながりを確認できます。オレンジ色の駅が発着駅です。</p>
-      <p class="map-hint">路線図は横にスクロールできます。</p>
-      <div class="map-scroll" tabindex="0" role="region" aria-label="横にスクロールできる花博アクセス路線図">
+      <div class="map-image">
         <img src={accessMap} alt="横浜花博会場とシャトルバス発着4駅、横浜・新横浜・町田・渋谷などの鉄道路線を示した模式図" width="1200" height="850" loading="lazy" />
       </div>
       <p class="map-caption">駅間距離や実際の経路とは異なる模式図です。直通運転は一部列車のみです。運行・予約の最新情報は各公式サイトをご確認ください。</p>
-      <p class="map-sources">出典：<a href="https://expo2027yokohama.or.jp/access/">GREEN×EXPO 2027 交通アクセス</a>、<a href="https://www.jreast.co.jp/map/">JR東日本</a>、<a href="https://www.tokyu.co.jp/railway/map/">東急電鉄</a>、<a href="https://www.sotetsu.co.jp/train/stations/">相鉄グループ</a></p>
     </section>
 
     <nav class="line-nav" aria-label="路線別ショートカット">
@@ -168,13 +166,9 @@ const RAILWAY_LINES = [
   .map-section { padding-top: 32px; }
   .map-section h2 { margin: 0 0 12px; font-size: 22px; line-height: 1.3; }
   .map-section p { line-height: 1.7; }
-  .map-hint, .map-caption, .map-sources { color: #52665c; font-size: 13px; }
-  .map-hint { margin-bottom: 8px; }
-  .map-scroll { overflow-x: auto; overscroll-behavior-x: contain; }
-  .map-scroll:focus-visible { outline: 2px solid #166534; outline-offset: 2px; }
-  .map-scroll img { display: block; width: 100%; min-width: 850px; height: auto; max-width: none; }
-  .map-caption, .map-sources { margin: 8px 0; }
-  .map-sources a { color: #166534; }
+  .map-caption { color: #52665c; font-size: 13px; }
+  .map-image img { display: block; width: 100%; height: auto; }
+  .map-caption { margin: 8px 0; }
   .line-nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 20px 0 4px; }
   .line-nav a { display: flex; align-items: center; justify-content: center; text-align: center; min-height: 44px; padding: 8px 10px; background: #f0fdf4; border: 1px solid #dcfce7; border-radius: 8px; color: #166534; font-size: 12px; font-weight: 700; text-decoration: none; }
   .line-nav a:hover { background: #dcfce7; }
