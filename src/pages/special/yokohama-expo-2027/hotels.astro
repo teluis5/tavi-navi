@@ -16,6 +16,135 @@ const STATION_URLS: Record<string, string> = {
 };
 const affiliateUrl = (url: string) => `https://hb.afl.rakuten.co.jp/hgc/5953a273.5cc8e490.5953a274.81eca08c/?pc=${encodeURIComponent(url)}`;
 
+const MAP_LABELS = [
+  {
+    "text": "八王子",
+    "x": 80.0,
+    "y": 69.0,
+    "anchor": "middle",
+    "kind": "station"
+  },
+  {
+    "text": "橋本",
+    "x": 205.0,
+    "y": 126.0,
+    "anchor": "middle",
+    "kind": "station"
+  },
+  {
+    "text": "町田",
+    "x": 330.0,
+    "y": 182.0,
+    "anchor": "middle",
+    "kind": "station"
+  },
+  {
+    "text": "海老名",
+    "x": 75.0,
+    "y": 535.0,
+    "anchor": "middle",
+    "kind": "station"
+  },
+  {
+    "text": "大和",
+    "x": 205.0,
+    "y": 535.0,
+    "anchor": "middle",
+    "kind": "station"
+  },
+  {
+    "text": "新宿",
+    "x": 715.0,
+    "y": 95.0,
+    "anchor": "end",
+    "kind": "station"
+  },
+  {
+    "text": "渋谷",
+    "x": 715.0,
+    "y": 175.0,
+    "anchor": "end",
+    "kind": "station"
+  },
+  {
+    "text": "東京",
+    "x": 1060.0,
+    "y": 95.0,
+    "anchor": "end",
+    "kind": "station"
+  },
+  {
+    "text": "品川",
+    "x": 1060.0,
+    "y": 225.0,
+    "anchor": "end",
+    "kind": "station"
+  },
+  {
+    "text": "武蔵小杉",
+    "x": 880.0,
+    "y": 285.0,
+    "anchor": "middle",
+    "kind": "station"
+  },
+  {
+    "text": "新横浜",
+    "x": 765.0,
+    "y": 379.0,
+    "anchor": "middle",
+    "kind": "station"
+  },
+  {
+    "text": "横浜",
+    "x": 975.0,
+    "y": 535.0,
+    "anchor": "middle",
+    "kind": "station"
+  },
+  {
+    "text": "桜木町",
+    "x": 1095.0,
+    "y": 588.0,
+    "anchor": "middle",
+    "kind": "station"
+  },
+  {
+    "text": "花博",
+    "x": 420.0,
+    "y": 391.0,
+    "anchor": "start",
+    "kind": "destination"
+  },
+  {
+    "text": "会場",
+    "x": 420.0,
+    "y": 409.0,
+    "anchor": "start",
+    "kind": "destination"
+  },
+  {
+    "text": "成田空港",
+    "x": 1120.0,
+    "y": 72.0,
+    "anchor": "end",
+    "kind": "minor"
+  },
+  {
+    "text": "羽田空港",
+    "x": 1120.0,
+    "y": 473.0,
+    "anchor": "end",
+    "kind": "minor"
+  },
+  {
+    "text": "名古屋・新大阪方面",
+    "x": 445.0,
+    "y": 576.0,
+    "anchor": "start",
+    "kind": "minor"
+  }
+];
+
 const MAP_AREAS = [
   { name: '八王子', x: 80, y: 97.25, access: 'JR横浜線で十日市場駅へ。駅から会場行きシャトルバスを利用。', feature: '多摩エリアからの移動や八王子周辺の宿泊に便利な拠点。', target: 'yokohama-line', hotel: 0 },
   { name: '橋本', x: 205, y: 153.5, access: 'JR横浜線で十日市場駅へ。駅から会場行きシャトルバスを利用。', feature: 'JR横浜線・相模線と京王相模原線が乗り入れる宿泊拠点。', target: 'yokohama-line', hotel: 0 },
@@ -28,7 +157,7 @@ const MAP_AREAS = [
   { name: '町田', x: 330, y: 209.75, access: 'JR横浜線で十日市場駅へ。駅から会場行きシャトルバスを利用。', feature: '駅周辺に宿泊施設や飲食店が集まるエリア。', target: 'yokohama-line', hotel: 0 },
   { name: '渋谷', x: 740, y: 170, access: '東急田園都市線で南町田グランベリーパーク駅へ。駅から会場行きシャトルバスを利用。', feature: '都内観光と花博を組み合わせたい人に便利な拠点。', target: 'denentoshi', hotel: 0 },
   { name: '海老名', x: 75, y: 500, access: '相鉄線で瀬谷駅・三ツ境駅へ。各駅から会場行きシャトルバスを利用。', feature: '神奈川西部の宿泊拠点。横浜中心部以外で宿を探したい人に。', target: 'sotetsu', hotel: 1 },
-  { name: '武蔵小杉', x: 880, y: 330, access: '相鉄・JR直通線で相鉄線方面へ。列車の行き先と乗り換えをご確認ください。', feature: '都心や羽田方面からの移動にも使いやすい拠点。', target: 'direct', hotel: 1 },
+  { name: '武蔵小杉', x: 880, y: 310, access: '相鉄・JR直通線で相鉄線方面へ。列車の行き先と乗り換えをご確認ください。', feature: '都心や羽田方面からの移動にも使いやすい拠点。', target: 'direct', hotel: 1 },
 ];
 
 const RAILWAY_LINES = [
@@ -145,6 +274,11 @@ const RAILWAY_LINES = [
         <div class="map-image">
           <div class="map-canvas">
           <div class="map-svg" set:html={accessMap} />
+          <svg class="map-labels" viewBox="0 0 1200 740" aria-hidden="true" focusable="false">
+            {MAP_LABELS.map((label) => (
+              <text x={label.x} y={label.y} text-anchor={label.anchor} class:list={['map-label', `map-label--${label.kind}`]}>{label.text}</text>
+            ))}
+          </svg>
           {MAP_AREAS.map((area) => (
             <button class="map-point" type="button" style={`left:${area.x / 12}%;top:${area.y / 7.4}%`} data-name={area.name} data-access={area.access} data-feature={area.feature} data-url={STATION_URLS[area.name] ? affiliateUrl(STATION_URLS[area.name]) : RAILWAY_LINES.find((line) => line.id === area.target)?.areas[area.hotel].url} data-x={area.x} data-y={area.y} aria-label={`${area.name}の宿泊エリアを紹介`} aria-pressed="false"><span aria-hidden="true">H</span></button>
           ))}
@@ -222,6 +356,10 @@ const RAILWAY_LINES = [
   .map-image { position: relative; min-width: 0; }
   .map-canvas { position: relative; }
   .map-svg :global(svg) { display: block; width: 100%; height: auto; }
+  .map-labels { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+  .map-label { fill: #213841; font-size: 21px; font-weight: 700; paint-order: stroke; stroke: #fff; stroke-width: 6px; stroke-linejoin: round; }
+  .map-label--minor { font-size: 16px; }
+  .map-label--destination { fill: #fff; font-size: 15px; stroke: none; text-anchor: middle; }
   .map-point { position: absolute; transform: translate(-50%, -50%); width: 36px; height: 36px; padding: 0; border: 0; border-radius: 50%; background: transparent; cursor: pointer; }
   .map-point span { display: flex; align-items: center; justify-content: center; box-sizing: border-box; width: 24px; height: 24px; margin: auto; border: 2px solid #fff; border-radius: 50%; background: #075e47; box-shadow: 0 0 0 1px #075e47; color: #fff; font-size: 13px; font-weight: 700; line-height: 1; }
   .map-point:hover span, .map-point[aria-pressed="true"] span { background: #123c30; box-shadow: 0 0 0 3px #a9d6ba; }

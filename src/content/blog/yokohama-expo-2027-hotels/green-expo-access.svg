@@ -3,9 +3,6 @@
   <desc id="map-desc">横浜花博会場と４駅のシャトルバス、宿泊エリアとなる各駅、主要鉄道路線、新幹線と空港へのアクセスを示す模式図です。駅間距離や実際の走行経路を正確に表すものではありません。</desc>
   <style>
     .rail { fill: none; stroke-linecap: round; stroke-linejoin: round; }
-    .label { font-size: 21px; font-weight: 700; fill: #213841; paint-order: stroke; stroke: #fff; stroke-width: 6px; stroke-linejoin: round; }
-    .minor { font-size: 16px; }
-    .destination { font-size: 15px; font-weight: 700; fill: #fff; text-anchor: middle; }
   </style>
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#d4ac72" /></marker>
@@ -22,18 +19,18 @@
     <!-- 相鉄本線 -->
     <path d="M 75 500 H 975" stroke="#8ca6bd" stroke-width="7" class="rail" />
     <!-- 相鉄・東急直通：西谷・新横浜・武蔵小杉・渋谷 -->
-    <path d="M 695 500 L 765 405.5 L 880 330 L 740 170" stroke="#8ca6bd" stroke-width="7" class="rail" />
+    <path d="M 695 500 L 765 405.5 L 880 310 L 740 170" stroke="#8ca6bd" stroke-width="7" class="rail" />
     <!-- 相鉄・JR直通：武蔵小杉・大崎・渋谷・新宿（山手線内側） -->
-    <path d="M 695 500 L 880 330 L 940 270 H 800 V 100 H 740 M 800 170 H 740" stroke="#8ca6bd" stroke-width="7" class="rail" />
+    <path d="M 695 500 L 880 310 L 940 270 H 790 Q 740 270 740 220 V 100" stroke="#8ca6bd" stroke-width="7" class="rail" />
     <!-- 京急線：品川・羽田空港・横浜 -->
     <path d="M 1080 220 L 1040 360 L 975 500 M 1040 360 L 1130 440" stroke="#b9c3c6" stroke-width="4" class="rail" />
     <!-- 東京・成田／横浜・羽田の空港バス -->
     <path d="M 1080 100 L 1130 40 M 1130 440 L 1070 500 H 975" stroke="#b9c3c6" stroke-width="4" stroke-dasharray="2 8" class="rail" />
     <!-- 東海道新幹線：地図記号風の複線 -->
-    <path d="M 1080 100 L 1095 160 L 1080 220 L 930 350 L 765 405.5 L 675 640 H 440" stroke="#83aac9" stroke-width="10" class="rail" />
-    <path d="M 1080 100 L 1095 160 L 1080 220 L 930 350 L 765 405.5 L 675 640 H 440" stroke="#fff" stroke-width="6" class="rail" />
-    <path d="M 1080 100 L 1095 160 L 1080 220 L 930 350 L 765 405.5 L 675 640 H 440" stroke="#83aac9" stroke-width="6" stroke-dasharray="2 12" class="rail" />
-    <path d="M 440 640 L 455 632 M 440 640 L 455 648" stroke="#83aac9" stroke-width="3" class="rail" />
+    <path d="M 1080 100 L 1095 160 L 1080 220 L 440 596.89" stroke="#83aac9" stroke-width="10" class="rail" />
+    <path d="M 1080 100 L 1095 160 L 1080 220 L 440 596.89" stroke="#fff" stroke-width="6" class="rail" />
+    <path d="M 1080 100 L 1095 160 L 1080 220 L 440 596.89" stroke="#83aac9" stroke-width="6" stroke-dasharray="2 12" class="rail" />
+    <path d="M 440 596.89 L 456 580.89 M 440 596.89 L 462 599.89" stroke="#83aac9" stroke-width="3" class="rail" />
   </g>
   <g id="shuttles" fill="none" stroke="#d4ac72" stroke-width="3.5" stroke-dasharray="3 8" stroke-linecap="round" marker-end="url(#arrow)">
     <path d="M 330 315 L 397 372" /><path d="M 500 286.25 L 443 372" />
@@ -43,18 +40,10 @@
     <circle cx="80" cy="97.25" r="7" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="205" cy="153.5" r="7" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="330" cy="209.75" r="7" fill="#fff" stroke="#b9c3c6" stroke-width="3" />
     <circle cx="75" cy="500" r="7" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="205" cy="500" r="7" fill="#fff" stroke="#b9c3c6" stroke-width="3" />
     <circle cx="740" cy="100" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="740" cy="170" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="1080" cy="100" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="1080" cy="220" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" />
-    <circle cx="880" cy="330" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="765" cy="405.5" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="975" cy="500" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="1095" cy="554" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" />
+    <circle cx="880" cy="310" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="765" cy="405.5" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="975" cy="500" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="1095" cy="554" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" />
     <circle cx="330" cy="315" r="13" fill="#e8ad59" stroke="#fff" stroke-width="3" /><circle cx="500" cy="286.25" r="13" fill="#e8ad59" stroke="#fff" stroke-width="3" /><circle cx="330" cy="500" r="13" fill="#e8ad59" stroke="#fff" stroke-width="3" /><circle cx="500" cy="500" r="13" fill="#e8ad59" stroke="#fff" stroke-width="3" />
     <circle cx="420" cy="395" r="31" fill="#2475a5" stroke="#fff" stroke-width="4" />
     <circle cx="1130" cy="40" r="15" fill="#f3f5f5" stroke="#a3b1b5" stroke-width="2" /><use href="#plane" transform="translate(1130,40) scale(.7)" />
     <circle cx="1130" cy="440" r="15" fill="#f3f5f5" stroke="#a3b1b5" stroke-width="2" /><use href="#plane" transform="translate(1130,440) scale(.7)" />
-  </g>
-  <g id="labels">
-    <text x="80" y="69" text-anchor="middle" class="label">八王子</text><text x="205" y="126" text-anchor="middle" class="label">橋本</text><text x="330" y="182" text-anchor="middle" class="label">町田</text>
-    <text x="75" y="535" text-anchor="middle" class="label">海老名</text><text x="205" y="535" text-anchor="middle" class="label">大和</text>
-    <text x="715" y="95" text-anchor="end" class="label">新宿</text><text x="715" y="175" text-anchor="end" class="label">渋谷</text><text x="1060" y="95" text-anchor="end" class="label">東京</text><text x="1060" y="225" text-anchor="end" class="label">品川</text>
-    <text x="880" y="305" text-anchor="middle" class="label">武蔵小杉</text><text x="765" y="379" text-anchor="middle" class="label">新横浜</text><text x="975" y="535" text-anchor="middle" class="label">横浜</text><text x="1095" y="588" text-anchor="middle" class="label">桜木町</text>
-    <text x="420" y="391" class="destination">花博</text><text x="420" y="409" class="destination">会場</text>
-    <text x="1120" y="72" text-anchor="end" class="label minor">成田空港</text><text x="1120" y="473" text-anchor="end" class="label minor">羽田空港</text><text x="445" y="624" class="label minor">名古屋・新大阪方面</text>
   </g>
 </svg>
