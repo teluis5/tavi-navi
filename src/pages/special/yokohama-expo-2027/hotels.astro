@@ -7,12 +7,12 @@ const description =
   '横浜花博（GREEN×EXPO 2027）に便利な周辺ホテルを沿線別に紹介。相鉄線・相鉄東急/埼京線直通・JR横浜線・東急田園都市線の4路線ごとに、シャトルバス発着駅とおすすめ宿泊エリア（楽天トラベル）をまとめました。';
 
 const MAP_AREAS = [
-  { name: '横浜', x: 910, y: 715, access: '相鉄線で瀬谷駅・三ツ境駅へ。各駅から会場行きシャトルバスを利用。', feature: 'ホテルや飲食店が多く、みなとみらい観光と組み合わせやすいエリア。', target: 'sotetsu', hotel: 0 },
-  { name: '新横浜', x: 760, y: 565, access: 'JR横浜線で十日市場駅へ。または相鉄・東急直通線で相鉄線方面へ。', feature: '東海道新幹線の停車駅。遠方からの前泊に便利な拠点。', target: 'direct', hotel: 0 },
+  { name: '横浜', x: 910, y: 636.25, access: '相鉄線で瀬谷駅・三ツ境駅へ。各駅から会場行きシャトルバスを利用。', feature: 'ホテルや飲食店が多く、みなとみらい観光と組み合わせやすいエリア。', target: 'sotetsu', hotel: 0 },
+  { name: '新横浜', x: 760, y: 523.75, access: 'JR横浜線で十日市場駅へ。または相鉄・東急直通線で相鉄線方面へ。', feature: '東海道新幹線の停車駅。遠方からの前泊に便利な拠点。', target: 'direct', hotel: 0 },
   { name: '町田', x: 110, y: 355, access: 'JR横浜線で十日市場駅へ。駅から会場行きシャトルバスを利用。', feature: '駅周辺に宿泊施設や飲食店が集まるエリア。', target: 'yokohama-line', hotel: 0 },
   { name: '渋谷', x: 800, y: 260, access: '東急田園都市線で南町田グランベリーパーク駅へ。駅から会場行きシャトルバスを利用。', feature: '都内観光と花博を組み合わせたい人に便利な拠点。', target: 'denentoshi', hotel: 0 },
-  { name: '海老名', x: 45, y: 715, access: '相鉄線で瀬谷駅・三ツ境駅へ。各駅から会場行きシャトルバスを利用。', feature: '神奈川西部の宿泊拠点。横浜中心部以外で宿を探したい人に。', target: 'sotetsu', hotel: 1 },
-  { name: '武蔵小杉', x: 795, y: 490, access: '相鉄・JR直通線で相鉄線方面へ。列車の行き先と乗り換えをご確認ください。', feature: '都心や羽田方面からの移動にも使いやすい拠点。', target: 'direct', hotel: 1 },
+  { name: '海老名', x: 45, y: 636.25, access: '相鉄線で瀬谷駅・三ツ境駅へ。各駅から会場行きシャトルバスを利用。', feature: '神奈川西部の宿泊拠点。横浜中心部以外で宿を探したい人に。', target: 'sotetsu', hotel: 1 },
+  { name: '武蔵小杉', x: 795, y: 467.5, access: '相鉄・JR直通線で相鉄線方面へ。列車の行き先と乗り換えをご確認ください。', feature: '都心や羽田方面からの移動にも使いやすい拠点。', target: 'direct', hotel: 1 },
 ];
 
 const RAILWAY_LINES = [
@@ -130,7 +130,7 @@ const RAILWAY_LINES = [
           <div class="map-canvas">
           <div class="map-svg" set:html={accessMap} />
           {MAP_AREAS.map((area) => (
-            <button class="map-point" type="button" style={`left:${area.x / 12}%;top:${area.y / 8.5}%`} data-name={area.name} data-access={area.access} data-feature={area.feature} data-url={RAILWAY_LINES.find((line) => line.id === area.target)?.areas[area.hotel].url} data-x={area.x} data-y={area.y} aria-label={`${area.name}の宿泊エリアを紹介`} aria-pressed="false"><span aria-hidden="true"></span></button>
+            <button class="map-point" type="button" style={`left:${area.x / 12}%;top:${area.y / 7.375}%`} data-name={area.name} data-access={area.access} data-feature={area.feature} data-url={RAILWAY_LINES.find((line) => line.id === area.target)?.areas[area.hotel].url} data-x={area.x} data-y={area.y} aria-label={`${area.name}の宿泊エリアを紹介`} aria-pressed="false"><span aria-hidden="true"></span></button>
           ))}
           </div>
           <div class="map-detail" id="map-detail" hidden aria-live="polite">
@@ -264,9 +264,9 @@ const RAILWAY_LINES = [
     const x = Number(point.dataset.x);
     const y = Number(point.dataset.y);
     card.style.setProperty('--popup-x', `${x / 12}%`);
-    card.style.setProperty('--popup-y', `${y / 8.5}%`);
+    card.style.setProperty('--popup-y', `${y / 7.375}%`);
     card.dataset.side = x > 600 ? 'left' : 'right';
-    card.dataset.vertical = y > 425 ? 'above' : 'below';
+    card.dataset.vertical = y > 368.75 ? 'above' : 'below';
     card.hidden = false;
     points.forEach((item) => item.setAttribute('aria-pressed', String(item === point)));
   }
