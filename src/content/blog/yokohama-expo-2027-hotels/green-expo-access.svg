@@ -35,6 +35,4 @@
         <circle cx="182" cy="285" r="7" fill="#e89b2b"></circle><text x="199" y="290" class="legend-label">発着駅</text>
         <text x="52" y="318" class="footnote">シャトルバスは事前予約制</text>
       </g>
-      <text x="32" y="811" class="footnote">※ 相鉄の直通は一部列車。JR直通は目黒を通過。横浜線の桜木町方面も一部列車が直通します。</text>
-      <text x="32" y="827" class="footnote">※ 駅・路線・バス接続を模式化。駅間距離や実際の走行経路とは異なります。</text>
     </svg>
