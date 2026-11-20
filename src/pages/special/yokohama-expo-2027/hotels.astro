@@ -6,7 +6,19 @@ const title = '横浜花博（GREEN×EXPO 2027）沿線別ホテル・前泊拠�
 const description =
   '横浜花博（GREEN×EXPO 2027）に便利な周辺ホテルを沿線別に紹介。相鉄線・相鉄東急/埼京線直通・JR横浜線・東急田園都市線の4路線ごとに、シャトルバス発着駅とおすすめ宿泊エリア（楽天トラベル）をまとめました。';
 
+const STATION_URLS: Record<string, string> = {
+  大和: 'https://travel.rakuten.co.jp/yado/traffic/kanagawa/00000000000000227143.html',
+  桜木町: 'https://travel.rakuten.co.jp/yado/traffic/kanagawa/00000000000000229313.html',
+  新宿: 'https://travel.rakuten.co.jp/yado/traffic/tokyo/00000000000000202276.html',
+  品川: 'https://travel.rakuten.co.jp/yado/traffic/tokyo/00000000000000201974.html',
+};
+const affiliateUrl = (url: string) => `https://hb.afl.rakuten.co.jp/hgc/5953a273.5cc8e490.5953a274.81eca08c/?pc=${encodeURIComponent(url)}`;
+
 const MAP_AREAS = [
+  { name: '大和', x: 145, y: 636.25, access: '相鉄線で瀬谷駅・三ツ境駅へ。駅から会場行きシャトルバスを利用。', feature: '会場に近い相鉄線沿線の宿泊拠点。駅周辺でホテルを探せます。', target: 'sotetsu', hotel: 1 },
+  { name: '桜木町', x: 950, y: 666.25, access: 'JR横浜線直通列車などで十日市場駅へ。直通列車の運行をご確認ください。', feature: 'みなとみらい観光と花博を組み合わせやすいエリア。', target: 'yokohama-line', hotel: 2 },
+  { name: '新宿', x: 800, y: 128.6, access: '相鉄・JR直通列車などで相鉄線方面へ。列車の行き先と乗り換えをご確認ください。', feature: '都内観光も楽しみたい人に便利な宿泊拠点。', target: 'direct', hotel: 0 },
+  { name: '品川', x: 1000, y: 216.6, access: '京急線などで横浜駅へ、相鉄線に乗り換えて瀬谷駅・三ツ境駅方面へ。', feature: '新幹線や羽田空港からのアクセスを重視する人に便利な拠点。', target: 'direct', hotel: 0 },
   { name: '横浜', x: 910, y: 636.25, access: '相鉄線で瀬谷駅・三ツ境駅へ。各駅から会場行きシャトルバスを利用。', feature: 'ホテルや飲食店が多く、みなとみらい観光と組み合わせやすいエリア。', target: 'sotetsu', hotel: 0 },
   { name: '新横浜', x: 760, y: 523.75, access: 'JR横浜線で十日市場駅へ。または相鉄・東急直通線で相鉄線方面へ。', feature: '東海道新幹線の停車駅。遠方からの前泊に便利な拠点。', target: 'direct', hotel: 0 },
   { name: '町田', x: 110, y: 212.2, access: 'JR横浜線で十日市場駅へ。駅から会場行きシャトルバスを利用。', feature: '駅周辺に宿泊施設や飲食店が集まるエリア。', target: 'yokohama-line', hotel: 0 },
@@ -123,14 +135,14 @@ const RAILWAY_LINES = [
 
     <section class="map-section" aria-labelledby="access-map-title">
       <h2 id="access-map-title">路線図から宿泊エリアを探す</h2>
-      <p>宿泊する駅から、会場行きシャトルバスの発着駅までのつながりを確認できます。オレンジ色の駅が発着駅です。</p>
+      <p>宿泊する駅から会場方面へのつながりを確認できます。オレンジ色は会場行きシャトルバスの発着駅です。</p>
       <p class="map-instruction">Hマークにマウスを合わせるか、タップすると宿泊エリアの紹介を見られます。</p>
       <div class="map-layout">
         <div class="map-image">
           <div class="map-canvas">
           <div class="map-svg" set:html={accessMap} />
           {MAP_AREAS.map((area) => (
-            <button class="map-point" type="button" style={`left:${area.x / 12}%;top:${area.y / 7.375}%`} data-name={area.name} data-access={area.access} data-feature={area.feature} data-url={RAILWAY_LINES.find((line) => line.id === area.target)?.areas[area.hotel].url} data-x={area.x} data-y={area.y} aria-label={`${area.name}の宿泊エリアを紹介`} aria-pressed="false"><span aria-hidden="true">H</span></button>
+            <button class="map-point" type="button" style={`left:${area.x / 12}%;top:${area.y / 7.375}%`} data-name={area.name} data-access={area.access} data-feature={area.feature} data-url={STATION_URLS[area.name] ? affiliateUrl(STATION_URLS[area.name]) : RAILWAY_LINES.find((line) => line.id === area.target)?.areas[area.hotel].url} data-x={area.x} data-y={area.y} aria-label={`${area.name}の宿泊エリアを紹介`} aria-pressed="false"><span aria-hidden="true">H</span></button>
           ))}
           </div>
           <div class="map-detail" id="map-detail" hidden aria-live="polite">
