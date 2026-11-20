@@ -124,13 +124,13 @@ const RAILWAY_LINES = [
     <section class="map-section" aria-labelledby="access-map-title">
       <h2 id="access-map-title">路線図から宿泊エリアを探す</h2>
       <p>宿泊する駅から、会場行きシャトルバスの発着駅までのつながりを確認できます。オレンジ色の駅が発着駅です。</p>
-      <p class="map-instruction">駅にマウスを合わせるか、タップすると宿泊エリアの紹介を見られます。</p>
+      <p class="map-instruction">Hマークにマウスを合わせるか、タップすると宿泊エリアの紹介を見られます。</p>
       <div class="map-layout">
         <div class="map-image">
           <div class="map-canvas">
           <div class="map-svg" set:html={accessMap} />
           {MAP_AREAS.map((area) => (
-            <button class="map-point" type="button" style={`left:${area.x / 12}%;top:${area.y / 7.375}%`} data-name={area.name} data-access={area.access} data-feature={area.feature} data-url={RAILWAY_LINES.find((line) => line.id === area.target)?.areas[area.hotel].url} data-x={area.x} data-y={area.y} aria-label={`${area.name}の宿泊エリアを紹介`} aria-pressed="false"><span aria-hidden="true"></span></button>
+            <button class="map-point" type="button" style={`left:${area.x / 12}%;top:${area.y / 7.375}%`} data-name={area.name} data-access={area.access} data-feature={area.feature} data-url={RAILWAY_LINES.find((line) => line.id === area.target)?.areas[area.hotel].url} data-x={area.x} data-y={area.y} aria-label={`${area.name}の宿泊エリアを紹介`} aria-pressed="false"><span aria-hidden="true">H</span></button>
           ))}
           </div>
           <div class="map-detail" id="map-detail" hidden aria-live="polite">
@@ -207,8 +207,8 @@ const RAILWAY_LINES = [
   .map-canvas { position: relative; }
   .map-svg :global(svg) { display: block; width: 100%; height: auto; }
   .map-point { position: absolute; transform: translate(-50%, -50%); width: 36px; height: 36px; padding: 0; border: 0; border-radius: 50%; background: transparent; cursor: pointer; }
-  .map-point span { display: block; width: 22px; height: 22px; margin: auto; border: 2px solid #14532d; border-radius: 50%; background: rgba(220, 252, 231, .45); }
-  .map-point:hover span, .map-point[aria-pressed="true"] span { background: rgba(22, 163, 74, .35); box-shadow: 0 0 0 3px white; }
+  .map-point span { display: flex; align-items: center; justify-content: center; box-sizing: border-box; width: 24px; height: 24px; margin: auto; border: 2px solid #fff; border-radius: 50%; background: #075e47; box-shadow: 0 0 0 1px #075e47; color: #fff; font-size: 13px; font-weight: 700; line-height: 1; }
+  .map-point:hover span, .map-point[aria-pressed="true"] span { background: #123c30; box-shadow: 0 0 0 3px #a9d6ba; }
   .map-point:focus-visible { outline: 3px solid #14532d; outline-offset: 2px; }
   .map-detail { position: absolute; z-index: 3; left: var(--popup-x); top: var(--popup-y); width: min(320px, 90%); padding: 20px; background: #f1f8f1; border-radius: 12px; box-shadow: 0 8px 32px rgba(23, 43, 35, .24); }
   .map-detail[data-side="left"] { transform: translateX(-100%); }
@@ -222,7 +222,7 @@ const RAILWAY_LINES = [
   .map-detail p { margin: 0 0 12px; font-size: 14px; }
   .map-detail a { display: block; padding: 12px; background: #166534; border-radius: 8px; color: #fff; font-size: 14px; font-weight: 700; text-align: center; text-decoration: none; }
   .map-instruction { color: #52665c; font-size: 14px; }
-  @media (max-width: 800px) { .map-detail { position: relative; left: auto; top: auto; width: 100%; margin-top: 12px; } .map-detail[data-side][data-vertical] { transform: none; } .map-point { width: 30px; height: 30px; } .map-point span { width: 18px; height: 18px; } }
+  @media (max-width: 800px) { .map-detail { position: relative; left: auto; top: auto; width: 100%; margin-top: 12px; } .map-detail[data-side][data-vertical] { transform: none; } .map-point { width: 36px; height: 36px; } .map-point span { width: 22px; height: 22px; font-size: 12px; } }
   .map-caption { margin: 8px 0; }
   .line-nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 20px 0 4px; }
   .line-nav a { display: flex; align-items: center; justify-content: center; text-align: center; min-height: 44px; padding: 8px 10px; background: #f0fdf4; border: 1px solid #dcfce7; border-radius: 8px; color: #166534; font-size: 12px; font-weight: 700; text-decoration: none; }
