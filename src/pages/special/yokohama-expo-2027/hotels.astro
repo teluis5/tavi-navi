@@ -274,12 +274,13 @@ const RAILWAY_LINES = [
   .map-svg :global(svg) { display: block; width: 100%; height: auto; }
   .map-labels { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
   .map-label { fill: #213841; font-size: 21px; font-weight: 700; paint-order: stroke; stroke: #fff; stroke-width: 6px; stroke-linejoin: round; }
+  .map-label--station { font-size: 25px; }
   .map-label--minor { font-size: 16px; }
   .map-label--destination { fill: #fff; font-size: 15px; stroke: none; text-anchor: middle; }
   .map-point { position: absolute; transform: translate(-50%, -50%); width: 36px; height: 36px; padding: 0; border: 0; border-radius: 50%; background: transparent; cursor: pointer; }
   .map-point .map-marker { display: flex; align-items: center; justify-content: center; box-sizing: border-box; width: 24px; height: 24px; margin: auto; border: 2px solid #fff; border-radius: 50%; background: #075e47; box-shadow: 0 0 0 1px #075e47; color: #fff; font-size: 13px; font-weight: 700; line-height: 1; }
   .map-point:hover .map-marker, .map-point[aria-pressed="true"] .map-marker { background: #123c30; box-shadow: 0 0 0 3px #a9d6ba; }
-  .map-point-label { position: absolute; left: 50%; bottom: calc(50% + 16px); transform: translateX(-50%); color: #213841; font-size: clamp(10px, 1.6vw, 18px); font-weight: 700; line-height: 1.2; white-space: nowrap; pointer-events: none; text-shadow: -2px -2px #fff, 2px -2px #fff, -2px 2px #fff, 2px 2px #fff; }
+  .map-point-label { position: absolute; left: 50%; bottom: calc(50% + 16px); transform: translateX(-50%); color: #213841; font-size: clamp(12px, 1.9vw, 20px); font-weight: 700; line-height: 1.2; white-space: nowrap; pointer-events: none; text-shadow: -2px -2px #fff, 2px -2px #fff, -2px 2px #fff, 2px 2px #fff; }
   .map-point[data-label-side="left"] .map-point-label { left: auto; right: calc(50% + 16px); bottom: auto; top: 50%; transform: translateY(-50%); }
   .map-point:focus-visible { outline: 3px solid #14532d; outline-offset: 2px; }
   .map-detail { position: absolute; z-index: 3; left: var(--popup-x); top: var(--popup-y); width: min(320px, 90%); padding: 20px; background: #f1f8f1; border-radius: 12px; box-shadow: 0 8px 32px rgba(23, 43, 35, .24); }
