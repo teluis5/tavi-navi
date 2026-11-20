@@ -276,7 +276,7 @@ const RAILWAY_LINES = [
   .map-label { fill: #213841; font-size: 21px; font-weight: 700; paint-order: stroke; stroke: #fff; stroke-width: 6px; stroke-linejoin: round; }
   .map-label--station { font-size: 25px; }
   .map-label--minor { font-size: 16px; }
-  .map-label--destination { fill: #fff; font-size: 15px; stroke: none; text-anchor: middle; }
+  .map-label--destination { fill: #fff; font-size: 19px; stroke: none; text-anchor: middle; }
   .map-point { position: absolute; transform: translate(-50%, -50%); width: 36px; height: 36px; padding: 0; border: 0; border-radius: 50%; background: transparent; cursor: pointer; }
   .map-point .map-marker { display: flex; align-items: center; justify-content: center; box-sizing: border-box; width: 24px; height: 24px; margin: auto; border: 2px solid #fff; border-radius: 50%; background: #075e47; box-shadow: 0 0 0 1px #075e47; color: #fff; font-size: 13px; font-weight: 700; line-height: 1; }
   .map-point:hover .map-marker, .map-point[aria-pressed="true"] .map-marker { background: #123c30; box-shadow: 0 0 0 3px #a9d6ba; }
@@ -350,7 +350,24 @@ const RAILWAY_LINES = [
   points.forEach((point) => {
     point.addEventListener('pointerenter', (event) => { if (event.pointerType === 'mouse') selectArea(point); });
     point.addEventListener('focus', () => selectArea(point));
-    point.addEventListener('click', () => selectArea(point));
+    point.addEventListener('click', () => {
+      selectArea(point);
+      if (!window.matchMedia('(max-width: 800px)').matches) return;
+      requestAnimationFrame(() => {
+        const canvas = document.querySelector<HTMLElement>('.map-canvas');
+        if (!card || card.hidden || !canvas) return;
+        const cardBottom = card.getBoundingClientRect().bottom;
+        const mapBottom = canvas.getBoundingClientRect().bottom;
+        const needed = Math.max(0, cardBottom - window.innerHeight + 16);
+        // Keep the bottom of the map visible even on a short screen.
+        const room = Math.max(0, mapBottom - 96);
+        const amount = Math.min(needed, room);
+        if (amount > 0) {
+          const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          window.scrollBy({ top: amount, behavior: reduceMotion ? 'auto' : 'smooth' });
+        }
+      });
+    });
   });
   document.querySelector('.map-close')?.addEventListener('click', closeCard);
   document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeCard(); });
