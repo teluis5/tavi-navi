@@ -52,6 +52,15 @@ const recentArticles = allArticles.sort((a, b) => b.data.pubDate.valueOf() - a.d
   </div>
 
   <div class="container" style="padding-top: 3rem; padding-bottom: 3rem;">
+    <section class="expo-feature" aria-labelledby="expo-feature-title">
+      <div>
+        <p class="expo-feature-label">横浜・2027年開催</p>
+        <h2 id="expo-feature-title">横浜花博 GREEN×EXPO 2027</h2>
+        <p class="expo-feature-desc">チケット・アクセス・見どころから周辺ホテルまで、花博に行くための情報をまとめました。</p>
+      </div>
+      <a class="expo-feature-link" href="/special/yokohama-expo-2027/">花博の特設ガイドを見る <span aria-hidden="true">→</span></a>
+    </section>
+
     {/* 注目特集バナー */}
     <section style="margin-bottom: 3.5rem;">
       <a href="/special/dokokanibyun/" style="text-decoration: none; display: block;">
@@ -292,6 +301,24 @@ const recentArticles = allArticles.sort((a, b) => b.data.pubDate.valueOf() - a.d
 </Layout>
 
 <style>
+  .expo-feature {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 24px;
+    padding: 24px;
+    background: #f4f3ee;
+    border: 1px solid #e0e4df;
+    border-radius: 16px;
+  }
+  .expo-feature-label { margin: 0 0 6px; color: #256157; font-size: 13px; font-weight: 700; }
+  .expo-feature h2 { margin: 0 0 6px; color: #202b2e; font-size: clamp(20px, 2.5vw, 25px); line-height: 1.4; }
+  .expo-feature-desc { margin: 0; color: #39484b; font-size: 15px; line-height: 1.7; }
+  .expo-feature-link { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; color: #256157; font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
+  .expo-feature-link:focus-visible { outline: 3px solid #256157; outline-offset: 4px; }
+
   .getaway-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
