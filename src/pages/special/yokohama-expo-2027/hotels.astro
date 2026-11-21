@@ -62,18 +62,18 @@ const MAP_LABELS = [
 ];
 
 const MAP_AREAS = [
-  { name: '八王子', x: 80, y: 97.25, access: 'JR横浜線で十日市場駅へ。駅から会場行きシャトルバスを利用。', feature: '多摩エリアからの移動や八王子周辺の宿泊に便利な拠点。', target: 'yokohama-line', hotel: 0 },
-  { name: '橋本', x: 205, y: 153.5, access: 'JR横浜線で十日市場駅へ。駅から会場行きシャトルバスを利用。', feature: 'JR横浜線・相模線と京王相模原線が乗り入れる宿泊拠点。', target: 'yokohama-line', hotel: 0 },
-  { name: '大和', x: 205, y: 500, access: '相鉄線で瀬谷駅・三ツ境駅へ。駅から会場行きシャトルバスを利用。', feature: '会場に近い相鉄線沿線の宿泊拠点。駅周辺でホテルを探せます。', target: 'sotetsu', hotel: 1 },
-  { name: '桜木町', x: 1095, y: 554, access: 'JR横浜線直通列車などで十日市場駅へ。直通列車の運行をご確認ください。', feature: 'みなとみらい観光と花博を組み合わせやすいエリア。', target: 'yokohama-line', hotel: 2 },
-  { name: '新宿', x: 900, y: 100, access: '相鉄・JR直通列車などで相鉄線方面へ。列車の行き先と乗り換えをご確認ください。', feature: '都内観光も楽しみたい人に便利な宿泊拠点。', target: 'direct', hotel: 0 },
-  { name: '品川', x: 1080, y: 220, access: '京急線などで横浜駅へ、相鉄線に乗り換えて瀬谷駅・三ツ境駅方面へ。', feature: '新幹線や羽田空港からのアクセスを重視する人に便利な拠点。', target: 'direct', hotel: 0 },
-  { name: '横浜', x: 975, y: 500, access: '相鉄線で瀬谷駅・三ツ境駅へ。各駅から会場行きシャトルバスを利用。', feature: 'ホテルや飲食店が多く、みなとみらい観光と組み合わせやすいエリア。', target: 'sotetsu', hotel: 0 },
-  { name: '新横浜', x: 765, y: 405.5, access: 'JR横浜線で十日市場駅へ。または相鉄・東急直通線で相鉄線方面へ。', feature: '東海道新幹線の停車駅。遠方からの前泊に便利な拠点。', target: 'direct', hotel: 0 },
-  { name: '町田', x: 330, y: 209.75, access: 'JR横浜線で十日市場駅へ。駅から会場行きシャトルバスを利用。', feature: '駅周辺に宿泊施設や飲食店が集まるエリア。', target: 'yokohama-line', hotel: 0 },
-  { name: '渋谷', x: 900, y: 170, access: '東急田園都市線で南町田グランベリーパーク駅へ。駅から会場行きシャトルバスを利用。', feature: '都内観光と花博を組み合わせたい人に便利な拠点。', target: 'denentoshi', hotel: 0 },
-  { name: '海老名', x: 75, y: 500, access: '相鉄線で瀬谷駅・三ツ境駅へ。各駅から会場行きシャトルバスを利用。', feature: '神奈川西部の宿泊拠点。横浜中心部以外で宿を探したい人に。', target: 'sotetsu', hotel: 1 },
-  { name: '武蔵小杉', x: 800, y: 290, access: '相鉄・JR直通線で相鉄線方面へ。列車の行き先と乗り換えをご確認ください。', feature: '都心や羽田方面からの移動にも使いやすい拠点。', target: 'direct', hotel: 1 },
+  { name: '八王子', x: 80, y: 97.25, access: 'JR横浜線（約30〜40分）→ 十日市場駅 → シャトルバス（約25分）→ 会場', feature: '多摩エリアからの移動や八王子周辺の宿泊に便利な拠点。', target: 'yokohama-line', hotel: 0 },
+  { name: '橋本', x: 205, y: 153.5, access: 'JR横浜線（約20〜25分）→ 十日市場駅 → シャトルバス（約25分）→ 会場', feature: 'JR横浜線・相模線と京王相模原線が乗り入れる宿泊拠点。', target: 'yokohama-line', hotel: 0 },
+  { name: '大和', x: 205, y: 500, access: '相鉄線（約2〜3分）→ 瀬谷駅 → シャトルバス（約10分）→ 会場', feature: '会場に近い相鉄線沿線の宿泊拠点。駅周辺でホテルを探せます。', target: 'sotetsu', hotel: 1 },
+  { name: '桜木町', x: 1095, y: 554, access: 'JR横浜線直通（約25〜30分）→ 十日市場駅 → シャトルバス（約25分）→ 会場', feature: 'みなとみらい観光と花博を組み合わせやすいエリア。', target: 'yokohama-line', hotel: 2 },
+  { name: '新宿', x: 900, y: 100, access: '相鉄・JR直通線など（約50〜65分）→ 瀬谷駅 → シャトルバス（約10分）→ 会場', feature: '都内観光も楽しみたい人に便利な宿泊拠点。', target: 'direct', hotel: 0 },
+  { name: '品川', x: 1080, y: 220, access: '京急線など（約20分）→ 横浜駅 → 相鉄線（約20〜30分）→ 瀬谷駅 → シャトルバス（約10分）→ 会場', feature: '新幹線や羽田空港からのアクセスを重視する人に便利な拠点。', target: 'direct', hotel: 0 },
+  { name: '横浜', x: 975, y: 500, access: '相鉄線（約20〜30分）→ 瀬谷駅 → シャトルバス（約10分）→ 会場', feature: 'ホテルや飲食店が多く、みなとみらい観光と組み合わせやすいエリア。', target: 'sotetsu', hotel: 0 },
+  { name: '新横浜', x: 765, y: 405.5, access: 'JR横浜線（約12〜15分）→ 十日市場駅 → シャトルバス（約25分）→ 会場', feature: '東海道新幹線の停車駅。遠方からの前泊に便利な拠点。', target: 'direct', hotel: 0 },
+  { name: '町田', x: 330, y: 209.75, access: 'JR横浜線（約8〜10分）→ 十日市場駅 → シャトルバス（約25分）→ 会場', feature: '駅周辺に宿泊施設や飲食店が集まるエリア。', target: 'yokohama-line', hotel: 0 },
+  { name: '渋谷', x: 900, y: 170, access: '東急田園都市線・急行（約35〜45分）→ 南町田グランベリーパーク駅 → シャトルバス（約20分）→ 会場', feature: '都内観光と花博を組み合わせたい人に便利な拠点。', target: 'denentoshi', hotel: 0 },
+  { name: '海老名', x: 75, y: 500, access: '相鉄線（約12分）→ 瀬谷駅 → シャトルバス（約10分）→ 会場', feature: '神奈川西部の宿泊拠点。横浜中心部以外で宿を探したい人に。', target: 'sotetsu', hotel: 1 },
+  { name: '武蔵小杉', x: 800, y: 290, access: '相鉄・東急直通線など（約30〜40分）→ 瀬谷駅 → シャトルバス（約10分）→ 会場', feature: '都心や羽田方面からの移動にも使いやすい拠点。', target: 'direct', hotel: 1 },
 ];
 
 const RAILWAY_LINES = [
@@ -211,9 +211,9 @@ const RAILWAY_LINES = [
               <circle cx="112" cy="48" r="2" fill="#d98e42" /><circle cx="142" cy="48" r="2" fill="#d98e42" />
               <path d="M166 53V40m-7 5c0-6 3-10 7-10s7 4 7 10-3 8-7 8-7-2-7-8z" fill="#a8d1ad" stroke="#76ae83" stroke-width="2" />
             </svg>
-            <p class="map-detail-label">宿泊エリア</p>
             <h3 id="map-area-name"></h3>
             <p><strong>会場へのアクセス</strong><br /><span id="map-area-access"></span></p>
+            <p class="map-time-note">時間は目安です。乗り換え・待ち時間は別途かかります。シャトルバスは事前予約制です。</p>
             <p><strong>エリアの特徴</strong><br /><span id="map-area-feature"></span></p>
             <a id="map-area-link" href="https://travel.rakuten.co.jp/" target="_blank" rel="noopener noreferrer sponsored">楽天トラベルでホテルを探す ↗</a>
           </div>
@@ -290,9 +290,9 @@ const RAILWAY_LINES = [
   .map-detail[hidden] { display: none; }
   .map-close { position: absolute; top: 8px; right: 8px; width: 36px; height: 36px; border: 0; border-radius: 50%; background: #f0fdf4; color: #14532d; font-size: 24px; cursor: pointer; }
   .map-illustration { display: block; width: 100%; height: 64px; margin: 0 0 12px; }
-  .map-detail-label { margin: 0 0 8px; color: #166534; font-size: 13px; font-weight: 700; }
   .map-detail h3 { margin: 0 0 8px; font-size: 18px; }
   .map-detail p { margin: 0 0 12px; font-size: 14px; }
+  .map-detail .map-time-note { color: #52665c; font-size: 12px; }
   .map-detail a { display: block; padding: 12px; background: #166534; border-radius: 8px; color: #fff; font-size: 14px; font-weight: 700; text-align: center; text-decoration: none; }
   .map-instruction { color: #52665c; font-size: 14px; }
   @media (max-width: 800px) { .map-detail { position: relative; left: auto; top: auto; width: 100%; margin-top: 12px; } .map-detail[data-side][data-vertical] { transform: none; } .map-point { width: 36px; height: 36px; } .map-point .map-marker { width: 22px; height: 22px; font-size: 12px; } }
