@@ -1,420 +1,139 @@
 ---
-title: "【冬の秋田2泊3日】角館武家屋敷の雪景色・田沢湖・乳頭温泉郷の秘湯を巡る王道モデルコース（秋田新幹線・車なし完全対応）"
-description: "東京から秋田新幹線こまち号で直通約3時間！雪化粧した角館の黒板塀武家屋敷通り、瑠璃色に輝く冬の田沢湖、そして雪見露天風呂が極上の乳頭温泉郷を巡る2泊3日旅。駅から段差ゼロで巡る『車なし特急・路線バスルート』とおすすめ宿を完全ガイド。"
+title: "冬の角館・田沢湖・乳頭温泉郷を車なしで巡る2泊3日｜東京発の秋田モデルコース"
+description: "東京から秋田新幹線とバスで巡る冬の2泊3日。角館の武家屋敷、乳頭温泉郷、田沢湖、秋田市を結ぶ行程と、冬のバス・宿の送迎・費用の目安を紹介します。"
 pubDate: 2026-11-09
+updatedDate: 2026-11-20
 lang: "ja"
 pref: "akita"
 category: "モデルコース"
-season: "12月上旬"
+season: "冬"
 departure: "tokyo"
 duration: "2泊3日"
 cities: ["semboku", "akita-city"]
-tags: ["秋田", "仙北市", "角館", "田沢湖", "乳頭温泉", "冬旅", "雪景色", "車なしプランあり", "温泉", "新幹線", "レンタカー"]
+tags: ["秋田", "仙北市", "角館", "田沢湖", "乳頭温泉", "冬旅", "雪景色", "車なしプランあり", "温泉", "新幹線"]
 ---
-import ProblemBox from '../../components/ProblemBox.astro';
-import ConclusionBox from '../../components/ConclusionBox.astro';
-import QuickJumpBar from '../../components/QuickJumpBar.astro';
+import TrainCondition from '../../components/TrainCondition.astro';
 import TravelTimeline from '../../components/TravelTimeline.astro';
+import CourseBudget from '../../components/CourseBudget.astro';
 import TravelBookingBox from '../../components/TravelBookingBox.astro';
 import TransitBookingHub from '../../components/TransitBookingHub.astro';
 import TourismPhoto from '../../components/TourismPhoto.astro';
-import Carousel from '../../components/Carousel.astro';
-import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
+import ConclusionBox from '../../components/ConclusionBox.astro';
 import photoIshiguro from '../../assets/photos/akita_compressed/kakunodate-ishiguro.webp';
-import photoFuyugatari from '../../assets/photos/akita_compressed/kakunodate-fuyugatari.webp';
-import photoHiburi from '../../assets/photos/akita_compressed/kakunodate-hiburi.webp';
-import photoOyakodon from '../blog/tazawako-shared/hinai-oyakodon.jpg';
-import photoKiritanpo from '../blog/tazawako-shared/kiritanpo-nabe.jpg';
 import photoTsurunoyuSnow from '../../assets/photos/akita_compressed/nyuto-tsurunoyu-snow.webp';
-import photoTsurunoyuNight from '../../assets/photos/akita_compressed/nyuto-tsurunoyu-night.webp';
-import photoKanibaSnow from '../../assets/photos/akita_compressed/nyuto-kaniba-roten-snow.webp';
-import photoTsurunoyuIcicle from '../../assets/photos/akita_compressed/nyuto-tsurunoyu-icicle.webp';
 import photoTazawakoTatsuko from '../../assets/photos/akita_compressed/tazawako-tatsuko.webp';
-import photoTazawakoUkiki from '../../assets/photos/akita_compressed/tazawako-ukiki-shrine.webp';
-import photoTazawakoPanorama from '../../assets/photos/akita_compressed/tazawako-winter-panorama.webp';
-import photoSenshuTorii from '../../assets/photos/akita_compressed/senshu-park-torii.webp';
-import photoSenshuSatake from '../../assets/photos/akita_compressed/senshu-park-satake.webp';
 
-<ProblemBox>
-- 冬の秋田（角館や乳頭温泉）へ行きたいけれど、雪道運転に自信がない（車なしで回れる？）
-- 東京から新幹線と路線バスだけで無理なく回れる2泊3日のタイムスケジュールを知りたい！
-- 白銀の武家屋敷や雪見露天風呂のベストな時間帯、冬の防寒対策は？
-</ProblemBox>
+雪をまとった角館の武家屋敷、乳頭温泉郷の湯、冬の田沢湖。東京から秋田新幹線とバスを使い、雪道を運転せずに巡る2泊3日のコースです。最後は秋田市に泊まり、千秋公園周辺を散策して帰ります。
 
-冬の東北旅で絶対に外せないのが、**「白銀の雪景色」と「湯煙あふれる本物の秘湯」**。
+<TrainCondition text="先に乳頭温泉郷の宿を確保し、チェックイン時刻に間に合う列車・バスと宿までの移動を確認してください。2日目は田沢湖一周線の運行が前提です。雪や道路状況によって運休・遅延があり、雪景色も天候次第です。" />
 
-その両方を日本屈指のクオリティで満喫できるのが、秋田県の**角館（かくのだて）・田沢湖・乳頭温泉郷（にゅうとうおんせんきょう）**です。
+## 2泊3日の行程と予約前に確認したいこと
 
-「豪雪地帯だからレンタカーがないと無理では？」と思われがちですが、実は**東京駅から秋田新幹線「こまち」で直通約3時間**。角館駅・田沢湖駅を拠点に、定時運行の路線バス「羽後交通」と宿泊者限定シャトルバス「湯めぐり号」を乗り継ぐことで、**雪道運転ゼロ・完全車なしで快適に周遊**できます。
+<TravelTimeline days={[
+  { dayNumber: 1, title: "東京 → 角館 → 乳頭温泉郷", steps: [
+    { areaLabel: "午前", title: "東京から秋田新幹線で角館へ", points: ["角館駅で降り、荷物の預け先と帰りの列車を確認。"], icon: "🚄", transitBadge: "新幹線 約3時間" },
+    { areaLabel: "昼〜午後", title: "昼食と武家屋敷通り散策", points: ["昼食に45〜60分、散策に約2時間を確保。雪道の徒歩と駅への戻りにも余裕を。"], icon: "🏘️" },
+    { areaLabel: "夕方まで", title: "角館駅 → 田沢湖駅 → 乳頭温泉郷", points: ["列車と乳頭線、必要な宿の送迎を乗り継いでチェックイン。"], icon: "🚌" }
+  ] },
+  { dayNumber: 2, title: "乳頭温泉郷 → 田沢湖 → 秋田市", steps: [
+    { areaLabel: "午前", title: "宿を出て、乳頭線で田沢湖駅へ", points: ["宿ごとの送迎とバス停への移動を確認。駅到着後に昼食を取ります。"], icon: "♨️" },
+    { areaLabel: "午後", title: "田沢湖一周線でたつこ像へ", points: ["バスの観光停車時間に湖畔を見学し、同じバスで田沢湖駅へ戻ります。"], icon: "🌊" },
+    { areaLabel: "夕方", title: "田沢湖駅から秋田駅へ", points: ["バスの遅れを考慮して列車を予約し、秋田駅周辺に宿泊。"], icon: "🚄" }
+  ] },
+  { dayNumber: 3, title: "秋田市内 → 東京", steps: [
+    { areaLabel: "午前", title: "千秋公園と周辺を散策", points: ["天候や足元を見て散策。屋内施設は休館日を確認します。"], icon: "🏯" },
+    { areaLabel: "昼〜午後", title: "昼食・買い物の後、秋田駅から帰京", points: ["駅に余裕を持って戻り、秋田新幹線で東京へ。"], icon: "🛍️" }
+  ] }
+]} />
 
-本記事では、初冬から真冬にかけて最高の風情を誇る、王道の2泊3日モデルコースを時間付きで徹底解説します。
+まず1泊目の宿の空き、夕食開始時刻、最寄りバス停と送迎を確認します。その後、角館から田沢湖駅への列車と乳頭線をつなぎ、東京発の「こまち」を選びましょう。角館では昼食と散策に加え、駅までの雪道や乗り換えに余裕を取ります。
 
-<QuickJumpBar
-  noCarHref="#style-nocar"
-  driveHref="#style-drive"
-  familyHref="#style-family"
-  climateHref="#style-climate"
-/>
+2泊目は秋田駅周辺が便利です。冬は日没が早く、雪による遅れもあるため、遅い到着を前提にせず、暗くなる前の移動を目指しましょう。
 
----
+## 1日目｜角館の武家屋敷から乳頭温泉郷へ
 
-## 【全体旅程】秋田新幹線「こまち」で巡る2泊3日モデルコース概要
+<TourismPhoto src={photoIshiguro} alt="角館の武家屋敷・石黒家の門" caption="黒板塀が続く角館の武家屋敷通り。雪の有無は訪問時の天候によって変わります。" credit="Akita Prefecture" creditUrl="https://akita-fun.jp/photo_gallery" />
 
-東京駅から秋田新幹線に乗り込めば、乗り換えなしで角館駅まで直通。初日は歴史ある武家屋敷を歩き、夕方には山奥の秘湯・乳頭温泉郷へ。2日目は日本一深いカルデラ湖「田沢湖」を巡り、3日目は秋田市内で久保田城跡散策とお土産ショッピングを楽しむ、無理のない黄金ルートです。
+東京駅から秋田新幹線「こまち」で角館駅へ。駅から武家屋敷通りまでは徒歩で向かえますが、積雪や凍結時は普段より時間を見てください。比内地鶏の親子丼などで昼食を取り、黒板塀の町並みを歩きます。見学する屋敷の冬季営業時間・休業日は訪問前に確認しましょう。
 
-<TourismPhoto
-  src={photoKomachi}
-  alt="秋田新幹線こまち号が秋田の大地を疾走する風景"
-  caption="東京駅から角館・田沢湖へ乗り換えなし直通！秋田の大自然を快走する赤いミニ新幹線「E6系こまち号」"
-  credit="Akita Prefecture"
-  creditUrl="https://akita-fun.jp/photo_gallery"
-/>
+角館駅に戻ったら、田沢湖駅へ列車で移動し、羽後交通の**乳頭線**へ乗り換えます。利用列車によって所要時間や料金が異なり、便数も限られます。宿の到着締切から逆算し、駅での乗り換えには冬場は15〜20分以上を目安に余裕を持たせましょう。
 
-<TravelTimeline
-  days={[
-    {
-      dayNumber: 1,
-      title: "秋田新幹線で角館へ！武家屋敷の雪景色と秘湯・乳頭温泉郷チェックイン",
-      steps: [
-        {
-          time: "08:40",
-          title: "東京駅発（秋田新幹線こまち号）",
-          desc: "全席指定の「こまち号」で快適な車内。盛岡駅での切り離しを経て秋田県内へ。",
-          icon: "🚄",
-          transitBadge: "新幹線 約3時間05分"
-        },
-        {
-          time: "11:47",
-          title: "角館駅到着 ➔ 名物「比内地鶏親子丼」ランチ",
-          desc: "角館駅前の観光案内所で荷物を預け、炭火香る比内地鶏の極上親子丼を堪能。",
-          icon: "🍲"
-        },
-        {
-          time: "13:00",
-          title: "角館武家屋敷通り 散策（青柳家・石黒家・冬がたり）",
-          desc: "黒板塀に降り積もる白雪と枝垂れ桜の巨木。みちのくの小京都ならではの静寂を満喫。",
-          icon: "🏛️",
-          transitBadge: "徒歩散策 約2時間"
-        },
-        {
-          time: "15:40",
-          title: "角館駅発 ➔ 田沢湖駅経由 ➔ 乳頭温泉郷へ",
-          desc: "JR田沢湖線で田沢湖駅へ（約20分）。駅前バスターミナルから乳頭線バスに乗車（約50分）。",
-          icon: "🚌",
-          transitBadge: "路線バス 約50分"
-        },
-        {
-          time: "17:15",
-          title: "乳頭温泉郷（鶴の湯温泉など）チェックイン ➔ 雪見露天風呂＆きりたんぽ鍋",
-          desc: "ブナの原生林に包まれた秘湯の一軒宿へ。幻想的な雪見露天風呂と囲炉裏料理で温まる至福の夜。",
-          icon: "♨️"
-        }
-      ]
-    },
-    {
-      dayNumber: 2,
-      title: "乳頭温泉郷の湯めぐり ➔ 神秘の青「田沢湖」周遊観光",
-      steps: [
-        {
-          time: "08:30",
-          title: "朝一番の雪見露天風呂＆朝食",
-          desc: "早朝の澄んだ空気の中で湯浴み。郷土色豊かな温かい和朝食をいただきます。",
-          icon: "🌅"
-        },
-        {
-          time: "10:15",
-          title: "「湯めぐり号」で乳頭温泉郷の別館湯めぐり",
-          desc: "乳頭温泉郷の7つの湯（鶴の湯、妙乃湯、蟹場温泉など）をシャトルバスでホッピング。",
-          icon: "♨️"
-        },
-        {
-          time: "13:00",
-          title: "田沢湖へ移動 ➔ たつこ像・浮木神社参拝",
-          desc: "真冬でも凍らない日本一深い湖（水深423.4m）。瑠璃色の湖面に黄金のたつこ像が映えます。",
-          icon: "🌊",
-          transitBadge: "田沢湖一周バス 約40分"
-        },
-        {
-          time: "16:30",
-          title: "田沢湖駅より秋田駅へ移動 ➔ 秋田駅前ホテル宿泊",
-          desc: "新幹線または普通列車で秋田駅へ（約55分）。夜は駅前の郷土料理店で地酒とハタハタ料理。",
-          icon: "🍶"
-        }
-      ]
-    },
-    {
-      dayNumber: 3,
-      title: "秋田市内散策（千秋公園・久保田城跡）➔ お土産調達＆帰京",
-      steps: [
-        {
-          time: "09:30",
-          title: "千秋公園（久保田城跡・與次郎稲荷）散策",
-          desc: "秋田藩主佐竹氏の居城跡。雪の赤鳥居や復元された御隅櫓からの市内一望パノラマ。",
-          icon: "🏯",
-          transitBadge: "徒歩 約15分"
-        },
-        {
-          time: "11:30",
-          title: "秋田県立美術館 ＆ ねぶり流し館見学",
-          desc: "安藤忠雄氏設計の美術館（藤田嗣治の大壁画）と、大迫力の竿燈を間近で見学。",
-          icon: "🎨"
-        },
-        {
-          time: "13:30",
-          title: "秋田駅ビル「トピコ」でお土産調達 ➔ 新幹線で東京へ",
-          desc: "いぶりがっこ、稲庭うどん、金萬、地酒を購入し、14時台のこまち号で帰京。",
-          icon: "🛍️",
-          transitBadge: "新幹線 約3時間40分"
-        }
-      ]
-    }
+### 宿までの最後の移動は予約時に確認
+
+<TourismPhoto src={photoTsurunoyuSnow} alt="雪に包まれた乳頭温泉郷の鶴の湯温泉" caption="乳頭温泉郷の鶴の湯温泉。宿ごとに最寄りバス停や送迎条件が異なります。" credit="Akita Prefecture" creditUrl="https://akita-fun.jp/photo_gallery" />
+
+- **鶴の湯温泉**：乳頭線の「アルパこまくさ」で下車し、宿の送迎車を利用します。乗車するバスと送迎の予約・連絡方法は、宿泊予約時に宿へ確認してください。バス停「鶴の湯入口」から宿まで歩く計画は、冬の雪道では避けましょう。
+- **妙乃湯**：「妙乃湯温泉前」で下車。宿の公式案内では田沢湖駅からバスで約50分、下車後徒歩約1分です。田沢湖駅からの無料送迎はありません。
+- **その他の宿**：最寄り停留所、そこからの徒歩や送迎の有無を予約する宿に確認してください。
+
+出典：[鶴の湯温泉の交通案内](https://www.tsurunoyu.com/FONDMENT/FONDMENT/t-ko-tu.html)・[妙乃湯のアクセス](https://taenoyu.com/access/)・[羽後交通の路線図と時刻表](https://ugokotsu.co.jp/rosen/timetable/map06)（2026年11月20日確認）。
+
+乳頭温泉郷の宿では、それぞれ異なる湯や宿の雰囲気を楽しめます。雪見風呂や夕食の内容は積雪・天候・宿泊プランによって変わります。鶴の湯の詳しい利用条件は[鶴の湯温泉ガイド](/akita/nyuto-tsurunoyu-onsen/)も参考にしてください。
+
+## 2日目｜田沢湖一周線でたつこ像へ、秋田市に泊まる
+
+<TourismPhoto src={photoTazawakoTatsuko} alt="田沢湖畔に立つたつこ像" caption="田沢湖畔のたつこ像。湖畔の景色は天候や積雪によって変わります。" credit="Akita Prefecture" creditUrl="https://akita-fun.jp/photo_gallery" />
+
+朝食後、宿から乳頭線の停留所へ移動し、田沢湖駅へ戻ります。駅で昼食を済ませ、午後の田沢湖一周線に乗車。たつこ像周辺の停車時間を使って湖畔を見学し、同じバスで駅へ戻ると乗り継ぎを組みやすくなります。
+
+### 田沢湖駅を13時25分に出る例
+
+羽後交通の**2026年4月1日改正時刻表**を基にした例です。旅行日の運行状況と最新ダイヤを必ず確認してください。
+
+1. 乳頭蟹場温泉を10:45に発車する乳頭線は、田沢湖駅前に11:33着。途中の停留所から乗る場合は、その停留所の時刻と宿からの移動を確認します。
+2. 田沢湖駅周辺で昼食を取り、13:25発の田沢湖一周線に乗車。潟尻（辰子像）では13:55着・14:15発の約20分停車です。
+3. 同じバスで田沢湖駅前に14:56着。その後、雪による遅れと乗り換えに余裕を持たせて秋田駅行きの列車を選びます。
+
+※湖畔でバスを降りる際は、発車時刻・再乗車について乗務員にも確認してください。悪天候や道路状況による運休時は湖畔観光を取りやめ、田沢湖駅から秋田へ向かいます。[羽後交通の運行情報](https://ugokotsu.co.jp/news/)を当日も確認しましょう。年末年始は運行条件が異なる便があります。
+
+出典：[羽後交通・田沢湖地区バス時刻表](https://ugokotsu.co.jp/wp-content/uploads/area-tazawako.pdf)（2026年11月20日確認、2026年4月1日改正）。
+
+### 湯めぐりを追加するなら
+
+乳頭温泉郷の「湯めぐり号」は、宿泊者向けの湯めぐり帖などで利用できます。各宿の日帰り入浴時間とバスの冬季ダイヤを確認し、**田沢湖一周線への接続を確保できる場合**に立ち寄りを追加しましょう。冬季は黒湯・孫六方面への運行がなく、2026年は黒湯が11月8日で今季営業を終了しています。雪道の移動も含め、宿に相談すると安心です。
+
+出典：[妙乃湯・湯めぐり案内](https://taenoyu.com/access/)・[休暇村乳頭温泉郷・冬季ダイヤ案内](https://www.qkamura.or.jp/nyuto/blog/detail/?id=123641)（2026年11月20日確認）。
+
+## 3日目｜千秋公園を散策して東京へ
+
+秋田駅から千秋公園へ向かい、久保田城跡の周辺を散策します。園内は坂や階段があり、積雪・凍結時は足元に注意。**久保田城御隅櫓は例年12月1日〜3月31日が冬季休館**のため、冬に展望室へ上がる予定は組まないようにしましょう。
+
+寒さや天候が厳しい日は、秋田県立美術館など屋内施設を候補にし、開館日・展示・入館時間を確認。昼食と駅ビルでの土産選びを楽しんだら、秋田駅から「こまち」で東京へ戻ります。
+
+出典：[秋田市・佐竹史料館年報](https://www.city.akita.lg.jp/_res/projects/default_project/_page_/001/051/053/satake_r7-nenpou.pdf)（2026年11月20日確認）。
+
+## 費用の目安と予約の順番
+
+<CourseBudget
+  totalPerPerson="約7万〜10万円"
+  personLabel="大人1人・2名1室を想定した旅行予算の概算"
+  items={[
+    { category: "東京〜秋田方面の鉄道", amount: "約3.5万〜4万円", note: "新幹線・現地の鉄道を含む概算。購入方法や乗車日で変動" },
+    { category: "宿泊2泊", amount: "約2.5万〜4万円", note: "乳頭温泉郷1泊と秋田市内1泊の仮置き。食事条件・宿・日程で大きく変動" },
+    { category: "バス・食事・入館など", amount: "約1万〜2万円", note: "バス、宿泊に含まれない食事、見学などの予算枠" }
   ]}
+  totalNote="実売価格ではなく予算取りの例です。上記の下限・上限の合計は約7万〜10万円。割引、宿の食事条件、湯めぐり、タクシー利用等で変わるため予約画面で再計算してください。"
 />
 
----
+宿泊費は特に差が大きいため、**乳頭温泉郷の宿 → 秋田市内の宿 → 列車 → バス・送迎の接続**の順に確認するのがおすすめです。妙乃湯の公式案内では田沢湖駅からのバス片道は820円、宿泊者限定の湯めぐり帖は2,500円です（2026年11月20日確認）。実際の運賃・料金は利用前に確認してください。
 
-## 【1日目】角館の武家屋敷通りへ！みちのくの小京都で味わう歴史と冬の温もり
+<TravelBookingBox title="乳頭温泉郷の宿を探す" description="宿ごとの営業日、食事、最寄りバス停と送迎条件を確認して予約しましょう。" rakutenUrl="https://travel.rakuten.co.jp/search?f_cd=03&f_query=%E4%B9%B3%E9%A0%AD%E6%B8%A9%E6%B3%89%E9%83%B7" jalanUrl="https://www.jalan.net/uw/uwp3000/uwp3001.do?keyword=%E4%B9%B3%E9%A0%AD%E6%B8%A9%E6%B3%89%E9%83%B7" />
 
-東京駅を午前8時台に出発する秋田新幹線「こまち」に乗車すれば、午前11時台にはもう角館駅のホームに降り立つことができます。
+<TransitBookingHub destination="角館・田沢湖・乳頭温泉郷" station="田沢湖駅" pref="akita" ticketType="shinkansen" />
 
-駅を出て徒歩約15分。武家屋敷通りに一歩足を踏み入れると、タイムスリップしたかのような江戸の町並みが広がります。
+## 冬の服装と出発前の確認
 
-### 角館の冬を巡る（武家屋敷・語り部・伝統の火振りかまくら）
+雪が少ない日もありますが、乳頭温泉郷は山間部です。防水性・防滑性のある靴、防寒着、手袋、帽子を用意し、重ね着で調節しましょう。傘や荷物を持った雪道は歩きにくいため、駅での荷物預かりの営業と空きも事前確認を。温泉用のタオルや濡れたものを入れる袋もあると便利です。
 
-<Carousel aspectRatio="16/10">
-  <TourismPhoto
-    src={photoIshiguro}
-    alt="角館武家屋敷 石黒家の重厚な門構え"
-    caption="角館で現存する最古の武家屋敷「石黒家」。格式高い薬医門と黒板塀が雪の季節にも威厳を放つ"
-    credit="Akita Prefecture"
-    creditUrl="https://akita-fun.jp/photo_gallery"
-  />
-  <TourismPhoto
-    src={photoFuyugatari}
-    alt="角館冬がたり 囲炉裏を囲む語り部体験"
-    caption="冬期限定の「角館冬がたり」。暖かい武家屋敷の囲炉裏を囲み、秋田弁の昔語りに耳を傾ける至福の時間"
-    credit="Akita Prefecture"
-    creditUrl="https://akita-fun.jp/photo_gallery"
-  />
-  <TourismPhoto
-    src={photoHiburi}
-    alt="角館の小正月伝統行事 火振りかまくら"
-    caption="雪の中で炭俵に火をつけ縄を豪快に振り回す「火振りかまくら」。白銀の闇に炎の輪が浮かび上がる幻想的な冬の祭り"
-    credit="Akita Prefecture"
-    creditUrl="https://akita-fun.jp/photo_gallery"
-  />
-</Carousel>
+出発前日と当日は、[JR東日本の運行情報](https://traininfo.jreast.co.jp/train_info/)と[羽後交通の運行情報](https://ugokotsu.co.jp/news/)を確認し、遅延時は宿へ到着見込みを連絡してください。大雪の場合は無理に湖畔や屋外を歩かず、行程を短縮しましょう。
 
-春の桜や秋の紅葉も美しい角館ですが、**地元の方々が「最も趣がある」と口を揃えるのがこの初冬から真冬の季節**です。重厚な黒塗りの板塀と、純白の雪とのコントラストは息をのむ美しさ。
+## 関連記事
 
-武家屋敷「青柳家」や「石黒家」の内部見学では、囲炉裏に火がくべられ、昔ながらの暖房の温もりを体感できます。冬の角館では、語り部さんが秋田の民話を語る「角館冬がたり」も開催され、身も心もじんわりと温まります。
-
-### 角館散策前の腹ごしらえ：炭火香る「比内地鶏親子丼」
-
-散策の前にぜひ味わいたいのが、角館駅周辺の名店で供される**比内地鶏の親子丼**です。
-
-<TourismPhoto
-  src={photoOyakodon}
-  alt="秋田名物 比内地鶏の親子丼"
-  caption="炭火で香ばしく炙った日本三大美味鶏「比内地鶏」と、とろとろの濃厚半熟卵。角館散策前の至福のエネルギーチャージ"
-  credit="Akita Prefecture"
-  creditUrl="https://akita-fun.jp/photo_gallery"
-/>
-
-噛むほどに旨味が溢れ出す引き締まった比内地鶏の肉と、濃厚な卵、そして門外不出の出汁が絶妙に絡み合い、冷えた身体に染み渡ります。
-
-> [!TIP]
-> **車なし派の必見アドバイス**:
-> 角館駅前の「仙北市観光情報センター『駅前蔵』」では、**防寒用の長靴（スノーブーツ）や傘を無料でレンタル**できます。キャリーケースなどの大型手荷物の一時預かり（有料）も行っているため、身軽になって散策へ出かけましょう。
-
----
-
-## 【1日目夜】乳頭温泉郷へ！ブナ原生林の雪見露天風呂ときりたんぽ鍋
-
-角館散策を終えたら、田沢湖駅経由で路線バスに乗り、十和田八幡平国立公園の奥深く、**日本を代表する秘湯・乳頭温泉郷（にゅうとうおんせんきょう）**へ向かいます。
-
-### 白銀の秘湯「鶴の湯温泉」とブナ林の温泉郷
-
-<Carousel aspectRatio="16/10">
-  <TourismPhoto
-    src={photoTsurunoyuSnow}
-    alt="乳頭温泉郷 鶴の湯温泉の雪見本陣とかまくら"
-    caption="乳頭温泉郷最古の秘湯「鶴の湯温泉」。白銀の雪山と茅葺き屋根の本陣、そして雪のかまくらが迎えてくれる"
-    credit="Akita Prefecture"
-    creditUrl="https://akita-fun.jp/photo_gallery"
-  />
-  <TourismPhoto
-    src={photoTsurunoyuNight}
-    alt="乳頭温泉郷 鶴の湯温泉の雪灯籠と幻想的な夜景"
-    caption="日が暮れると雪道に灯籠の明かりがぽっと灯る。ブナの静寂と乳白色の湯けむりに包まれる極上の夜"
-    credit="Akita Prefecture"
-    creditUrl="https://akita-fun.jp/photo_gallery"
-  />
-  <TourismPhoto
-    src={photoKanibaSnow}
-    alt="乳頭温泉郷 蟹場温泉の雪深い原生林露天風呂"
-    caption="原生林の奥深くに佇む「蟹場温泉」の木造露天風呂。舞い散る粉雪とブナの原生林に包まれながら楽しむ至高の雪見風呂"
-    credit="Akita Prefecture"
-    creditUrl="https://akita-fun.jp/photo_gallery"
-  />
-  <TourismPhoto
-    src={photoTsurunoyuIcicle}
-    alt="乳頭温泉郷 鶴の湯温泉 つららと雪のかまくら"
-    caption="豪雪に包まれる鶴の湯の冬景色。茅葺き屋根から垂れ下がるつららと雪のかまくらが旅情をそそる"
-    credit="Akita Prefecture"
-    creditUrl="https://akita-fun.jp/photo_gallery"
-  />
-</Carousel>
-
-乳頭温泉郷には、それぞれ異なる源泉を持つ7つの温泉宿（鶴の湯、妙乃湯、黒湯、蟹場、孫六、大釜、休暇村）が点在しています。
-
-白濁した硫黄泉と茅葺き屋根の本陣が全国的に有名な「鶴の湯温泉」、渓流を望む金の湯・銀の湯が贅沢な「妙乃湯」、ブナ林の奥に野趣あふれる露天風呂を持つ「蟹場温泉」など、いずれも圧倒的な風情を誇ります。
-
-> [!TIP]
-> **鶴の湯温泉を詳しく知りたい方へ**:
-> 鶴の湯温泉の日帰り入浴（時間・料金）、混浴露天風呂の入りやすさ、無料送迎バスの乗り継ぎ手順、宿泊予約のコツについては以下の個別スポット記事で徹底解説しています。
-> 👉 **[【乳頭温泉郷 鶴の湯温泉 完全ガイド】白銀の茅葺き本陣と雪見露天風呂！日帰り入浴・アクセス・混雑回避](/akita/nyuto-tsurunoyu-onsen/)**
-
-そして温泉上がりの夕食には、秋田の冬の代名詞**「本場のきりたんぽ鍋」**が登場します。
-
-<TourismPhoto
-  src={photoKiritanpo}
-  alt="秋田名物 比内地鶏の出汁が効いたアツアツのきりたんぽ鍋"
-  caption="比内地鶏の濃厚な鶏ガラスープ、香ばしい新米きりたんぽ、セリの根が絶妙に調和する冬の最高のごちそう"
-  credit="Akita Prefecture"
-  creditUrl="https://akita-fun.jp/photo_gallery"
-/>
-
-比内地鶏のガラから丁寧に引いた黄金色のスープに、炭火で焼いたモチモチのきりたんぽ、舞茸、ゴボウ、そして独特の苦味とシャキシャキ感がたまらない「セリ」。芯まで冷えた身体に、滋味あふれるスープが染み渡ります。
-
----
-
-## 【2日目】冬でも凍らない神秘の碧「田沢湖」とたつこ像
-
-2日目は温泉宿のシャトルバスで乳頭温泉郷の湯めぐりを楽しんだ後、日本一の深さを誇る**田沢湖（たざわこ）**へ。
-
-### 神秘の碧を湛える冬の田沢湖（たつこ像・浮木神社・湖畔パノラマ）
-
-<Carousel aspectRatio="16/10">
-  <TourismPhoto
-    src={photoTazawakoTatsuko}
-    alt="田沢湖 黄金のたつこ像と雪の湖畔"
-    caption="水深423.4mを誇る日本一深い田沢湖。真冬でも凍らない神秘の青い湖面と、雪景色に輝く黄金のたつこ像"
-    credit="Akita Prefecture"
-    creditUrl="https://akita-fun.jp/photo_gallery"
-  />
-  <TourismPhoto
-    src={photoTazawakoUkiki}
-    alt="田沢湖畔 漢槎宮（浮木神社）の雪景色"
-    caption="湖に突き出るように建てられた漢槎宮（浮木神社）。純白の雪をまとった木造社殿が瑠璃色の水面に映える絶景スポット"
-    credit="Akita Prefecture"
-    creditUrl="https://akita-fun.jp/photo_gallery"
-  />
-  <TourismPhoto
-    src={photoTazawakoPanorama}
-    alt="真冬の田沢湖 冬の静寂パノラマ"
-    caption="湖を囲む山々が雪化粧し、澄み切った冷気の中で鏡のように静まり返る冬の田沢湖"
-    credit="Akita Prefecture"
-    creditUrl="https://akita-fun.jp/photo_gallery"
-  />
-</Carousel>
-
-最大深度423.4メートルという圧倒的な深さのため、真冬の厳しい寒波でも湖面が結氷することはありません。雪景色の中に広がる、エメラルドグリーンから深い藍色へと変化する湖水はまるで絵画のような美しさです。
-
-湖畔には、不老不死の龍となった伝説の美少女「たつこ姫」の黄金像が静かに佇み、すぐ隣には雪の社殿が美しい漢槎宮（浮木神社）が湖上に浮かびます。
-
----
-
-## 【3日目】秋田市内・久保田城跡（千秋公園）とお土産調達
-
-最終日は秋田新幹線こまち号が発着する県都・秋田市へ。秋田駅から徒歩10分の場所にある**千秋公園（久保田城跡）**を散策します。
-
-### 千秋公園の雪景色（與次郎稲荷の雪鳥居 ＆ 佐竹公像）
-
-<Carousel aspectRatio="16/10">
-  <TourismPhoto
-    src={photoSenshuTorii}
-    alt="千秋公園 與次郎稲荷神社の雪の赤鳥居"
-    caption="久保田城跡（千秋公園）内に佇む與次郎稲荷神社。降り積もる白雪と鮮やかな朱塗りの鳥居が織りなす冬の絶景小道"
-    credit="Akita Prefecture"
-    creditUrl="https://akita-fun.jp/photo_gallery"
-  />
-  <TourismPhoto
-    src={photoSenshuSatake}
-    alt="千秋公園 久保田藩主・佐竹義堯公銅像の雪景色"
-    caption="秋田藩20万石の歴史を伝える佐竹公の銅像。静寂に包まれた城下町・秋田の冬の歴史散策"
-    credit="Akita Prefecture"
-    creditUrl="https://akita-fun.jp/photo_gallery"
-  />
-</Carousel>
-
-かつて秋田藩佐竹氏の城が築かれていた高台の公園で、再建された御隅櫓からは秋田市街や遠く日本海を望むことができます。雪の降り積もる赤鳥居をくぐりながら歩く朝の散策は、冬ならではの清々しさに満ちています。
-
-散策の後は、秋田駅直結の商業施設「トピコ」でお買い物。
-- **いぶりがっこ**（燻製大根の漬物。クリームチーズと相性抜群）
-- **稲庭うどん**（日本三大うどんの一つ。極上の滑らかな喉越し）
-- **秋田の地酒**（新政、雪の茅舎、高清水、山本など名酒揃い）
-などを揃え、お昼過ぎの新幹線でゆったり東京へと帰路につきます。
-
----
-
-## 【車なし旅の移動術】秋田新幹線×羽後交通バス×湯めぐり号
-
-冬の秋田旅行で最も心配なのが「雪道の運転」ですが、本モデルコースは**全行程が公共交通機関だけで完結**します。
-
-### 主要区間の乗り継ぎタイムテーブル例
-
-| 区間 | 移動手段 | 所要時間 | おすすめポイント・注意点 |
-| :--- | :--- | :--- | :--- |
-| **東京 ➔ 角館** | 秋田新幹線「こまち」 | 約3時間05分 | 全席指定。進行方向左側の車窓に広がる田沢湖線の雪景色が絶景 |
-| **角館 ➔ 田沢湖** | JR田沢湖線（普通/新幹線） | 約15〜20分 | 本数が限られるため、事前に接続時刻を確認 |
-| **田沢湖駅 ➔ 乳頭温泉郷** | 羽後交通路線バス（乳頭線） | 約50分 | 駅前バス乗り場から直行。Suica/PASMO等の交通系IC対応 |
-| **乳頭温泉郷内の移動** | 宿泊者専用「湯めぐり号」 | 約10〜15分 | 宿泊者限定の「湯めぐり帖」購入で乗り放題 |
-| **田沢湖駅 ➔ 秋田駅** | 秋田新幹線「こまち」 | 約55分 | 普通列車でも約1時間25分でアクセス可能 |
-
-> [!IMPORTANT]
-> **冬ダイヤの注意点**:
-> 12月〜3月の冬期間は、積雪により路線バスに5〜10分程度の遅延が発生する場合があります。新幹線への乗り継ぎには、**最低でも15〜20分の余裕を持ったスケジュール**を組むのが安全です。
-
----
-
-## 【持ち物・服装】冬の秋田旅行で失敗しない防寒チェックリスト
-
-12月上旬の角館・田沢湖エリアの平均気温は**0℃〜3℃前後**、夜間や乳頭温泉郷（標高約800m）では**氷点下（-3℃〜-6℃）**まで冷え込みます。
-
-- [ ] **足元**: スノーブーツまたは完全防水・防滑ソールの靴（スニーカーは雪が染みて危険）
-- [ ] **アウター**: ロング丈のダウンジャケットまたは防水・防風仕様のハードシェル
-- [ ] **インナー**: 吸湿発熱インナー（上下）＋フリースまたはセーター
-- [ ] **小物**: ニット帽（耳まで覆えるもの）、スマホ対応手袋、厚手マフラー、ネックウォーマー
-- [ ] **温泉用**: フェイスタオル（湯めぐり用）、ビニール袋（濡れたタオル入れ）、保湿クリーム（乾燥対策）
-
----
-
-## 【おすすめ宿泊】乳頭温泉郷の厳選宿と予約のコツ
-
-<TravelBookingBox
-  title="乳頭温泉郷 鶴の湯温泉 / 妙乃湯 / 蟹場温泉"
-  description="乳頭温泉郷の宿は全国屈指の人気を誇るため、冬の雪見露天風呂シーズン（12月〜2月）は2〜3ヶ月前からの予約が鉄則です。"
-  rakutenUrl="https://travel.rakuten.co.jp/search?f_cd=03&f_query=%E4%B9%B3%E9%A0%AD%E6%B8%A9%E6%B3%89%E9%83%B7"
-  jalanUrl="https://www.jalan.net/uw/uwp3000/uwp3001.do?keyword=%E4%B9%B3%E9%A0%AD%E6%B8%A9%E6%B3%89%E9%83%B7"
-/>
-
-<TransitBookingHub
-  destination="角館・田沢湖・乳頭温泉郷"
-  station="角館駅"
-  pref="akita"
-  ticketType="shinkansen"
-/>
-
-## 関連スポット詳細・記事
-
-- [角館 武家屋敷通り 完全ガイド](/akita/kakunodate-bukeyashiki/)
-- [乳頭温泉郷 鶴の湯温泉 完全ガイド](/akita/nyuto-tsurunoyu-onsen/)
-
----
+- [角館・武家屋敷通りの見どころ](/akita/kakunodate-bukeyashiki/)
+- [乳頭温泉郷・鶴の湯温泉の入浴とアクセス](/akita/nyuto-tsurunoyu-onsen/)
 
 <ConclusionBox>
-- **新幹線直通3時間**: 東京駅から乗り換えなしで角館・田沢湖へ。雪道運転ゼロで雪国を満喫
-- **同一エリアの多面的な魅力**: 角館の武家屋敷＆冬がたり、鶴の湯温泉の雪見露天、田沢湖の神秘の青とたつこ像を効率よく周遊
-- **冬の味覚を総なめ**: 炭火香る比内地鶏親子丼と、温泉宿でいただく熱々の本場きりたんぽ鍋
+- 1日目は角館を散策し、田沢湖駅から乳頭温泉郷へ。宿ごとの送迎条件を先に確認。
+- 2日目は乳頭線と田沢湖一周線を乗り継ぎ、秋田市に宿泊。バスの運休・遅延に備える。
+- 3日目は千秋公園周辺を散策。御隅櫓の冬季休館と雪道に注意して帰京。
 </ConclusionBox>
