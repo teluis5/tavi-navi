@@ -7,6 +7,7 @@ const description =
   '横浜花博（GREEN×EXPO 2027）に便利な周辺ホテルを沿線別に紹介。相鉄線・相鉄東急/埼京線直通・JR横浜線・東急田園都市線の4路線ごとに、シャトルバス発着駅とおすすめ宿泊エリア（楽天トラベル）をまとめました。';
 
 const STATIONS: Record<string, { code: string; lat: string; lon: string }> = {
+  大手町: { code: '1709', lat: '128454.47', lon: '503163.65' },
   八王子: { code: '2803', lat: '128348.16', lon: '501632.21' },
   橋本: { code: '2795', lat: '128129.83', lon: '501653.59' },
   大和: { code: '3232', lat: '127679.22', lon: '502072.85' },
@@ -64,6 +65,7 @@ const MAP_LABELS = [
 
 const DIRECT_BUS_AREAS = new Set(['新横浜', '横浜', 'みなとみらい', '関内', '桜木町', '羽田空港']);
 const MAP_AREAS = [
+  { name: '大手町', x: 1039, y: 128, access: '都営三田線・東急線・相鉄線直通（約65分）→ 瀬谷駅 → シャトルバス（約10分）', accessMinutes: 85, feature: '東京駅・丸の内周辺の宿も検討しやすいエリア。相鉄線への直通は一部列車です。', target: 'direct', hotel: 0 },
   { name: '八王子', x: 80, y: 97.25, access: 'JR横浜線（約34分）→ 十日市場駅 → シャトルバス（約25分）', accessMinutes: 70, feature: '多摩エリアからの移動や八王子周辺の宿泊に便利な拠点。', target: 'yokohama-line', hotel: 0 },
   { name: '橋本', x: 205, y: 153.5, access: 'JR横浜線（約22分）→ 十日市場駅 → シャトルバス（約25分）', accessMinutes: 60, feature: 'JR横浜線・相模線と京王相模原線が乗り入れる宿泊拠点。', target: 'yokohama-line', hotel: 0 },
   { name: '大和', x: 205, y: 500, access: '相鉄線（約2分）→ 瀬谷駅 → シャトルバス（約10分）', accessMinutes: 25, feature: '会場に近い相鉄線沿線の宿泊拠点。駅周辺でホテルを探せます。', target: 'sotetsu', hotel: 1 },
@@ -104,10 +106,16 @@ const RAILWAY_LINES = [
   },
   {
     id: 'direct',
-    name: '相鉄・東急・JR（埼京線）直通線沿線',
+    name: '相鉄・東急・JR直通線沿線',
     station: '最寄りシャトルバス発着駅：瀬谷駅・三ツ境駅（西谷乗り換え等）',
     summary: '新横浜や都心（渋谷・新宿方面）から乗り換え少なく相鉄線方面へ移動できるルートです。',
     areas: [
+      {
+        area: '東京駅・大手町エリア',
+        badge: '都心観光・三田線から相鉄へ',
+        desc: '大手町駅から都営三田線・東急目黒線を経由して相鉄線へ直通する列車があります。東京駅周辺の宿も探せます。',
+        url: 'https://hb.afl.rakuten.co.jp/hgc/59cee293.4a6c5500.59cee294.af50e2ea/?pc=https%3A%2F%2Ftravel.rakuten.co.jp%2Fyado%2Ftraffic%2Ftokyo%2F00000000000000202642.html',
+      },
       {
         area: '新横浜エリア',
         badge: '新幹線＋直通線の最強拠点',
@@ -218,7 +226,7 @@ const RAILWAY_LINES = [
             ))}
           </svg>
           {MAP_AREAS.map((area) => (
-            <button class="map-point" type="button" style={`left:${area.x / 12}%;top:${area.y / 7.4}%`} data-name={area.name} data-minutes={area.accessMinutes} data-label-side={['新宿', '渋谷', '品川', '羽田空港', 'みなとみらい'].includes(area.name) ? 'left' : 'top'} data-direct-bus={DIRECT_BUS_AREAS.has(area.name) ? 'true' : 'false'} data-access={area.access} data-feature={area.feature} data-code={STATIONS[area.name].code} data-lat={STATIONS[area.name].lat} data-lon={STATIONS[area.name].lon} data-x={area.x} data-y={area.y} aria-label={`${area.name}の宿泊エリアを紹介`} aria-pressed="false"><span class="map-marker" aria-hidden="true">H</span><span class="map-point-label" aria-hidden="true">{area.name}</span></button>
+            <button class="map-point" type="button" style={`left:${area.x / 12}%;top:${area.y / 7.4}%`} data-name={area.name} data-minutes={area.accessMinutes} data-label-side={['新宿', '渋谷', '品川', '羽田空港', 'みなとみらい', '大手町'].includes(area.name) ? 'left' : 'top'} data-direct-bus={DIRECT_BUS_AREAS.has(area.name) ? 'true' : 'false'} data-access={area.access} data-feature={area.feature} data-code={STATIONS[area.name].code} data-lat={STATIONS[area.name].lat} data-lon={STATIONS[area.name].lon} data-x={area.x} data-y={area.y} aria-label={`${area.name}の宿泊エリアを紹介`} aria-pressed="false"><span class="map-marker" aria-hidden="true">H</span><span class="map-point-label" aria-hidden="true">{area.name}</span></button>
           ))}
           </div>
           <div class="map-detail" id="map-detail" hidden aria-live="polite">

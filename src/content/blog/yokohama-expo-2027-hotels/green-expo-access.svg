@@ -18,10 +18,17 @@
     <path d="M 330 315 L 900 170" stroke="#86bba2" stroke-width="7" class="rail" />
     <!-- 相鉄本線 -->
     <path d="M 75 500 H 975" stroke="#8ca6bd" stroke-width="7" class="rail" />
-    <!-- 相鉄・東急直通：西谷・新横浜・武蔵小杉・渋谷 -->
-    <path d="M 695 500 L 765 405.5 L 800 290 L 900 170" stroke="#8ca6bd" stroke-width="7" class="rail" />
-    <!-- 相鉄・JR直通：武蔵小杉・大崎・渋谷・新宿（山手線内側） -->
-    <path d="M 695 500 L 800 290 L 960 270 H 940 Q 900 270 900 220 V 100" stroke="#8ca6bd" stroke-width="7" class="rail" />
+    <!-- 相鉄・東急東横線直通：同じ幅の淡い紺色と赤色を並べる -->
+    <path d="M 693.6 499 L 763.4 404.8 L 798.5 289.2 L 898.7 168.9" stroke="#8ca6bd" stroke-width="3.5" class="rail" />
+    <path d="M 696.4 501 L 766.6 406.2 L 801.5 290.8 L 901.3 171.1" stroke="#cba4a7" stroke-width="3.5" class="rail" />
+    <!-- 相鉄・JR埼京線直通：同じ幅の淡い紺色と緑色を並べる -->
+    <path d="M 693.4 499.2 L 798.4 289.2 L 959 268.25 H 940 Q 901.75 268.25 901.75 220 V 100" stroke="#8ca6bd" stroke-width="3.5" class="rail" />
+    <path d="M 696.6 500.8 L 801.6 290.8 L 961 271.75 H 940 Q 898.25 271.75 898.25 220 V 100" stroke="#89b7a7" stroke-width="3.5" class="rail" />
+    <!-- 相鉄・東急目黒線から三田線・南北線へ直通（大手町は三田線側） -->
+    <path d="M 798.6 288.9 L 919 268.5 L 1037.6 126.9" stroke="#8ca6bd" stroke-width="3.5" class="rail" />
+    <path d="M 801.4 291.1 L 921 271.5 L 1040.4 129.1" stroke="#8da9cf" stroke-width="3.5" class="rail" />
+    <path d="M 919 268.5 L 972 193 L 1000 143" stroke="#8ca6bd" stroke-width="3.5" class="rail" />
+    <path d="M 921 271.5 L 975 195 L 1003 145" stroke="#91bcb0" stroke-width="3.5" class="rail" />
     <!-- 京急線：品川・羽田空港・横浜 -->
     <path d="M 1080 220 L 1040 360 L 975 500 M 1040 360 L 1130 440" stroke="#b9c3c6" stroke-width="4" class="rail" />
     <!-- 東京・成田／横浜・羽田の空港バス -->
