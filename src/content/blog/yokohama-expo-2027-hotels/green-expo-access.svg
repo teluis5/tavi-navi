@@ -1,4 +1,4 @@
-<svg id="diagram" viewBox="0 0 1200 740" role="img" aria-labelledby="map-title map-desc" xmlns="http://www.w3.org/2000/svg">
+<svg id="diagram" viewBox="-40 0 1280 740" role="img" aria-labelledby="map-title map-desc" xmlns="http://www.w3.org/2000/svg">
   <title id="map-title">横浜花博とホテルエリアのアクセス路線図</title>
   <desc id="map-desc">横浜花博会場と４駅のシャトルバス、宿泊エリアとなる各駅、主要鉄道路線、新幹線と空港へのアクセスを示す模式図です。駅間距離や実際の走行経路を正確に表すものではありません。</desc>
   <style>
@@ -8,49 +8,49 @@
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#d4ac72" /></marker>
     <g id="plane" fill="#536872"><path d="M0 -12 L3 -12 L5 -3 L14 2 L14 5 L5 3 L5 10 L8 12 L8 14 L1 12 L-6 14 L-6 12 L-3 10 L-3 3 L-12 5 L-12 2 L-3 -3 Z" /></g>
   </defs>
-  <rect width="1200" height="740" fill="#fff" />
+  <rect x="-40" width="1280" height="740" fill="#fff" />
   <g id="routes">
     <!-- 山手線と周辺の主要路線 -->
-    <path d="M 940 50 H 1040 Q 1080 50 1080 100 V 220 Q 1080 270 1040 270 H 940 Q 900 270 900 220 V 100 Q 900 50 940 50 Z" stroke="#b9c3c6" stroke-width="4" class="rail" />
+    <path d="M 962.8 50 H 1074.8 Q 1119.6 50 1119.6 100 V 220 Q 1119.6 270 1074.8 270 H 962.8 Q 918 270 918 220 V 100 Q 918 50 962.8 50 Z" stroke="#b9c3c6" stroke-width="4" class="rail" />
     <!-- JR横浜線：八王子・橋本・町田・十日市場・新横浜・横浜方面 -->
-    <path d="M 80 97.25 L 1095 554" stroke="#b9ca88" stroke-width="7" class="rail" />
+    <path d="M -0.4 97.25 L 1136.4 554" stroke="#b9ca88" stroke-width="7" class="rail" />
     <!-- 田園都市線：渋谷・南町田方面 -->
-    <path d="M 210 345.526 L 900 170" stroke="#86bba2" stroke-width="7" class="rail" />
+    <path d="M 145.2 345.526 L 918 170" stroke="#86bba2" stroke-width="7" class="rail" />
     <!-- 相鉄本線 -->
-    <path d="M 75 500 H 975" stroke="#8ca6bd" stroke-width="7" class="rail" />
+    <path d="M -6 500 H 1002" stroke="#8ca6bd" stroke-width="7" class="rail" />
     <!-- 相鉄・東急東横線直通：同じ幅の淡い紺色と赤色を並べる -->
-    <path d="M 693.6 499 L 763.4 404.8 L 798.5 289.2 L 898.7 168.9" stroke="#8ca6bd" stroke-width="3.5" class="rail" />
-    <path d="M 696.4 501 L 766.6 406.2 L 801.5 290.8 L 901.3 171.1" stroke="#cba4a7" stroke-width="3.5" class="rail" />
+    <path d="M 686.832 499 L 765.008 404.8 L 804.32 289.2 L 916.544 168.9" stroke="#8ca6bd" stroke-width="3.5" class="rail" />
+    <path d="M 689.968 501 L 768.592 406.2 L 807.68 290.8 L 919.456 171.1" stroke="#cba4a7" stroke-width="3.5" class="rail" />
     <!-- 相鉄・JR埼京線直通：同じ幅の淡い紺色と緑色を並べる -->
-    <path d="M 693.4 499.2 L 798.4 289.2 L 959 268.25 H 940 Q 901.75 268.25 901.75 220 V 100" stroke="#8ca6bd" stroke-width="3.5" class="rail" />
-    <path d="M 696.6 500.8 L 801.6 290.8 L 961 271.75 H 940 Q 898.25 271.75 898.25 220 V 100" stroke="#89b7a7" stroke-width="3.5" class="rail" />
+    <path d="M 686.608 499.2 L 804.208 289.2 L 984.08 268.25 H 962.8 Q 919.96 268.25 919.96 220 V 100" stroke="#8ca6bd" stroke-width="3.5" class="rail" />
+    <path d="M 690.192 500.8 L 807.792 290.8 L 986.32 271.75 H 962.8 Q 916.04 271.75 916.04 220 V 100" stroke="#89b7a7" stroke-width="3.5" class="rail" />
     <!-- 相鉄・東急目黒線から三田線・南北線へ直通（大手町は三田線側） -->
-    <path d="M 798.6 288.9 L 919 268.5 L 1037.6 126.9" stroke="#8ca6bd" stroke-width="3.5" class="rail" />
-    <path d="M 801.4 291.1 L 921 271.5 L 1040.4 129.1" stroke="#8da9cf" stroke-width="3.5" class="rail" />
-    <path d="M 919 268.5 L 972 193 L 1000 143" stroke="#8ca6bd" stroke-width="3.5" class="rail" />
-    <path d="M 921 271.5 L 975 195 L 1003 145" stroke="#91bcb0" stroke-width="3.5" class="rail" />
+    <path d="M 804.432 288.9 L 939.28 268.5 L 1072.112 126.9" stroke="#8ca6bd" stroke-width="3.5" class="rail" />
+    <path d="M 807.568 291.1 L 941.52 271.5 L 1075.248 129.1" stroke="#8da9cf" stroke-width="3.5" class="rail" />
+    <path d="M 939.28 268.5 L 998.64 193 L 1030 143" stroke="#8ca6bd" stroke-width="3.5" class="rail" />
+    <path d="M 941.52 271.5 L 1002 195 L 1033.36 145" stroke="#91bcb0" stroke-width="3.5" class="rail" />
     <!-- 京急線：品川・羽田空港・横浜 -->
-    <path d="M 1080 220 L 1040 360 L 975 500 M 1040 360 L 1130 440" stroke="#b9c3c6" stroke-width="4" class="rail" />
+    <path d="M 1119.6 220 L 1074.8 360 L 1002 500 M 1074.8 360 L 1175.6 440" stroke="#b9c3c6" stroke-width="4" class="rail" />
     <!-- 東京・成田／横浜・羽田の空港バス -->
-    <path d="M 1080 100 L 1130 40 M 1130 440 L 1070 500 H 975" stroke="#b9c3c6" stroke-width="4" stroke-dasharray="2 8" class="rail" />
+    <path d="M 1119.6 100 L 1175.6 40 M 1175.6 440 L 1108.4 500 H 1002" stroke="#b9c3c6" stroke-width="4" stroke-dasharray="2 8" class="rail" />
     <!-- 東海道新幹線：地図記号風の複線 -->
-    <path d="M 1080 100 L 1095 160 L 1080 220 L 440 596.89" stroke="#83aac9" stroke-width="10" class="rail" />
-    <path d="M 1080 100 L 1095 160 L 1080 220 L 440 596.89" stroke="#fff" stroke-width="6" class="rail" />
-    <path d="M 1080 100 L 1095 160 L 1080 220 L 440 596.89" stroke="#83aac9" stroke-width="6" stroke-dasharray="2 12" class="rail" />
-    <path d="M 440 596.89 L 456 580.89 M 440 596.89 L 462 599.89" stroke="#83aac9" stroke-width="3" class="rail" />
+    <path d="M 1119.6 100 L 1136.4 160 L 1119.6 220 L 402.8 596.89" stroke="#83aac9" stroke-width="10" class="rail" />
+    <path d="M 1119.6 100 L 1136.4 160 L 1119.6 220 L 402.8 596.89" stroke="#fff" stroke-width="6" class="rail" />
+    <path d="M 1119.6 100 L 1136.4 160 L 1119.6 220 L 402.8 596.89" stroke="#83aac9" stroke-width="6" stroke-dasharray="2 12" class="rail" />
+    <path d="M 402.8 596.89 L 420.72 580.89 M 402.8 596.89 L 427.44 599.89" stroke="#83aac9" stroke-width="3" class="rail" />
   </g>
   <g id="shuttles" fill="none" stroke="#d4ac72" stroke-width="3.5" stroke-dasharray="3 8" stroke-linecap="round" marker-end="url(#arrow)">
-    <path d="M 330 315 L 397 372" /><path d="M 500 286.25 L 443 372" />
-    <path d="M 330 500 L 397 418" /><path d="M 500 500 L 443 418" />
+    <path d="M 279.6 315 L 354.64 372" /><path d="M 470 286.25 L 406.16 372" />
+    <path d="M 279.6 500 L 354.64 418" /><path d="M 470 500 L 406.16 418" />
   </g>
   <g id="stations">
-    <circle cx="80" cy="97.25" r="7" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="205" cy="153.5" r="7" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="330" cy="209.75" r="7" fill="#fff" stroke="#b9c3c6" stroke-width="3" />
-    <circle cx="75" cy="500" r="7" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="205" cy="500" r="7" fill="#fff" stroke="#b9c3c6" stroke-width="3" />
-    <circle cx="900" cy="100" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="900" cy="170" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="1080" cy="100" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="1080" cy="220" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" />
-    <circle cx="800" cy="290" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="765" cy="405.5" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="975" cy="500" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="1095" cy="554" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" />
-    <circle cx="330" cy="315" r="13" fill="#e8ad59" stroke="#fff" stroke-width="3" /><circle cx="500" cy="286.25" r="13" fill="#e8ad59" stroke="#fff" stroke-width="3" /><circle cx="330" cy="500" r="13" fill="#e8ad59" stroke="#fff" stroke-width="3" /><circle cx="500" cy="500" r="13" fill="#e8ad59" stroke="#fff" stroke-width="3" />
-    <circle cx="420" cy="395" r="31" fill="#2475a5" stroke="#fff" stroke-width="4" />
-    <circle cx="1130" cy="40" r="15" fill="#f3f5f5" stroke="#a3b1b5" stroke-width="2" /><use href="#plane" transform="translate(1130,40) scale(.7)" />
-    <circle cx="1130" cy="440" r="15" fill="#f3f5f5" stroke="#a3b1b5" stroke-width="2" /><use href="#plane" transform="translate(1130,440) scale(.7)" />
+    <circle cx="-0.4" cy="97.25" r="7" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="139.6" cy="153.5" r="7" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="279.6" cy="209.75" r="7" fill="#fff" stroke="#b9c3c6" stroke-width="3" />
+    <circle cx="-6" cy="500" r="7" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="139.6" cy="500" r="7" fill="#fff" stroke="#b9c3c6" stroke-width="3" />
+    <circle cx="918" cy="100" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="918" cy="170" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="1119.6" cy="100" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="1119.6" cy="220" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" />
+    <circle cx="806" cy="290" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="766.8" cy="405.5" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="1002" cy="500" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="1136.4" cy="554" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" />
+    <circle cx="279.6" cy="315" r="13" fill="#e8ad59" stroke="#fff" stroke-width="3" /><circle cx="470" cy="286.25" r="13" fill="#e8ad59" stroke="#fff" stroke-width="3" /><circle cx="279.6" cy="500" r="13" fill="#e8ad59" stroke="#fff" stroke-width="3" /><circle cx="470" cy="500" r="13" fill="#e8ad59" stroke="#fff" stroke-width="3" />
+    <circle cx="380.4" cy="395" r="31" fill="#2475a5" stroke="#fff" stroke-width="4" />
+    <circle cx="1175.6" cy="40" r="15" fill="#f3f5f5" stroke="#a3b1b5" stroke-width="2" /><use href="#plane" transform="translate(1175.6,40) scale(.7)" />
+    <circle cx="1175.6" cy="440" r="15" fill="#f3f5f5" stroke="#a3b1b5" stroke-width="2" /><use href="#plane" transform="translate(1175.6,440) scale(.7)" />
   </g>
 </svg>
