@@ -220,18 +220,13 @@ const RAILWAY_LINES = [
     </header>
 
     <section class="price-compare" aria-labelledby="hotel-search-title">
-      <h2 id="hotel-search-title">日程と駅からホテルを探す</h2>
-      <p>宿泊日を選び、駅名を押すと楽天トラベルで空室を探せます。</p>
+      <h2 id="hotel-search-title">宿泊日を選ぶ</h2>
+      <p>日程を選んでから、下の地図のHマークを押すと、楽天トラベルで空室・料金を確認できます。</p>
       <div class="price-dates">
         <label>チェックイン<input id="hotel-checkin" type="date" required /></label>
         <label>チェックアウト<input id="hotel-checkout" type="date" required /></label>
       </div>
       <p class="price-status" id="hotel-price-status" role="status">大人2名・1室で検索します。ツインなどの部屋タイプは検索先で選べます。</p>
-      <div class="station-links" aria-label="駅周辺のホテルを探す">
-        {MAP_AREAS.map((area) => (
-          <a class="station-link" href="https://travel.rakuten.co.jp/" data-station={area.name} data-code={STATIONS[area.name].code} data-lat={STATIONS[area.name].lat} data-lon={STATIONS[area.name].lon} target="_blank" rel="noopener noreferrer sponsored">{area.name === '羽田空港' ? '羽田空港第3ターミナル周辺' : area.name === '南町田' ? '南町田グランベリーパーク駅' : `${area.name}駅`}</a>
-        ))}
-      </div>
       <p class="price-note">羽田空港は第3ターミナル付近を中心に検索します。広告を含みます。空室や料金は楽天トラベルでご確認ください。</p>
     </section>
 
@@ -334,9 +329,6 @@ const RAILWAY_LINES = [
   .price-dates label { display: grid; gap: 8px; font-weight: 700; }
   .price-dates input { box-sizing: border-box; min-width: 0; width: 100%; min-height: 44px; padding: 8px; font: inherit; }
   .price-compare .price-status { margin: 12px 0 0; color: #52665c; font-size: 14px; }
-  .station-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
-  .station-link { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 14px; border: 1px solid #b8d6c2; border-radius: 8px; background: #fff; color: #14532d; font-weight: 700; text-decoration: none; }
-  .station-link:hover, .station-link:focus-visible { background: #dcfce7; }
   .price-compare .price-note { margin: 12px 0 0; color: #52665c; font-size: 12px; }
   .bus-notice { padding: 12px 16px; border-radius: 8px; background: #eef8f1; color: #174a32; font-size: 14px; }
   .map-detail .map-direct-bus { padding: 10px; border-radius: 8px; background: #dcefe2; color: #174a32; }
@@ -425,7 +417,6 @@ const RAILWAY_LINES = [
     });
   }
   const priceStatus = document.querySelector<HTMLElement>('#hotel-price-status');
-  const stationLinks = document.querySelectorAll<HTMLAnchorElement>('.station-link');
   const bookingUrl = (station: HTMLElement): string | null => {
     if (!checkin || !checkout || !checkin.value || !checkout.value || checkin.value < checkin.min || checkout.value <= checkin.value) return null;
     const { code, lat, lon } = station.dataset;
@@ -443,7 +434,6 @@ const RAILWAY_LINES = [
   };
   const updateLinks = () => {
     if (priceStatus && checkin?.value && checkout?.value && checkin.value >= checkin.min && checkout.value > checkin.value) priceStatus.textContent = '大人2名・1室で検索します。ツインなどの部屋タイプは検索先で選べます。';
-    stationLinks.forEach((station) => { station.href = bookingUrl(station) || 'https://travel.rakuten.co.jp/'; });
     const selected = document.querySelector<HTMLButtonElement>('.map-point[aria-pressed="true"]');
     const popupLink = document.querySelector<HTMLAnchorElement>('#map-area-link');
     if (selected && popupLink) popupLink.href = bookingUrl(selected) || 'https://travel.rakuten.co.jp/';
@@ -454,7 +444,6 @@ const RAILWAY_LINES = [
     if (priceStatus) priceStatus.textContent = '本日以降のチェックイン日と、それより後のチェックアウト日を選んでください。';
     checkin?.focus();
   };
-  stationLinks.forEach((station) => station.addEventListener('click', requireDates));
   document.querySelector<HTMLAnchorElement>('#map-area-link')?.addEventListener('click', requireDates);
   checkin?.addEventListener('change', updateLinks);
   checkout?.addEventListener('change', updateLinks);
