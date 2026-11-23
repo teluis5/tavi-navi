@@ -74,8 +74,9 @@ const MAP_LABELS = [
 ];
 
 const EXTRA_YOKOHAMA = new Set(['南町田', '二俣川', '川崎', '蒲田']);
-const EXTRA_TOKYO = new Set(['五反田', '大崎', '目黒', '大井町', '新橋', '汐留']);
-const mapGroup = (name: string) => EXTRA_YOKOHAMA.has(name) ? 'yokohama' : EXTRA_TOKYO.has(name) ? 'tokyo' : 'main';
+const EXTRA_TOKYO_WEST = new Set(['大崎', '目黒', '新橋']);
+const EXTRA_TOKYO_EAST = new Set(['五反田', '大井町', '汐留']);
+const mapGroup = (name: string) => EXTRA_YOKOHAMA.has(name) ? 'yokohama' : EXTRA_TOKYO_WEST.has(name) ? 'tokyo-west' : EXTRA_TOKYO_EAST.has(name) ? 'tokyo-east' : 'main';
 const DIRECT_BUS_AREAS = new Set(['新横浜', '横浜', 'みなとみらい', '関内', '桜木町', '羽田空港']);
 const MAP_AREAS = [
   { name: '南町田', x: 279.6, y: 315, access: '南町田グランベリーパーク駅 → シャトルバス（約20分）', accessMinutes: 30, feature: 'シャトルバス発着駅に近く、朝の移動を抑えたい人に。駅周辺の宿は限られます。', target: 'denentoshi', hotel: 0 },
@@ -242,7 +243,8 @@ const RAILWAY_LINES = [
       <div class="map-groups" role="group" aria-label="地図に表示する宿泊エリア">
         <button type="button" class="map-group" data-map-group="main" aria-pressed="true">主なエリア</button>
         <button type="button" class="map-group" data-map-group="yokohama" aria-pressed="false">追加エリア：横浜方面</button>
-        <button type="button" class="map-group" data-map-group="tokyo" aria-pressed="false">追加エリア：東京方面</button>
+        <button type="button" class="map-group" data-map-group="tokyo-west" aria-pressed="false">追加：目黒・大崎・新橋</button>
+        <button type="button" class="map-group" data-map-group="tokyo-east" aria-pressed="false">追加：五反田・大井町・汐留</button>
       </div>
       <div class="map-layout">
         <div class="map-image">
@@ -362,6 +364,7 @@ const RAILWAY_LINES = [
   .map-point .map-marker { display: flex; align-items: center; justify-content: center; box-sizing: border-box; width: 24px; height: 24px; margin: auto; border: 2px solid #fff; border-radius: 50%; background: #075e47; box-shadow: 0 0 0 1px #075e47; color: #fff; font-size: 13px; font-weight: 700; line-height: 1; }
   .map-point:hover .map-marker, .map-point[aria-pressed="true"] .map-marker { background: #123c30; box-shadow: 0 0 0 3px #a9d6ba; }
   .map-point-label { position: absolute; left: 50%; bottom: calc(50% + 16px); transform: translateX(-50%); color: #213841; font-size: clamp(12px, 1.9vw, 20px); font-weight: 700; line-height: 1.2; white-space: nowrap; pointer-events: none; }
+  .map-point[data-name="五反田"] .map-point-label { bottom: auto; top: calc(50% + 16px); }
   .map-point[data-label-side="right"] .map-point-label { left: calc(50% + 16px); bottom: auto; top: 50%; transform: translateY(-50%); }
   .map-point[data-label-side="left"] .map-point-label { left: auto; right: calc(50% + 16px); bottom: auto; top: 50%; transform: translateY(-50%); }
   .map-point:focus-visible { outline: 3px solid #14532d; outline-offset: 2px; }
