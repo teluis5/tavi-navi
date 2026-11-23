@@ -374,7 +374,8 @@ const RAILWAY_LINES = [
   .map-instruction { color: #52665c; font-size: 14px; }
   @media (max-width: 800px) { .map-detail { position: relative; left: auto; top: auto; width: 100%; margin-top: 12px; } .map-detail[data-side][data-vertical] { transform: none; } .map-point { width: 36px; height: 36px; } .map-point .map-marker { width: 22px; height: 22px; font-size: 12px; } }
   @media (max-width: 600px) {
-    .map-svg :global(svg) { height: clamp(340px, 100vw, 440px); }
+    .map-svg :global(svg) { height: clamp(260px, 72vw, 330px); }
+    .map-point { width: 26px; height: 26px; }
     .map-point[data-name="桜木町"] .map-point-label { left: 50%; bottom: calc(50% + 16px); top: auto; transform: translateX(-50%); }
     .map-point[data-name="みなとみらい"] .map-point-label { left: auto; right: calc(50% + 30px); top: calc(50% - 15px); bottom: auto; transform: none; }
     .map-point[data-name="関内"] .map-point-label { left: 50%; top: calc(50% + 16px); bottom: auto; transform: translateX(-50%); }
@@ -576,7 +577,9 @@ const RAILWAY_LINES = [
       const cx = (m.left + m.right) / 2, cy = (m.top + m.bottom) / 2;
       const candidates: {x:number;y:number;score:number}[] = [];
       for (const gap of [4, 12, 20, 28, 36]) {
-        for (const [x,y] of [[cx-r.width/2,m.top-gap-r.height],[cx-r.width/2,m.bottom+gap],[m.left-gap-r.width,cy-r.height/2],[m.right+gap,cy-r.height/2]]) {
+        for (const [rawX,rawY] of [[cx-r.width/2,m.top-gap-r.height],[cx-r.width/2,m.bottom+gap],[m.left-gap-r.width,cy-r.height/2],[m.right+gap,cy-r.height/2]]) {
+          const x = Math.min(Math.max(rawX, bounds.left), bounds.right-r.width);
+          const y = Math.min(Math.max(rawY, bounds.top), bounds.bottom-r.height);
           const box = {left:x,top:y,right:x+r.width,bottom:y+r.height};
           const outside = Math.max(0,bounds.left-x)+Math.max(0,x+r.width-bounds.right)+Math.max(0,bounds.top-y)+Math.max(0,y+r.height-bounds.bottom);
           candidates.push({x,y,score:outside*1000+obstacles.reduce((sum, obstacle)=>sum+overlap(box,obstacle)*100,0)+gap});
