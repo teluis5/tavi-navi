@@ -68,7 +68,7 @@ const MAP_AREAS = [
   { name: '橋本', x: 205, y: 153.5, access: 'JR横浜線（約22分）→ 十日市場駅 → シャトルバス（約25分）', accessMinutes: 60, feature: 'JR横浜線・相模線と京王相模原線が乗り入れる宿泊拠点。', target: 'yokohama-line', hotel: 0 },
   { name: '大和', x: 205, y: 500, access: '相鉄線（約2分）→ 瀬谷駅 → シャトルバス（約10分）', accessMinutes: 25, feature: '会場に近い相鉄線沿線の宿泊拠点。駅周辺でホテルを探せます。', target: 'sotetsu', hotel: 1 },
   { name: '桜木町', x: 1095, y: 554, access: 'JR横浜線直通（約28分）→ 十日市場駅 → シャトルバス（約25分）', accessMinutes: 65, feature: 'みなとみらい観光と花博を組み合わせやすいエリア。', target: 'yokohama-line', hotel: 2 },
-  { name: 'みなとみらい', x: 870, y: 610, access: '横浜都心臨海部から会場への直行バスを運行予定。乗り場は調整中です。', accessMinutes: 0, feature: 'みなとみらい観光と花博を組み合わせたい人に。', target: 'yokohama-line', hotel: 2 },
+  { name: 'みなとみらい', x: 1150, y: 590, access: '横浜都心臨海部から会場への直行バスを運行予定。乗り場は調整中です。', accessMinutes: 0, feature: 'みなとみらい観光と花博を組み合わせたい人に。', target: 'yokohama-line', hotel: 2 },
   { name: '関内', x: 1050, y: 650, access: '横浜都心臨海部から会場への直行バスを運行予定。乗り場は調整中です。', accessMinutes: 0, feature: '関内や横浜中華街周辺の観光を楽しみたい人に。', target: 'yokohama-line', hotel: 2 },
   { name: '羽田空港', x: 1130, y: 380, access: '羽田空港から会場への直行バスを運行予定。発着ターミナルは調整中です。', accessMinutes: 0, feature: '飛行機で到着する日や出発する日の前泊に便利な空港周辺。', target: 'direct', hotel: 0 },
   { name: '新宿', x: 900, y: 100, access: '相鉄・JR直通線（約50分）→ 瀬谷駅 → シャトルバス（約10分）', accessMinutes: 70, feature: '都内観光も楽しみたい人に便利な宿泊拠点。', target: 'direct', hotel: 0 },
@@ -218,7 +218,7 @@ const RAILWAY_LINES = [
             ))}
           </svg>
           {MAP_AREAS.map((area) => (
-            <button class="map-point" type="button" style={`left:${area.x / 12}%;top:${area.y / 7.4}%`} data-name={area.name} data-minutes={area.accessMinutes} data-label-side={['新宿', '渋谷', '品川', '羽田空港'].includes(area.name) ? 'left' : 'top'} data-direct-bus={DIRECT_BUS_AREAS.has(area.name) ? 'true' : 'false'} data-access={area.access} data-feature={area.feature} data-code={STATIONS[area.name].code} data-lat={STATIONS[area.name].lat} data-lon={STATIONS[area.name].lon} data-x={area.x} data-y={area.y} aria-label={`${area.name}の宿泊エリアを紹介`} aria-pressed="false"><span class="map-marker" aria-hidden="true">H</span><span class="map-point-label" aria-hidden="true">{area.name}</span></button>
+            <button class="map-point" type="button" style={`left:${area.x / 12}%;top:${area.y / 7.4}%`} data-name={area.name} data-minutes={area.accessMinutes} data-label-side={['新宿', '渋谷', '品川', '羽田空港', 'みなとみらい'].includes(area.name) ? 'left' : 'top'} data-direct-bus={DIRECT_BUS_AREAS.has(area.name) ? 'true' : 'false'} data-access={area.access} data-feature={area.feature} data-code={STATIONS[area.name].code} data-lat={STATIONS[area.name].lat} data-lon={STATIONS[area.name].lon} data-x={area.x} data-y={area.y} aria-label={`${area.name}の宿泊エリアを紹介`} aria-pressed="false"><span class="map-marker" aria-hidden="true">H</span><span class="map-point-label" aria-hidden="true">{area.name}</span></button>
           ))}
           </div>
           <div class="map-detail" id="map-detail" hidden aria-live="polite">
@@ -236,7 +236,6 @@ const RAILWAY_LINES = [
             <h3 id="map-area-name"></h3>
             <p><strong>会場へのアクセス <span id="map-area-minutes"></span></strong><br /><span id="map-area-access"></span></p>
             <p id="map-direct-bus" class="map-direct-bus" hidden></p>
-            <p class="map-time-note">表示した合計には乗り換えごとに10分を含みます。列車や道路の状況により変わります。シャトルバスは事前予約制です。</p>
             <p><strong>エリアの特徴</strong><br /><span id="map-area-feature"></span></p>
             <a id="map-area-link" href="https://travel.rakuten.co.jp/" target="_blank" rel="noopener noreferrer sponsored">楽天トラベルでホテルを探す ↗</a>
           </div>
@@ -328,7 +327,6 @@ const RAILWAY_LINES = [
   .map-illustration { display: block; width: 100%; height: 64px; margin: 0 0 12px; }
   .map-detail h3 { margin: 0 0 8px; font-size: 18px; }
   .map-detail p { margin: 0 0 12px; font-size: 14px; }
-  .map-detail .map-time-note { color: #52665c; font-size: 12px; }
   .map-detail a { display: block; padding: 12px; background: #166534; border-radius: 8px; color: #fff; font-size: 14px; font-weight: 700; text-align: center; text-decoration: none; }
   .map-instruction { color: #52665c; font-size: 14px; }
   @media (max-width: 800px) { .map-detail { position: relative; left: auto; top: auto; width: 100%; margin-top: 12px; } .map-detail[data-side][data-vertical] { transform: none; } .map-point { width: 36px; height: 36px; } .map-point .map-marker { width: 22px; height: 22px; font-size: 12px; } }
