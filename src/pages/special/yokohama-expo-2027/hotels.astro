@@ -577,7 +577,7 @@ const RAILWAY_LINES = [
       const cx = (m.left + m.right) / 2, cy = (m.top + m.bottom) / 2;
       const candidates: {x:number;y:number;score:number}[] = [];
       for (const gap of [4, 12, 20, 28, 36]) {
-        for (const [rawX,rawY] of [[cx-r.width/2,m.top-gap-r.height],[cx-r.width/2,m.bottom+gap],[m.left-gap-r.width,cy-r.height/2],[m.right+gap,cy-r.height/2]]) {
+        for (const [rawX,rawY] of [[cx-r.width/2,m.top-gap-r.height],[cx-r.width/2,m.bottom+gap],[m.left-gap-r.width,cy-r.height/2],[m.right+gap,cy-r.height/2],[m.left-gap-r.width,m.top-gap-r.height],[m.right+gap,m.top-gap-r.height],[m.left-gap-r.width,m.bottom+gap],[m.right+gap,m.bottom+gap]]) {
           const x = Math.min(Math.max(rawX, bounds.left), bounds.right-r.width);
           const y = Math.min(Math.max(rawY, bounds.top), bounds.bottom-r.height);
           const box = {left:x,top:y,right:x+r.width,bottom:y+r.height};
