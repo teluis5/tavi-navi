@@ -15,7 +15,7 @@
     <!-- JR横浜線：八王子・橋本・町田・十日市場・新横浜・横浜方面 -->
     <path d="M 80 97.25 L 1095 554" stroke="#b9ca88" stroke-width="7" class="rail" />
     <!-- 田園都市線：渋谷・南町田方面 -->
-    <path d="M 330 315 L 900 170" stroke="#86bba2" stroke-width="7" class="rail" />
+    <path d="M 210 345.526 L 900 170" stroke="#86bba2" stroke-width="7" class="rail" />
     <!-- 相鉄本線 -->
     <path d="M 75 500 H 975" stroke="#8ca6bd" stroke-width="7" class="rail" />
     <!-- 相鉄・東急東横線直通：同じ幅の淡い紺色と赤色を並べる -->
