@@ -6,15 +6,20 @@ const title = '横浜花博（GREEN×EXPO 2027）沿線別ホテル・前泊拠�
 const description =
   '横浜花博（GREEN×EXPO 2027）に便利な周辺ホテルを沿線別に紹介。相鉄線・相鉄東急/埼京線直通・JR横浜線・東急田園都市線の4路線ごとに、シャトルバス発着駅とおすすめ宿泊エリア（楽天トラベル）をまとめました。';
 
-const STATION_URLS: Record<string, string> = {
-  大和: 'https://travel.rakuten.co.jp/yado/traffic/kanagawa/00000000000000227143.html',
-  橋本: 'https://hotel.travel.rakuten.co.jp/hotellist/list/00000000000000229106.html?f_target_key=station',
-  八王子: 'https://hotel.travel.rakuten.co.jp/hotellist/list/00000000000000202854.html?f_target_key=station',
-  桜木町: 'https://travel.rakuten.co.jp/yado/traffic/kanagawa/00000000000000229313.html',
-  新宿: 'https://travel.rakuten.co.jp/yado/traffic/tokyo/00000000000000202276.html',
-  品川: 'https://travel.rakuten.co.jp/yado/traffic/tokyo/00000000000000201974.html',
+const STATIONS: Record<string, { code: string; lat: string; lon: string }> = {
+  八王子: { code: '2803', lat: '128348.16', lon: '501632.21' },
+  橋本: { code: '2795', lat: '128129.83', lon: '501653.59' },
+  大和: { code: '3232', lat: '127679.22', lon: '502072.85' },
+  桜木町: { code: '2186', lat: '127606.47', lon: '502682.63' },
+  新宿: { code: '2334', lat: '128473.30', lon: '502932.59' },
+  品川: { code: '2236', lat: '128250.75', lon: '503070.84' },
+  横浜: { code: '3260', lat: '127666.41', lon: '502652.78' },
+  新横浜: { code: '2370', lat: '127815.16', lon: '502635.07' },
+  町田: { code: '3034', lat: '127939.91', lon: '502014.89' },
+  渋谷: { code: '2248', lat: '128356.88', lon: '502939.51' },
+  海老名: { code: '1674', lat: '127618.22', lon: '501819.96' },
+  武蔵小杉: { code: '3146', lat: '128061.07', lon: '502786.20' },
 };
-const affiliateUrl = (url: string) => `https://hb.afl.rakuten.co.jp/hgc/59cee293.4a6c5500.59cee294.af50e2ea/?pc=${encodeURIComponent(url)}`;
 
 const MAP_LABELS = [
   {
@@ -182,17 +187,20 @@ const RAILWAY_LINES = [
       </p>
     </header>
 
-    <section class="price-compare" aria-labelledby="price-compare-title">
-      <h2 id="price-compare-title">宿泊エリアの料金を比較</h2>
-      <p>大人2名・1室・ツインを基準に比較します。</p>
+    <section class="price-compare" aria-labelledby="hotel-search-title">
+      <h2 id="hotel-search-title">日程と駅からホテルを探す</h2>
+      <p>宿泊日を選び、駅名を押すと楽天トラベルで空室を探せます。</p>
       <div class="price-dates">
-        <label>チェックイン<input id="hotel-checkin" type="date" /></label>
-        <label>チェックアウト<input id="hotel-checkout" type="date" /></label>
+        <label>チェックイン<input id="hotel-checkin" type="date" required /></label>
+        <label>チェックアウト<input id="hotel-checkout" type="date" required /></label>
       </div>
-      <button type="button" id="hotel-price-search" class="price-search" disabled>料金比較は準備中</button>
-      <p class="price-status" id="hotel-price-status" role="status">料金検索は準備中です。現在は各エリアの予約リンクから空室をご確認ください。</p>
-      <ul id="hotel-price-results" class="price-results" aria-label="駅周辺の宿泊料金"></ul>
-      <p class="price-note">楽天トラベル提供。大人2名・1室の1泊料金です。取得したプランから部屋名に「ツイン」を含むものを表示します。検索範囲・取得件数の上限により、対象の宿がすべて含まれるとは限りません。料金・空室は変動します。広告を含みます。</p>
+      <p class="price-status" id="hotel-price-status" role="status">大人2名・1室で検索します。ツインなどの部屋タイプは検索先で選べます。</p>
+      <div class="station-links" aria-label="駅周辺のホテルを探す">
+        {MAP_AREAS.map((area) => (
+          <a class="station-link" href="https://travel.rakuten.co.jp/" data-station={area.name} data-code={STATIONS[area.name].code} data-lat={STATIONS[area.name].lat} data-lon={STATIONS[area.name].lon} target="_blank" rel="noopener noreferrer sponsored">{area.name}駅</a>
+        ))}
+      </div>
+      <p class="price-note">広告を含みます。空室や料金は楽天トラベルでご確認ください。</p>
     </section>
 
     <section class="map-section" aria-labelledby="access-map-title">
@@ -209,7 +217,7 @@ const RAILWAY_LINES = [
             ))}
           </svg>
           {MAP_AREAS.map((area) => (
-            <button class="map-point" type="button" style={`left:${area.x / 12}%;top:${area.y / 7.4}%`} data-name={area.name} data-minutes={area.accessMinutes} data-label-side={['新宿', '渋谷', '品川'].includes(area.name) ? 'left' : 'top'} data-access={area.access} data-feature={area.feature} data-url={STATION_URLS[area.name] ? affiliateUrl(STATION_URLS[area.name]) : RAILWAY_LINES.find((line) => line.id === area.target)?.areas[area.hotel].url} data-x={area.x} data-y={area.y} aria-label={`${area.name}の宿泊エリアを紹介`} aria-pressed="false"><span class="map-marker" aria-hidden="true">H</span><span class="map-point-label" aria-hidden="true">{area.name}</span></button>
+            <button class="map-point" type="button" style={`left:${area.x / 12}%;top:${area.y / 7.4}%`} data-name={area.name} data-minutes={area.accessMinutes} data-label-side={['新宿', '渋谷', '品川'].includes(area.name) ? 'left' : 'top'} data-access={area.access} data-feature={area.feature} data-code={STATIONS[area.name].code} data-lat={STATIONS[area.name].lat} data-lon={STATIONS[area.name].lon} data-x={area.x} data-y={area.y} aria-label={`${area.name}の宿泊エリアを紹介`} aria-pressed="false"><span class="map-marker" aria-hidden="true">H</span><span class="map-point-label" aria-hidden="true">{area.name}</span></button>
           ))}
           </div>
           <div class="map-detail" id="map-detail" hidden aria-live="polite">
@@ -284,12 +292,9 @@ const RAILWAY_LINES = [
   .price-dates label { display: grid; gap: 8px; font-weight: 700; }
   .price-dates input { box-sizing: border-box; min-width: 0; width: 100%; min-height: 44px; padding: 8px; font: inherit; }
   .price-compare .price-status { margin: 12px 0 0; color: #52665c; font-size: 14px; }
-  .price-search { margin-top: 16px; padding: 12px 20px; border: 0; border-radius: 8px; color: #fff; background: #166534; font: inherit; font-weight: 700; cursor: pointer; }
-  .price-search:disabled { opacity: .65; cursor: wait; }
-  .price-results { list-style: none; margin: 16px 0 0; padding: 0; }
-  .price-results li { padding: 12px 0; border-top: 1px solid #d7e6d9; }
-  .price-results strong { display: block; }
-  .price-results a { color: #166534; }
+  .station-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .station-link { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 14px; border: 1px solid #b8d6c2; border-radius: 8px; background: #fff; color: #14532d; font-weight: 700; text-decoration: none; }
+  .station-link:hover, .station-link:focus-visible { background: #dcfce7; }
   .price-compare .price-note { margin: 12px 0 0; color: #52665c; font-size: 12px; }
   .map-section { padding-top: 32px; }
   .map-section h2 { margin: 0 0 12px; font-size: 22px; line-height: 1.3; }
@@ -367,64 +372,41 @@ const RAILWAY_LINES = [
       if (!checkout.value || checkout.value < next) checkout.value = next;
     });
   }
-  const priceEndpoint = 'https://script.google.com/macros/s/AKfycbwZN-O-U1DWsLoVH3W-Pta5VRZoS-VYPHd5FbyKC0DH_pnJu2d2Jg24qmeBqjI68fzN/exec';
-  const priceStations = [['hachioji','八王子'],['hashimoto','橋本'],['yamato','大和'],['sakuragicho','桜木町'],['shinjuku','新宿'],['shinagawa','品川'],['yokohama','横浜'],['shinyokohama','新横浜'],['machida','町田'],['shibuya','渋谷'],['ebina','海老名'],['musashikosugi','武蔵小杉']];
-  const searchButton = document.querySelector<HTMLButtonElement>('#hotel-price-search');
   const priceStatus = document.querySelector<HTMLElement>('#hotel-price-status');
-  const priceResults = document.querySelector<HTMLElement>('#hotel-price-results');
-  type PriceResult = { status: string; complete?: boolean; quote?: { price: number; hotel: string; room: string; url: string } };
-  const requestPrice = (station: string, start: string, end: string): Promise<PriceResult> => new Promise((resolve, reject) => {
-    const callback = `hotelPriceCallback_${Date.now()}_${Math.random().toString(36).slice(2)}`;
-    const callbacks = window as unknown as Record<string, unknown>;
-    const script = document.createElement('script');
-    const cleanup = () => { clearTimeout(timer); script.remove(); delete callbacks[callback]; };
-    const timer = window.setTimeout(() => { cleanup(); reject(new Error('timeout')); }, 45000);
-    callbacks[callback] = (data: PriceResult) => { cleanup(); resolve(data); };
-    script.onerror = () => { cleanup(); reject(new Error('network')); };
-    const url = new URL(priceEndpoint);
-    url.search = new URLSearchParams({ station, checkin: start, checkout: end, callback }).toString();
-    script.src = url.toString();
-    document.head.appendChild(script);
-  });
-  searchButton?.addEventListener('click', async () => {
-    if (!checkin || !checkout || !priceStatus || !priceResults) return;
-    const start = checkin.value, end = checkout.value;
-    const startTime = Date.parse(`${start}T00:00:00Z`), endTime = Date.parse(`${end}T00:00:00Z`);
-    if (!start || !end || !Number.isFinite(startTime) || endTime - startTime !== 86400000 || start < checkin.min) {
-      priceStatus.textContent = '本日以降の日付で、1泊の日程を選んでください。'; return;
-    }
-    searchButton.disabled = true;
-    priceResults.replaceChildren();
-    let failures = 0;
-    try {
-      for (const [id, label] of priceStations) {
-        priceStatus.textContent = `${label}駅周辺を検索中（${priceResults.children.length + 1}/${priceStations.length}）`;
-        const row = document.createElement('li');
-        const title = document.createElement('strong'); title.textContent = `${label}駅周辺`;
-        row.appendChild(title); priceResults.appendChild(row);
-        try {
-          const result = await requestPrice(id, start, end);
-          if (result.status === 'ok' && result.quote && Number.isFinite(result.quote.price)) {
-            const amount = document.createElement('span'); amount.textContent = `取得プラン中 ${result.quote.price.toLocaleString('ja-JP')}円〜（2名1室）`;
-            row.appendChild(amount);
-            const hotel = document.createElement('div'); hotel.textContent = `${result.quote.hotel}・${result.quote.room}`; row.appendChild(hotel);
-            const link = document.createElement('a');
-            const destination = new URL(result.quote.url);
-            if (destination.protocol === 'https:' && (destination.hostname === 'rakuten.co.jp' || destination.hostname.endsWith('.rakuten.co.jp'))) {
-              link.href = destination.href; link.target = '_blank'; link.rel = 'noopener noreferrer sponsored'; link.textContent = 'プランを確認 ↗'; row.appendChild(link);
-            }
-            if (!result.complete) { const note = document.createElement('small'); note.textContent = '（一部のプランを確認）'; row.appendChild(note); }
-          } else if (result.status === 'not_found') {
-            const note = document.createElement('span'); note.textContent = result.complete ? '対象プランが見つかりませんでした' : '確認した範囲では見つかりませんでした'; row.appendChild(note);
-          } else { throw new Error('unavailable'); }
-        } catch {
-          failures++;
-          const note = document.createElement('span'); note.textContent = '料金を取得できませんでした'; row.appendChild(note);
-        }
-      }
-      priceStatus.textContent = failures ? `検索を終了しました。${failures}エリアは取得できませんでした。` : '検索を終了しました。料金は取得時点の目安です。';
-    } finally { searchButton.disabled = false; }
-  });
+  const stationLinks = document.querySelectorAll<HTMLAnchorElement>('.station-link');
+  const bookingUrl = (station: HTMLElement): string | null => {
+    if (!checkin || !checkout || !checkin.value || !checkout.value || checkin.value < checkin.min || checkout.value <= checkin.value) return null;
+    const { code, lat, lon } = station.dataset;
+    if (!code || !lat || !lon) return null;
+    const [yearIn, monthIn, dayIn] = checkin.value.split('-');
+    const [yearOut, monthOut, dayOut] = checkout.value.split('-');
+    const params = new URLSearchParams({
+      f_eki: code, f_key: `${code}%2C${lat.replace('.', '')}%2C${lon.replace('.', '')}`,
+      f_teikei: 'ensen', f_nen1: yearIn, f_tuki1: monthIn, f_hi1: dayIn,
+      f_nen2: yearOut, f_tuki2: monthOut, f_hi2: dayOut,
+      f_otona_su: '2', f_heya_su: '1', f_km: '1.0',
+    });
+    const target = `https://search.travel.rakuten.co.jp/ds/station/ensen?${params}`;
+    return `https://hb.afl.rakuten.co.jp/hgc/59cee293.4a6c5500.59cee294.af50e2ea/?pc=${encodeURIComponent(target)}`;
+  };
+  const updateLinks = () => {
+    if (priceStatus && checkin?.value && checkout?.value && checkin.value >= checkin.min && checkout.value > checkin.value) priceStatus.textContent = '大人2名・1室で検索します。ツインなどの部屋タイプは検索先で選べます。';
+    stationLinks.forEach((station) => { station.href = bookingUrl(station) || 'https://travel.rakuten.co.jp/'; });
+    const selected = document.querySelector<HTMLButtonElement>('.map-point[aria-pressed="true"]');
+    const popupLink = document.querySelector<HTMLAnchorElement>('#map-area-link');
+    if (selected && popupLink) popupLink.href = bookingUrl(selected) || 'https://travel.rakuten.co.jp/';
+  };
+  const requireDates = (event: MouseEvent) => {
+    if (checkin?.value && checkout?.value && checkin.value >= checkin.min && checkout.value > checkin.value) return;
+    event.preventDefault();
+    if (priceStatus) priceStatus.textContent = '本日以降のチェックイン日と、それより後のチェックアウト日を選んでください。';
+    checkin?.focus();
+  };
+  stationLinks.forEach((station) => station.addEventListener('click', requireDates));
+  document.querySelector<HTMLAnchorElement>('#map-area-link')?.addEventListener('click', requireDates);
+  checkin?.addEventListener('change', updateLinks);
+  checkout?.addEventListener('change', updateLinks);
+  updateLinks();
   const name = document.querySelector<HTMLElement>('#map-area-name');
   const access = document.querySelector<HTMLElement>('#map-area-access');
   const minutes = document.querySelector<HTMLElement>('#map-area-minutes');
@@ -433,12 +415,12 @@ const RAILWAY_LINES = [
   const card = document.querySelector<HTMLElement>('#map-detail');
   const points = document.querySelectorAll<HTMLButtonElement>('.map-point');
   function selectArea(point: HTMLButtonElement) {
-    if (!name || !access || !feature || !link || !card || !point.dataset.url) return;
+    if (!name || !access || !feature || !link || !card) return;
     name.textContent = `${point.dataset.name}エリア`;
     access.textContent = point.dataset.access || '';
     if (minutes) minutes.textContent = `約${point.dataset.minutes}分`;
     feature.textContent = point.dataset.feature || '';
-    link.href = point.dataset.url;
+    link.href = bookingUrl(point) || 'https://travel.rakuten.co.jp/';
     const x = Number(point.dataset.x);
     const y = Number(point.dataset.y);
     card.style.setProperty('--popup-x', `${x / 12}%`);
