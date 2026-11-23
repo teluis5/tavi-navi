@@ -77,6 +77,7 @@ const EXTRA_YOKOHAMA = new Set(['南町田', '二俣川', '川崎', '蒲田']);
 const EXTRA_TOKYO_WEST = new Set(['大崎', '目黒', '新橋']);
 const EXTRA_TOKYO_EAST = new Set(['五反田', '大井町', '汐留']);
 const mapGroup = (name: string) => EXTRA_YOKOHAMA.has(name) ? 'yokohama' : EXTRA_TOKYO_WEST.has(name) ? 'tokyo-west' : EXTRA_TOKYO_EAST.has(name) ? 'tokyo-east' : 'main';
+const mobileMapGroup = (name: string) => ['八王子', '橋本', '町田', '大和', '海老名'].includes(name) ? 'main-west' : ['新横浜', '横浜', '武蔵小杉', '羽田空港'].includes(name) ? 'main-yokohama' : ['桜木町', 'みなとみらい', '関内'].includes(name) ? 'main-bay' : 'main-tokyo';
 const DIRECT_BUS_AREAS = new Set(['新横浜', '横浜', 'みなとみらい', '関内', '桜木町', '羽田空港']);
 const MAP_AREAS = [
   { name: '南町田', x: 279.6, y: 315, access: '南町田グランベリーパーク駅 → シャトルバス（約20分）', accessMinutes: 30, feature: 'シャトルバス発着駅に近く、朝の移動を抑えたい人に。駅周辺の宿は限られます。', target: 'denentoshi', hotel: 0 },
@@ -236,7 +237,11 @@ const RAILWAY_LINES = [
       <p class="bus-notice">新横浜駅・横浜駅・みなとみらい／関内地区・羽田空港から会場への直行バスが運行予定です。乗り場、時刻、運賃、予約方法などは調整中です。</p>
       <p class="map-instruction">Hマークにマウスを合わせるか、タップすると宿泊エリアの紹介を見られます。</p>
       <div class="map-groups" role="group" aria-label="地図に表示する宿泊エリア">
-        <button type="button" class="map-group" data-map-group="main" aria-pressed="true">主なエリア</button>
+        <button type="button" class="map-group map-group-desktop" data-map-group="main" aria-pressed="true">主なエリア</button>
+        <button type="button" class="map-group map-group-mobile" data-map-group="main-west" aria-pressed="false">町田・大和方面</button>
+        <button type="button" class="map-group map-group-mobile" data-map-group="main-yokohama" aria-pressed="false">横浜・新横浜方面</button>
+        <button type="button" class="map-group map-group-mobile" data-map-group="main-bay" aria-pressed="false">みなとみらい方面</button>
+        <button type="button" class="map-group map-group-mobile" data-map-group="main-tokyo" aria-pressed="false">東京方面</button>
         <button type="button" class="map-group" data-map-group="yokohama" aria-pressed="false">追加エリア：横浜方面</button>
         <button type="button" class="map-group" data-map-group="tokyo-west" aria-pressed="false">追加：目黒・大崎・新橋</button>
         <button type="button" class="map-group" data-map-group="tokyo-east" aria-pressed="false">追加：五反田・大井町・汐留</button>
@@ -254,7 +259,7 @@ const RAILWAY_LINES = [
             ))}
           </svg>
           {MAP_AREAS.map((area) => (
-            <button class="map-point" type="button" style={`left:${(area.x + 40) / 12.8}%;top:${area.y / 7.4}%`} data-name={area.name} data-map-group={mapGroup(area.name)} hidden={mapGroup(area.name) !== 'main'} data-minutes={area.accessMinutes} data-label-side={['八王子', '海老名'].includes(area.name) ? 'right' : ['新宿', '渋谷', '品川', '羽田空港', 'みなとみらい', '大手町'].includes(area.name) ? 'left' : 'top'} data-direct-bus={DIRECT_BUS_AREAS.has(area.name) ? 'true' : 'false'} data-access={area.access} data-feature={area.feature} data-code={STATIONS[area.name].code} data-lat={STATIONS[area.name].lat} data-lon={STATIONS[area.name].lon} data-x={area.x} data-y={area.y} aria-label={`${area.name}の宿泊エリアを紹介`} aria-pressed="false"><span class="map-marker" aria-hidden="true">H</span><span class="map-point-label" aria-hidden="true">{area.name}</span></button>
+            <button class="map-point" type="button" style={`left:${(area.x + 40) / 12.8}%;top:${area.y / 7.4}%`} data-name={area.name} data-map-group={mapGroup(area.name)} data-mobile-group={mobileMapGroup(area.name)} hidden={mapGroup(area.name) !== 'main'} data-minutes={area.accessMinutes} data-label-side={['八王子', '海老名'].includes(area.name) ? 'right' : ['新宿', '渋谷', '品川', '羽田空港', 'みなとみらい', '大手町'].includes(area.name) ? 'left' : 'top'} data-direct-bus={DIRECT_BUS_AREAS.has(area.name) ? 'true' : 'false'} data-access={area.access} data-feature={area.feature} data-code={STATIONS[area.name].code} data-lat={STATIONS[area.name].lat} data-lon={STATIONS[area.name].lon} data-x={area.x} data-y={area.y} aria-label={`${area.name}の宿泊エリアを紹介`} aria-pressed="false"><span class="map-marker" aria-hidden="true">H</span><span class="map-point-label" aria-hidden="true">{area.name}</span></button>
           ))}
           </div>
           <div class="map-detail" id="map-detail" hidden aria-live="polite">
@@ -352,6 +357,7 @@ const RAILWAY_LINES = [
   .map-groups { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
   .map-group { padding: 9px 12px; border: 1px solid #b8d6c2; border-radius: 8px; background: #fff; color: #14532d; font: inherit; font-size: 14px; cursor: pointer; }
   .map-group[aria-pressed="true"] { background: #166534; border-color: #166534; color: #fff; }
+  .map-group-mobile { display: none; }
   .map-point[hidden] { display: none; }
   .map-point { position: absolute; transform: translate(-50%, -50%); width: 36px; height: 36px; padding: 0; border: 0; border-radius: 50%; background: transparent; cursor: pointer; }
   .map-point .map-marker { display: flex; align-items: center; justify-content: center; box-sizing: border-box; width: 24px; height: 24px; margin: auto; border: 2px solid #fff; border-radius: 50%; background: #075e47; box-shadow: 0 0 0 1px #075e47; color: #fff; font-size: 13px; font-weight: 700; line-height: 1; }
@@ -373,6 +379,13 @@ const RAILWAY_LINES = [
   .map-detail a { display: block; padding: 12px; background: #166534; border-radius: 8px; color: #fff; font-size: 14px; font-weight: 700; text-align: center; text-decoration: none; }
   .map-instruction { color: #52665c; font-size: 14px; }
   @media (max-width: 800px) { .map-detail { position: relative; left: auto; top: auto; width: 100%; margin-top: 12px; } .map-detail[data-side][data-vertical] { transform: none; } .map-point { width: 36px; height: 36px; } .map-point .map-marker { width: 22px; height: 22px; font-size: 12px; } }
+  @media (max-width: 600px) {
+    .map-group-desktop { display: none; }
+    .map-group-mobile { display: block; }
+    .map-point[data-name="桜木町"] .map-point-label { left: 50%; bottom: calc(50% + 16px); top: auto; transform: translateX(-50%); }
+    .map-point[data-name="みなとみらい"] .map-point-label { left: auto; right: calc(50% + 16px); top: calc(50% + 5px); bottom: auto; transform: none; }
+    .map-point[data-name="関内"] .map-point-label { left: 50%; top: calc(50% + 16px); bottom: auto; transform: translateX(-50%); }
+  }
   .map-caption { margin: 8px 0; }
   .line-nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 20px 0 4px; }
   .line-nav a { display: flex; align-items: center; justify-content: center; text-align: center; min-height: 44px; padding: 8px 10px; background: #f0fdf4; border: 1px solid #dcfce7; border-radius: 8px; color: #166534; font-size: 12px; font-weight: 700; text-decoration: none; }
@@ -545,14 +558,19 @@ const RAILWAY_LINES = [
       });
     });
   });
+  const mobileMap = window.matchMedia('(max-width: 600px)');
+  function showMapGroup(selected: string) {
+    closeCard();
+    points.forEach((point) => { point.hidden = selected.startsWith('main-') ? point.dataset.mapGroup !== 'main' || point.dataset.mobileGroup !== selected : point.dataset.mapGroup !== selected; });
+    document.querySelectorAll<HTMLButtonElement>('.map-group').forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.mapGroup === selected)));
+  }
   document.querySelectorAll<HTMLButtonElement>('.map-group').forEach((group) => {
     group.addEventListener('click', () => {
-      const selected = group.dataset.mapGroup;
-      closeCard();
-      points.forEach((point) => { point.hidden = point.dataset.mapGroup !== selected; });
-      document.querySelectorAll<HTMLButtonElement>('.map-group').forEach((button) => button.setAttribute('aria-pressed', String(button === group)));
+      showMapGroup(group.dataset.mapGroup || 'main');
     });
   });
+  showMapGroup(mobileMap.matches ? 'main-west' : 'main');
+  mobileMap.addEventListener('change', () => showMapGroup(mobileMap.matches ? 'main-west' : 'main'));
   document.querySelector('.map-close')?.addEventListener('click', closeCard);
   document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeCard(); });
 </script>
