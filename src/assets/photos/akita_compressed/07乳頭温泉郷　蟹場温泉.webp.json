@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "2.0",
+  "assetId": "akita_1576",
+  "provider": {
+    "id": "akita_tourism_federation",
+    "nameJa": "一般社団法人 秋田県観光連盟",
+    "nameEn": "Akita Prefecture Tourism Federation",
+    "libraryName": "あきたファン フォトギャラリー",
+    "sourceUrl": "https://akita-fun.jp/photo_gallery"
+  },
+  "subject": {
+    "photoId": "1576",
+    "titleJa": "07乳頭温泉郷　蟹場温泉",
+    "titleEn": "07乳頭温泉郷　蟹場温泉",
+    "prefecture": "秋田県",
+    "city": "仙北市",
+    "cityEn": "仙北 City",
+    "season": "冬",
+    "genre": "温泉・宿泊施設"
+  },
+  "specs": {
+    "width": 1600,
+    "height": 1066,
+    "orientation": "landscape",
+    "aspectRatio": "3:2",
+    "fileSizeBytes": 256324,
+    "sha256": "848cea5f4b2a4799fa49a96423a73026c7cae863537dbf9da0a77f14fcee0b96",
+    "filename": "07乳頭温泉郷　蟹場温泉.webp",
+    "originalFilename": "07乳頭温泉郷　蟹場温泉.jpg",
+    "format": "webp"
+  },
+  "policy": {
+    "commercialUse": true,
+    "purposeConstraint": "tourism_pr_only",
+    "allowedProjects": [
+      "tavi-navi",
+      "DeepJapan",
+      "teluis",
+      "yomilee"
+    ],
+    "creditRequired": true,
+    "maxPerArticle": null,
+    "modification": "crop_and_resize_only",
+    "redistributionAllowed": false
+  },
+  "i18n": {
+    "ja": {
+      "alt": "仙北市の観光名所・07乳頭温泉郷　蟹場温泉の風景写真",
+      "caption": "仙北市「07乳頭温泉郷　蟹場温泉」の観光スポット風景",
+      "credit": "写真提供：一般社団法人 秋田県観光連盟「あきたファン」"
+    },
+    "en": {
+      "alt": "Scenic view of 07乳頭温泉郷　蟹場温泉 in 仙北 City, Akita",
+      "caption": "07乳頭温泉郷　蟹場温泉 in 仙北 City, Akita",
+      "credit": "Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun)"
+    }
+  },
+  "downloadedAt": "2026-11-09T18:25:21+0900"
+}

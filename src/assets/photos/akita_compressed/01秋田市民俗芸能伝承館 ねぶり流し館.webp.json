@@ -1,0 +1,147 @@
+{
+  "schemaVersion": "2.0",
+  "assetId": "akita_local_01秋田市民俗芸能伝承館 ねぶり流し館",
+  "provider": {
+    "id": "akita_tourism_federation",
+    "nameJa": "一般社団法人 秋田県観光連盟",
+    "nameEn": "Akita Prefecture Tourism Federation",
+    "libraryName": "あきたファン フォトギャラリー",
+    "sourceUrl": "https://akita-fun.jp/photo_gallery"
+  },
+  "subject": {
+    "photoId": "local_01秋田市民俗芸能伝承館 ねぶり流し館",
+    "titleJa": "秋田市民俗芸能伝承館（ねぶり流し館）の竿燈提灯展示",
+    "titleEn": "Kanto Lantern Display at Neburi Nagashi-kan in Akita",
+    "prefecture": "秋田県",
+    "city": "秋田県",
+    "cityEn": "秋田県",
+    "season": "all_year",
+    "genre": "",
+    "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "sceneType": "facility",
+    "primaryEntities": [
+      "竿燈の提灯",
+      "町紋提灯",
+      "ねぶり流し館展示室",
+      "竿燈"
+    ],
+    "tags": [
+      "秋田市",
+      "ねぶり流し館",
+      "秋田市民俗芸能伝承館",
+      "竿燈まつり",
+      "提灯",
+      "伝統文化",
+      "秋田観光",
+      "東北旅行",
+      "秋田県",
+      "伝統芸能",
+      "資料館"
+    ],
+    "rawTitleJa": "01秋田市民俗芸能伝承館 ねぶり流し館",
+    "seasonalHighlight": "none",
+    "environment": "indoor",
+    "tagsEn": [
+      "Akita City",
+      "Neburi Nagashi-kan",
+      "Kanto Festival",
+      "Traditional Lanterns",
+      "Folk Museum",
+      "Tohoku Culture"
+    ]
+  },
+  "specs": {
+    "width": 6000,
+    "height": 4000,
+    "orientation": "landscape",
+    "aspectRatio": "3:2",
+    "fileSizeBytes": 7353170,
+    "sha256": "684c0ee358c75432abc573f605753b59f18f39e5960f9249ffc3f7db6f13676e",
+    "filename": "01秋田市民俗芸能伝承館 ねぶり流し館.jpg",
+    "originalFilename": "01秋田市民俗芸能伝承館 ねぶり流し館.jpg"
+  },
+  "policy": {
+    "commercialUse": true,
+    "purposeConstraint": "tourism_pr_only",
+    "allowedProjects": [
+      "tavi-navi",
+      "DeepJapan",
+      "teluis",
+      "yomilee"
+    ],
+    "creditRequired": true,
+    "maxPerArticle": null,
+    "modification": "crop_and_resize_only",
+    "redistributionAllowed": false
+  },
+  "i18n": {
+    "ja": {
+      "alt": "秋田市民俗芸能伝承館（ねぶり流し館）の竿燈提灯展示（秋田県）- 秋田市民俗芸能伝承館（ねぶり流し館）に並ぶ、多彩な町紋が描かれた竿燈提灯の展示。竿燈まつりの伝統美と熱気を間近に感じられます。",
+      "caption": "秋田市民俗芸能伝承館（ねぶり流し館）に並ぶ、多彩な町紋が描かれた竿燈提灯の展示。竿燈まつりの伝統美と熱気を間近に感じられます。（写真提供：一般社団法人 秋田県観光連盟「あきたファン」）",
+      "credit": "写真提供：一般社団法人 秋田県観光連盟「あきたファン」"
+    },
+    "en": {
+      "alt": "Kanto Lantern Display at Neburi Nagashi-kan in Akita - A vibrant indoor display of traditional Kanto festival lanterns featuring diverse community crests at Neburi Nagashi-kan in Akita City.",
+      "caption": "A vibrant indoor display of traditional Kanto festival lanterns featuring diverse community crests at Neburi Nagashi-kan in Akita City. (Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun))",
+      "credit": "Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun)"
+    }
+  },
+  "downloadedAt": "2026-11-09T18:08:20+0900",
+  "aiProxy": {
+    "path": "ai_thumbs/01秋田市民俗芸能伝承館 ねぶり流し館.webp",
+    "format": "webp",
+    "width": 768,
+    "height": 512,
+    "fileSizeBytes": 69876,
+    "targetMaxTokens": 258
+  },
+  "visual": {
+    "schemaSubVersion": "2.1",
+    "descriptionJa": "秋田市民俗芸能伝承館（ねぶり流し館）に並ぶ、多彩な町紋が描かれた竿燈提灯の展示。竿燈まつりの伝統美と熱気を間近に感じられます。",
+    "descriptionEn": "A vibrant indoor display of traditional Kanto festival lanterns featuring diverse community crests at Neburi Nagashi-kan in Akita City.",
+    "timeOfDay": "indoor",
+    "weather": "indoor",
+    "composition": "medium",
+    "focalPosition": "center",
+    "textSafeArea": [
+      "top",
+      "bottom"
+    ],
+    "satoriTemplate": "bottom_slim",
+    "hasPeople": false,
+    "peopleStyle": "none",
+    "dominantColor": "warm",
+    "mood": [
+      "nostalgic",
+      "vibrant"
+    ],
+    "appealScore": 4,
+    "bestRole": "h2_main",
+    "isHeroReady": false,
+    "suitableFor": [
+      "solo",
+      "couple",
+      "family",
+      "senior",
+      "inbound"
+    ],
+    "bestFor": [
+      "秋田市内の文化・歴史観光スポット紹介",
+      "竿燈まつりを学ぶ体験施設ガイド",
+      "雨の日でも楽しめる秋田周遊コース"
+    ]
+  }
+}

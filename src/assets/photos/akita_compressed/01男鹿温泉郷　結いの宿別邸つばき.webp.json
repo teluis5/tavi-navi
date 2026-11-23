@@ -1,0 +1,147 @@
+{
+  "schemaVersion": "2.0",
+  "assetId": "akita_1485",
+  "provider": {
+    "id": "akita_tourism_federation",
+    "nameJa": "一般社団法人 秋田県観光連盟",
+    "nameEn": "Akita Prefecture Tourism Federation",
+    "libraryName": "あきたファン フォトギャラリー",
+    "sourceUrl": "https://akita-fun.jp/photo_gallery"
+  },
+  "subject": {
+    "photoId": "1485",
+    "titleJa": "男鹿温泉郷 結いの宿 別邸つばきのオーシャンビュー客室",
+    "titleEn": "Ocean View Guest Room at Yui no Yado Bettei Tsubaki in Oga Onsen",
+    "prefecture": "秋田県",
+    "city": "男鹿市",
+    "cityEn": "男鹿 City",
+    "season": "all_year",
+    "genre": "温泉・宿泊施設",
+    "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "sceneType": "facility",
+    "primaryEntities": [
+      "和モダン客室",
+      "オーシャンビューの窓",
+      "ツインベッド",
+      "日本海"
+    ],
+    "tags": [
+      "秋田県",
+      "男鹿市",
+      "男鹿温泉郷",
+      "別邸つばき",
+      "温泉旅館",
+      "客室",
+      "オーシャンビュー",
+      "和モダン",
+      "宿泊施設",
+      "リゾート",
+      "結いの宿別邸つばき",
+      "秋田観光",
+      "温泉宿"
+    ],
+    "rawTitleJa": "01男鹿温泉郷　結いの宿別邸つばき",
+    "seasonalHighlight": "none",
+    "environment": "indoor",
+    "tagsEn": [
+      "Akita",
+      "Oga Peninsula",
+      "Oga Onsen",
+      "Ryokan",
+      "Ocean View",
+      "Japanese Modern Room"
+    ]
+  },
+  "specs": {
+    "width": 1260,
+    "height": 840,
+    "orientation": "landscape",
+    "aspectRatio": "3:2",
+    "fileSizeBytes": 848573,
+    "sha256": "7135fecb7146fbff889e1d099176214d86852b167f4d6a6fe4d07d71e4c7c2d6",
+    "filename": "01男鹿温泉郷　結いの宿別邸つばき.jpg",
+    "originalFilename": "01男鹿温泉郷　結いの宿別邸つばき.jpg"
+  },
+  "policy": {
+    "commercialUse": true,
+    "purposeConstraint": "tourism_pr_only",
+    "allowedProjects": [
+      "tavi-navi",
+      "DeepJapan",
+      "teluis",
+      "yomilee"
+    ],
+    "creditRequired": true,
+    "maxPerArticle": null,
+    "modification": "crop_and_resize_only",
+    "redistributionAllowed": false
+  },
+  "i18n": {
+    "ja": {
+      "alt": "男鹿温泉郷 結いの宿 別邸つばきのオーシャンビュー客室（秋田県）- 大きな窓から雄大な日本海を一望できる和モダン客室。洗練されたインテリアと温もりある畳敷きの空間で上質な寛ぎを提供します。",
+      "caption": "大きな窓から雄大な日本海を一望できる和モダン客室。洗練されたインテリアと温もりある畳敷きの空間で上質な寛ぎを提供します。（写真提供：一般社団法人 秋田県観光連盟「あきたファン」）",
+      "credit": "写真提供：一般社団法人 秋田県観光連盟「あきたファン」"
+    },
+    "en": {
+      "alt": "Ocean View Guest Room at Yui no Yado Bettei Tsubaki in Oga Onsen - A refined Japanese-modern guest room at Bettei Tsubaki in Oga Onsen, offering relaxing comfort with panoramic views over the Sea of Japan.",
+      "caption": "A refined Japanese-modern guest room at Bettei Tsubaki in Oga Onsen, offering relaxing comfort with panoramic views over the Sea of Japan. (Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun))",
+      "credit": "Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun)"
+    }
+  },
+  "downloadedAt": "2026-11-09T19:13:26+0900",
+  "aiProxy": {
+    "path": "ai_thumbs/01男鹿温泉郷　結いの宿別邸つばき.webp",
+    "format": "webp",
+    "width": 768,
+    "height": 512,
+    "fileSizeBytes": 45272,
+    "targetMaxTokens": 258
+  },
+  "visual": {
+    "schemaSubVersion": "2.1",
+    "descriptionJa": "大きな窓から雄大な日本海を一望できる和モダン客室。洗練されたインテリアと温もりある畳敷きの空間で上質な寛ぎを提供します。",
+    "descriptionEn": "A refined Japanese-modern guest room at Bettei Tsubaki in Oga Onsen, offering relaxing comfort with panoramic views over the Sea of Japan.",
+    "timeOfDay": "daytime",
+    "weather": "sunny",
+    "composition": "interior",
+    "focalPosition": "center",
+    "textSafeArea": [
+      "top"
+    ],
+    "satoriTemplate": "travel_model_course",
+    "hasPeople": false,
+    "peopleStyle": "none",
+    "dominantColor": "warm",
+    "mood": [
+      "serene",
+      "luxury"
+    ],
+    "appealScore": 4,
+    "bestRole": "h2_main",
+    "isHeroReady": false,
+    "suitableFor": [
+      "couple",
+      "senior",
+      "inbound",
+      "solo"
+    ],
+    "bestFor": [
+      "男鹿温泉郷のおすすめ温泉宿紹介",
+      "海が見える絶景客室特集",
+      "秋田の贅沢な温泉旅行ガイド"
+    ]
+  }
+}

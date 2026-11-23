@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "2.0",
+  "assetId": "akita_1847",
+  "provider": {
+    "id": "akita_tourism_federation",
+    "nameJa": "一般社団法人 秋田県観光連盟",
+    "nameEn": "Akita Prefecture Tourism Federation",
+    "libraryName": "あきたファン フォトギャラリー",
+    "sourceUrl": "https://akita-fun.jp/photo_gallery"
+  },
+  "subject": {
+    "photoId": "1847",
+    "titleJa": "03角館の武家屋敷通り",
+    "titleEn": "03角館の武家屋敷通り",
+    "prefecture": "秋田県",
+    "city": "仙北市",
+    "cityEn": "仙北 City",
+    "season": "夏",
+    "genre": "自然・景勝地 歴史・文化"
+  },
+  "specs": {
+    "width": 1600,
+    "height": 1066,
+    "orientation": "landscape",
+    "aspectRatio": "1.5:1",
+    "fileSizeBytes": 580092,
+    "sha256": "81c696403c3493d16d13b596067bd125c5e7e1d56b919889fc7207f3bc2274c1",
+    "filename": "03角館の武家屋敷通り.webp",
+    "originalFilename": "03角館の武家屋敷通り.jpg",
+    "format": "webp"
+  },
+  "policy": {
+    "commercialUse": true,
+    "purposeConstraint": "tourism_pr_only",
+    "allowedProjects": [
+      "tavi-navi",
+      "DeepJapan",
+      "teluis",
+      "yomilee"
+    ],
+    "creditRequired": true,
+    "maxPerArticle": null,
+    "modification": "crop_and_resize_only",
+    "redistributionAllowed": false
+  },
+  "i18n": {
+    "ja": {
+      "alt": "仙北市の観光名所・03角館の武家屋敷通りの風景写真",
+      "caption": "仙北市「03角館の武家屋敷通り」の観光スポット風景",
+      "credit": "写真提供：一般社団法人 秋田県観光連盟「あきたファン」"
+    },
+    "en": {
+      "alt": "Scenic view of 03角館の武家屋敷通り in 仙北 City, Akita",
+      "caption": "03角館の武家屋敷通り in 仙北 City, Akita",
+      "credit": "Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun)"
+    }
+  },
+  "downloadedAt": "2026-11-09T18:08:19+0900"
+}

@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "2.0",
+  "assetId": "akita_443",
+  "provider": {
+    "id": "akita_tourism_federation",
+    "nameJa": "一般社団法人 秋田県観光連盟",
+    "nameEn": "Akita Prefecture Tourism Federation",
+    "libraryName": "あきたファン フォトギャラリー",
+    "sourceUrl": "https://akita-fun.jp/photo_gallery"
+  },
+  "subject": {
+    "photoId": "443",
+    "titleJa": "03比内地鶏親子丼",
+    "titleEn": "03比内地鶏親子丼",
+    "prefecture": "秋田県",
+    "city": "大館市",
+    "cityEn": "大館 City",
+    "season": "",
+    "genre": "食"
+  },
+  "specs": {
+    "width": 1378,
+    "height": 917,
+    "orientation": "landscape",
+    "aspectRatio": "1.5:1",
+    "fileSizeBytes": 317068,
+    "sha256": "17b7ec2f0e178e028ea6cdf96d54eb75a207eb9602846010a33f1b8a09ce0e53",
+    "filename": "03比内地鶏親子丼.webp",
+    "originalFilename": "03比内地鶏親子丼.jpg",
+    "format": "webp"
+  },
+  "policy": {
+    "commercialUse": true,
+    "purposeConstraint": "tourism_pr_only",
+    "allowedProjects": [
+      "tavi-navi",
+      "DeepJapan",
+      "teluis",
+      "yomilee"
+    ],
+    "creditRequired": true,
+    "maxPerArticle": null,
+    "modification": "crop_and_resize_only",
+    "redistributionAllowed": false
+  },
+  "i18n": {
+    "ja": {
+      "alt": "大館市の観光名所・03比内地鶏親子丼の風景写真",
+      "caption": "大館市「03比内地鶏親子丼」の観光スポット風景",
+      "credit": "写真提供：一般社団法人 秋田県観光連盟「あきたファン」"
+    },
+    "en": {
+      "alt": "Scenic view of 03比内地鶏親子丼 in 大館 City, Akita",
+      "caption": "03比内地鶏親子丼 in 大館 City, Akita",
+      "credit": "Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun)"
+    }
+  },
+  "downloadedAt": "2026-11-09T18:08:20+0900"
+}

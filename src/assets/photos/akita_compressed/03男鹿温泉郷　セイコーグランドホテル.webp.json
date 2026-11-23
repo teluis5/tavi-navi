@@ -1,0 +1,139 @@
+{
+  "schemaVersion": "2.0",
+  "assetId": "akita_1179",
+  "provider": {
+    "id": "akita_tourism_federation",
+    "nameJa": "一般社団法人 秋田県観光連盟",
+    "nameEn": "Akita Prefecture Tourism Federation",
+    "libraryName": "あきたファン フォトギャラリー",
+    "sourceUrl": "https://akita-fun.jp/photo_gallery"
+  },
+  "subject": {
+    "photoId": "1179",
+    "titleJa": "男鹿温泉郷 セイコーグランドホテルの大浴場",
+    "titleEn": "Indoor Hot Spring Bath at Seiko Grand Hotel, Oga Onsen",
+    "prefecture": "秋田県",
+    "city": "男鹿市",
+    "cityEn": "男鹿 City",
+    "season": "all_year",
+    "genre": "温泉・宿泊施設",
+    "rawTitleJa": "03男鹿温泉郷　セイコーグランドホテル",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "seasonalHighlight": "fresh_green",
+    "sceneType": "onsen",
+    "environment": "indoor",
+    "primaryEntities": [
+      "温泉大浴場",
+      "内湯",
+      "窓外の緑",
+      "セイコーグランドホテル"
+    ],
+    "tags": [
+      "秋田",
+      "男鹿市",
+      "男鹿温泉郷",
+      "セイコーグランドホテル",
+      "大浴場",
+      "温泉旅館",
+      "日帰り温泉",
+      "内湯"
+    ],
+    "tagsEn": [
+      "Akita",
+      "Oga Onsen",
+      "Seiko Grand Hotel",
+      "hot spring bath",
+      "onsen",
+      "public bath"
+    ]
+  },
+  "specs": {
+    "width": 4368,
+    "height": 3481,
+    "orientation": "landscape",
+    "aspectRatio": "1.25:1",
+    "fileSizeBytes": 2925302,
+    "sha256": "a60b8633e83d025249110d3f0447be5a6fd2a68cbd01a526d035e40b1207fdbd",
+    "filename": "03男鹿温泉郷　セイコーグランドホテル.jpg",
+    "originalFilename": "03男鹿温泉郷　セイコーグランドホテル.jpg"
+  },
+  "policy": {
+    "commercialUse": true,
+    "purposeConstraint": "tourism_pr_only",
+    "allowedProjects": [
+      "tavi-navi",
+      "DeepJapan",
+      "teluis",
+      "yomilee"
+    ],
+    "creditRequired": true,
+    "maxPerArticle": null,
+    "modification": "crop_and_resize_only",
+    "redistributionAllowed": false
+  },
+  "i18n": {
+    "ja": {
+      "alt": "男鹿温泉郷 セイコーグランドホテルの大浴場（秋田県）- 大きな窓から豊かな緑を望む男鹿温泉郷セイコーグランドホテルの大浴場。広々とした湯船に満ちる名湯で、旅の疲れを心地よく癒やせます。",
+      "caption": "大きな窓から豊かな緑を望む男鹿温泉郷セイコーグランドホテルの大浴場。広々とした湯船に満ちる名湯で、旅の疲れを心地よく癒やせます。（写真提供：一般社団法人 秋田県観光連盟「あきたファン」）",
+      "credit": "写真提供：一般社団法人 秋田県観光連盟「あきたファン」"
+    },
+    "en": {
+      "alt": "Indoor Hot Spring Bath at Seiko Grand Hotel, Oga Onsen - A spacious indoor hot spring bath at Seiko Grand Hotel in Oga Onsen, offering relaxing soak with scenic forest views through large windows.",
+      "caption": "A spacious indoor hot spring bath at Seiko Grand Hotel in Oga Onsen, offering relaxing soak with scenic forest views through large windows. (Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun))",
+      "credit": "Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun)"
+    }
+  },
+  "downloadedAt": "2026-11-09T18:10:01+0900",
+  "aiProxy": {
+    "path": "ai_thumbs/03男鹿温泉郷　セイコーグランドホテル.webp",
+    "format": "webp",
+    "width": 768,
+    "height": 612,
+    "fileSizeBytes": 88006,
+    "targetMaxTokens": 258
+  },
+  "visual": {
+    "schemaSubVersion": "2.1",
+    "descriptionJa": "大きな窓から豊かな緑を望む男鹿温泉郷セイコーグランドホテルの大浴場。広々とした湯船に満ちる名湯で、旅の疲れを心地よく癒やせます。",
+    "descriptionEn": "A spacious indoor hot spring bath at Seiko Grand Hotel in Oga Onsen, offering relaxing soak with scenic forest views through large windows.",
+    "timeOfDay": "daytime",
+    "weather": "indoor",
+    "composition": "wide_landscape",
+    "focalPosition": "center",
+    "textSafeArea": [
+      "top",
+      "bottom"
+    ],
+    "satoriTemplate": "bottom_slim",
+    "hasPeople": false,
+    "peopleStyle": "none",
+    "dominantColor": "green",
+    "mood": [
+      "serene",
+      "nostalgic"
+    ],
+    "appealScore": 3,
+    "bestRole": "h2_main",
+    "isHeroReady": false,
+    "suitableFor": [
+      "senior",
+      "couple",
+      "family",
+      "solo",
+      "inbound"
+    ],
+    "bestFor": [
+      "男鹿温泉郷の宿泊施設紹介",
+      "温泉モデルコースの立ち寄り湯紹介",
+      "秋田のホテル・旅館ガイド"
+    ]
+  }
+}

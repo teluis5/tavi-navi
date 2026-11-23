@@ -1,0 +1,143 @@
+{
+  "schemaVersion": "2.0",
+  "assetId": "akita_1358",
+  "provider": {
+    "id": "akita_tourism_federation",
+    "nameJa": "一般社団法人 秋田県観光連盟",
+    "nameEn": "Akita Prefecture Tourism Federation",
+    "libraryName": "あきたファン フォトギャラリー",
+    "sourceUrl": "https://akita-fun.jp/photo_gallery"
+  },
+  "subject": {
+    "photoId": "1358",
+    "titleJa": "なまはげ館のなまはげ勢ぞろい展示",
+    "titleEn": "Namahage Figure Lineup at Namahage Museum in Oga",
+    "prefecture": "秋田県",
+    "city": "男鹿市",
+    "cityEn": "男鹿 City",
+    "season": "all_year",
+    "genre": "観光施設",
+    "rawTitleJa": "03なまはげ館",
+    "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "seasonalHighlight": "none",
+    "sceneType": "facility",
+    "environment": "indoor",
+    "primaryEntities": [
+      "なまはげ人形",
+      "藁装束（ケデ）",
+      "鬼面",
+      "展示場"
+    ],
+    "tags": [
+      "秋田",
+      "男鹿",
+      "なまはげ館",
+      "伝統行事",
+      "重要無形民俗文化財",
+      "ユネスコ無形文化遺産",
+      "民俗信仰",
+      "男鹿半島"
+    ],
+    "tagsEn": [
+      "Namahage",
+      "Namahage Museum",
+      "Oga",
+      "Akita",
+      "Folklore",
+      "Intangible Cultural Heritage"
+    ]
+  },
+  "specs": {
+    "width": 4368,
+    "height": 2912,
+    "orientation": "landscape",
+    "aspectRatio": "3:2",
+    "fileSizeBytes": 7034862,
+    "sha256": "801ad5a39264c4948af471a016c3a0b026bcf8fdc23be749278e618eca42a98f",
+    "filename": "03なまはげ館.jpg",
+    "originalFilename": "03なまはげ館.jpg"
+  },
+  "policy": {
+    "commercialUse": true,
+    "purposeConstraint": "tourism_pr_only",
+    "allowedProjects": [
+      "tavi-navi",
+      "DeepJapan",
+      "teluis",
+      "yomilee"
+    ],
+    "creditRequired": true,
+    "maxPerArticle": null,
+    "modification": "crop_and_resize_only",
+    "redistributionAllowed": false
+  },
+  "i18n": {
+    "ja": {
+      "alt": "なまはげ館のなまはげ勢ぞろい展示（秋田県）- 男鹿市内各地の集落で実際に使われてきた多種多様ななまはげ面と藁装束が勢ぞろいし、圧巻の迫力で迎えるなまはげ館のメイン展示。",
+      "caption": "男鹿市内各地の集落で実際に使われてきた多種多様ななまはげ面と藁装束が勢ぞろいし、圧巻の迫力で迎えるなまはげ館のメイン展示。（写真提供：一般社団法人 秋田県観光連盟「あきたファン」）",
+      "credit": "写真提供：一般社団法人 秋田県観光連盟「あきたファン」"
+    },
+    "en": {
+      "alt": "Namahage Figure Lineup at Namahage Museum in Oga - A powerful gathering of authentic Namahage figures in straw costumes from various villages of the Oga Peninsula, displayed at the Namahage Museum.",
+      "caption": "A powerful gathering of authentic Namahage figures in straw costumes from various villages of the Oga Peninsula, displayed at the Namahage Museum. (Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun))",
+      "credit": "Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun)"
+    }
+  },
+  "downloadedAt": "2026-11-09T18:10:01+0900",
+  "aiProxy": {
+    "path": "ai_thumbs/03なまはげ館.webp",
+    "format": "webp",
+    "width": 768,
+    "height": 512,
+    "fileSizeBytes": 79842,
+    "targetMaxTokens": 258
+  },
+  "visual": {
+    "schemaSubVersion": "2.1",
+    "descriptionJa": "男鹿市内各地の集落で実際に使われてきた多種多様ななまはげ面と藁装束が勢ぞろいし、圧巻の迫力で迎えるなまはげ館のメイン展示。",
+    "descriptionEn": "A powerful gathering of authentic Namahage figures in straw costumes from various villages of the Oga Peninsula, displayed at the Namahage Museum.",
+    "timeOfDay": "indoor",
+    "weather": "indoor",
+    "composition": "medium",
+    "focalPosition": "center",
+    "textSafeArea": [
+      "top",
+      "bottom"
+    ],
+    "satoriTemplate": "bottom_slim",
+    "hasPeople": false,
+    "peopleStyle": "none",
+    "dominantColor": "warm",
+    "mood": [
+      "dynamic",
+      "nostalgic"
+    ],
+    "appealScore": 4,
+    "bestRole": "h2_main",
+    "isHeroReady": false,
+    "suitableFor": [
+      "solo",
+      "couple",
+      "family",
+      "inbound"
+    ],
+    "bestFor": [
+      "男鹿半島の見どころ紹介",
+      "なまはげ館の見学ガイド",
+      "秋田の伝統文化・民俗体験モデルコース"
+    ]
+  }
+}
