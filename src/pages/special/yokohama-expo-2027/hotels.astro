@@ -273,6 +273,7 @@ const RAILWAY_LINES = [
             <p><strong>会場へのアクセス <span id="map-area-minutes"></span></strong><br /><span id="map-area-access"></span></p>
             <p id="map-direct-bus" class="map-direct-bus" hidden></p>
             <p><strong>エリアの特徴</strong><br /><span id="map-area-feature"></span></p>
+            <p id="map-area-price" class="map-area-price" role="status"></p>
             <a id="map-area-link" href="https://travel.rakuten.co.jp/" target="_blank" rel="noopener noreferrer sponsored">楽天トラベルでホテルを探す ↗</a>
           </div>
         </div>
@@ -417,6 +418,37 @@ const RAILWAY_LINES = [
     });
   }
   const priceStatus = document.querySelector<HTMLElement>('#hotel-price-status');
+  const priceEndpoint = 'https://teluis-expo-hotel-prices.expo-price-cache.workers.dev';
+  const areaPrice = document.querySelector<HTMLElement>('#map-area-price');
+  let priceRequest = 0;
+  async function updateAreaPrice(point: HTMLButtonElement) {
+    const request = ++priceRequest;
+    if (!areaPrice || !checkin || !checkout) return;
+    const start = Date.parse(`${checkin.value}T00:00:00Z`);
+    const end = Date.parse(`${checkout.value}T00:00:00Z`);
+    if (!Number.isFinite(start) || end - start !== 86400000) {
+      areaPrice.textContent = '目安料金は大人2名・1室の1泊に対応しています。';
+      return;
+    }
+    areaPrice.textContent = '目安料金を確認しています。';
+    try {
+      const url = new URL('/price', priceEndpoint);
+      url.searchParams.set('date', checkin.value);
+      url.searchParams.set('station', point.dataset.code || '');
+      const response = await fetch(url, { cache: 'no-store' });
+      if (!response.ok) throw new Error('unavailable');
+      const data = await response.json();
+      if (request !== priceRequest) return;
+      if (!Number.isFinite(data.price) || data.price <= 0 || !Number.isFinite(data.fetchedAt) || Date.now() - data.fetchedAt >= 86400000 || data.fetchedAt > Date.now()) {
+        areaPrice.textContent = 'この日の目安料金はご案内できません。空室・料金はリンク先で確認できます。';
+        return;
+      }
+      const checked = new Intl.DateTimeFormat('ja-JP', { timeZone: 'Asia/Tokyo', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }).format(new Date(data.fetchedAt));
+      areaPrice.textContent = `ツインの目安：${data.price.toLocaleString('ja-JP')}円（大人2名・1室・1泊、${checked}取得）。確認できたプランの一例です。価格や空室は変わります。予約時の楽天トラベルの表示をご確認ください。`;
+    } catch {
+      if (request === priceRequest) areaPrice.textContent = '目安料金を取得できませんでした。空室・料金はリンク先で確認できます。';
+    }
+  }
   const bookingUrl = (station: HTMLElement): string | null => {
     if (!checkin || !checkout || !checkin.value || !checkout.value || checkin.value < checkin.min || checkout.value <= checkin.value) return null;
     const { code, lat, lon } = station.dataset;
@@ -437,6 +469,7 @@ const RAILWAY_LINES = [
     const selected = document.querySelector<HTMLButtonElement>('.map-point[aria-pressed="true"]');
     const popupLink = document.querySelector<HTMLAnchorElement>('#map-area-link');
     if (selected && popupLink) popupLink.href = bookingUrl(selected) || 'https://travel.rakuten.co.jp/';
+    if (selected) void updateAreaPrice(selected);
   };
   const requireDates = (event: MouseEvent) => {
     if (checkin?.value && checkout?.value && checkin.value >= checkin.min && checkout.value > checkin.value) return;
@@ -482,8 +515,10 @@ const RAILWAY_LINES = [
     card.dataset.vertical = y > 370 ? 'above' : 'below';
     card.hidden = false;
     points.forEach((item) => item.setAttribute('aria-pressed', String(item === point)));
+    void updateAreaPrice(point);
   }
   function closeCard() {
+    priceRequest++;
     if (busRoute) busRoute.style.display = 'none';
     if (card) card.hidden = true;
     points.forEach((item) => item.setAttribute('aria-pressed', 'false'));
