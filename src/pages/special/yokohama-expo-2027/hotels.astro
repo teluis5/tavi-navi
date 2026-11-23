@@ -8,6 +8,16 @@ const description =
 
 const STATIONS: Record<string, { code: string; lat: string; lon: string }> = {
   大手町: { code: '1709', lat: '128454.47', lon: '503163.65' },
+  南町田: { code: '3120', lat: '127829.72', lon: '502105.46' },
+  二俣川: { code: '2964', lat: '127656.96', lon: '502327.65' },
+  川崎: { code: '1911', lat: '127901.77', lon: '502920.64' },
+  蒲田: { code: '1868', lat: '128013.38', lon: '502989.28' },
+  五反田: { code: '2159', lat: '128242.36', lon: '503016.88' },
+  大崎: { code: '1697', lat: '128218.38', lon: '503033.79' },
+  目黒: { code: '3170', lat: '128270.41', lon: '502988.25' },
+  大井町: { code: '1687', lat: '128175.60', lon: '503055.84' },
+  新橋: { code: '2354', lat: '128387.46', lon: '503141.21' },
+  汐留: { code: '9278', lat: '128375.11', lon: '503147.53' },
   八王子: { code: '2803', lat: '128348.16', lon: '501632.21' },
   橋本: { code: '2795', lat: '128129.83', lon: '501653.59' },
   大和: { code: '3232', lat: '127679.22', lon: '502072.85' },
@@ -63,8 +73,21 @@ const MAP_LABELS = [
   }
 ];
 
+const EXTRA_YOKOHAMA = new Set(['南町田', '二俣川', '川崎', '蒲田']);
+const EXTRA_TOKYO = new Set(['五反田', '大崎', '目黒', '大井町', '新橋', '汐留']);
+const mapGroup = (name: string) => EXTRA_YOKOHAMA.has(name) ? 'yokohama' : EXTRA_TOKYO.has(name) ? 'tokyo' : 'main';
 const DIRECT_BUS_AREAS = new Set(['新横浜', '横浜', 'みなとみらい', '関内', '桜木町', '羽田空港']);
 const MAP_AREAS = [
+  { name: '南町田', x: 279.6, y: 315, access: '南町田グランベリーパーク駅 → シャトルバス（約20分）', accessMinutes: 30, feature: 'シャトルバス発着駅に近く、朝の移動を抑えたい人に。駅周辺の宿は限られます。', target: 'denentoshi', hotel: 0 },
+  { name: '二俣川', x: 580, y: 500, access: '相鉄線（約7分）→ 瀬谷駅 → シャトルバス（約10分）', accessMinutes: 30, feature: '会場に近い相鉄線沿線。駅周辺の宿は限られます。', target: 'sotetsu', hotel: 0 },
+  { name: '川崎', x: 1070, y: 380, access: 'JR東海道線（約8分）→ 横浜駅 → 相鉄線（約22分）→ 瀬谷駅 → シャトルバス（約10分）', accessMinutes: 60, feature: '駅周辺に複数のホテルがあり、羽田空港方面からも利用しやすい拠点。', target: 'sotetsu', hotel: 0 },
+  { name: '蒲田', x: 1100, y: 325, access: 'JR京浜東北線（約19分）→ 横浜駅 → 相鉄線（約22分）→ 瀬谷駅 → シャトルバス（約10分）', accessMinutes: 75, feature: 'JR蒲田・京急蒲田周辺に宿が集まり、羽田空港利用時にも便利。', target: 'sotetsu', hotel: 0 },
+  { name: '五反田', x: 1045, y: 270, access: 'JR山手線（約2分）→ 大崎駅 → 相鉄・JR直通線（約45分）→ 瀬谷駅 → シャトルバス（約10分）', accessMinutes: 80, feature: '駅周辺のホテルを比較しやすく、都内観光にも便利な拠点。', target: 'direct', hotel: 0 },
+  { name: '大崎', x: 985, y: 270, access: '相鉄・JR直通線（約45分）→ 瀬谷駅 → シャトルバス（約10分）', accessMinutes: 65, feature: '相鉄・JR直通線を使って会場方面へ向かえる宿泊拠点。', target: 'direct', hotel: 0 },
+  { name: '目黒', x: 1010, y: 200, access: '東急目黒線・相鉄線直通（約51分）→ 瀬谷駅 → シャトルバス（約10分）', accessMinutes: 75, feature: '駅近くに複数のホテルがあり、都内観光と組み合わせやすい。直通は一部列車です。', target: 'direct', hotel: 0 },
+  { name: '大井町', x: 1135, y: 270, access: 'JR京浜東北線（約24分）→ 横浜駅 → 相鉄線（約22分）→ 瀬谷駅 → シャトルバス（約10分）', accessMinutes: 80, feature: '品川・羽田方面からの移動と、駅周辺の宿泊を組み合わせやすい。', target: 'sotetsu', hotel: 0 },
+  { name: '新橋', x: 1119.6, y: 155, access: 'JR東海道線（約25分）→ 横浜駅 → 相鉄線（約22分）→ 瀬谷駅 → シャトルバス（約10分）', accessMinutes: 80, feature: '新橋・銀座観光と花博を組み合わせたい人向け。', target: 'sotetsu', hotel: 0 },
+  { name: '汐留', x: 1200, y: 160, access: '新橋駅まで徒歩（約7分）→ JR東海道線（約25分）→ 横浜駅 → 相鉄線（約22分）→ 瀬谷駅 → シャトルバス（約10分）', accessMinutes: 85, feature: '汐留・新橋周辺のホテルを拠点に、都内観光も楽しみたい人に。', target: 'sotetsu', hotel: 0 },
   { name: '大手町', x: 1073.68, y: 128, access: '都営三田線・東急線・相鉄線直通（約65分）→ 瀬谷駅 → シャトルバス（約10分）', accessMinutes: 85, feature: '東京駅・丸の内周辺の宿も検討しやすいエリア。相鉄線への直通は一部列車です。', target: 'direct', hotel: 0 },
   { name: '八王子', x: -0.4, y: 97.25, access: 'JR横浜線（約34分）→ 十日市場駅 → シャトルバス（約25分）', accessMinutes: 70, feature: '多摩エリアからの移動や八王子周辺の宿泊に便利な拠点。', target: 'yokohama-line', hotel: 0 },
   { name: '橋本', x: 139.6, y: 153.5, access: 'JR横浜線（約22分）→ 十日市場駅 → シャトルバス（約25分）', accessMinutes: 60, feature: 'JR横浜線・相模線と京王相模原線が乗り入れる宿泊拠点。', target: 'yokohama-line', hotel: 0 },
@@ -205,7 +228,7 @@ const RAILWAY_LINES = [
       <p class="price-status" id="hotel-price-status" role="status">大人2名・1室で検索します。ツインなどの部屋タイプは検索先で選べます。</p>
       <div class="station-links" aria-label="駅周辺のホテルを探す">
         {MAP_AREAS.map((area) => (
-          <a class="station-link" href="https://travel.rakuten.co.jp/" data-station={area.name} data-code={STATIONS[area.name].code} data-lat={STATIONS[area.name].lat} data-lon={STATIONS[area.name].lon} target="_blank" rel="noopener noreferrer sponsored">{area.name === '羽田空港' ? '羽田空港第3ターミナル周辺' : `${area.name}駅`}</a>
+          <a class="station-link" href="https://travel.rakuten.co.jp/" data-station={area.name} data-code={STATIONS[area.name].code} data-lat={STATIONS[area.name].lat} data-lon={STATIONS[area.name].lon} target="_blank" rel="noopener noreferrer sponsored">{area.name === '羽田空港' ? '羽田空港第3ターミナル周辺' : area.name === '南町田' ? '南町田グランベリーパーク駅' : `${area.name}駅`}</a>
         ))}
       </div>
       <p class="price-note">羽田空港は第3ターミナル付近を中心に検索します。広告を含みます。空室や料金は楽天トラベルでご確認ください。</p>
@@ -216,6 +239,11 @@ const RAILWAY_LINES = [
       <p>宿泊する駅から会場方面へのつながりを確認できます。オレンジ色は会場行きシャトルバスの発着駅です。</p>
       <p class="bus-notice">新横浜駅・横浜駅・みなとみらい／関内地区・羽田空港から会場への直行バスが運行予定です。乗り場、時刻、運賃、予約方法などは調整中です。</p>
       <p class="map-instruction">Hマークにマウスを合わせるか、タップすると宿泊エリアの紹介を見られます。</p>
+      <div class="map-groups" role="group" aria-label="地図に表示する宿泊エリア">
+        <button type="button" class="map-group" data-map-group="main" aria-pressed="true">主なエリア</button>
+        <button type="button" class="map-group" data-map-group="yokohama" aria-pressed="false">追加エリア：横浜方面</button>
+        <button type="button" class="map-group" data-map-group="tokyo" aria-pressed="false">追加エリア：東京方面</button>
+      </div>
       <div class="map-layout">
         <div class="map-image">
           <div class="map-canvas">
@@ -229,7 +257,7 @@ const RAILWAY_LINES = [
             ))}
           </svg>
           {MAP_AREAS.map((area) => (
-            <button class="map-point" type="button" style={`left:${(area.x + 40) / 12.8}%;top:${area.y / 7.4}%`} data-name={area.name} data-minutes={area.accessMinutes} data-label-side={['八王子', '海老名'].includes(area.name) ? 'right' : ['新宿', '渋谷', '品川', '羽田空港', 'みなとみらい', '大手町'].includes(area.name) ? 'left' : 'top'} data-direct-bus={DIRECT_BUS_AREAS.has(area.name) ? 'true' : 'false'} data-access={area.access} data-feature={area.feature} data-code={STATIONS[area.name].code} data-lat={STATIONS[area.name].lat} data-lon={STATIONS[area.name].lon} data-x={area.x} data-y={area.y} aria-label={`${area.name}の宿泊エリアを紹介`} aria-pressed="false"><span class="map-marker" aria-hidden="true">H</span><span class="map-point-label" aria-hidden="true">{area.name}</span></button>
+            <button class="map-point" type="button" style={`left:${(area.x + 40) / 12.8}%;top:${area.y / 7.4}%`} data-name={area.name} data-map-group={mapGroup(area.name)} hidden={mapGroup(area.name) !== 'main'} data-minutes={area.accessMinutes} data-label-side={['八王子', '海老名'].includes(area.name) ? 'right' : ['新宿', '渋谷', '品川', '羽田空港', 'みなとみらい', '大手町'].includes(area.name) ? 'left' : 'top'} data-direct-bus={DIRECT_BUS_AREAS.has(area.name) ? 'true' : 'false'} data-access={area.access} data-feature={area.feature} data-code={STATIONS[area.name].code} data-lat={STATIONS[area.name].lat} data-lon={STATIONS[area.name].lon} data-x={area.x} data-y={area.y} aria-label={`${area.name}の宿泊エリアを紹介`} aria-pressed="false"><span class="map-marker" aria-hidden="true">H</span><span class="map-point-label" aria-hidden="true">{area.name}</span></button>
           ))}
           </div>
           <div class="map-detail" id="map-detail" hidden aria-live="polite">
@@ -326,6 +354,10 @@ const RAILWAY_LINES = [
   .map-label--station { font-size: 25px; stroke: none; }
   .map-label--minor { font-size: 16px; }
   .map-label--destination { fill: #fff; font-size: 19px; stroke: none; text-anchor: middle; }
+  .map-groups { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+  .map-group { padding: 9px 12px; border: 1px solid #b8d6c2; border-radius: 8px; background: #fff; color: #14532d; font: inherit; font-size: 14px; cursor: pointer; }
+  .map-group[aria-pressed="true"] { background: #166534; border-color: #166534; color: #fff; }
+  .map-point[hidden] { display: none; }
   .map-point { position: absolute; transform: translate(-50%, -50%); width: 36px; height: 36px; padding: 0; border: 0; border-radius: 50%; background: transparent; cursor: pointer; }
   .map-point .map-marker { display: flex; align-items: center; justify-content: center; box-sizing: border-box; width: 24px; height: 24px; margin: auto; border: 2px solid #fff; border-radius: 50%; background: #075e47; box-shadow: 0 0 0 1px #075e47; color: #fff; font-size: 13px; font-weight: 700; line-height: 1; }
   .map-point:hover .map-marker, .map-point[aria-pressed="true"] .map-marker { background: #123c30; box-shadow: 0 0 0 3px #a9d6ba; }
@@ -437,7 +469,7 @@ const RAILWAY_LINES = [
     if (!name || !access || !feature || !link || !card) return;
     name.textContent = `${point.dataset.name}エリア`;
     access.textContent = point.dataset.access || '';
-    if (minutes) minutes.textContent = Number(point.dataset.minutes) > 0 ? `約${point.dataset.minutes}分` : '所要時間は調整中';
+    if (minutes) minutes.textContent = Number(point.dataset.minutes) > 0 ? `約${point.dataset.minutes}分` : '';
     if (directBus) {
       directBus.hidden = point.dataset.directBus !== 'true' || Number(point.dataset.minutes) === 0;
       directBus.textContent = ['みなとみらい', '関内', '桜木町'].includes(point.dataset.name || '') ? '横浜都心臨海部からの直行バスを運行予定。乗り場・時刻などは調整中です。' : `${point.dataset.name}からの直行バスを運行予定。乗り場・時刻などは調整中です。`;
@@ -484,6 +516,14 @@ const RAILWAY_LINES = [
           window.scrollBy({ top: amount, behavior: reduceMotion ? 'auto' : 'smooth' });
         }
       });
+    });
+  });
+  document.querySelectorAll<HTMLButtonElement>('.map-group').forEach((group) => {
+    group.addEventListener('click', () => {
+      const selected = group.dataset.mapGroup;
+      closeCard();
+      points.forEach((point) => { point.hidden = point.dataset.mapGroup !== selected; });
+      document.querySelectorAll<HTMLButtonElement>('.map-group').forEach((button) => button.setAttribute('aria-pressed', String(button === group)));
     });
   });
   document.querySelector('.map-close')?.addEventListener('click', closeCard);
