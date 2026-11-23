@@ -221,7 +221,7 @@ const RAILWAY_LINES = [
           <div class="map-canvas">
           <div class="map-svg" set:html={accessMap} />
           <svg class="map-bus-overlay" viewBox="-40 0 1280 740" aria-hidden="true" focusable="false">
-            <line id="map-bus-route" x1="0" y1="0" x2="380.4" y2="395" hidden />
+            <path id="map-bus-route" d="" hidden />
           </svg>
           <svg class="map-labels" viewBox="-40 0 1280 740" aria-hidden="true" focusable="false">
             {MAP_LABELS.map((label) => (
@@ -319,8 +319,8 @@ const RAILWAY_LINES = [
   .map-canvas { position: relative; }
   .map-svg :global(svg) { display: block; width: 100%; height: auto; }
   .map-bus-overlay { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-  .map-bus-overlay line { stroke: #c9955d; stroke-width: 3; stroke-dasharray: 4 9; stroke-linecap: round; }
-  .map-bus-overlay line[hidden] { display: none; }
+  .map-bus-overlay path { fill: none; stroke: #c9955d; stroke-width: 3; stroke-dasharray: 4 9; stroke-linecap: round; }
+  .map-bus-overlay path[hidden] { display: none; }
   .map-labels { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
   .map-label { fill: #213841; font-size: 21px; font-weight: 700; paint-order: stroke; stroke: #fff; stroke-width: 6px; stroke-linejoin: round; }
   .map-label--station { font-size: 25px; stroke: none; }
@@ -429,7 +429,7 @@ const RAILWAY_LINES = [
   const minutes = document.querySelector<HTMLElement>('#map-area-minutes');
   const feature = document.querySelector<HTMLElement>('#map-area-feature');
   const directBus = document.querySelector<HTMLElement>('#map-direct-bus');
-  const busRoute = document.querySelector<SVGLineElement>('#map-bus-route');
+  const busRoute = document.querySelector<SVGPathElement>('#map-bus-route');
   const link = document.querySelector<HTMLAnchorElement>('#map-area-link');
   const card = document.querySelector<HTMLElement>('#map-detail');
   const points = document.querySelectorAll<HTMLButtonElement>('.map-point');
@@ -447,8 +447,8 @@ const RAILWAY_LINES = [
     const x = Number(point.dataset.x);
     const y = Number(point.dataset.y);
     if (busRoute) {
-      busRoute.setAttribute('x1', String(x));
-      busRoute.setAttribute('y1', String(y));
+      const curveY = y > 370 ? Math.max(y, 395) + 100 : Math.min(y, 395) - 100;
+      busRoute.setAttribute('d', `M ${x} ${y} Q ${(x + 380.4) / 2} ${curveY} 380.4 395`);
       busRoute.style.display = point.dataset.directBus === 'true' ? '' : 'none';
       busRoute.removeAttribute('hidden');
     }
