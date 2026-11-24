@@ -14,7 +14,7 @@ const title = `${station.name}駅の旅ガイド｜どこかにビューン！`;
 const description = `${station.name}駅からの旅を計画。${station.highlight}。見どころや車なし旅行のヒントを紹介します。`;
 ---
 
-<Layout title={title} description={description}>
+<Layout title={title} description={description} noindex={station.id !== 'akita' && station.id !== 'tazawako'}>
   <article class="page" style={`--line-color: ${line.color}; --line-tint: ${line.tint};`}>
     <nav class="breadcrumbs" aria-label="パンくずリスト"><a href="/">トップ</a><span aria-hidden="true"> / </span><a href="/special/dokokanibyun/">駅一覧</a><span aria-hidden="true"> / </span><span>{station.name}駅</span></nav>
     <a class="return-link" href={`/special/dokokanibyun/#line-${line.id}`}>← {line.name}新幹線の駅一覧</a>
