@@ -1,0 +1,147 @@
+{
+  "schemaVersion": "2.0",
+  "assetId": "akita_1416",
+  "provider": {
+    "id": "akita_tourism_federation",
+    "nameJa": "一般社団法人 秋田県観光連盟",
+    "nameEn": "Akita Prefecture Tourism Federation",
+    "libraryName": "あきたファン フォトギャラリー",
+    "sourceUrl": "https://akita-fun.jp/photo_gallery"
+  },
+  "subject": {
+    "photoId": "1416",
+    "titleJa": "仙北市観光情報センター「角館駅前蔵」",
+    "titleEn": "Kakunodate Ekimaegura Tourist Information Center",
+    "prefecture": "秋田県",
+    "city": "仙北市",
+    "cityEn": "仙北 City",
+    "season": "all_year",
+    "genre": "観光施設",
+    "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "sceneType": "facility",
+    "primaryEntities": [
+      "角館駅前蔵",
+      "観光案内所",
+      "蔵造りの建物"
+    ],
+    "tags": [
+      "秋田",
+      "仙北市",
+      "角館",
+      "角館駅前蔵",
+      "観光案内所",
+      "蔵造り",
+      "駅前スポット",
+      "武家屋敷通り案内",
+      "蔵",
+      "秋田県",
+      "伝統建築",
+      "駅前"
+    ],
+    "rawTitleJa": "01角館駅前蔵",
+    "seasonalHighlight": "none",
+    "environment": "outdoor",
+    "tagsEn": [
+      "Akita",
+      "Kakunodate",
+      "Tourist Information",
+      "Storehouse",
+      "Tohoku Travel",
+      "Traditional Architecture"
+    ]
+  },
+  "specs": {
+    "width": 1378,
+    "height": 919,
+    "orientation": "landscape",
+    "aspectRatio": "1.5:1",
+    "fileSizeBytes": 1590804,
+    "sha256": "f488a9b0dc3a883ffa6c2862046c7314e37e56ed6aa7625c84df5d0a4fbc4d55",
+    "filename": "01角館駅前蔵.jpg",
+    "originalFilename": "01角館駅前蔵.jpg"
+  },
+  "policy": {
+    "commercialUse": true,
+    "purposeConstraint": "tourism_pr_only",
+    "allowedProjects": [
+      "tavi-navi",
+      "DeepJapan",
+      "teluis",
+      "yomilee"
+    ],
+    "creditRequired": true,
+    "maxPerArticle": null,
+    "modification": "crop_and_resize_only",
+    "redistributionAllowed": false
+  },
+  "i18n": {
+    "ja": {
+      "alt": "仙北市観光情報センター「角館駅前蔵」（秋田県）- 角館駅前に佇む、伝統的な白壁の蔵造りを模した観光案内所「角館駅前蔵」。武家屋敷散策前の情報収集やマップ入手など、旅の拠点として親しまれています。",
+      "caption": "角館駅前に佇む、伝統的な白壁の蔵造りを模した観光案内所「角館駅前蔵」。武家屋敷散策前の情報収集やマップ入手など、旅の拠点として親しまれています。（写真提供：一般社団法人 秋田県観光連盟「あきたファン」）",
+      "credit": "写真提供：一般社団法人 秋田県観光連盟「あきたファン」"
+    },
+    "en": {
+      "alt": "Kakunodate Ekimaegura Tourist Information Center - Located right in front of Kakunodate Station, this warehouse-style tourist information center provides maps and helpful tips for exploring the historic town.",
+      "caption": "Located right in front of Kakunodate Station, this warehouse-style tourist information center provides maps and helpful tips for exploring the historic town. (Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun))",
+      "credit": "Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun)"
+    }
+  },
+  "downloadedAt": "2026-11-09T18:36:47+0900",
+  "aiProxy": {
+    "path": "ai_thumbs/01角館駅前蔵.webp",
+    "format": "webp",
+    "width": 768,
+    "height": 512,
+    "fileSizeBytes": 58516,
+    "targetMaxTokens": 258
+  },
+  "visual": {
+    "schemaSubVersion": "2.1",
+    "descriptionJa": "角館駅前に佇む、伝統的な白壁の蔵造りを模した観光案内所「角館駅前蔵」。武家屋敷散策前の情報収集やマップ入手など、旅の拠点として親しまれています。",
+    "descriptionEn": "Located right in front of Kakunodate Station, this warehouse-style tourist information center provides maps and helpful tips for exploring the historic town.",
+    "timeOfDay": "daytime",
+    "weather": "cloudy",
+    "composition": "medium",
+    "focalPosition": "center",
+    "textSafeArea": [
+      "top",
+      "bottom"
+    ],
+    "satoriTemplate": "travel_model_course",
+    "hasPeople": false,
+    "peopleStyle": "none",
+    "dominantColor": "white",
+    "mood": [
+      "nostalgic",
+      "serene"
+    ],
+    "appealScore": 3,
+    "bestRole": "timeline_step",
+    "isHeroReady": false,
+    "suitableFor": [
+      "solo",
+      "couple",
+      "family",
+      "senior",
+      "inbound"
+    ],
+    "bestFor": [
+      "角館観光モデルコースの出発地点紹介",
+      "角館駅周辺の便利施設ガイド",
+      "武家屋敷巡りのアクセス案内"
+    ]
+  }
+}

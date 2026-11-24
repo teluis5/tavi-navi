@@ -1,0 +1,144 @@
+{
+  "schemaVersion": "2.0",
+  "assetId": "akita_1361",
+  "provider": {
+    "id": "akita_tourism_federation",
+    "nameJa": "一般社団法人 秋田県観光連盟",
+    "nameEn": "Akita Prefecture Tourism Federation",
+    "libraryName": "あきたファン フォトギャラリー",
+    "sourceUrl": "https://akita-fun.jp/photo_gallery"
+  },
+  "subject": {
+    "photoId": "1361",
+    "titleJa": "安藤醸造本店のレンガ蔵",
+    "titleEn": "Historic Brick Storehouse at Ando Brewery",
+    "prefecture": "秋田県",
+    "city": "仙北市",
+    "cityEn": "仙北 City",
+    "season": "all_year",
+    "genre": "食",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "sceneType": "historic",
+    "primaryEntities": [
+      "赤レンガ蔵",
+      "安藤醸造本店",
+      "醸造元の木製看板",
+      "黒塀"
+    ],
+    "tags": [
+      "秋田",
+      "仙北市",
+      "角館",
+      "安藤醸造",
+      "レンガ蔵",
+      "醤油蔵",
+      "歴史的建造物",
+      "みちのく小京都",
+      "蔵巡り",
+      "秋田県",
+      "醸造元",
+      "町歩き"
+    ],
+    "rawTitleJa": "01安藤醸造",
+    "seasonalHighlight": "none",
+    "environment": "outdoor",
+    "tagsEn": [
+      "Akita",
+      "Kakunodate",
+      "AndoBrewery",
+      "historicarchitecture",
+      "brickwarehouse",
+      "breweries"
+    ]
+  },
+  "specs": {
+    "width": 6000,
+    "height": 4000,
+    "orientation": "landscape",
+    "aspectRatio": "3:2",
+    "fileSizeBytes": 8165010,
+    "sha256": "29197915a842fbe86c1dc53384adcd3d2ec852a117dd1be736daec0078c36e49",
+    "filename": "01安藤醸造.jpg",
+    "originalFilename": "01安藤醸造.jpg"
+  },
+  "policy": {
+    "commercialUse": true,
+    "purposeConstraint": "tourism_pr_only",
+    "allowedProjects": [
+      "tavi-navi",
+      "DeepJapan",
+      "teluis",
+      "yomilee"
+    ],
+    "creditRequired": true,
+    "maxPerArticle": null,
+    "modification": "crop_and_resize_only",
+    "redistributionAllowed": false
+  },
+  "i18n": {
+    "ja": {
+      "alt": "安藤醸造本店のレンガ蔵（秋田県）- 角館の歴史を物語る安藤醸造の赤レンガ蔵。重厚な煉瓦造りと木製看板、黒塀が調和し、城下町の風情を伝えています。",
+      "caption": "角館の歴史を物語る安藤醸造の赤レンガ蔵。重厚な煉瓦造りと木製看板、黒塀が調和し、城下町の風情を伝えています。（写真提供：一般社団法人 秋田県観光連盟「あきたファン」）",
+      "credit": "写真提供：一般社団法人 秋田県観光連盟「あきたファン」"
+    },
+    "en": {
+      "alt": "Historic Brick Storehouse at Ando Brewery - The distinctive red brick storehouse and traditional wooden signage of Ando Brewery, showcasing historic merchant architecture in Kakunodate, Akita.",
+      "caption": "The distinctive red brick storehouse and traditional wooden signage of Ando Brewery, showcasing historic merchant architecture in Kakunodate, Akita. (Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun))",
+      "credit": "Photo courtesy of Akita Prefecture Tourism Federation (Akita Fun)"
+    }
+  },
+  "downloadedAt": "2026-11-09T18:32:54+0900",
+  "aiProxy": {
+    "path": "ai_thumbs/01安藤醸造.webp",
+    "format": "webp",
+    "width": 768,
+    "height": 512,
+    "fileSizeBytes": 93566,
+    "targetMaxTokens": 258
+  },
+  "visual": {
+    "schemaSubVersion": "2.1",
+    "descriptionJa": "角館の歴史を物語る安藤醸造の赤レンガ蔵。重厚な煉瓦造りと木製看板、黒塀が調和し、城下町の風情を伝えています。",
+    "descriptionEn": "The distinctive red brick storehouse and traditional wooden signage of Ando Brewery, showcasing historic merchant architecture in Kakunodate, Akita.",
+    "timeOfDay": "daytime",
+    "weather": "sunny",
+    "composition": "medium",
+    "focalPosition": "left",
+    "textSafeArea": [
+      "top",
+      "bottom",
+      "right"
+    ],
+    "satoriTemplate": "split_right",
+    "hasPeople": false,
+    "peopleStyle": "none",
+    "dominantColor": "warm",
+    "mood": [
+      "nostalgic",
+      "serene"
+    ],
+    "appealScore": 4,
+    "bestRole": "h2_main",
+    "isHeroReady": true,
+    "suitableFor": [
+      "solo",
+      "couple",
+      "senior",
+      "inbound"
+    ],
+    "bestFor": [
+      "角館の歴史散策モデルコース",
+      "老舗の味噌・醤油蔵めぐり",
+      "みちのくのレトロ近代建築探訪"
+    ]
+  }
+}

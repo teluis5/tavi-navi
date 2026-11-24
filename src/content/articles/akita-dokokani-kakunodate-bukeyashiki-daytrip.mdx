@@ -17,6 +17,9 @@ import TravelTimeline from '../../components/TravelTimeline.astro';
 import TransitBookingHub from '../../components/TransitBookingHub.astro';
 import photoSamurai from '../../assets/photos/akita_compressed/03角館の武家屋敷通り.webp';
 import photoCraft from '../../assets/photos/akita_compressed/01角館樺細工伝承館.webp';
+import photoStationGuide from '../blog/dokokani-kakunodate-bukeyashiki-daytrip/station-guide.webp';
+import photoOyakodon from '../blog/dokokani-kakunodate-bukeyashiki-daytrip/oyakodon.webp';
+import photoAndo from '../blog/dokokani-kakunodate-bukeyashiki-daytrip/ando-brewery.webp';
 
 秋田新幹線「こまち」と、山あいを走る秋田内陸線が出会う角館駅。ここは、江戸時代に城下町として形づくられた角館を歩く玄関口です。
 
@@ -33,7 +36,7 @@ import photoCraft from '../../assets/photos/akita_compressed/01角館樺細工�
 ## 1日目：黒塀の武家屋敷を歩き、角館に泊まる
 
 <TravelTimeline days={[{ dayNumber: 1, title: '角館駅 → 武家屋敷 → 角館駅周辺泊', steps: [
-  { title: '東京駅から秋田新幹線で角館駅へ', points: ['指定列車の到着時刻と帰りの時刻を確認し、荷物は必要に応じて駅周辺で預ける。'], transitDetail: { method: '徒歩の目安 25〜30分', route: '角館駅 → 青柳家', specs: ['市の案内では駅から徒歩20分。天候や信号待ちの余裕を加えています。'] } },
+  { title: '東京駅から秋田新幹線で角館駅へ', image: photoStationGuide, imageCredit: '一般社団法人 秋田県観光連盟「あきたファン」', points: ['写真は角館駅前の観光案内所「角館駅前蔵」。町歩きに出発する前に周辺の情報を集めよう。', '指定列車の到着時刻と帰りの時刻を確認し、荷物は必要に応じて駅周辺で預ける。'], transitDetail: { method: '徒歩の目安 25〜30分', route: '角館駅 → 青柳家', specs: ['市の案内では駅から徒歩20分。天候や信号待ちの余裕を加えています。'] } },
   { leadHeading: '黒塀の道を歩いて、武家屋敷の門をくぐる', title: '青柳家と武家屋敷通り', duration: '目安 60分', image: photoSamurai, imageCredit: '一般社団法人 秋田県観光連盟「あきたファン」', points: ['武家屋敷通りを歩き、青柳家では門や屋敷のつくりをじっくり見学。夏は緑と黒塀の取り合わせも楽しみです。写真は夏の風景。', '入館料は大人500円。市の案内では4〜11月は9:00〜17:00、12〜3月は9:00〜16:00。'], links: [{ label: '仙北市：武家屋敷', href: 'https://www.city.semboku.akita.jp/sightseeing/spot/07_buke.html' }], transitDetail: { method: '徒歩で角館の宿へ', route: '武家屋敷通り → 宿泊先' } },
   { title: '角館で夕食・宿泊', alternatives: [
     { title: 'ホテル B4T 角館', alternativeLabel: '駅に隣接', categoryLabel: 'ビジネスホテル', image: 'https://img.travel.rakuten.co.jp/share/HOTEL/1720/1720.jpg', imageCredit: '楽天トラベル', hotelData: { hotelNo: '1720', yahooUrl: 'https://travel.yahoo.co.jp/00909428/', jalanUrl: 'https://www.jalan.net/yad318568/' }, points: ['角館駅に隣接。新幹線の発着に合わせて動きやすい宿。', '館内にレストランはないため、夕食と翌朝の食事を事前に手配。宿泊者用ロッカーはチェックイン日からチェックアウト日まで利用可能。'], links: [{ label: 'ホテル公式案内', href: 'https://www.hotel-b4t.jp/kakunodate/' }] },
@@ -46,8 +49,8 @@ import photoCraft from '../../assets/photos/akita_compressed/01角館樺細工�
 <TravelTimeline days={[{ dayNumber: 2, title: '角館駅周辺 → 樺細工伝承館 → 外町 → 角館駅', steps: [
   { title: '宿を出発', points: ['荷物を預けられるか宿に確認。駅から樺細工伝承館へは徒歩で余裕を含め20〜25分が目安。町家ホテル角館からは宿の位置を確認して向かう。'], transitDetail: { method: '徒歩', route: '角館の宿 → 樺細工伝承館' } },
   { leadHeading: '山桜の樹皮が、艶のある工芸品に', title: '角館樺細工伝承館', duration: '目安 60分', image: photoCraft, imageCredit: '一般社団法人 秋田県観光連盟「あきたファン」', points: ['茶筒などに使われる樺細工の展示へ。自然の樹皮の模様や、つややかな仕上がりを近くで見比べたい。製作実演の日は事前確認。', '大人500円。4〜11月は9:00〜17:00、12〜3月は9:00〜16:30。入場は閉館30分前まで。年末年始休館。'], links: [{ label: '仙北市：開館時間・観覧料', href: 'https://www.city.semboku.akita.jp/sightseeing/densyo/shisetsu.html' }, { label: '製作実演の案内', href: 'https://www.city.semboku.akita.jp/sightseeing/densyo/zituen.html' }], transitDetail: { method: '徒歩で外町方面へ', route: '伝承館 → かくのだ亭' } },
-  { leadHeading: '秋田名物をお昼に選ぶ', title: 'かくのだ亭で稲庭うどんと比内地鶏', duration: '目安 60分', points: ['町家館2階の食事処。稲庭うどんと比内地鶏の親子丼を楽しめる。', '営業時間・定休日は訪問前に公式案内で確認。混雑時は余裕を持って。'], links: [{ label: 'かくのだ亭 公式案内', href: 'https://kakunodatei.com/' }], transitDetail: { method: '徒歩で外町を散策', route: 'かくのだ亭 → 安藤醸造本店' } },
-  { leadHeading: '醸造元で、旅の味を持ち帰る', title: '安藤醸造本店', duration: '目安 30分', points: ['商人町・外町にある醸造元。味噌や醤油をお土産に選び、煉瓦造りの蔵座敷にも目を留めたい。', '営業日と営業時間は公式案内で確認。'], links: [{ label: '安藤醸造 店舗案内', href: 'https://www.andojyozo.co.jp/shoplist' }], transitDetail: { method: '徒歩で角館駅へ', route: '外町 → 角館駅', specs: ['帰りの指定列車から逆算し、荷物を受け取る時間も確保。'] } },
+  { leadHeading: '秋田名物をお昼に選ぶ', title: 'かくのだ亭で稲庭うどんと比内地鶏', duration: '目安 60分', image: photoOyakodon, imageCredit: '一般社団法人 秋田県観光連盟「あきたファン」', isImageSample: true, points: ['町家館2階の食事処。稲庭うどんと比内地鶏の親子丼を楽しめる。写真は親子丼のイメージです。', '営業時間・定休日は訪問前に公式案内で確認。混雑時は余裕を持って。'], links: [{ label: 'かくのだ亭 公式案内', href: 'https://kakunodatei.com/' }], transitDetail: { method: '徒歩で外町を散策', route: 'かくのだ亭 → 安藤醸造本店' } },
+  { leadHeading: '醸造元で、旅の味を持ち帰る', title: '安藤醸造本店', duration: '目安 30分', image: photoAndo, imageCredit: '一般社団法人 秋田県観光連盟「あきたファン」', points: ['商人町・外町にある醸造元。味噌や醤油をお土産に選び、煉瓦造りの蔵座敷にも目を留めたい。', '営業日と営業時間は公式案内で確認。'], links: [{ label: '安藤醸造 店舗案内', href: 'https://www.andojyozo.co.jp/shoplist' }], transitDetail: { method: '徒歩で角館駅へ', route: '外町 → 角館駅', specs: ['帰りの指定列車から逆算し、荷物を受け取る時間も確保。'] } },
   { title: '角館駅から指定列車で帰路へ', points: ['改札には余裕を持って戻る。帰りの列車が早い場合は昼食や見学先を減らす。'] }
 ]}]} />
 
