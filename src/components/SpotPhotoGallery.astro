@@ -17,6 +17,7 @@ export interface Props {
   imageCredit?: string;
   isImageSample?: boolean;
   standalone?: boolean;
+  pickSticker?: string;
   spotData?: any;
   hotelData?: {
     rating?: string | number;
@@ -34,6 +35,7 @@ const {
   imageCredit,
   isImageSample,
   standalone = false,
+  pickSticker,
   spotData,
   hotelData,
 } = Astro.props;
@@ -108,6 +110,7 @@ const creditText = formatCredits(photoItems, imageCredit, layout);
 {layout === 'pip' && isMulti ? (
   /* ピクチャー・イン・ピクチャー（PiP） */
   <div class={`wide-photo-container photo-pip-container ${standalone ? 'is-standalone' : ''}`}>
+    {pickSticker && <span class="pick-sticker is-pip-left">{pickSticker}</span>}
     <img src={getImageUrl(photoItems[0].image)} alt={title} class="wide-photo-img" loading="lazy" />
     <div class="pip-inset-frame">
       <img src={getImageUrl(photoItems[1].image)} alt={photoItems[1].caption || title} class="pip-inset-img" loading="lazy" />
@@ -141,6 +144,7 @@ const creditText = formatCredits(photoItems, imageCredit, layout);
 ) : layout === 'grid-2' && isMulti ? (
   /* 2分割グリッド */
   <div class={`wide-photo-container photo-grid-wrapper ${standalone ? 'is-standalone' : ''}`}>
+    {pickSticker && <span class="pick-sticker">{pickSticker}</span>}
     <div class="photo-gallery-grid-2">
       <div class="grid-2-cell">
         <img src={getImageUrl(photoItems[0].image)} alt={title} class="grid-cell-img" loading="lazy" />
@@ -178,6 +182,7 @@ const creditText = formatCredits(photoItems, imageCredit, layout);
 ) : layout === 'grid-3' && isMulti ? (
   /* 3分割グリッド */
   <div class={`wide-photo-container photo-grid-wrapper ${standalone ? 'is-standalone' : ''}`}>
+    {pickSticker && <span class="pick-sticker">{pickSticker}</span>}
     <div class="photo-gallery-grid-3">
       <div class="grid-3-main-cell">
         <img src={getImageUrl(photoItems[0].image)} alt={title} class="grid-cell-img" loading="lazy" />
@@ -219,6 +224,7 @@ const creditText = formatCredits(photoItems, imageCredit, layout);
 ) : layout === 'carousel' && isMulti ? (
   /* 写真カルーセル */
   <div class={`wide-photo-container spot-photo-slider-container ${standalone ? 'is-standalone' : ''}`}>
+    {pickSticker && <span class="pick-sticker">{pickSticker}</span>}
     <div class="spot-photo-only-track">
       {photoItems.map((p, idx) => (
         <div class="spot-photo-only-slide">
@@ -255,6 +261,7 @@ const creditText = formatCredits(photoItems, imageCredit, layout);
 ) : (
   /* 単一写真 */
   <div class={`wide-photo-container ${standalone ? 'is-standalone' : ''}`}>
+    {pickSticker && <span class="pick-sticker">{pickSticker}</span>}
     {photoItems[0]?.image && (
       <img src={getImageUrl(photoItems[0].image)} alt={title} class="wide-photo-img" loading="lazy" />
     )}

@@ -214,146 +214,62 @@ if (props.pageType === 'article') {
         <div class="e-meta-row">
           <div class="e-badges">
             <a href={hubHref} class="e-badge primary">
-              {isSpecial ? '🚅' : '📍'} {prefName}
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              <span>{prefName}</span>
             </a>
             <span class="e-badge">{article.data.category}</span>
             {article.data.season && (
               <span class="e-badge season">{article.data.season}</span>
             )}
             {article.data.tags?.some((t: string) => t.includes('車なし')) && (
-              <span class="e-badge outline">車なし</span>
+              <span class="e-badge outline">車なしOK</span>
             )}
           </div>
 
           <span class="e-meta-divider" aria-hidden="true">|</span>
 
           <div class="e-dates">
-            <span>公開日: {article.data.pubDate.toLocaleDateString('ja-JP')}</span>
+            <span>公開 {article.data.pubDate.toLocaleDateString('ja-JP')}</span>
             {article.data.updatedDate && (
-              <span>更新日: {article.data.updatedDate.toLocaleDateString('ja-JP')}</span>
+              <span>更新 {article.data.updatedDate.toLocaleDateString('ja-JP')}</span>
             )}
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 2段目：左サイドバー（上部目次 ＋ 下部メニュー：全体固定）＋ 右本文 -->
+    <!-- 2段目：本文没入1カラム基調（最大幅820px） -->
     <div class="e-body-shell">
-      <aside class="e-sidebar" aria-label="目次とサイトメニュー">
-        <div class="e-sidebar-container">
-          <!-- 上部：目次エリア -->
-          <div class="e-sidebar-toc-box">
-            <div class="e-sidebar-heading">
-              <span class="e-sidebar-heading-text">目次</span>
-            </div>
-            {tocHeadings.length > 0 ? (
-              <nav class="e-toc-nav" aria-label="この記事の目次">
-                <ul>
-                  {tocHeadings.map((h) => (
-                    <li class={`e-toc-item depth-${h.depth}`}>
-                      <a href={`#${h.slug}`} class="e-toc-link" data-toc-link={h.slug}>
-                        {h.text}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            ) : (
-              <p class="e-toc-empty">この記事には見出しがありません。</p>
-            )}
-          </div>
-
-          <!-- 下部：サイトメニューエリア（サイト案内は固定、その下をスクロール可能） -->
-          <div class="e-sidebar-menu-box" aria-label="サイトメニュー">
-            <div class="e-sidebar-heading">
-              <span class="e-sidebar-heading-text">メニュー</span>
-            </div>
-
-            <div class="menu-group e-menu-fixed-group">
-              <p class="menu-label">サイト案内</p>
-              <ul class="menu-list">
-                <li><a href="/" class="menu-link">🏠 全国トップ</a></li>
-                <li><a href="/special/dokokanibyun/" class="menu-link">🚅 どこかにビューーン！</a></li>
-                <li><a href="/season/" class="menu-link">🗓️ 旬の季節・月別ガイド</a></li>
-              </ul>
-            </div>
-
-            <div class="e-menu-scroll-wrap">
-              <div class="e-menu-scroll" id="menu-scroll-area" tabindex="0" aria-label="エリア・月別・都道府県メニュー">
-                {!isSpecial && CITIES.filter((c) => c.prefId === prefSlug).length > 0 && (
-                  <div class="menu-group">
-                    <p class="menu-label">📍 {prefName}のエリア</p>
-                    <div class="menu-chips">
-                      <a href={hubHref} class="menu-chip is-current">{prefName}トップ</a>
-                      {CITIES.filter((c) => c.prefId === prefSlug).map((city) => (
-                        <a href={`/${prefSlug}/${city.id}/`} class="menu-chip">{city.nameJa}</a>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                <div class="menu-group">
-                  <p class="menu-label">📅 {isSpecial ? '全国の月別ガイド' : `${prefName}の月別ガイド`}</p>
-                  <div class="menu-month-grid">
-                    {MONTHLY_THEMES.map((m) => (
-                      <a href={isSpecial ? `/season/${m.month}/` : `/${prefSlug}/${m.month}/`} class="menu-month-chip">
-                        {m.month}月
-                      </a>
-                    ))}
-                  </div>
-                </div>
-
-                <div class="menu-group">
-                  <p class="menu-label">🗾 人気の都道府県</p>
-                  <div class="menu-chips">
-                    {featuredPrefs.map((p) => (
-                      <a href={`/${p.id}/`} class={`menu-chip ${p.id === prefSlug ? 'is-current' : ''}`}>
-                        {p.nameJa}
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              <button
-                type="button"
-                class="e-menu-scroll-hint"
-                id="menu-scroll-hint"
-                aria-label="下にスクロール"
-                hidden
-              >
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-      </aside>
-
-      <!-- メイン本文カラム -->
       <article class="e-article google-anno-skip">
-        <div class="prose google-anno-skip">
+        <!-- スマート目次バー（2項目以上ある場合のみ自動表示：DAY 1 / DAY 2 / 費用目安 / 予約ハブ含む） -->
+        <nav class="e-smart-toc" id="smart-toc" aria-label="この記事の目次" hidden>
+          <span class="e-smart-toc-label">INDEX</span>
+          <div class="e-smart-toc-list" id="smart-toc-list"></div>
+        </nav>
+
+        <div class="prose google-anno-skip" id="article-prose-root">
           <ContentComponent />
         </div>
 
-        <!-- 読了後の回遊用：都道府県トップ案内 ＆ 類似・関連モデルコース -->
-        {!isSpecial && <section class="related-pref-section" style="margin-top: 3.5rem; padding-top: 2rem; border-top: 2px solid var(--border-color);">
-          <a
-            href={`/${prefSlug}/`}
-            class="pref-hub-banner"
-            style="display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 100%); border: 1px solid #bae6fd; border-radius: 8px; padding: 1.25rem 1.5rem; text-decoration: none; margin-bottom: 2rem; transition: transform 0.15s ease, box-shadow 0.15s ease;"
-          >
+        <!-- 読了後の回遊用：都道府県ハブバナー ＆ 重複しない関連モデルコース -->
+        {!isSpecial && <section class="related-pref-section" id="auto-related-pref">
+          <a href={`/${prefSlug}/`} class="pref-hub-banner">
             <div>
-              <span style="font-size: 0.78rem; font-weight: 800; color: #0284c7; letter-spacing: 0.05em; text-transform: uppercase;">PREFECTURE GUIDE</span>
-              <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--text-main); margin: 0.25rem 0 0.15rem;">
-                📍 {prefName}の旅情報・モデルコース一覧を見る
+              <span class="pref-hub-kicker">PREFECTURE GUIDE</span>
+              <h3 class="pref-hub-title">
+                {prefName}の旅情報・モデルコース一覧を見る
               </h3>
-              <p style="font-size: 0.85rem; color: var(--text-light); margin: 0;">
-                {prefName}の最新観光ガイド、旬のイベント、車なしモデルコースをまとめてチェック
+              <p class="pref-hub-desc">
+                {prefName}の最新観光ガイド、旬のモデルコース、車なしルートをまとめてチェック
               </p>
             </div>
-            <span style="font-size: 1.4rem; color: #0284c7; margin-left: 1rem; font-weight: 700;">&rarr;</span>
+            <svg class="pref-hub-arrow" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
           </a>
 
           {(() => {
@@ -365,42 +281,32 @@ if (props.pageType === 'article') {
             if (relatedArticles.length === 0) return null;
 
             return (
-              <div>
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
-                  <h3 style="font-size: 1.1rem; font-weight: 800; color: var(--text-main); margin: 0; display: flex; align-items: center; gap: 0.4rem;">
-                    <span>🧭</span> {prefName}のあわせて読みたい人気モデルコース
+              <div class="auto-related-grid-wrap" id="auto-related-grid-wrap">
+                <div class="auto-related-header">
+                  <h3 class="auto-related-title">
+                    {prefName}のあわせて読みたいモデルコース
                   </h3>
-                  <a href={`/${prefSlug}/`} style="font-size: 0.82rem; font-weight: 700; color: var(--theme-accent); text-decoration: none;">
-                    すべて見る &rarr;
+                  <a href={`/${prefSlug}/`} class="pill-btn">
+                    <span>すべて見る</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
                   </a>
                 </div>
 
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem;">
+                <div class="auto-related-grid">
                   {relatedArticles.map((rel) => {
                     const relSlug = getArticleSlug(rel.id, rel.data.pref);
                     return (
-                      <a
-                        href={`/${prefSlug}/${relSlug}/`}
-                        style="display: flex; flex-direction: column; background: #ffffff; border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem; text-decoration: none; color: inherit; transition: transform 0.15s ease, box-shadow 0.15s ease;"
-                        class="related-article-card"
-                      >
-                        <div style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.72rem; color: var(--text-light); margin-bottom: 0.5rem;">
-                          <span style="background: var(--bg-main); padding: 0.15rem 0.45rem; border-radius: 4px; font-weight: 700; color: var(--text-main);">
-                            {rel.data.category}
-                          </span>
-                          {rel.data.duration && (
-                            <span>· {rel.data.duration}</span>
-                          )}
+                      <a href={`/${prefSlug}/${relSlug}/`} class="related-article-card">
+                        <div class="related-article-meta">
+                          <span class="related-article-cat">{rel.data.category}</span>
+                          {rel.data.duration && <span>· {rel.data.duration}</span>}
                         </div>
-                        <h4 style="font-size: 0.92rem; font-weight: 800; line-height: 1.45; color: var(--text-main); margin: 0 0 0.5rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
-                          {rel.data.title}
-                        </h4>
-                        <p style="font-size: 0.8rem; line-height: 1.5; color: var(--text-light); margin: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
-                          {rel.data.description}
-                        </p>
-                        <span style="font-size: 0.78rem; font-weight: 700; color: var(--theme-accent); margin-top: auto; padding-top: 0.75rem;">
-                          記事を読む &rarr;
-                        </span>
+                        <h4 class="related-article-title">{rel.data.title}</h4>
+                        <p class="related-article-desc">{rel.data.description}</p>
+                        <span class="related-article-more">記事を読む →</span>
                       </a>
                     );
                   })}
@@ -409,6 +315,39 @@ if (props.pageType === 'article') {
             );
           })()}
         </section>}
+
+        <!-- 折りたたみエリア・月別ナビ（記事下へ退避し、本文の邪魔をしない） -->
+        <details class="e-bottom-nav-fold">
+          <summary class="e-bottom-nav-summary">
+            <span>{isSpecial ? '全国の月別ガイド・人気エリアから探す' : `${prefName}のエリア・月別ガイドから探す`}</span>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </summary>
+          <div class="e-bottom-nav-body">
+            {!isSpecial && CITIES.filter((c) => c.prefId === prefSlug).length > 0 && (
+              <div class="menu-group">
+                <p class="menu-label">AREA / {prefName}</p>
+                <div class="menu-chips">
+                  <a href={hubHref} class="menu-chip is-current">{prefName}トップ</a>
+                  {CITIES.filter((c) => c.prefId === prefSlug).map((city) => (
+                    <a href={`/${prefSlug}/${city.id}/`} class="menu-chip">{city.nameJa}</a>
+                  ))}
+                </div>
+              </div>
+            )}
+            <div class="menu-group">
+              <p class="menu-label">BY MONTH</p>
+              <div class="menu-month-grid">
+                {MONTHLY_THEMES.map((m) => (
+                  <a href={isSpecial ? `/season/${m.month}/` : `/${prefSlug}/${m.month}/`} class="menu-month-chip">
+                    {m.month}月
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        </details>
 
         <footer class="e-footer">
           <div class="e-tags">
@@ -429,44 +368,46 @@ if (props.pageType === 'article') {
 ) : null}
 
 <script>
-  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-toc-link]'));
-  const targets = links
-    .map((link) => {
-      const id = link.dataset.tocLink;
-      return id ? document.getElementById(id) : null;
-    })
-    .filter((el): el is HTMLElement => Boolean(el));
+  const proseRoot = document.getElementById('article-prose-root');
+  const smartToc = document.getElementById('smart-toc');
+  const smartTocList = document.getElementById('smart-toc-list');
 
-  if (targets.length > 0 && 'IntersectionObserver' in window) {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            links.forEach((l) => l.classList.remove('is-active'));
-            const active = links.find((l) => l.dataset.tocLink === entry.target.id);
-            if (active) active.classList.add('is-active');
-          }
-        }
-      },
-      { rootMargin: '-90px 0px -70% 0px', threshold: 0 }
-    );
-    targets.forEach((t) => observer.observe(t));
-  }
+  if (proseRoot && smartToc && smartTocList) {
+    // 記事内の H2 および DAY 1 / DAY 2 / 費用目安 / 予約ハブを順番通りに拾う
+    const nodes = Array.from(proseRoot.querySelectorAll<HTMLElement>('[data-toc-heading], h2[id]'));
+    const seenIds = new Set<string>();
+    const items: { id: string; label: string }[] = [];
 
-  const menuScroll = document.getElementById('menu-scroll-area');
-  const scrollHint = document.getElementById('menu-scroll-hint');
-  if (menuScroll && scrollHint) {
-    const updateScrollHint = () => {
-      const hasOverflow = menuScroll.scrollHeight > menuScroll.clientHeight + 4;
-      const atBottom = menuScroll.scrollTop + menuScroll.clientHeight >= menuScroll.scrollHeight - 4;
-      scrollHint.hidden = !hasOverflow || atBottom;
-    };
-    updateScrollHint();
-    menuScroll.addEventListener('scroll', updateScrollHint, { passive: true });
-    window.addEventListener('resize', updateScrollHint, { passive: true });
-    scrollHint.addEventListener('click', () => {
-      menuScroll.scrollBy({ top: 140, behavior: 'smooth' });
-    });
+    for (const el of nodes) {
+      const id = el.id;
+      if (!id || seenIds.has(id)) continue;
+      // data-toc-heading が付いている見出し（DAY 1, DAY 2, 費用目安, 予約ハブ）を優先
+      const customLabel = el.getAttribute('data-toc-heading');
+      const rawText = (customLabel || el.textContent || '').replace(/\s+/g, ' ').trim();
+      if (!rawText) continue;
+      seenIds.add(id);
+      items.push({ id, label: rawText });
+    }
+
+    // 項目が2つ以上ある場合のみ目次を表示（1項目以下は非表示）
+    if (items.length >= 2) {
+      smartTocList.replaceChildren();
+      for (const item of items) {
+        const a = document.createElement('a');
+        a.href = `#${item.id}`;
+        a.className = 'e-smart-toc-pill';
+        a.textContent = item.label;
+        smartTocList.appendChild(a);
+      }
+      smartToc.hidden = false;
+    }
+
+    // 本文内に既に RelatedCourseCards がある場合は記事下の重複カードブロックを畳む
+    const hasInlineRelated = Boolean(proseRoot.querySelector('.related-courses-section'));
+    const autoRelatedGrid = document.getElementById('auto-related-grid-wrap');
+    if (hasInlineRelated && autoRelatedGrid) {
+      autoRelatedGrid.hidden = true;
+    }
   }
 </script>
 
@@ -520,14 +461,14 @@ if (props.pageType === 'article') {
   }
 
   .e-header-inner {
-    max-width: 1180px;
-    margin: 1.25rem auto 0;
+    max-width: 820px;
+    margin: 1.5rem auto 0;
     padding: 0 1.25rem 1.25rem;
     border-bottom: 1px solid #e2e8f0;
   }
   .e-title {
-    margin: 0 0 0.5rem;
-    font-size: 2.05rem;
+    margin: 0 0 0.55rem;
+    font-size: 1.95rem;
     font-weight: 900;
     line-height: 1.35;
     color: #0f172a;
@@ -535,16 +476,16 @@ if (props.pageType === 'article') {
   }
   .e-subtitle {
     margin: 0 0 1rem;
-    font-size: 1.05rem;
+    font-size: 1.02rem;
     font-weight: 600;
-    line-height: 1.6;
+    line-height: 1.65;
     color: #475569;
   }
   .e-meta-row {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.75rem 1rem;
+    gap: 0.65rem 0.9rem;
   }
   .e-badges {
     display: flex;
@@ -552,21 +493,24 @@ if (props.pageType === 'article') {
     gap: 0.45rem;
   }
   .e-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
     font-size: 0.76rem;
     font-weight: 700;
-    padding: 0.2rem 0.65rem;
+    padding: 0.22rem 0.68rem;
     border-radius: 999px;
     background: #f1f5f9;
     color: #334155;
     text-decoration: none;
   }
   .e-badge.primary {
-    background: #e0f2fe;
-    color: #0369a1;
+    background: var(--color-teal-soft, #E6F4F7);
+    color: var(--color-teal, #0E7C94);
   }
   .e-badge.season {
-    background: #fef08a;
-    color: #854d0e;
+    background: #FEF2EF;
+    color: var(--color-coral, #E85D3F);
   }
   .e-badge.outline {
     background: #ffffff;
@@ -581,166 +525,238 @@ if (props.pageType === 'article') {
     display: flex;
     flex-wrap: wrap;
     gap: 0.85rem;
-    font-size: 0.84rem;
+    font-size: 0.82rem;
     color: #64748b;
   }
 
+  /* 1カラム没入型シェル（最大幅 820px） */
   .e-body-shell {
-    max-width: 1180px;
+    max-width: 820px;
     margin: 0 auto;
     padding: 0 1.25rem 3.5rem;
-    display: grid;
-    grid-template-columns: 225px minmax(0, 1fr);
-    gap: 2rem;
-    align-items: start;
   }
-  .e-sidebar {
-    position: sticky;
-    top: 84px;
-    height: calc(100vh - 104px);
+
+  /* スマート目次バー */
+  .e-smart-toc {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem 0.55rem;
+    margin: 0 0 1.5rem;
+    padding: 0.75rem 0.95rem;
+    background: #F8FAFB;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
   }
-  .e-sidebar-container {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    min-height: 0;
-  }
-  .e-sidebar-toc-box {
-    flex-shrink: 0;
-    margin-bottom: 1.5rem;
-  }
-  .e-sidebar-menu-box {
-    flex: 1 1 0%;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-  }
-  .e-sidebar-menu-box .e-sidebar-heading,
-  .e-menu-fixed-group {
-    flex-shrink: 0;
-  }
-  .e-menu-scroll-wrap {
-    position: relative;
-    flex: 1 1 0%;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-  }
-  .e-menu-scroll {
-    flex: 1 1 0%;
-    min-height: 0;
-    overflow-y: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    padding-bottom: 1.75rem;
-  }
-  .e-menu-scroll::-webkit-scrollbar {
+  .e-smart-toc[hidden] {
     display: none;
   }
-  .e-menu-scroll-hint {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 2.25rem;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    padding-bottom: 0.15rem;
-    border: none;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.92) 55%, #ffffff 100%);
-    color: #0284c7;
-    cursor: pointer;
-    transition: opacity 0.2s ease, color 0.15s ease;
+  .e-smart-toc-label {
+    font-family: var(--font-display);
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: var(--color-teal, #0E7C94);
+    margin-right: 0.2rem;
   }
-  .e-menu-scroll-hint[hidden] {
+  .e-smart-toc-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .e-smart-toc :global(.e-smart-toc-pill) {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.68rem;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 999px;
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: #334155;
+    text-decoration: none;
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+  .e-smart-toc :global(.e-smart-toc-pill:hover) {
+    border-color: var(--color-teal, #0E7C94);
+    color: var(--color-teal, #0E7C94);
+  }
+
+  /* 読了後の都道府県ハブ＆関連 */
+  .related-pref-section {
+    margin-top: 2.75rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid #e2e8f0;
+  }
+  .pref-hub-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    background: var(--color-teal-soft, #E6F4F7);
+    border: 1px solid #bae0e8;
+    border-radius: 10px;
+    padding: 1.1rem 1.35rem;
+    text-decoration: none;
+    margin-bottom: 1.75rem;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .pref-hub-banner:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(14, 124, 148, 0.1);
+    text-decoration: none;
+  }
+  .pref-hub-kicker {
+    font-family: var(--font-display);
+    font-size: 0.76rem;
+    font-weight: 800;
+    color: var(--color-teal, #0E7C94);
+    letter-spacing: 0.1em;
+  }
+  .pref-hub-title {
+    font-size: 1.08rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0.2rem 0 0.15rem;
+  }
+  .pref-hub-desc {
+    font-size: 0.83rem;
+    color: #475569;
+    margin: 0;
+  }
+  .pref-hub-arrow {
+    color: var(--color-teal, #0E7C94);
+    flex-shrink: 0;
+  }
+  .auto-related-grid-wrap[hidden] {
     display: none;
   }
-  .e-menu-scroll-hint:hover {
-    color: #0369a1;
+  .auto-related-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
   }
-  .e-sidebar-heading {
-    display: block;
-    margin-bottom: 0.75rem;
-    padding-bottom: 0.35rem;
-    border-bottom: 2px solid #0284c7;
-  }
-  .e-sidebar-heading-text {
+  .auto-related-title {
     font-size: 1.05rem;
     font-weight: 800;
     color: #0f172a;
-    letter-spacing: 0.05em;
+    margin: 0;
+  }
+  .auto-related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1rem;
+  }
+  .related-article-card {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 1rem;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .related-article-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+    text-decoration: none;
+  }
+  .related-article-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.72rem;
+    color: #64748b;
+    margin-bottom: 0.5rem;
+  }
+  .related-article-cat {
+    background: #F8FAFB;
+    padding: 0.15rem 0.45rem;
+    border-radius: 4px;
+    font-weight: 700;
+    color: #334155;
+  }
+  .related-article-title {
+    font-size: 0.92rem;
+    font-weight: 800;
+    line-height: 1.45;
+    color: #0f172a;
+    margin: 0 0 0.45rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .related-article-desc {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: #64748b;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .related-article-more {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--color-teal, #0E7C94);
+    margin-top: auto;
+    padding-top: 0.75rem;
   }
 
-  .e-toc-nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    border-left: 1px solid #e2e8f0;
+  /* 折りたたみボトムナビ */
+  .e-bottom-nav-fold {
+    margin-top: 2rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background: #F8FAFB;
+    overflow: hidden;
   }
-  .e-toc-link {
-    display: block;
-    padding: 0.4rem 0 0.4rem 0.9rem;
-    margin-left: -1px;
-    border-left: 2px solid transparent;
-    font-size: 0.82rem;
-    line-height: 1.45;
-    color: #475569;
-    text-decoration: none;
-    transition: color 0.15s ease, border-color 0.15s ease;
-  }
-  .e-toc-item.depth-3 .e-toc-link {
-    padding-left: 1.6rem;
-    font-size: 0.78rem;
-    color: #64748b;
-  }
-  .e-toc-link:hover,
-  .e-toc-link.is-active {
-    color: #0284c7;
-    border-left-color: #0284c7;
+  .e-bottom-nav-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.8rem 1rem;
+    font-size: 0.85rem;
     font-weight: 700;
-    text-decoration: none;
+    color: #334155;
+    cursor: pointer;
+    list-style: none;
   }
-  .e-toc-empty {
-    font-size: 0.82rem;
-    color: #64748b;
-    margin: 0;
+  .e-bottom-nav-summary::-webkit-details-marker {
+    display: none;
+  }
+  .e-bottom-nav-summary svg {
+    transition: transform 0.2s ease;
+  }
+  .e-bottom-nav-fold[open] .e-bottom-nav-summary svg {
+    transform: rotate(180deg);
+  }
+  .e-bottom-nav-body {
+    padding: 1rem;
+    background: #ffffff;
+    border-top: 1px solid #e2e8f0;
   }
 
   .menu-group {
-    margin-bottom: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  .menu-group:last-child {
+    margin-bottom: 0;
   }
   .menu-label {
     margin: 0 0 0.45rem;
-    font-size: 0.72rem;
+    font-family: var(--font-display);
+    font-size: 0.76rem;
     font-weight: 800;
     color: #64748b;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-  }
-  .menu-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-  }
-  .menu-link {
-    display: block;
-    padding: 0.42rem 0.6rem;
-    border-radius: 7px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #334155;
-    text-decoration: none;
-  }
-  .menu-link:hover {
-    background: #f1f5f9;
-    color: #0284c7;
-    text-decoration: none;
   }
   .menu-chips {
     display: flex;
@@ -752,37 +768,37 @@ if (props.pageType === 'article') {
     font-weight: 600;
     padding: 0.25rem 0.6rem;
     border-radius: 6px;
-    background: #f8fafc;
+    background: #F8FAFB;
     border: 1px solid #e2e8f0;
     color: #334155;
     text-decoration: none;
   }
   .menu-chip.is-current,
   .menu-chip:hover {
-    background: #e0f2fe;
-    border-color: #bae6fd;
-    color: #0369a1;
+    background: var(--color-teal-soft, #E6F4F7);
+    border-color: #bae0e8;
+    color: var(--color-teal, #0E7C94);
     text-decoration: none;
   }
   .menu-month-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     gap: 0.35rem;
   }
   .menu-month-chip {
     text-align: center;
     font-size: 0.76rem;
     font-weight: 600;
-    padding: 0.28rem 0;
+    padding: 0.3rem 0;
     border-radius: 6px;
-    background: #f8fafc;
+    background: #F8FAFB;
     border: 1px solid #e2e8f0;
     color: #334155;
     text-decoration: none;
   }
   .menu-month-chip:hover {
-    border-color: #0284c7;
-    color: #0284c7;
+    border-color: var(--color-teal, #0E7C94);
+    color: var(--color-teal, #0E7C94);
     text-decoration: none;
   }
 
@@ -790,19 +806,19 @@ if (props.pageType === 'article') {
     min-width: 0;
   }
   .e-footer {
-    margin-top: 3rem;
+    margin-top: 2.25rem;
     padding-top: 1.5rem;
     border-top: 1px solid #e2e8f0;
   }
   .e-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: 0.45rem;
     margin-bottom: 1.5rem;
   }
   .e-tag {
-    font-size: 0.8rem;
-    background: #f8fafc;
+    font-size: 0.78rem;
+    background: #F8FAFB;
     border: 1px solid #e2e8f0;
     padding: 0.2rem 0.65rem;
     border-radius: 999px;
@@ -811,47 +827,21 @@ if (props.pageType === 'article') {
   .e-footer-nav {
     display: flex;
     justify-content: space-between;
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     font-weight: 700;
   }
 
-  @media (max-width: 960px) {
+  @media (max-width: 640px) {
     .e-title {
-      font-size: 1.55rem;
+      font-size: 1.48rem;
     }
+    .e-header-inner,
     .e-body-shell {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
+      padding-left: 1rem;
+      padding-right: 1rem;
     }
-    .e-sidebar {
-      position: static;
-      height: auto;
-      max-height: none;
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 10px;
-      padding: 0.85rem;
-    }
-    .e-sidebar-container {
-      height: auto;
-    }
-    .e-sidebar-menu-box,
-    .e-menu-scroll-wrap,
-    .e-menu-scroll {
-      flex: none;
-      overflow-y: visible;
-      padding-bottom: 0;
-    }
-    .e-menu-scroll-hint {
-      display: none !important;
-    }
-  }
-  @media (max-width: 767px) {
-    .e-sidebar {
-      display: none;
-    }
-    .e-body-shell {
-      gap: 0;
+    .menu-month-grid {
+      grid-template-columns: repeat(4, 1fr);
     }
   }
 </style>

@@ -12,21 +12,24 @@ const prefPrefix = isEn ? '/en/' : '/';
 
 <footer class="site-footer">
   <div class="container">
-    <div style="margin-bottom: 2.5rem;">
-      <h3 style="font-size: 1rem; font-weight: 800; margin-bottom: 1rem; color: var(--color-text-main);">
-        {isEn ? 'Explore Japan by Prefecture' : '都道府県から旬の旅を探す'}
-      </h3>
-      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem;">
+    <details class="footer-pref-fold">
+      <summary class="footer-pref-summary">
+        <span>{isEn ? 'Explore Japan by Prefecture (47 Prefectures)' : '47都道府県から旬の旅を探す'}</span>
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </summary>
+      <div class="footer-pref-grid">
         {REGIONS.map((region) => {
           const prefs = PREFECTURES.filter((p) => p.region === region.id);
           return (
             <div>
-              <h4 style="font-size: 0.82rem; font-weight: 700; color: var(--color-primary-dark); margin-bottom: 0.35rem;">
+              <h4 class="footer-region-title">
                 {isEn ? region.nameEn : region.nameJa}
               </h4>
-              <div style="display: flex; flex-wrap: wrap; gap: 0.4rem; font-size: 0.78rem;">
+              <div class="footer-region-links">
                 {prefs.map((p) => (
-                  <a href={`${prefPrefix}${p.id}/`} style="color: var(--color-text-muted);">
+                  <a href={`${prefPrefix}${p.id}/`}>
                     {isEn ? p.nameEn : p.nameJa}
                   </a>
                 ))}
@@ -35,7 +38,7 @@ const prefPrefix = isEn ? '/en/' : '/';
           );
         })}
       </div>
-    </div>
+    </details>
 
     <nav class="footer-nav">
       <a href={isEn ? '/en/' : '/'}>{isEn ? 'Home' : 'ホーム'}</a>
@@ -54,10 +57,60 @@ const prefPrefix = isEn ? '/en/' : '/';
   .site-footer {
     background: #ffffff;
     border-top: 1px solid var(--border-color, #e2e8f0);
-    padding: 3rem 0 2rem;
-    margin-top: 4rem;
+    padding: 2rem 0 2rem;
+    margin-top: 3.5rem;
     font-size: 0.9rem;
     color: var(--text-light, #64748b);
+  }
+  .footer-pref-fold {
+    margin-bottom: 1.5rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background: #F8FAFB;
+    overflow: hidden;
+  }
+  .footer-pref-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    font-size: 0.86rem;
+    font-weight: 700;
+    color: #334155;
+    cursor: pointer;
+    list-style: none;
+  }
+  .footer-pref-summary::-webkit-details-marker {
+    display: none;
+  }
+  .footer-pref-summary svg {
+    transition: transform 0.2s ease;
+  }
+  .footer-pref-fold[open] .footer-pref-summary svg {
+    transform: rotate(180deg);
+  }
+  .footer-pref-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+    background: #ffffff;
+    border-top: 1px solid #e2e8f0;
+  }
+  .footer-region-title {
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: var(--color-teal, #0E7C94);
+    margin: 0 0 0.35rem;
+  }
+  .footer-region-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.5rem;
+    font-size: 0.76rem;
+  }
+  .footer-region-links a {
+    color: #64748b;
   }
 
   .footer-nav {

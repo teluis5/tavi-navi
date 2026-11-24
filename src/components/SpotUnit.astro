@@ -15,6 +15,10 @@ export interface Props {
   imageCredit?: string;
   isImageSample?: boolean;
   points?: string[];
+  sceneLead?: string;
+  stats?: { label: string; value: string; accent?: boolean }[];
+  pickSticker?: string;
+  editorTip?: { label?: string; text: string };
   links?: { label: string; href: string }[];
   linksInList?: boolean;
   businessHoursId?: string;
@@ -36,6 +40,10 @@ const {
   imageCredit,
   isImageSample,
   points,
+  sceneLead,
+  stats,
+  pickSticker,
+  editorTip,
   links,
   linksInList,
   businessHoursId,
@@ -91,38 +99,61 @@ const hasPhoto = Boolean(image || images?.some((item) => typeof item === 'string
     imageLayout={imageLayout}
     imageCredit={imageCredit}
     isImageSample={isImageSample}
+    pickSticker={pickSticker}
     spotData={spotData}
     hotelData={hotelData}
   /> : <div class="spot-text-heading">{title}</div>}
 
+  {stats && stats.length > 0 && (
+    <div class="stat-strip">
+      {stats.map((st) => (
+        <div class={`stat-chip ${st.accent ? 'is-accent' : ''}`}>
+          <span class="stat-chip-label">{st.label}</span>
+          <span class="stat-chip-value">{st.value}</span>
+        </div>
+      ))}
+    </div>
+  )}
+
   <div class="wide-spot-body">
     <div class="spot-body-main">
-      {(points || businessHoursId || (linksInList && links?.length)) && (
+      {sceneLead && (
+        <p class="scene-lead-line"><span class="scene-mark">{sceneLead}</span></p>
+      )}
+
+      {(points || businessHoursId) && (
         <ul class="wide-points-list">
           {points?.map((pt) => (
             <li>{pt}</li>
           ))}
           {businessHoursId && <BusinessHours id={businessHoursId} />}
-          {(businessHoursId || linksInList) && links && (
-            <li>
-              {links.map((link, index) => (
-                <>
-                  {index > 0 && '（'}
-                  <a href={link.href} target="_blank" rel="noopener">{link.label}</a>
-                  {index > 0 && '）'}
-                </>
-              ))}
-            </li>
-          )}
         </ul>
       )}
 
-      {!businessHoursId && !linksInList && links && links.length > 0 && (
-        <p class="spot-links">
+      {links && links.length > 0 && (
+        <div class="pill-btn-row">
           {links.map((link) => (
-            <a href={link.href} target="_blank" rel="noopener">{link.label}</a>
+            <a
+              href={link.href}
+              class="pill-btn"
+              target={link.href.startsWith('http') ? '_blank' : undefined}
+              rel={link.href.startsWith('http') ? 'noopener' : undefined}
+            >
+              <span>{link.label}</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
           ))}
-        </p>
+        </div>
+      )}
+
+      {editorTip && (
+        <div class="editor-tip">
+          <span class="editor-tip-label">{editorTip.label || 'LOCAL TIP'}</span>
+          <p class="editor-tip-text">{editorTip.text}</p>
+        </div>
       )}
 
       {amenities && amenities.length > 0 && (
@@ -141,18 +172,18 @@ const hasPhoto = Boolean(image || images?.some((item) => typeof item === 'string
 </div>
 
 <style>
-  /* 場所（スポット）：白背景に映える淡色サーフェスカード（縦幅均等対応） */
+  /* 場所（スポット）：80%クリーンな白サーフェスカード（縦幅均等対応） */
   .wide-spot-unit {
     display: flex;
     flex-direction: column;
     width: 100%;
     height: 100%;
     box-sizing: border-box;
-    background: #f1f5f9;
+    background: #ffffff;
     border: 1px solid #e2e8f0;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
     transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
   }
 
@@ -161,7 +192,7 @@ const hasPhoto = Boolean(image || images?.some((item) => typeof item === 'string
   }
   .clickable-unit:hover {
     border-color: #cbd5e1;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 6px 16px rgba(15, 23, 42, 0.07);
   }
   .clickable-unit:active :global(.wide-photo-img) {
     transform: scale(1.02);
@@ -174,8 +205,8 @@ const hasPhoto = Boolean(image || images?.some((item) => typeof item === 'string
     justify-content: space-between;
     flex: 1 1 auto;
     gap: 0.75rem;
-    padding: 0.9rem 1rem 1.1rem;
-    background: #f1f5f9;
+    padding: 0.95rem 1.05rem 1.15rem;
+    background: #ffffff;
     box-sizing: border-box;
   }
 

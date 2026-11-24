@@ -10,13 +10,29 @@ interface Props {
 const { destination = '乳頭蟹場温泉', origin = '田沢湖駅前', feed = 'ugokotsu-tazawako', direction = 'both', destinations = [], finalStop } = Astro.props;
 const stationName = origin.replace(/前$/, '');
 ---
-<section class="timetable" data-timetable data-feed={feed} data-origin-name={origin} data-station-name={stationName} data-destination={destination} data-direction={direction} data-final-stop={finalStop}>
-  {destinations.length > 1 && <label class="stop-selector">利用する温泉のバス停 <select data-stop>{destinations.map((stop) => <option value={stop} selected={stop === destination}>{stop}</option>)}</select></label>}
-  <div data-periods class="periods" aria-label="ダイヤの期間"></div>
-  <p class="status" data-status role="status">バスの時刻表を読み込んでいます。</p>
-  <div data-results></div>
-  <p class="credit">出典：<span data-publisher>羽後交通株式会社</span>（<a href="https://creativecommons.org/licenses/by/4.0/" data-license>CC BY 4.0</a>）・<a href="https://gtfs-data.jp/search?agencyId=ugokotsu" data-source>GTFS</a> <span data-updated></span></p>
-</section>
+<details class="timetable-fold">
+  <summary class="timetable-fold-summary">
+    <span class="timetable-fold-left">
+      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="10"></circle>
+        <polyline points="12 6 12 12 16 14"></polyline>
+      </svg>
+      <span>{direction === 'outbound' ? '往路' : direction === 'return' ? '復路' : '往復'}バス時刻表（GTFS最新ダイヤ）を開く</span>
+    </span>
+    <span class="timetable-fold-chevron" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </span>
+  </summary>
+  <section class="timetable" data-timetable data-feed={feed} data-origin-name={origin} data-station-name={stationName} data-destination={destination} data-direction={direction} data-final-stop={finalStop}>
+    {destinations.length > 1 && <label class="stop-selector">利用する温泉のバス停 <select data-stop>{destinations.map((stop) => <option value={stop} selected={stop === destination}>{stop}</option>)}</select></label>}
+    <div data-periods class="periods" aria-label="ダイヤの期間"></div>
+    <p class="status" data-status role="status">バスの時刻表を読み込んでいます。</p>
+    <div data-results></div>
+    <p class="credit">出典：<span data-publisher>羽後交通株式会社</span>（<a href="https://creativecommons.org/licenses/by/4.0/" data-license>CC BY 4.0</a>）・<a href="https://gtfs-data.jp/search?agencyId=ugokotsu" data-source>GTFS</a> <span data-updated></span></p>
+  </section>
+</details>
 
 <script>
   type Stop = { id: string; name: string };
@@ -168,7 +184,42 @@ const stationName = origin.replace(/前$/, '');
   }
 </script>
 <style>
-  .timetable { margin: 24px 0; padding: 16px 0; border-top: 1px solid #d6e5e6; border-bottom: 1px solid #d6e5e6; }
+  .timetable-fold {
+    margin: 0.45rem 0 0.25rem;
+    border: 1px solid #d6e5e6;
+    border-radius: 8px;
+    background: #F8FAFB;
+    overflow: hidden;
+  }
+  .timetable-fold-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.55rem 0.85rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-teal, #0E7C94);
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+  }
+  .timetable-fold-summary::-webkit-details-marker {
+    display: none;
+  }
+  .timetable-fold-left {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .timetable-fold-chevron {
+    display: inline-flex;
+    transition: transform 0.2s ease;
+  }
+  .timetable-fold[open] .timetable-fold-chevron {
+    transform: rotate(180deg);
+  }
+  .timetable { margin: 0; padding: 12px 14px 14px; border-top: 1px dashed #cbd5e1; background: #ffffff; }
   .periods { display: flex; flex-wrap: nowrap; gap: 6px; overflow-x: auto; }
   .periods :global(button) { flex: 0 0 auto; white-space: nowrap; padding: 7px 9px; border: 1px solid #aac3c3; border-radius: 20px; background: white; color: #24545b; font: inherit; font-size: .8rem; cursor: pointer; }
   .periods :global(button[aria-pressed="true"]) { background: #24545b; color: white; }
