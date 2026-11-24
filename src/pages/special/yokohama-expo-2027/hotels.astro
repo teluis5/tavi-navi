@@ -98,100 +98,7 @@ const MAP_AREAS = [
   { name: '武蔵小杉', x: 806, y: 290, access: '相鉄・JR直通線（約35分）→ 瀬谷駅 → シャトルバス（約10分）', accessMinutes: 55, feature: '都心や羽田方面からの移動にも使いやすい拠点。', target: 'direct', hotel: 1 },
 ];
 
-const RAILWAY_LINES = [
-  {
-    id: 'sotetsu',
-    name: '相鉄線（相鉄本線）沿線',
-    station: '最寄りシャトルバス発着駅：瀬谷駅・三ツ境駅',
-    summary: '会場に最も近い瀬谷駅・三ツ境駅へダイレクトにアクセスできる王道ルートです。',
-    areas: [
-      {
-        area: '横浜駅・みなとみらいエリア',
-        badge: '始発で座れる・観光も満喫',
-        desc: '相鉄本線の始発「横浜駅」から瀬谷・三ツ境へ約20〜25分。ホテル数・飲食店ともに圧倒的に充実しています。',
-        url: 'https://hb.afl.rakuten.co.jp/hgc/59cee293.4a6c5500.59cee294.af50e2ea/?pc=https%3A%2F%2Ftravel.rakuten.co.jp%2Fyado%2Fkanagawa%2Fyokohama.html',
-      },
-      {
-        area: '海老名・大和エリア',
-        badge: '会場アクセス最短・穴場',
-        desc: '瀬谷駅まで約5〜10分。朝一番の入場を狙う前泊や、横浜中心部が満室時の回避先として優秀です。',
-        url: 'https://hb.afl.rakuten.co.jp/hgc/59cee293.4a6c5500.59cee294.af50e2ea/?pc=https%3A%2F%2Ftravel.rakuten.co.jp%2Fyado%2Fkanagawa%2Febina.html',
-      },
-    ],
-  },
-  {
-    id: 'direct',
-    name: '相鉄・東急・JR直通線沿線',
-    station: '最寄りシャトルバス発着駅：瀬谷駅・三ツ境駅（西谷乗り換え等）',
-    summary: '新横浜や都心（渋谷・新宿方面）から乗り換え少なく相鉄線方面へ移動できるルートです。',
-    areas: [
-      {
-        area: '東京駅・大手町エリア',
-        badge: '都心観光・三田線から相鉄へ',
-        desc: '大手町駅から都営三田線・東急目黒線を経由して相鉄線へ直通する列車があります。東京駅周辺の宿も探せます。',
-        url: 'https://hb.afl.rakuten.co.jp/hgc/59cee293.4a6c5500.59cee294.af50e2ea/?pc=https%3A%2F%2Ftravel.rakuten.co.jp%2Fyado%2Ftraffic%2Ftokyo%2F00000000000000202642.html',
-      },
-      {
-        area: '新横浜エリア',
-        badge: '新幹線＋直通線の最強拠点',
-        desc: '東海道新幹線が停車し、相鉄・東急直通線でもJR横浜線でもアクセス可能。遠方組の前泊に最適です。',
-        url: 'https://hb.afl.rakuten.co.jp/hgc/59cee293.4a6c5500.59cee294.af50e2ea/?pc=https%3A%2F%2Ftravel.rakuten.co.jp%2Fyado%2Fkanagawa%2Fshinyokohama.html',
-      },
-      {
-        area: '武蔵小杉・川崎エリア',
-        badge: '都心・羽田方面からの拠点',
-        desc: '東急・JR直通線の主要乗換駅。渋谷・品川・羽田空港方面からのアクセスが良く、ビジネスホテルも豊富です。',
-        url: 'https://hb.afl.rakuten.co.jp/hgc/59cee293.4a6c5500.59cee294.af50e2ea/?pc=https%3A%2F%2Ftravel.rakuten.co.jp%2Fyado%2Fkanagawa%2Fkawasaki.html',
-      },
-    ],
-  },
-  {
-    id: 'yokohama-line',
-    name: 'JR横浜線沿線',
-    station: '最寄りシャトルバス発着駅：十日市場駅',
-    summary: '新横浜や町田・八王子方面から「十日市場駅」のシャトルバスを利用するルートです。',
-    areas: [
-      {
-        area: '町田エリア',
-        badge: '十日市場駅へ約10分・宿が豊富',
-        desc: '十日市場駅・南町田グランベリーパーク駅のどちらにも近く、駅周辺のビジネスホテルや飲食店が非常に充実しています。',
-        url: 'https://hb.afl.rakuten.co.jp/hgc/59cee293.4a6c5500.59cee294.af50e2ea/?pc=https%3A%2F%2Ftravel.rakuten.co.jp%2Fyado%2Ftokyo%2Fmachida.html',
-      },
-      {
-        area: '新横浜エリア',
-        badge: '新幹線直結・十日市場へ約15分',
-        desc: 'JR横浜線で十日市場駅まで乗り換えなし約15分。新幹線利用の遠方組に最も選ばれる拠点です。',
-        url: 'https://hb.afl.rakuten.co.jp/hgc/59cee293.4a6c5500.59cee294.af50e2ea/?pc=https%3A%2F%2Ftravel.rakuten.co.jp%2Fyado%2Fkanagawa%2Fshinyokohama.html',
-      },
-      {
-        area: 'みなとみらい・桜木町エリア',
-        badge: '横浜線直通・観光と両立',
-        desc: 'JR横浜線から根岸線直通で桜木町・関内へ乗り換えなし。花博とみなとみらい観光を1泊2日で満喫できます。',
-        url: 'https://hb.afl.rakuten.co.jp/hgc/59cee293.4a6c5500.59cee294.af50e2ea/?pc=https%3A%2F%2Ftravel.rakuten.co.jp%2Fyado%2Fkanagawa%2Fyokohama.html',
-      },
-    ],
-  },
-  {
-    id: 'denentoshi',
-    name: '東急田園都市線沿線',
-    station: '最寄りシャトルバス発着駅：南町田グランベリーパーク駅',
-    summary: '渋谷・二子玉川方面から「南町田グランベリーパーク駅」のシャトルバスを利用するルートです。',
-    areas: [
-      {
-        area: '渋谷・二子玉川エリア',
-        badge: '都内観光と両立・急行で1本',
-        desc: '急行で南町田グランベリーパーク駅へ直結。都内のホテルを拠点に花博へ日帰り感覚でアクセスできます。',
-        url: 'https://hb.afl.rakuten.co.jp/hgc/59cee293.4a6c5500.59cee294.af50e2ea/?pc=https%3A%2F%2Ftravel.rakuten.co.jp%2Fyado%2Ftokyo%2Fshibuya.html',
-      },
-      {
-        area: '溝の口・新百合ヶ丘・町田周辺',
-        badge: '神奈川寄りでコスパ重視',
-        desc: '都心よりも宿泊費を抑えやすく、田園都市線沿線で朝スムーズに移動したい方におすすめです。',
-        url: 'https://hb.afl.rakuten.co.jp/hgc/59cee293.4a6c5500.59cee294.af50e2ea/?pc=https%3A%2F%2Ftravel.rakuten.co.jp%2Fyado%2Ftokyo%2Fmachida.html',
-      },
-    ],
-  },
-];
+
 ---
 
 <Layout title={title} description={description} fullWidth>
@@ -266,31 +173,23 @@ const RAILWAY_LINES = [
       <p class="map-caption">駅間距離や実際の経路とは異なる模式図です。直通運転は一部列車のみです。運行・予約の最新情報は各公式サイトをご確認ください。</p>
     </section>
 
-    <nav class="line-nav" aria-label="路線別ショートカット">
-      {RAILWAY_LINES.map((line) => (
-        <a href={`#${line.id}`}>{line.name}</a>
-      ))}
-    </nav>
-
-    {RAILWAY_LINES.map((line) => (
-      <section class="block" id={line.id} aria-labelledby={`title-${line.id}`}>
-        <div class="line-head">
-          <h2 id={`title-${line.id}`}>{line.name}</h2>
-          <p class="station-tag">{line.station}</p>
-        </div>
-        <p class="lead">{line.summary}</p>
-        <div class="hotel-grid">
-          {line.areas.map((item) => (
-            <a class="hotel-card" href={item.url} target="_blank" rel="noopener noreferrer sponsored">
-              <span class="badge">{item.badge}</span>
-              <h3>{item.area}</h3>
-              <p class="desc">{item.desc}</p>
-              <span class="cta">楽天トラベルで空室・料金を見る ↗</span>
-            </a>
+    <section class="area-comparison" aria-labelledby="area-comparison-title">
+      <h2 id="area-comparison-title">宿泊エリアの比較</h2>
+      <p>会場までの時間と、選択した宿泊日のツインの料金目安を比べられます。料金は楽天トラベルの大人2名・1室・1泊の情報です。エリア名を押すと地図で詳細を確認できます。</p>
+      <table class="comparison-table">
+        <thead><tr><th scope="col">エリア</th><th scope="col">会場まで</th><th scope="col">ツインの目安</th><th scope="col">エリアの特徴</th></tr></thead>
+        <tbody>
+          {MAP_AREAS.map((area) => (
+            <tr data-comparison-code={STATIONS[area.name].code}>
+              <th scope="row"><button type="button" class="comparison-area" data-area={area.name}>{area.name}</button></th>
+              <td data-label="会場まで"><strong>{area.accessMinutes > 0 ? `約${area.accessMinutes}分` : '直行バス予定'}</strong>{DIRECT_BUS_AREAS.has(area.name) && area.accessMinutes > 0 && <span class="comparison-bus">直行バスも運行予定</span>}</td>
+              <td data-label="ツインの目安" class="comparison-price">確認中</td>
+              <td data-label="エリアの特徴">{area.feature}</td>
+            </tr>
           ))}
-        </div>
-      </section>
-    ))}
+        </tbody>
+      </table>
+    </section>
 
     <nav class="sub-nav" aria-label="横浜花博 関連ガイド">
       <a href="/special/yokohama-expo-2027/">← 横浜花博 特設トップへ戻る</a>
@@ -379,28 +278,29 @@ const RAILWAY_LINES = [
     .map-point[data-name="大井町"] .map-point-label { left: calc(50% + 16px); right: auto; top: 50%; bottom: auto; transform: translateY(-50%); }
   }
   .map-caption { margin: 8px 0; }
-  .line-nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 20px 0 4px; }
-  .line-nav a { display: flex; align-items: center; justify-content: center; text-align: center; min-height: 44px; padding: 8px 10px; background: #f0fdf4; border: 1px solid #dcfce7; border-radius: 8px; color: #166534; font-size: 12px; font-weight: 700; text-decoration: none; }
-  .line-nav a:hover { background: #dcfce7; }
-  .block { padding-top: 32px; scroll-margin-top: 72px; }
-  .line-head { border-bottom: 2px solid #16a34a; padding-bottom: 8px; margin-bottom: 10px; }
-  .line-head h2 { margin: 0 0 4px; font-size: 20px; color: #14532d; }
-  .station-tag { margin: 0; font-size: 12px; font-weight: 700; color: #15803d; }
-  .lead { margin: 0 0 14px; font-size: 14px; color: #3f5248; line-height: 1.7; }
-  .hotel-grid { display: grid; gap: 14px; }
-  .hotel-card { display: block; padding: 18px; background: #fff; border: 1px solid #dce5df; border-radius: 12px; color: inherit; text-decoration: none; }
-  .hotel-card:hover { border-color: #16a34a; box-shadow: 0 4px 12px rgba(20, 83, 45, 0.08); }
-  .badge { display: inline-block; margin-bottom: 8px; padding: 3px 9px; background: #dcfce7; border-radius: 999px; font-size: 11px; font-weight: 700; color: #14532d; }
-  .hotel-card h3 { margin: 0 0 6px; font-size: 17px; color: #14532d; }
-  .desc { margin: 0 0 12px; font-size: 13px; line-height: 1.65; color: #3f5248; }
-  .cta { font-size: 13px; font-weight: 700; color: #15803d; }
+  .area-comparison { padding-top: 32px; }
+  .area-comparison h2 { margin: 0 0 8px; font-size: 22px; }
+  .area-comparison > p { margin: 0 0 16px; line-height: 1.7; }
+  .comparison-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; }
+  .comparison-table th, .comparison-table td { padding: 14px 12px; border-bottom: 1px solid #dce5df; vertical-align: top; line-height: 1.6; }
+  .comparison-table thead { background: #edf6ef; }
+  .comparison-table tbody th { width: 16%; }
+  .comparison-table tbody td:nth-child(2) { width: 18%; }
+  .comparison-table tbody td:nth-child(3) { width: 19%; font-variant-numeric: tabular-nums; }
+  .comparison-area { padding: 0; border: 0; background: none; color: #166534; font: inherit; font-weight: 700; text-decoration: underline; cursor: pointer; }
+  .comparison-bus { display: block; color: #52665c; font-size: 12px; }
+  @media (max-width: 650px) {
+    .comparison-table, .comparison-table tbody, .comparison-table tr, .comparison-table th, .comparison-table td { display: block; width: 100% !important; box-sizing: border-box; }
+    .comparison-table thead { display: none; }
+    .comparison-table tr { padding: 12px 0; border-bottom: 1px solid #dce5df; }
+    .comparison-table th, .comparison-table td { padding: 3px 0; border: 0; }
+    .comparison-table td { display: grid; grid-template-columns: 104px minmax(0, 1fr); column-gap: 8px; }
+    .comparison-table td::before { content: attr(data-label); color: #52665c; font-size: 12px; }
+    .comparison-bus { grid-column: 2; }
+  }
   .sub-nav { display: grid; gap: 10px; margin-top: 36px; padding: 20px; background: #f0fdf4; border-radius: 12px; }
   .sub-nav a { color: #15803d; font-size: 14px; font-weight: 700; text-decoration: none; }
   .sub-nav a:hover { text-decoration: underline; }
-  @media (min-width: 600px) {
-    .line-nav { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-    .hotel-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  }
 </style>
 
 <script>
@@ -528,6 +428,7 @@ const RAILWAY_LINES = [
     const selected = document.querySelector<HTMLButtonElement>('.map-point[aria-pressed="true"]');
     if (selected) updateTravelLinks(selected);
     if (selected) void updateAreaPrice(selected);
+    refreshComparison();
   };
   const requireDates = (event: MouseEvent) => {
     if (checkin?.value && checkout?.value && checkin.value >= checkin.min && checkout.value > checkin.value) return;
@@ -538,7 +439,6 @@ const RAILWAY_LINES = [
   document.querySelectorAll<HTMLAnchorElement>('.map-travel-links a').forEach((item) => item.addEventListener('click', requireDates));
   checkin?.addEventListener('change', updateLinks);
   checkout?.addEventListener('change', updateLinks);
-  updateLinks();
   const name = document.querySelector<HTMLElement>('#map-area-name');
   const access = document.querySelector<HTMLElement>('#map-area-access');
   const minutes = document.querySelector<HTMLElement>('#map-area-minutes');
@@ -657,6 +557,54 @@ const RAILWAY_LINES = [
     });
   });
   showMapGroup('main');
+  const visibleComparisonRows = new Set<HTMLTableRowElement>();
+  let comparisonRequest = 0;
+  function refreshComparison() {
+    const request = ++comparisonRequest;
+    const start = Date.parse(`${checkin?.value}T00:00:00Z`);
+    const end = Date.parse(`${checkout?.value}T00:00:00Z`);
+    document.querySelectorAll<HTMLTableCellElement>('.comparison-price').forEach(cell => { cell.textContent = '確認待ち'; });
+    for (const row of visibleComparisonRows) void loadComparisonPrice(row, request, start, end);
+  }
+  async function loadComparisonPrice(row: HTMLTableRowElement, request: number, start: number, end: number) {
+    const cell = row.querySelector<HTMLTableCellElement>('.comparison-price');
+    if (!cell) return;
+    if (!Number.isFinite(start) || end - start !== 86400000 || !checkin || checkin.value < checkin.min) { cell.textContent = '1泊の日程で表示'; return; }
+    cell.textContent = '確認中';
+    try {
+      const url = new URL('/price', priceEndpoint);
+      url.searchParams.set('date', checkin.value);
+      url.searchParams.set('station', row.dataset.comparisonCode || '');
+      const response = await fetch(url, { cache: 'no-store' });
+      if (!response.ok) throw new Error('unavailable');
+      const data = await response.json();
+      if (request !== comparisonRequest) return;
+      const valid = Number.isFinite(data.fetchedAt) && data.fetchedAt <= Date.now() && Date.now() - data.fetchedAt < 86400000;
+      if (!valid) cell.textContent = '料金未取得';
+      else if (data.noAvailability === true) cell.textContent = '楽天で空室なし';
+      else if (data.noTwin === true) cell.textContent = 'ツインなし・別タイプあり';
+      else if (Number.isFinite(data.price) && data.price > 0) cell.textContent = `${data.price.toLocaleString('ja-JP')}円`;
+      else cell.textContent = '料金未取得';
+    } catch { if (request === comparisonRequest) cell.textContent = '料金未取得'; }
+  }
+  const comparisonObserver = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      const row = entry.target as HTMLTableRowElement;
+      if (visibleComparisonRows.has(row)) continue;
+      visibleComparisonRows.add(row);
+      void loadComparisonPrice(row, comparisonRequest, Date.parse(`${checkin?.value}T00:00:00Z`), Date.parse(`${checkout?.value}T00:00:00Z`));
+    }
+  }, { rootMargin: '200px' });
+  document.querySelectorAll<HTMLTableRowElement>('tr[data-comparison-code]').forEach(row => comparisonObserver.observe(row));
+  document.querySelectorAll<HTMLButtonElement>('.comparison-area').forEach(button => button.addEventListener('click', () => {
+    const point = Array.from(points).find(item => item.dataset.name === button.dataset.area);
+    if (!point) return;
+    showMapGroup(point.dataset.mapGroup || 'main');
+    selectArea(point);
+    card?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }));
+  updateLinks();
   window.addEventListener('resize', layoutMobileLabels);
   document.querySelector('.map-close')?.addEventListener('click', closeCard);
   document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeCard(); });
