@@ -450,7 +450,7 @@ const RAILWAY_LINES = [
         return;
       }
       const checked = new Intl.DateTimeFormat('ja-JP', { timeZone: 'Asia/Tokyo', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }).format(new Date(data.fetchedAt));
-      areaPrice.textContent = `ツインの目安：${data.price.toLocaleString('ja-JP')}円（大人2名・1室・1泊、${checked}取得）。確認できたプランの一例です。価格や空室は変わります。予約時の楽天トラベルの表示をご確認ください。`;
+      areaPrice.textContent = `ツインの目安：${data.price.toLocaleString('ja-JP')}円（大人2名・1室・1泊、${checked}取得）。`;
     } catch {
       if (request === priceRequest) areaPrice.textContent = '目安料金を取得できませんでした。空室・料金はリンク先で確認できます。';
     }
