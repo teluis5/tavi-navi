@@ -361,6 +361,7 @@ const RAILWAY_LINES = [
   .map-detail .map-travel-links a[hidden] { display: none; }
   .map-detail .map-travel-links #map-area-yahoo { background: #ac1721; }
   .map-detail .map-travel-links #map-area-jalan { background: #a93a00; }
+  .map-detail .map-travel-links a[aria-disabled="true"] { background: #dedede; color: #555; cursor: not-allowed; }
   .map-travel-links img { position: absolute; width: 1px; height: 1px; }
   .map-instruction { color: #52665c; font-size: 14px; }
   @media (max-width: 800px) { .map-detail { position: relative; left: auto; top: auto; width: 100%; margin-top: 12px; } .map-detail[data-side][data-vertical] { transform: none; } .map-point { width: 36px; height: 36px; } .map-point .map-marker { width: 22px; height: 22px; font-size: 12px; } }
@@ -447,6 +448,13 @@ const RAILWAY_LINES = [
       if (!response.ok) throw new Error('unavailable');
       const data = await response.json();
       if (request !== priceRequest) return;
+      if (data.noAvailability === true && Number.isFinite(data.fetchedAt) && Date.now() - data.fetchedAt < 86400000 && data.fetchedAt <= Date.now()) {
+        areaPrice.textContent = '楽天トラベルで空室なし（大人2名・1室・1泊）。';
+        const rakuten = document.querySelector<HTMLAnchorElement>('#map-area-link');
+        rakuten?.removeAttribute('href');
+        rakuten?.setAttribute('aria-disabled', 'true');
+        return;
+      }
       if (!Number.isFinite(data.price) || data.price <= 0 || !Number.isFinite(data.fetchedAt) || Date.now() - data.fetchedAt >= 86400000 || data.fetchedAt > Date.now()) {
         areaPrice.textContent = 'この日の目安料金はご案内できません。空室・料金はリンク先で確認できます。';
         return;
@@ -497,7 +505,10 @@ const RAILWAY_LINES = [
     const rakuten = document.querySelector<HTMLAnchorElement>('#map-area-link');
     const yahoo = document.querySelector<HTMLAnchorElement>('#map-area-yahoo');
     const jalan = document.querySelector<HTMLAnchorElement>('#map-area-jalan');
-    if (rakuten) rakuten.href = bookingUrl(station) || 'https://travel.rakuten.co.jp/';
+    if (rakuten) {
+      rakuten.href = bookingUrl(station) || 'https://travel.rakuten.co.jp/';
+      rakuten.removeAttribute('aria-disabled');
+    }
     const ids = travelStations[station.dataset.name || ''];
     if (yahoo) yahoo.hidden = !ids;
     if (jalan) jalan.hidden = !ids;
