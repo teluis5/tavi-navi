@@ -38,8 +38,8 @@ const STATIONS: Record<string, { code: string; lat: string; lon: string }> = {
 const MAP_LABELS = [
   {
     "text": "東京",
-    "x": 1097.2,
-    "y": 95.0,
+    "x": 1080,
+    "y": 45,
     "anchor": "end",
     "kind": "station"
   },
@@ -59,8 +59,8 @@ const MAP_LABELS = [
   },
   {
     "text": "成田空港",
-    "x": 1164.4,
-    "y": 72.0,
+    "x": 1220,
+    "y": 45,
     "anchor": "end",
     "kind": "minor"
   },
@@ -568,6 +568,10 @@ const RAILWAY_LINES = [
     if (!mobileMap.matches) return;
     const bounds = canvas.getBoundingClientRect();
     const obstacles = active.map(point => point.querySelector<HTMLElement>('.map-marker')!.getBoundingClientRect()).map(r => ({ left: r.left - 2, top: r.top - 2, right: r.right + 2, bottom: r.bottom + 2 }));
+    document.querySelectorAll<SVGTextElement>('.map-labels text').forEach(text => {
+      const r = text.getBoundingClientRect();
+      if (r.width && r.height) obstacles.push({ left: r.left - 3, top: r.top - 3, right: r.right + 3, bottom: r.bottom + 3 });
+    });
     const overlap = (a: {left:number;top:number;right:number;bottom:number}, b: {left:number;top:number;right:number;bottom:number}) => Math.max(0, Math.min(a.right,b.right)-Math.max(a.left,b.left)) * Math.max(0, Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top));
     active.forEach(point => {
       const label = point.querySelector<HTMLElement>('.map-point-label');
