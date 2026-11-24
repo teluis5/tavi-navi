@@ -265,7 +265,12 @@ const RAILWAY_LINES = [
             <p id="map-direct-bus" class="map-direct-bus" hidden></p>
             <p><strong>エリアの特徴</strong><br /><span id="map-area-feature"></span></p>
             <p id="map-area-price" class="map-area-price" role="status"></p>
-            <a id="map-area-link" href="https://travel.rakuten.co.jp/" target="_blank" rel="noopener noreferrer sponsored">楽天トラベルでホテルを探す ↗</a>
+            <p class="map-travel-title"><strong>旅行サイトでこの駅を確認</strong><br /><span>※各サイトの駅周辺ページへ直接移動します</span></p>
+            <div class="map-travel-links">
+              <a id="map-area-link" href="https://travel.rakuten.co.jp/" target="_blank" rel="noopener noreferrer sponsored nofollow">楽天トラベル</a>
+              <a id="map-area-yahoo" href="https://travel.yahoo.co.jp/" target="_blank" rel="noopener noreferrer sponsored nofollow" hidden>Yahoo!トラベル<img src="https://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3787762&amp;pid=892747331" width="1" height="1" alt="" /></a>
+              <a id="map-area-jalan" href="https://www.jalan.net/" target="_blank" rel="noopener noreferrer sponsored nofollow" hidden>じゃらんnet<img src="https://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3787762&amp;pid=892747339" width="1" height="1" alt="" /></a>
+            </div>
           </div>
         </div>
       </div>
@@ -361,7 +366,14 @@ const RAILWAY_LINES = [
   .map-illustration { display: block; width: 100%; height: 64px; margin: 0 0 12px; }
   .map-detail h3 { margin: 0 0 8px; font-size: 18px; }
   .map-detail p { margin: 0 0 12px; font-size: 14px; }
-  .map-detail a { display: block; padding: 12px; background: #166534; border-radius: 8px; color: #fff; font-size: 14px; font-weight: 700; text-align: center; text-decoration: none; }
+  .map-detail .map-travel-title { margin-bottom: 6px; }
+  .map-travel-title span { font-size: 11px; }
+  .map-travel-links { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; }
+  .map-detail .map-travel-links a { display: flex; align-items: center; justify-content: center; min-height: 44px; padding: 6px 3px; background: #166534; border-radius: 8px; color: #fff; font-size: 11px; font-weight: 700; text-align: center; text-decoration: none; overflow-wrap: anywhere; }
+  .map-detail .map-travel-links a[hidden] { display: none; }
+  .map-detail .map-travel-links #map-area-yahoo { background: #ac1721; }
+  .map-detail .map-travel-links #map-area-jalan { background: #a93a00; }
+  .map-travel-links img { position: absolute; width: 1px; height: 1px; }
   .map-instruction { color: #52665c; font-size: 14px; }
   @media (max-width: 800px) { .map-detail { position: relative; left: auto; top: auto; width: 100%; margin-top: 12px; } .map-detail[data-side][data-vertical] { transform: none; } .map-point { width: 36px; height: 36px; } .map-point .map-marker { width: 22px; height: 22px; font-size: 12px; } }
   @media (max-width: 600px) {
@@ -470,11 +482,44 @@ const RAILWAY_LINES = [
     const target = `https://search.travel.rakuten.co.jp/ds/station/ensen?${params}`;
     return `https://hb.afl.rakuten.co.jp/hgc/59cee293.4a6c5500.59cee294.af50e2ea/?pc=${encodeURIComponent(target)}`;
   };
+  const travelStations: Record<string, [string, string]> = {
+    '大手町': ['ms2800208', '130000/STA_990132/'], '南町田': ['ms2600325', '130000/STA_037166/'],
+    '二俣川': ['ms2900110', '140000/STA_990656/'], '川崎': ['ms1130104', '140000/STA_990208/'],
+    '蒲田': ['ms1133230', '130000/STA_990192/'], '五反田': ['ms1130202', '130000/STA_990297/'],
+    '大崎': ['ms1130201', '130000/STA_032418/'], '目黒': ['ms1130203', '130000/STA_990716/'],
+    '大井町': ['ms1133228', '130000/STA_990121/'], '新橋': ['ms1130102', '130000/STA_990387/'],
+    '汐留': ['ms9930120', '130000/STA_990956/'], '八王子': ['ms1130620', '130000/STA_990590/'],
+    '橋本': ['ms1130616', '140000/STA_990586/'], '大和': ['ms2500206', '140000/STA_990731/'],
+    '桜木町': ['ms1130702', '140000/STA_990320/'], '新宿': ['ms1130208', '130000/STA_990377/'],
+    '品川': ['ms1130103', '130000/STA_990340/'], '横浜': ['ms1130105', '140000/STA_990742/'],
+    '新横浜': ['ms1130604', '140000/STA_990396/'], '町田': ['ms1130611', '130000/STA_990673/'],
+    '渋谷': ['ms1130205', '130000/STA_990344/'], '海老名': ['ms1130910', '140000/STA_990110/'],
+    '武蔵小杉': ['ms1130307', '140000/STA_990711/'], 'みなとみらい': ['ms9931003', '140000/STA_044502/'],
+    '関内': ['ms1130703', '140000/STA_990219/'], '羽田空港': ['ms2700207', '130000/STA_045886/'],
+  };
+  const updateTravelLinks = (station: HTMLButtonElement) => {
+    const rakuten = document.querySelector<HTMLAnchorElement>('#map-area-link');
+    const yahoo = document.querySelector<HTMLAnchorElement>('#map-area-yahoo');
+    const jalan = document.querySelector<HTMLAnchorElement>('#map-area-jalan');
+    if (rakuten) rakuten.href = bookingUrl(station) || 'https://travel.rakuten.co.jp/';
+    const ids = travelStations[station.dataset.name || ''];
+    if (yahoo) yahoo.hidden = !ids;
+    if (jalan) jalan.hidden = !ids;
+    if (!ids || !checkin?.value || !checkout?.value) return;
+    const yahooTarget = new URL(`https://travel.yahoo.co.jp/station/${ids[0]}/`);
+    yahooTarget.search = new URLSearchParams({ cid: checkin.value.replaceAll('-', ''), cod: checkout.value.replaceAll('-', ''), ppc: '2', rc: '1' }).toString();
+    const [stayYear, stayMonth, stayDay] = checkin.value.split('-');
+    const nights = Math.round((Date.parse(`${checkout.value}T00:00:00Z`) - Date.parse(`${checkin.value}T00:00:00Z`)) / 86400000);
+    const jalanTarget = new URL(`https://www.jalan.net/${ids[1]}`);
+    jalanTarget.search = new URLSearchParams({ stayYear, stayMonth, stayDay, stayCount: String(nights), adultNum: '2', roomCount: '1' }).toString();
+    const affiliate = (pid: string, target: URL) => `https://ck.jp.ap.valuecommerce.com/servlet/referral?${new URLSearchParams({ sid: '3787762', pid, vc_url: target.toString() })}`;
+    if (yahoo) yahoo.href = affiliate('892747331', yahooTarget);
+    if (jalan) jalan.href = affiliate('892747339', jalanTarget);
+  };
   const updateLinks = () => {
     if (priceStatus && checkin?.value && checkout?.value && checkin.value >= checkin.min && checkout.value > checkin.value) priceStatus.textContent = '大人2名・1室で検索します。ツインなどの部屋タイプは検索先で選べます。';
     const selected = document.querySelector<HTMLButtonElement>('.map-point[aria-pressed="true"]');
-    const popupLink = document.querySelector<HTMLAnchorElement>('#map-area-link');
-    if (selected && popupLink) popupLink.href = bookingUrl(selected) || 'https://travel.rakuten.co.jp/';
+    if (selected) updateTravelLinks(selected);
     if (selected) void updateAreaPrice(selected);
   };
   const requireDates = (event: MouseEvent) => {
@@ -483,7 +528,7 @@ const RAILWAY_LINES = [
     if (priceStatus) priceStatus.textContent = '本日以降のチェックイン日と、それより後のチェックアウト日を選んでください。';
     checkin?.focus();
   };
-  document.querySelector<HTMLAnchorElement>('#map-area-link')?.addEventListener('click', requireDates);
+  document.querySelectorAll<HTMLAnchorElement>('.map-travel-links a').forEach((item) => item.addEventListener('click', requireDates));
   checkin?.addEventListener('change', updateLinks);
   checkout?.addEventListener('change', updateLinks);
   updateLinks();
@@ -506,7 +551,7 @@ const RAILWAY_LINES = [
       directBus.textContent = ['みなとみらい', '関内', '桜木町'].includes(point.dataset.name || '') ? '横浜都心臨海部からの直行バスを運行予定。乗り場・時刻などは調整中です。' : `${point.dataset.name}からの直行バスを運行予定。乗り場・時刻などは調整中です。`;
     }
     feature.textContent = point.dataset.feature || '';
-    link.href = bookingUrl(point) || 'https://travel.rakuten.co.jp/';
+    updateTravelLinks(point);
     const x = Number(point.dataset.x);
     const y = Number(point.dataset.y);
     if (busRoute) {
