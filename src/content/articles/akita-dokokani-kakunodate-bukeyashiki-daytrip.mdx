@@ -26,13 +26,16 @@ import photoCraft from '../../assets/photos/akita_compressed/01角館樺細工�
 <TravelTimeline days={[{ dayNumber: 1, title: '角館駅 → 武家屋敷 → 角館駅周辺泊', steps: [
   { title: '東京駅から秋田新幹線で角館駅へ', points: ['指定列車の到着時刻と帰りの時刻を確認し、荷物は必要に応じて駅周辺で預ける。'], transitDetail: { method: '徒歩の目安 25〜30分', route: '角館駅 → 青柳家', specs: ['市の案内では駅から徒歩20分。天候や信号待ちの余裕を加えています。'] } },
   { title: '青柳家と武家屋敷通り', duration: '目安 60分', image: photoSamurai, imageCredit: '一般社団法人 秋田県観光連盟「あきたファン」', points: ['黒塀が続く通りを歩き、青柳家の屋敷を見学。大人500円。写真は夏の武家屋敷通り。', '仙北市の案内では4〜11月は9:00〜17:00、12〜3月は9:00〜16:00。'], links: [{ label: '仙北市：武家屋敷', href: 'https://www.city.semboku.akita.jp/sightseeing/spot/07_buke.html' }], transitDetail: { method: '徒歩で駅周辺へ', route: '武家屋敷通り → 角館駅周辺' } },
-  { title: '角館駅周辺で夕食・宿泊', points: ['翌日の移動を考え、駅周辺で宿を予約。到着が遅い場合は夕食先の営業時間も確認する。', '宿泊料金と食事条件は日程・人数により異なります。'] }
+  { title: '角館で夕食・宿泊', alternatives: [
+    { title: 'ホテル B4T 角館', alternativeLabel: '駅に隣接', categoryLabel: 'ビジネスホテル', hotelData: { hotelNo: '1720', yahooUrl: 'https://travel.yahoo.co.jp/00909428/', jalanUrl: 'https://www.jalan.net/yad318568/' }, points: ['角館駅に隣接。新幹線の発着に合わせて動きやすい宿。', '館内にレストランはないため、夕食と翌朝の食事を事前に手配。宿泊者用ロッカーはチェックイン日からチェックアウト日まで利用可能。'], links: [{ label: 'ホテル公式案内', href: 'https://www.hotel-b4t.jp/kakunodate/' }] },
+    { title: '町家ホテル角館', alternativeLabel: '武家屋敷に近い', categoryLabel: 'ビジネスホテル', hotelData: { hotelNo: '161208', yahooUrl: 'https://travel.yahoo.co.jp/00908421/', jalanUrl: 'https://www.jalan.net/yad351928/' }, points: ['武家屋敷通りに近く、町歩きを中心に楽しみたい人向け。', '食事の有無やチェックイン時刻は予約プランを確認。'], links: [{ label: '仙北市：宿泊施設一覧', href: 'https://www.city.semboku.akita.jp/sightseeing/stay/07.html' }] }
+  ] }
 ]}]} />
 
 ## 2日目：樺細工と外町を歩く
 
 <TravelTimeline days={[{ dayNumber: 2, title: '角館駅周辺 → 樺細工伝承館 → 外町 → 角館駅', steps: [
-  { title: '宿を出発', points: ['荷物を預けられるか宿に確認。樺細工伝承館までは駅から徒歩で余裕を含め20〜25分が目安。'], transitDetail: { method: '徒歩', route: '角館駅周辺 → 樺細工伝承館' } },
+  { title: '宿を出発', points: ['荷物を預けられるか宿に確認。駅から樺細工伝承館へは徒歩で余裕を含め20〜25分が目安。町家ホテル角館からは宿の位置を確認して向かう。'], transitDetail: { method: '徒歩', route: '角館の宿 → 樺細工伝承館' } },
   { title: '角館樺細工伝承館', duration: '目安 60分', image: photoCraft, imageCredit: '一般社団法人 秋田県観光連盟「あきたファン」', points: ['山桜の樹皮を使う樺細工の展示を見る。大人500円。製作実演の日は事前に確認。', '4〜11月は9:00〜17:00、12〜3月は9:00〜16:30。入場は閉館30分前まで。年末年始休館。'], links: [{ label: '仙北市：開館時間・観覧料', href: 'https://www.city.semboku.akita.jp/sightseeing/densyo/shisetsu.html' }, { label: '製作実演の案内', href: 'https://www.city.semboku.akita.jp/sightseeing/densyo/zituen.html' }], transitDetail: { method: '徒歩で外町方面へ', route: '伝承館 → 外町交流広場' } },
   { title: '外町で昼食と町歩き', duration: '目安 60〜90分', points: ['昼食の店は事前に営業日を確認。混雑する季節は食事の順番を入れ替えてよい。'], links: [{ label: '仙北市：外町交流広場', href: 'https://www.city.semboku.akita.jp/sightseeing/spot/07_tomachi.html' }], transitDetail: { method: '徒歩の目安 15分', route: '外町交流広場 → 角館駅', specs: ['市の案内では駅まで徒歩9分。余裕を加えています。'] } },
   { title: '角館駅から指定列車で帰路へ', points: ['改札には余裕を持って戻る。帰りの列車が早い場合は昼食や見学先を減らす。'] }
