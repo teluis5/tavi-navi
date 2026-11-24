@@ -1,0 +1,62 @@
+---
+title: "どこかにビューーン！大曲駅　東京発で花火文化と大曲納豆汁を巡る1泊2日"
+description: "秋田新幹線「こまち」で大曲駅へ。入館無料の花火資料館「はなび・アム」や花火通り商店街を歩き、ご当地グルメの大曲納豆汁を味わう車なし1泊2日のモデルコースです。"
+pubDate: 2026-11-24
+lang: "ja"
+pref: "akita"
+category: "モデルコース"
+season: "通年"
+departure: "tokyo"
+duration: "1泊2日"
+heroImage: "/thumbnails/omagari-course-hero.webp"
+tags: ["どこかにビューーン！", "大曲駅", "はなび・アム", "大曲納豆汁", "車なし", "モデルコース"]
+draft: false
+---
+import TrainCondition from '../../components/TrainCondition.astro';
+import TravelTimeline from '../../components/TravelTimeline.astro';
+import TransitBookingHub from '../../components/TransitBookingHub.astro';
+import photoHanabi from '../../assets/photos/akita_compressed/03全国花火競技大会「大曲の花火」.webp';
+import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
+
+秋田新幹線「こまち」と奥羽本線が交わる大曲駅。日本三大花火のひとつ「全国花火競技大会（大曲の花火）」の開催地として知られる秋田県大仙市の玄関口です。
+
+大曲の魅力は、夏の大会当日だけにとどまりません。駅から徒歩約10分の場所には、一年を通して大曲の花火文化に触れられる資料館「はなび・アム」があり、駅前の「花火通り商店街」や丸子川沿いは徒歩で無理なく歩ける距離にまとまっています。
+
+夜は駅近の宿を拠点に秋田の地酒や郷土料理を味わい、翌日は季節に合わせて旧池田氏庭園や駅前ランチで「大曲納豆汁」を堪能する。車がなくても満喫できる1泊2日の旅へ出かけましょう。
+
+<TrainCondition text={"徒歩と一部タクシー・バスで巡る1泊2日です。はなび・アム（3・4階展示エリア9:00〜17:00）は毎週月曜（祝日の場合は翌平日）と年末年始が休館です。旧池田氏庭園は例年4月下旬〜11月中旬のみの開園（冬季休園・月曜休）のため、時期と指定列車の時刻を出発前に確認してください。"} />
+
+写真は季節や開催日によって景色が異なります。行程は公式情報に基づく案で、実際に訪問した体験談ではありません（2026年11月24日確認）。施設・交通の案内は[はなび・アム公式](https://hanabimuseum.jp/)、[大仙市観光情報](https://www.city.daisen.lg.jp/)を参照しています。
+
+## 1日目：花火文化に触れ、大曲駅周辺に泊まる
+
+<TravelTimeline days={[{ dayNumber: 1, title: '東京駅 → 大曲駅 → はなび・アム → 大曲駅前泊', steps: [
+  { title: '東京駅から秋田新幹線「こまち」で大曲駅へ', image: photoKomachi, imageCredit: 'JR東日本E6系イメージ', points: ['東京駅から大曲駅までは秋田新幹線「こまち」で約3時間15分〜3時間25分。指定列車の到着時刻と帰りの時刻を確認し、大きな荷物は駅構内のコインロッカーや宿泊先に預ける。', '駅構内の大仙市観光情報センター「グランポール」で周辺マップを入手しておくと安心。'], transitDetail: { method: '徒歩の目安 10〜15分', route: '大曲駅（西口） → はなび・アム', specs: ['天候や信号待ちの余裕を含めた徒歩時間です。'] } },
+  { leadHeading: '一年中、大曲の花火を体感できる無料スポット', title: '花火伝統文化継承資料館「はなび・アム」', duration: '目安 60分', image: photoHanabi, imageCredit: '一般社団法人 秋田県観光連盟「あきたファン」', points: ['4面マルチスクリーンの「はなびシアター」や花火玉の模型展示で、大曲の花火の歴史と技術を学べる。写真は全国花火競技大会のイメージ。', '入館無料。花火伝統文化継承エリア（3・4階）は9:00〜17:00。毎週月曜（祝日の場合は翌平日）と年末年始は休館。'], links: [{ label: 'はなび・アム 公式案内', href: 'https://hanabimuseum.jp/' }], transitDetail: { method: '徒歩で中心街へ', route: 'はなび・アム → 花火通り商店街' } },
+  { leadHeading: '花火モチーフが並ぶ商店街をぶらり', title: '花火通り商店街・丸子川周辺を散策', duration: '目安 40分', points: ['アーケードや街灯に花火のモチーフが取り入れられた商店街を歩き、丸子川沿いをのんびり散策。', '夕暮れ時は冷え込みやすいため、秋〜春は防寒着を用意。'], transitDetail: { method: '徒歩で大曲駅周辺の宿へ', route: '商店街 → 宿泊先' } },
+  { title: '大曲駅周辺で夕食・宿泊', alternatives: [
+    { title: 'ホテルルートイン 大曲駅前', alternativeLabel: '駅近・大浴場あり', categoryLabel: 'ビジネスホテル', image: 'https://img.travel.rakuten.co.jp/share/HOTEL/70699/70699.jpg', imageCredit: '楽天トラベル', hotelData: { hotelNo: '70699' }, points: ['大曲駅近くに立地し、男女別大浴場（人工温泉）や無料朝食バイキングプランが魅力。', '駅周辺には秋田の地酒や郷土料理を楽しめる飲食店が点在。'], links: [{ label: '楽天トラベルで見る', href: 'https://travel.rakuten.co.jp/HOTEL/70699/70699.html' }] },
+    { title: 'グリーンホテル大曲', alternativeLabel: '西口徒歩約3分', categoryLabel: 'ビジネスホテル', image: 'https://img.travel.rakuten.co.jp/share/HOTEL/10867/10867.jpg', imageCredit: '楽天トラベル', hotelData: { hotelNo: '10867' }, points: ['大曲駅西口から徒歩約3分の好立地。館内1階に食事処「和台所 花」を併設。', '大浴場やプラン条件は予約時に確認。'], links: [{ label: '楽天トラベルで見る', href: 'https://travel.rakuten.co.jp/HOTEL/10867/10867.html' }] }
+  ] }
+]}]} />
+
+## 2日目：季節の散策と大曲納豆汁ランチ
+
+<TravelTimeline days={[{ dayNumber: 2, title: '大曲駅周辺 → （季節の散策） → 駅前ランチ → 大曲駅', steps: [
+  { title: '宿を出発・季節に合わせて行き先を選ぶ', points: ['荷物を宿または駅のロッカーに預けて身軽に出発。4月下旬〜11月中旬の開園期なら「旧池田氏庭園」へ、冬季（11月下旬〜4月中旬）や月曜日は駅周辺の商店街・土産店巡りがおすすめ。'], transitDetail: { method: 'タクシー約10分 / 路線バス（開園期のみ）', route: '大曲駅 → 旧池田氏庭園', specs: ['路線バスや大仙市循環バスは本数が限られ、土日祝運休の便もあるため、開園期の訪問はタクシー利用も現実的です。'] } },
+  { leadHeading: '4月下旬〜11月中旬の限定公開', title: '国名勝 旧池田氏庭園（開園期プラン）', duration: '目安 60分', points: ['東北三大地主・池田家の広大な庭園。高さ約4mの国内最大級の雪見灯籠や大正時代の洋館が見どころ。', '開園は9:00〜16:00（最終受付15:30）、一般300円（洋館2階特別見学は別途200円）。毎週月曜・冬季（11月中旬〜4月下旬）は休園。'], links: [{ label: '大仙市：旧池田氏庭園', href: 'https://www.city.daisen.lg.jp/' }], transitDetail: { method: 'タクシー・バスで大曲駅へ戻る', route: '旧池田氏庭園 → 大曲駅周辺' } },
+  { leadHeading: '大曲のソウルフードを味わう', title: '大曲駅周辺で大曲納豆汁ランチ', duration: '目安 60分', alternatives: [
+    { title: 'そば正五郎 大曲駅前店', alternativeLabel: '西口徒歩約3分', categoryLabel: 'そば・郷土料理', points: ['十割そばと「大曲納豆汁定食」が人気の駅前店。昼の部は11:00〜14:30（L.O.14:00）、月曜定休。'] },
+    { title: '和台所 花（グリーンホテル大曲1F）', alternativeLabel: '駅徒歩約3〜5分', categoryLabel: '定食・麺類', points: ['ホテル1階にあり宿泊者以外も利用可能。「納豆汁ラーメン」などユニークなメニューも。ランチ11:00〜14:00、日曜定休（要確認）。'] },
+    { title: '寿司と日本料理 弁天', alternativeLabel: '駅徒歩約8分', categoryLabel: '和食', points: ['創業半世紀を超える老舗。「大曲納豆汁定食」など本格的な和食を味わえる。11:00〜14:00、月曜定休。'] }
+  ], transitDetail: { method: '徒歩で大曲駅へ', route: 'ランチ店 → 大曲駅', specs: ['帰りの指定列車から逆算し、お土産購入と荷物受取の時間を確保。'] } },
+  { title: '大曲駅でお土産を選び、新幹線「こまち」で帰路へ', points: ['駅構内や周辺の売店で、いぶりがっこ・バター餅・秋田の地酒・花火関連グッズなどを購入。改札には発車15分前を目安に戻る。'] }
+]}]} />
+
+## 費用と時間の目安
+
+入館料は「はなび・アム」が無料、開園期に「旧池田氏庭園」へ行く場合は一般300円（洋館2階特別見学は別途200円）です。宿泊・食事・タクシー代・お土産代は別途かかります。どこかにビューーン！の必要ポイントは発地や条件によって異なるため、[JR東日本の商品案内](https://www.eki-net.com/top/product/shinkansen/e-dokokani.html)で確認してください。
+
+2日目は昼食とお土産選びに2時間以上を見込み、旧池田氏庭園へ足を延ばす場合は往復の移動時間を含めて3時間半ほど確保しておくと安心です。
+
+<TransitBookingHub destination="大曲" station="大曲駅" pref="akita" ticketType="dokokani" />
