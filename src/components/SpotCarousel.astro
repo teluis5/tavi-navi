@@ -4,16 +4,12 @@ import SpotUnit from './SpotUnit.astro';
 export interface Props {
   options: any[];
   leadHeading?: string;
-  timeBadge?: string;
-  spotCode?: string;
   trackId?: string;
 }
 
 const {
   options = [],
   leadHeading,
-  timeBadge,
-  spotCode,
   trackId = `carousel-track-${Math.random().toString(36).slice(2, 9)}`,
 } = Astro.props;
 
@@ -24,20 +20,10 @@ function cleanText(text?: string): string {
 ---
 
 <div class="spot-carousel-container" data-track-id={trackId}>
-  {(leadHeading || timeBadge || spotCode) && (
-    (timeBadge || spotCode) ? (
-      <div class="editorial-heading">
-        <div class="editorial-heading-meta">
-          {timeBadge && <span class="editorial-time-pill">{timeBadge}</span>}
-          {spotCode && <span class="editorial-spot-code">{spotCode}</span>}
-        </div>
-        {leadHeading && <h3 class="editorial-heading-title">{leadHeading}</h3>}
-      </div>
-    ) : (
-      <div class="spot-lead-heading carousel-lead-heading">
-        <h3 class="lead-text">{leadHeading}</h3>
-      </div>
-    )
+  {leadHeading && (
+    <div class="spot-lead-heading carousel-lead-heading">
+      <h3 class="lead-text">{leadHeading}</h3>
+    </div>
   )}
 
   {options.length > 1 && (
@@ -74,10 +60,6 @@ function cleanText(text?: string): string {
             imageLayout={opt.imageLayout}
             imageCredit={opt.imageCredit}
             isImageSample={opt.isImageSample}
-            sceneLead={opt.sceneLead}
-            stats={opt.stats}
-            pickSticker={opt.pickSticker}
-            editorTip={opt.editorTip}
             points={opt.points}
             links={opt.links}
             linksInList={opt.linksInList}

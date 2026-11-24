@@ -43,25 +43,18 @@ export type HotelCategory =
 export interface TimelineStep {
   id?: string;
   leadHeading?: string;   // e.g. "サザンビーチで海を見ながら散歩"（体験アクション見出し）
-  timeBadge?: string;     // e.g. "15:00"（タイムスタンプ見出しの差し色ピル）
-  spotCode?: string;      // e.g. "SPOT 02 · GEOTHERMAL"（欧文サブタグ）
   areaLabel?: string;     // e.g. "海沿いエリア", "熱海銀座商店街"（場所イメージ補強用）
   duration?: string;      // e.g. "目安 75分", "ランチ 60分", "宿泊"
   time?: string;          // 後方互換用
   title: string;          // e.g. "熱海サンビーチ & 親水公園"
   icon?: string;
-  categoryLabel?: HotelCategory | string; // 宿の場合は8大カテゴリ
-  isImageSample?: boolean;
-  isCompactTransit?: boolean; // 移動・出発用の写真なし軽量ステップ
-  image?: string | ImageMetadata;
-  imageCredit?: string;
-  images?: (string | ImageMetadata | TimelinePhotoItem)[];
-  imageLayout?: 'carousel' | 'grid-2' | 'grid-3' | 'pip';
+  categoryLabel?: HotelCategory | string; // 宿の場合は8大カテゴリ（温泉旅館/天然温泉ホテル/大浴場付きホテル/ラグジュアリー/シティホテル/ビジネスホテル/リゾートホテル/ゲストハウス）
+  isImageSample?: boolean; // 食事等で実際の店舗メニューでない場合の「※写真はイメージです」表記
+  image?: string | ImageMetadata; // サムネイル・ワイド画像URLまたはインポート画像
+  imageCredit?: string;   // 写真クレジット提供元（例: "秋田県観光連盟"）
+  images?: (string | ImageMetadata | TimelinePhotoItem)[]; // 単一箇所での複数写真
+  imageLayout?: 'carousel' | 'grid-2' | 'grid-3' | 'pip'; // 写真のレイアウト形式（pip: ピクチャーインピクチャ、メイン大＋右上に子写真小）
   desc?: string;
-  sceneLead?: string;     // 五感描写の1行目（薄いマーカー強調）
-  stats?: { label: string; value: string; accent?: boolean }[]; // 特大ナンバーチップ
-  pickSticker?: string;   // 斜め推しステッカー（主役2〜3箇所のみ）
-  editorTip?: { label?: string; text: string }; // 編集メモ枠
   points?: string[];      // 箇条書きポイント（最大2〜3行）
   links?: { label: string; href: string }[];
   businessHoursId?: string;
@@ -126,8 +119,8 @@ timelineDays.forEach(day => {
   {timelineDays.map((day) => (
     <div class="timeline-day-block">
       {day.title && (
-        <div class="day-header-banner" id={`day-${day.dayNumber || 1}`} data-toc-heading={`DAY ${day.dayNumber || 1}｜${day.title}`}>
-          <span class="day-number-pill">DAY 0{day.dayNumber || 1}</span>
+        <div class="day-header-banner">
+          <span class="day-number-pill">DAY {day.dayNumber || 1}</span>
           <h3 class="day-title-text">{day.title}</h3>
         </div>
       )}
@@ -136,49 +129,25 @@ timelineDays.forEach(day => {
         {day.steps && day.steps.map((step, index) => {
           const isLast = index === day.steps.length - 1;
           const hasAlternatives = step.alternatives && step.alternatives.length > 0;
+          // 親ステップにalternativeLabelがある場合は親自身も第1候補とし、ない場合はalternatives自体を全候補とする
           const allOptions = hasAlternatives
             ? (step.alternativeLabel ? [step, ...step.alternatives!] : step.alternatives!)
             : [step];
           return (
             <div class={`flow-step-item ${isLast ? 'is-last-step' : ''}`}>
               <div class="step-place-surface">
-                {step.isCompactTransit ? (
-                  <div class="compact-transit-step">
-                    <div class="compact-transit-head">
-                      {step.timeBadge && <span class="editorial-time-pill">{step.timeBadge}</span>}
-                      {step.spotCode && <span class="editorial-spot-code">{step.spotCode}</span>}
-                      <span class="compact-transit-title">{step.leadHeading || step.title}</span>
-                    </div>
-                    {step.points && step.points.length > 0 && (
-                      <ul class="compact-transit-points">
-                        {step.points.map((pt) => <li>{pt}</li>)}
-                      </ul>
-                    )}
-                  </div>
-                ) : hasAlternatives ? (
+                {hasAlternatives ? (
                   <SpotCarousel
                     options={allOptions}
                     leadHeading={step.leadHeading}
-                    timeBadge={step.timeBadge}
-                    spotCode={step.spotCode}
-                    trackId={`wide-track-${day.dayNumber || 1}-${index}`}
+                    trackId={`wide-track-${index}`}
                   />
                 ) : (
                   <div class="single-spot-container">
-                    {(step.leadHeading || step.timeBadge || step.spotCode) && (
-                      (step.timeBadge || step.spotCode) ? (
-                        <div class="editorial-heading">
-                          <div class="editorial-heading-meta">
-                            {step.timeBadge && <span class="editorial-time-pill">{step.timeBadge}</span>}
-                            {step.spotCode && <span class="editorial-spot-code">{step.spotCode}</span>}
-                          </div>
-                          {step.leadHeading && <h3 class="editorial-heading-title">{step.leadHeading}</h3>}
-                        </div>
-                      ) : (
-                        <div class="spot-lead-heading">
-                          <h3 class="lead-text">{step.leadHeading}</h3>
-                        </div>
-                      )
+                    {step.leadHeading && (
+                      <div class="spot-lead-heading">
+                        <h3 class="lead-text">{step.leadHeading}</h3>
+                      </div>
                     )}
                     <SpotUnit
                       title={step.title}
@@ -190,10 +159,6 @@ timelineDays.forEach(day => {
                       imageLayout={step.imageLayout}
                       imageCredit={step.imageCredit}
                       isImageSample={step.isImageSample}
-                      sceneLead={step.sceneLead}
-                      stats={step.stats}
-                      pickSticker={step.pickSticker}
-                      editorTip={step.editorTip}
                       points={step.points}
                       links={step.links}
                       linksInList={step.linksInList}
@@ -1496,36 +1461,6 @@ timelineDays.forEach(day => {
     color: #4b5563;
     line-height: 1.42;
     letter-spacing: 0.01em;
-  }
-
-  /* 移動・出発用の写真なし軽量ステップ */
-  .compact-transit-step {
-    padding: 0.75rem 1rem;
-    background: #F8FAFB;
-    border: 1px solid #e2e8f0;
-    border-left: 3px solid var(--color-teal, #0E7C94);
-    border-radius: 8px;
-  }
-  .compact-transit-head {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.45rem 0.6rem;
-  }
-  .compact-transit-title {
-    font-size: 0.96rem;
-    font-weight: 800;
-    color: #0f172a;
-  }
-  .compact-transit-points {
-    margin: 0.45rem 0 0;
-    padding-left: 1.15rem;
-    font-size: 0.84rem;
-    color: #475569;
-    line-height: 1.55;
-  }
-  .compact-transit-points li {
-    margin: 0.15rem 0;
   }
 
   /* 全画面スポットモーダルダイアログ */

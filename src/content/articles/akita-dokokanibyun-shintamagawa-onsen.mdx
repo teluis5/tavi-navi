@@ -1,10 +1,8 @@
 ---
-title: "どこかにビューーン！田沢湖駅｜朝6時のこまちでpH1.2の湯けむりへ・新玉川温泉1泊2日"
-displayTitle: "朝6時のこまちで、pH1.2の湯けむりへ。車なし1泊2日・新玉川温泉の湯治旅"
-subtitle: "東京から新幹線と山あいバスを乗り継ぐだけ。日本一の強酸性泉と湯煙の園地、駅前の比内地鶏ランチまで味わう週末プラン"
-description: "どこかにビューーン！（6,000pt）で田沢湖駅へ。東京早朝発のこまちと路線バスを乗り継ぎ、日本一の強酸性泉・新玉川温泉と大噴の湯けむりを味わう車なし1泊2日の旅。"
+title: "どこかにビューーン！田沢湖駅　東京早朝出発で新玉川温泉へ1泊2日"
+description: "田沢湖駅から新玉川温泉に宿泊する車なし1泊2日の旅。東京発こまちと夏・冬のバス接続を時刻表で確認できます。"
 pubDate: 2026-11-12
-updatedDate: 2026-11-24
+updatedDate: 2026-11-15
 lang: "ja"
 pref: "akita"
 category: "モデルコース"
@@ -13,9 +11,11 @@ departure: "tokyo"
 duration: "1泊2日"
 cities: ["senboku"]
 heroImage: "/thumbnails/akita-course-shintamagawa-v1.png"
-tags: ["どこかにビューーン！", "新幹線", "田沢湖", "秋田", "秋田新幹線", "新玉川温泉", "車なし", "モデルコース", "温泉"]
+tags: ["どこかにビューーン！", "新幹線", "レンタカー", "田沢湖", "秋田", "秋田新幹線", "乳頭温泉郷", "鶴の湯温泉", "車なし", "モデルコース", "温泉"]
 ---
+import ConclusionBox from '../../components/ConclusionBox.astro';
 import TravelTimeline from '../../components/TravelTimeline.astro';
+import TrainCondition from '../../components/TrainCondition.astro';
 import CourseBudget from '../../components/CourseBudget.astro';
 import TransitBookingHub from '../../components/TransitBookingHub.astro';
 import RelatedCourseCards from '../../components/RelatedCourseCards.astro';
@@ -23,6 +23,7 @@ import photoHanazen from '../blog/tazawako-shared/hanazen-torimeshi.jpg';
 import photoSoba from '../blog/tazawako-shared/akita-soba.jpg';
 import photoOyakodon from '../blog/tazawako-shared/hinai-oyakodon.jpg';
 import photoEkimaeUdon from '../blog/tazawako-shared/inaniwa-udon.jpg';
+
 import photoKomachiOutbound from '../blog/tazawako-shared/komachi-outbound.jpg';
 import photoSouvenirPot from '../blog/tazawako-shared/kiritanpo-nabe.jpg';
 import photoSouvenirPickles from '../blog/tazawako-shared/iburigakko.jpg';
@@ -33,82 +34,50 @@ import photoTamagawaRocks from '../blog/tazawako-shared/tamagawa-bedrock.jpg';
 import photoTamagawaRyokan from '../blog/tazawako-shared/tamagawa-ryokan.jpg';
 import photoShinBedrock from '../blog/tazawako-shared/shintamagawa-bedrock.jpg';
 
-<p class="editorial-lead">
-  早朝の東京駅を赤い「こまち」で飛び出し、深いブナ林を抜けると、目の前に立ちのぼる白煙とぴりっと肌に響く日本一の強酸性泉。<br />
-  運転いらずの列車と山あいバスだけで、本格的な湯治文化と駅前の比内地鶏ランチまで味わえる週末1泊2日です。
-</p>
 
-<div class="ticket-box" aria-label="旅のサマリー">
-  <div class="ticket-box-top">
-    <div class="ticket-top-bar">
-      <span class="ticket-box-kicker">DOKOKANI VIEWN · TRIP SUMMARY</span>
-      <span class="ticket-route-code">TOKYO → TAZAWAKO</span>
-    </div>
-    <div class="ticket-box-headline">
-      <span class="ticket-box-big">6,000pt</span>
-      <span class="ticket-box-sub">往復新幹線・車なし1泊2日</span>
-    </div>
-  </div>
-  <div class="ticket-divider" aria-hidden="true">
-    <hr class="ticket-perforation" />
-  </div>
-  <div class="ticket-box-bottom">
-    <div class="ticket-meta-item">
-      <span class="ticket-meta-label">DEPARTURE</span>
-      <span class="ticket-meta-val">6:00–9:59発枠</span>
-    </div>
-    <div class="ticket-meta-item">
-      <span class="ticket-meta-label">KEY SPRING</span>
-      <span class="ticket-meta-val">pH 1.2 · 98℃</span>
-    </div>
-    <div class="ticket-meta-item">
-      <span class="ticket-meta-label">LOCAL BUS</span>
-      <span class="ticket-meta-val">駅から約70分</span>
-    </div>
-    <div class="ticket-meta-item">
-      <span class="ticket-meta-label">STYLE</span>
-      <span class="ticket-meta-val">完全車なし</span>
-    </div>
-  </div>
-</div>
+import photoKomachi from '../../assets/photos/akita_compressed/komachi-e6.webp';
+
+<TrainCondition text={"⚠️最終バスの時刻がとても早いです\nどこかにビューーン！は東京発6:00〜9:59の枠を選ぶとバスに間に合います。\n移動と温泉宿での滞在が中心で、列車やバスの時刻によって観光の時間は限られます。\n冬季を除きレンタカーを使用することもできます。\n田沢湖駅からバスで約1時間かかるので、帰りの時刻にも注意してください。"} />
+
+> [!WARNING]
+> **新玉川温泉の改装・メンテナンス休業（11月下旬〜12/12）に注意**
+> 新玉川温泉は館内メンテナンス・改装工事に伴い、**11月30日〜12月12日まで休業**（12月13日より冬季営業再開予定）となります（※工事進捗や年によって10月下旬〜11月上旬から一部制限や休館日程が前後する場合があります）。
+> また、姉妹館の「玉川温泉（本館）」は冬期完全休館となります。初冬・晩秋の旅行をご検討中の方は、必ず事前に[新玉川温泉 公式サイト](https://www.shintamagawa.jp/)で最新の休業・運行スケジュールをご確認ください。
+
+東京発6:00〜9:59の枠なら、こまちとバスを乗り継いで新玉川温泉へ。強酸性の湯と湯治文化を楽しむ1泊2日です。
+
+冬季以外は姉妹館の玉川温泉も宿泊可能。大浴場の相互利用と無料送迎バスあり。
+
+## 新玉川温泉を楽しむ1泊2日の旅程
 
 <TravelTimeline
   days={[
     {
       dayNumber: 1,
-      title: "こまちで田沢湖駅へ、強酸性の湯と湯けむりの宿に浸る",
+      title: "こまち ➔ 田沢湖駅 ➔ 新玉川温泉に宿泊",
       steps: [
         {
-          timeBadge: "06:00–09:59",
-          spotCode: "DEPARTURE · SHINKANSEN",
-          leadHeading: "東京から赤いこまちで田沢湖駅へ",
-          areaLabel: "東京駅 → 田沢湖駅",
+          leadHeading: "東京からこまちで田沢湖駅へ",
+          areaLabel: "東京駅 ➔ 田沢湖駅",
           title: "秋田新幹線こまち",
           categoryLabel: "新幹線",
           image: photoKomachiOutbound,
           imageCredit: "Akita Prefecture",
-          sceneLead: "車窓がビル群から奥羽山脈の深い森へ切り替わる約3時間。コーヒー片手に旅のスイッチが入ります。",
           points: [
-            "どこかにビューーン！は「東京発 6:00〜9:59」の早朝枠を選ぶと、田沢湖駅からの路線バスにスムーズに接続",
-            "終バスが早めの山岳路線のため、午前のうちに秋田入りするのがこの旅のコツ"
+            "東京発6:00〜9:59の時間帯を選び、指定された列車とバスの接続を確認",
+            "列車は指定できず、臨時列車の運転日や対象列車は申込画面で確認"
           ],
-          editorTip: {
-            label: "TRANSIT TIP",
-            text: "冬期は一般車両の通行規制が入る山道も、路線バスなら雪道の心配ゼロ。下の時刻表バーから当日の接続便をさっと開けます。"
-          },
           timetable: { destination: "新玉川温泉", finalStop: "玉川温泉", direction: "outbound" },
           transitDetail: {
-            method: "こまち → 田沢湖駅前から路線バス（約70分）",
-            route: "東京駅 → 田沢湖駅 → 新玉川温泉・玉川温泉",
+            method: "こまち → 田沢湖駅前から新玉川温泉行きバス",
+            route: "東京駅 → 田沢湖駅 → 新玉川温泉または玉川温泉",
             specs: [
-              "バスの本数は季節（夏・冬ダイヤ）で変動。田沢湖駅前バス乗り場から乗車"
+              "列車とバスの接続を確認。冬は一般車両の通行規制があり、最終バスに注意"
             ]
           }
         },
         {
-          timeBadge: "14:00",
-          spotCode: "SPOT 01 · ONSEN STAY",
-          leadHeading: "今夜の宿へ。通年の新玉川温泉か、夏季の玉川温泉か",
+          leadHeading: "宿泊先は新玉川温泉、夏は玉川温泉も選べる",
           areaLabel: "玉川温泉・新玉川温泉",
           title: "宿泊先を選ぶ",
           alternatives: [
@@ -127,20 +96,11 @@ import photoShinBedrock from '../blog/tazawako-shared/shintamagawa-bedrock.jpg';
                 { image: photoShinExterior, caption: "新玉川温泉の外観" }
               ],
               imageCredit: "Akita Prefecture",
-              stats: [
-                { label: "強酸性泉", value: "pH 1.2", accent: true },
-                { label: "多彩な浴槽", value: "14種" },
-                { label: "営業シーズン", value: "通年" }
-              ],
-              sceneLead: "青森ヒバが香る広大な大浴場に一歩入ると、ぴりりと肌に効く独特の強酸性泉が旅の疲れを解きほぐします。",
               points: [
-                "源泉100%から50%希釈、弱酸性湯まで段階的に浸かれるため、強酸性泉が初めてでも快適",
-                "夏の営業期間は姉妹館・玉川温泉の大浴場も無料湯めぐり券と送迎バスで相互利用可能"
-              ],
-              editorTip: {
-                label: "SEASON NOTICE",
-                text: "例年11月末〜12月上旬（2026年は11/30〜12/12予定）は館内メンテナンス休館あり。晩秋〜初冬の予約時は日程にご留意ください。"
-              }
+                "玉川温泉の源泉を引く宿。強酸性の湯や宿泊者限定の屋内岩盤浴を楽しむ",
+                "館内メンテナンス・改装工事のため11月30日〜12月12日は休業（12月13日再開予定）。予約前に公式案内を要確認",
+                "夏の営業期間は姉妹館の玉川温泉にも入浴可能。フロントで入浴券と無料送迎便を確認"
+              ]
             },
             {
               alternativeLabel: "玉川温泉（夏）",
@@ -153,31 +113,24 @@ import photoShinBedrock from '../blog/tazawako-shared/shintamagawa-bedrock.jpg';
               },
               image: photoTamagawaRyokan,
               imageCredit: "Akita Prefecture",
-              stats: [
-                { label: "大噴まで", value: "徒歩圏" },
-                { label: "営業期間", value: "4月〜11月" }
-              ],
-              sceneLead: "地熱の湯けむりと硫黄の香りに包まれて眠る、昔ながらの本物の湯治宿ステイ。",
               points: [
-                "自然研究路・大噴や天然岩盤浴まで歩いてすぐの好立地",
-                "冬期（12月〜4月中旬）は休館となるため、夏〜秋シーズン限定の選択肢"
+                "自然研究路・大噴や天然岩盤浴に近い、昔ながらの湯治宿",
+                "夏の営業期間は宿泊可能。冬期は休館のため営業日と空室を事前確認",
+                "宿泊先を玉川温泉にする場合、玉川温泉行きのバスと帰りの便を確認"
               ]
             }
           ],
           transitDetail: {
-            method: "湯めぐり号（無料・約7分／冬季運休）または徒歩",
+            method: "湯めぐり号（冬季運休）または徒歩",
             route: "宿泊先 → 玉川温泉園地",
-            specs: ["新玉川温泉からは宿泊者専用シャトル、玉川温泉からはそのまま徒歩で園地へ"],
-            links: [{ label: "湯めぐり号のダイヤ", href: "https://www.shintamagawa.jp/access/" }]
+            specs: ["新玉川温泉からは宿泊者向け湯めぐり号（冬季運休）の運行を確認。玉川温泉からは園地へ徒歩", "園地への立ち寄りは季節や現地の通行状況による"],
+            links: [{ label: "湯めぐり号のダイヤはこちら", href: "https://www.shintamagawa.jp/access/" }]
           }
         },
         {
-          timeBadge: "15:00",
-          spotCode: "SPOT 02 · GEOTHERMAL",
-          leadHeading: "轟音とともに湧き出す源泉・大噴と天然岩盤浴〈春〜秋限定〉",
-          areaLabel: "玉川温泉園地",
-          title: "大噴・自然研究路と天然岩盤浴",
-          links: [{ label: "天然岩盤浴・大噴の案内", href: "https://www.shintamagawa.jp/hot_stoned_bath/" }],
+          leadHeading: "源泉・大噴と天然岩盤浴へ〈冬季閉鎖〉",
+          areaLabel: "玉川温泉園地（新玉川温泉とは別の場所）",
+          title: "大噴・自然研究路と天然岩盤浴", links: [{ label: "天然岩盤浴・大噴の案内", href: "https://www.shintamagawa.jp/hot_stoned_bath/" }],
           categoryLabel: "季節限定の立ち寄り",
           imageLayout: "grid-2",
           images: [
@@ -185,161 +138,115 @@ import photoShinBedrock from '../blog/tazawako-shared/shintamagawa-bedrock.jpg';
             { image: photoTamagawaRocks, caption: "天然岩盤浴のある園地" }
           ],
           imageCredit: "Akita Prefecture",
-          pickSticker: "日本一の強酸性!",
-          stats: [
-            { label: "源泉温度", value: "98℃", accent: true },
-            { label: "日本一の強酸性", value: "pH 1.2", accent: true },
-            { label: "自然研究路", value: "約30分" }
-          ],
-          sceneLead: "ゴォォと地鳴りのような音とともに真っ白な噴気が立ちのぼり、岩盤に寝転ぶと大地のぬくもりが背中いっぱいに伝わります。",
           points: [
-            "単一湧出口としては日本一の湧出量（毎分9,000L）を誇る源泉「大噴（おおぶけ）」を間近に体感",
-            "一周約30分の遊歩道沿いでは、ゴザを敷いて地熱に温まる名物「天然岩盤浴」も楽しめる"
+            "大噴は約98℃の源泉が湧き出す場所。施設公式はpH1.2で日本一の強酸性と案内",
+            "自然研究路は一周約30分。地熱を利用した天然岩盤浴も楽しめる",
+            "宿泊者はフロントで湯めぐり入浴券を受け取り、玉川温泉の大浴場も無料で利用できる",
+            "両館の間は宿泊者向け無料の湯めぐり号（冬季運休）で約7分。出発時刻と運行状況を確認",
+            "冬期は玉川温泉が休館し、園地へ行けない場合がある。積雪・通行規制や施設案内を確認"
           ],
-          editorTip: {
-            label: "LOCAL TIP",
-            text: "冬期は積雪により園地閉鎖。春夏秋に訪れるなら、フロントで無料の湯めぐり入浴券をもらって玉川温泉の大浴場もはしごするのが通の楽しみ方です。"
-          },
           transitDetail: {
-            method: "湯めぐり号（宿泊者無料・約7分）",
-            route: "玉川温泉（園地） → 新玉川温泉",
-            links: [{ label: "送迎バス案内", href: "https://www.shintamagawa.jp/access/" }]
+            method: "湯めぐり号（宿泊者無料）または路線バス（有料）〈いずれも冬季運休〉",
+            route: "新玉川温泉 ⇔ 玉川温泉（園地）",
+            specs: ["新玉川温泉に宿泊する場合はフロントで入浴券と送迎便の往復時刻を確認", "玉川温泉に宿泊する場合は園地へ直接向かう", "夕食や翌日の帰路に余裕がある場合に利用"],
+            links: [{ label: "湯めぐり号のダイヤはこちら", href: "https://www.shintamagawa.jp/access/" }]
           }
         },
         {
-          timeBadge: "17:00",
-          spotCode: "SPOT 03 · BEDROCK BATH",
-          leadHeading: "雪の季節も安心。館内の屋内岩盤浴で芯から温まる",
+          leadHeading: "新玉川温泉に泊まるなら館内の岩盤浴も",
           areaLabel: "新玉川温泉館内",
-          title: "新玉川温泉の屋内岩盤浴",
-          links: [{ label: "屋内岩盤浴の案内", href: "https://www.shintamagawa.jp/care/" }],
+          title: "新玉川温泉の屋内岩盤浴", links: [{ label: "屋内岩盤浴の案内", href: "https://www.shintamagawa.jp/care/" }],
           categoryLabel: "岩盤浴",
           image: photoShinBedrock,
           imageCredit: "田沢湖・角館観光協会",
-          pickSticker: "宿泊者限定",
-          stats: [
-            { label: "利用料", value: "800円" },
-            { label: "営業時間", value: "7:00–20:50" }
-          ],
-          sceneLead: "湯上がりとはまた違う、じんわり玉の汗がにじむ静かな温熱体験。天候を問わず冬でも楽しめます。",
           points: [
-            "新玉川温泉の宿泊者限定スペース。チェックイン後すぐにフロントで希望枠を押さえておくとスムーズ",
-            "作務衣・タオルは別料金でレンタル可能"
+            "新玉川温泉の宿泊者限定。到着後にフロントで予約",
+            "7:00〜20:50、利用料800円。作務衣・タオルは別料金"
           ]
         }
       ]
     },
     {
       dayNumber: 2,
-      title: "朝風呂から駅前グルメへ、こまちで東京へ戻る",
+      title: "宿泊先 ➔ 田沢湖市 ➔ こまちで帰路",
       steps: [
         {
-          timeBadge: "09:30",
-          spotCode: "DAY 02 · DEPARTURE",
-          leadHeading: "朝風呂で目を覚まし、路線バスで田沢湖駅へ",
-          areaLabel: "宿泊先 → 田沢湖駅前",
+          leadHeading: "朝の温泉を楽しみ、路線バスで駅へ",
+          areaLabel: "宿泊先 ➔ 田沢湖駅前",
           title: "宿泊先を出発",
-          isCompactTransit: true,
-          points: [
-            "朝食前にもう一度ヒバの大浴場へ。チェックアウト後は宿前から田沢湖駅前行き路線バスに乗車",
-            "帰りの新幹線に余裕を持てる便を下の時刻表からピックアップ"
-          ],
+          categoryLabel: "路線バス",
+          image: photoShinExterior,
+          imageCredit: "Akita Prefecture",
+          isImageSample: true,
+          points: ["写真は新玉川温泉の外観", "新玉川温泉から駅前へのバスを旅行日で確認", "玉川温泉から帰る場合は夏季の運行日を確認", "帰りの指定列車に余裕を持てる便を選び、運行日と宿のチェックアウト時刻を確認"],
           timetable: { destination: "新玉川温泉", finalStop: "玉川温泉", direction: "return" },
           transitDetail: {
-            method: "路線バス（約70分）",
-            route: "新玉川温泉・玉川温泉 → 田沢湖駅前"
+            method: "路線バス",
+            route: "新玉川温泉または玉川温泉 → 田沢湖駅前"
           }
         },
         {
-          timeBadge: "12:00",
-          spotCode: "SPOT 04 · STATION LUNCH",
-          leadHeading: "こまちの出発前に、駅前の比内地鶏か稲庭うどんで締める",
+          leadHeading: "帰りのこまちの前に、駅前ランチか駅弁を選ぶ",
           areaLabel: "田沢湖駅前・駅構内",
           title: "最後のランチ",
           alternatives: [
             {
               alternativeLabel: "比内地鶏の親子丼",
-              title: "割烹 桃屋",
+              title: "割烹 桃屋", linksInList: true,
               categoryLabel: "駅前ランチ",
               image: photoOyakodon,
               imageCredit: "Akita Prefecture",
               isImageSample: true,
-              pickSticker: "徒歩2分の名店",
-              stats: [
-                { label: "田沢湖駅から", value: "徒歩2分", accent: true },
-                { label: "定休日", value: "水・木" }
-              ],
-              sceneLead: "炭火の香ばしさととろとろ卵が絡む、比内地鶏の親子丼。駅近で旅のハイライトをもう一つ。",
               points: [
-                "田沢湖駅から徒歩約2分の老舗割烹。地鶏の旨味たっぷりの一杯が人気"
+                "比内地鶏の親子丼が候補。写真は親子丼のイメージ",
+                "田沢湖駅から徒歩約2分。定休日は水曜・木曜、貸切などによる臨時休業もあるため事前確認"
               ],
-              links: [
-                { label: "電話 0187-43-0031", href: "tel:0187430031" },
-                { label: "店舗情報", href: "https://tazawako-kakunodate.com/spots/6196/" }
-              ]
+              links: [{ label: "電話 0187-43-0031", href: "tel:0187430031" }, { label: "店舗情報", href: "https://tazawako-kakunodate.com/spots/6196/" }]
             },
             {
               alternativeLabel: "駅前食堂",
-              title: "駅前食堂",
+              title: "駅前食堂", linksInList: true,
               categoryLabel: "駅前ランチ",
               image: photoEkimaeUdon,
               imageCredit: "Akita Prefecture",
               isImageSample: true,
-              stats: [
-                { label: "立地", value: "駅の目の前" },
-                { label: "営業時間", value: "10:00–19:00" }
-              ],
-              sceneLead: "つるりと喉ごしのよい稲庭うどんと、ほっとする味わいのもつ煮で気軽に腹ごしらえ。",
               points: [
-                "田沢湖駅を出てすぐの好立地で、バスの待ち時間にも立ち寄りやすい（金曜定休）"
+                "稲庭うどんやもつ煮が楽しめる。写真は稲庭うどんのイメージ",
+                "田沢湖駅の目の前。10:00〜19:00、金曜定休。営業時間は来店前に確認"
               ],
-              links: [
-                { label: "電話 0187-43-0483", href: "tel:0187430483" },
-                { label: "店舗情報", href: "https://tazawako-kakunodate.com/spots/6192/" }
-              ]
+              links: [{ label: "電話 0187-43-0483", href: "tel:0187430483" }, { label: "店舗情報", href: "https://tazawako-kakunodate.com/spots/6192/" }]
             },
             {
               alternativeLabel: "駅前でそば",
-              title: "そば五郎",
-              links: [{ label: "そば五郎の案内", href: "https://www.akita-nairiku.com/others/gourmet-route.php" }],
+              title: "そば五郎", links: [{ label: "そば五郎の案内", href: "https://www.akita-nairiku.com/others/gourmet-route.php" }],
               categoryLabel: "駅前ランチ",
               image: photoSoba,
               imageCredit: "Akita Prefecture",
               isImageSample: true,
-              stats: [
-                { label: "ラストオーダー", value: "17:30" }
-              ],
-              sceneLead: "香り高い十割そばを、比内地鶏の温かいつけ汁にくぐらせてすする贅沢な昼どき。",
               points: [
-                "11:00〜17:30 L.O.（不定休）。そば好きに支持される駅前の一軒"
+                "十割そばや比内地鶏のつけそばを楽しむ。写真は秋田のそばのイメージ",
+                "11:00〜17:30ラストオーダー、不定休。帰りの列車までの時間を確認"
               ]
             },
             {
               alternativeLabel: "鶏めし駅弁",
-              title: "NewDays KIOSK 田沢湖駅店",
-              businessHoursId: "newdays-tazawako",
-              links: [
-                { label: "電話 0187-58-0081", href: "tel:0187580081" },
-                { label: "案内PDF", href: "https://common3.pref.akita.lg.jp/akitamai/wp-content/uploads/2022/12/1a9efa3e1273344980c6834b22bd9191-2.pdf" }
-              ],
+              title: "NewDays KIOSK 田沢湖駅店", businessHoursId: "newdays-tazawako", links: [{ label: "電話 0187-58-0081", href: "tel:0187580081" }, { label: "参照元", href: "https://common3.pref.akita.lg.jp/akitamai/wp-content/uploads/2022/12/1a9efa3e1273344980c6834b22bd9191-2.pdf" }],
               categoryLabel: "駅弁テイクアウト",
               image: photoHanazen,
               imageCredit: "Akita Prefecture",
-              sceneLead: "甘辛い鶏の旨味が染み込んだ花善の鶏めしを、帰りのこまちの車窓とともに。",
               points: [
-                "乗り継ぎ時間が短いときの強い味方。確実に手に入れたい場合は3日前を目安に電話で取り置き相談を"
+                "時間がないときは、花善の鶏めしなど駅弁を買って車内で楽しむ",
+                "3日前を目安に電話で取り置き・注文の可否と受取時刻を確認。売切れや取扱い変更あり"
               ]
             }
           ],
           transitDetail: {
-            method: "徒歩1分",
-            route: "駅前・駅構内 → 田沢湖市"
+            method: "徒歩で駅前の田沢湖市へ",
+            route: "駅前・駅構内 ➔ 田沢湖市"
           }
         },
         {
-          timeBadge: "13:15",
-          spotCode: "SPOT 05 · SOUVENIR",
-          leadHeading: "駅前の物産館で、きりたんぽといぶりがっこを鞄に詰める",
+          leadHeading: "田沢湖駅前の物産館でお土産を選ぶ",
           areaLabel: "田沢湖駅前",
           title: "駅前物産館 田沢湖市（いち）",
           categoryLabel: "お土産",
@@ -347,27 +254,27 @@ import photoShinBedrock from '../blog/tazawako-shared/shintamagawa-bedrock.jpg';
           images: [photoSouvenirPot, photoSouvenirPickles],
           imageCredit: "Akita Prefecture",
           isImageSample: true,
-          sceneLead: "燻製の香りが食欲をそそるいぶりがっこや、家で温めるだけのきりたんぽセットがずらり。",
-          points: [
-            "田沢湖駅の目の前なので、新幹線発車の15分前まで焦らずお土産選びができる"
-          ],
+          points: ["写真はきりたんぽ鍋・いぶりがっこのイメージ。取扱商品は店舗で確認", "営業時間と帰りの列車を確認し、駅へ戻る時間を確保"],
           transitDetail: { method: "徒歩約1分", route: "田沢湖市 → 田沢湖駅" }
         },
         {
-          timeBadge: "14:00",
-          spotCode: "RETURN · SHINKANSEN",
-          leadHeading: "田沢湖駅からこまちで東京へ",
-          areaLabel: "田沢湖駅 → 東京駅",
+          leadHeading: "こまちで東京へ",
+          areaLabel: "田沢湖駅 ➔ 東京駅",
           title: "秋田新幹線こまち",
-          isCompactTransit: true,
-          points: [
-            "強酸性の湯でぽかぽかの身体のまま、指定のこまちで一路東京へ。お土産と駅弁を広げて余韻を楽しみましょう"
-          ]
+          categoryLabel: "新幹線帰路",
+          image: photoKomachi,
+          imageCredit: "Akita Prefecture",
+          points: ["指定された列車で東京へ。バスの遅れにも余裕を持って駅に戻る"]
         }
       ]
     }
   ]}
 />
+
+<ConclusionBox>
+- 指定列車と夏・冬のバスの接続を確認します。
+- 改装・メンテナンス休業（11月30日〜12月12日休館、12月13日再開予定）に注意し、空室と最新運行情報を確認してください。
+</ConclusionBox>
 
 <CourseBudget
   shinkansen="6,000 pt"
@@ -392,8 +299,3 @@ import photoShinBedrock from '../blog/tazawako-shared/shintamagawa-bedrock.jpg';
     'akita-dynamic-rail-tazawako-no-car'
   ]}
 />
-
-<aside class="editorial-disclaimer" aria-label="免責事項">
-  <span class="editorial-disclaimer-title">NOTE &amp; DISCLAIMER</span>
-  列車の運転日・路線バスの季節ダイヤ・新玉川温泉や飲食店の臨時休業および営業時間は時期や積雪状況により変更される場合があります。お出かけ前に各公式サイトにて最新情報をご確認ください。
-</aside>

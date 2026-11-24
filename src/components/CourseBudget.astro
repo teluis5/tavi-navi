@@ -106,48 +106,44 @@ const formatAmount = (val: number | string) => {
 
 <div class="course-budget-section" aria-labelledby="course-budget">
   <div class="budget-section-header">
-    <h2 class="budget-title" id="course-budget" data-toc-heading="費用目安">
-      <span class="budget-badge">BUDGET TICKET</span>
+    <h2 class="budget-title" id="course-budget">
+      <span class="budget-badge">費用目安</span>
       <span>{title}</span>
     </h2>
   </div>
 
-  <div class="budget-card-clean">
+  <div class="budget-content-wrap">
     <div class="budget-summary-bar">
-      <div>
-        <span class="ticket-box-kicker">ESTIMATED TOTAL / PER PERSON</span>
-        <div class="ticket-box-headline">
-          <span class="ticket-box-big">{displayTotal}</span>
-          <span class="budget-person-label">{personLabel}</span>
-        </div>
+      <div class="budget-total-box">
+        <span class="total-label">1人あたり合計目安</span>
+        <span class="total-value">{displayTotal}</span>
       </div>
+      <span class="budget-person-label">{personLabel}</span>
     </div>
 
-    <div class="budget-ticket-body">
-      <table class="budget-table">
-        <tbody>
-          {budgetItems.map((item) => (
-            <tr class="budget-row">
-              <th scope="row" class="budget-col-category">
-                <div class="category-text-group">
-                  <span class="item-category-text">{item.category}</span>
-                  {item.note && <span class="item-note-text">{item.note}</span>}
-                </div>
-              </th>
-              <td class="budget-col-amount">
-                <span class="amount-value">{formatAmount(item.amount)}</span>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <table class="budget-table">
+      <tbody>
+        {budgetItems.map((item) => (
+          <tr class="budget-row">
+            <th scope="row" class="budget-col-category">
+              <div class="category-text-group">
+                <span class="item-category-text">{item.category}</span>
+                {item.note && <span class="item-note-text">{item.note}</span>}
+              </div>
+            </th>
+            <td class="budget-col-amount">
+              <span class="amount-value">{formatAmount(item.amount)}</span>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
 
-      {(totalNote || budgetItems.length > 0) && (
-        <div class="budget-footer-note">
-          <p>{totalNote || '※表示料金は調査時点の標準的な目安です。宿泊日・予約タイミング・利用プランにより変動します。'}</p>
-        </div>
-      )}
-    </div>
+    {(totalNote || budgetItems.length > 0) && (
+      <div class="budget-footer-note">
+        <p>{totalNote || '※表示料金は調査時点の標準的な目安です。宿泊日・予約タイミング・利用プランにより変動します。'}</p>
+      </div>
+    )}
   </div>
 </div>
 
@@ -172,27 +168,6 @@ const formatAmount = (val: number | string) => {
     letter-spacing: 0.04em;
     line-height: 1.2;
     flex-shrink: 0;
-  }
-
-  .budget-card-clean {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 10px;
-    overflow: hidden;
-  }
-  .budget-ticket-body {
-    padding: 0.75rem 1.35rem 1.1rem;
-  }
-  .budget-summary-bar {
-    padding: 1rem 1.35rem 0.9rem;
-    background: #F8FAFB;
-    border-bottom: 1px dashed #cbd5e1;
-    margin-bottom: 0;
-  }
-  @media (max-width: 640px) {
-    .budget-ticket-body {
-      padding: 0.65rem 1rem 1rem;
-    }
   }
 
   .budget-content-wrap {

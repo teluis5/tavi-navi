@@ -98,17 +98,11 @@ const hasContent = !!(method || route || specs.length > 0 || timetable || transi
       {timetable && <TransitTimetable {...timetable} />}
 
       {transitDetail?.links && transitDetail.links.length > 0 && (
-        <div class="pill-btn-row transit-pill-row">
+        <p class="transit-links">
           {transitDetail.links.map((link) => (
-            <a href={link.href} class="pill-btn" target="_blank" rel="noopener">
-              <span>{link.label}</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </a>
+            <a href={link.href} target="_blank" rel="noopener">{link.label}</a>
           ))}
-        </div>
+        </p>
       )}
     </div>
   </div>
