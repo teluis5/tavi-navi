@@ -228,6 +228,8 @@ const RAILWAY_LINES = [
       <p class="map-instruction">Hマークにマウスを合わせるか、タップすると宿泊エリアの紹介を見られます。</p>
       <div class="map-groups" role="group" aria-label="地図に表示する宿泊エリア">
         <button type="button" class="map-group" data-map-group="main" aria-pressed="true">主なエリア</button>
+        <button type="button" class="map-group" data-map-group="haneda" aria-pressed="false">羽田空港から</button>
+        <button type="button" class="map-group" data-map-group="shinkansen" aria-pressed="false">東海道新幹線から</button>
         <button type="button" class="map-group" data-map-group="alternatives" aria-pressed="false">空室が見つからないときの候補</button>
       </div>
       <div class="map-layout">
@@ -588,7 +590,11 @@ const RAILWAY_LINES = [
   }
   function showMapGroup(selected: string) {
     closeCard();
-    points.forEach((point) => { point.hidden = point.dataset.mapGroup !== selected; });
+    const recommended: Record<string, string[]> = {
+      haneda: ['羽田空港', '蒲田', '川崎', '品川', '横浜'],
+      shinkansen: ['大手町', '品川', '新横浜'],
+    };
+    points.forEach((point) => { point.hidden = recommended[selected] ? !recommended[selected].includes(point.dataset.name || '') : point.dataset.mapGroup !== selected; });
     document.querySelectorAll<HTMLButtonElement>('.map-group').forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.mapGroup === selected)));
     requestAnimationFrame(layoutMobileLabels);
   }
