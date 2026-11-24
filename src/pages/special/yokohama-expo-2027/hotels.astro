@@ -154,6 +154,7 @@ const AREA_TAGS: Record<string, string[]> = {
       <p class="bus-notice">新横浜駅・横浜駅・みなとみらい／関内地区・羽田空港から会場への直行バスが運行予定です。乗り場、時刻、運賃、予約方法などは調整中です。</p>
       <p class="map-instruction">Hマークにマウスを合わせるか、タップすると宿泊エリアの紹介を見られます。</p>
       <div class="map-groups" role="group" aria-label="地図に表示する宿泊エリア">
+        <button type="button" class="map-group" data-map-group="recommended" aria-pressed="false">おすすめ</button>
         <button type="button" class="map-group" data-map-group="main" aria-pressed="true">主なエリア</button>
         <button type="button" class="map-group" data-map-group="haneda" aria-pressed="false">羽田空港から</button>
         <button type="button" class="map-group" data-map-group="shinkansen" aria-pressed="false">東海道新幹線から</button>
@@ -571,6 +572,7 @@ const AREA_TAGS: Record<string, string[]> = {
   function showMapGroup(selected: string) {
     closeCard();
     const recommended: Record<string, string[]> = {
+      recommended: ['大和', '南町田', '二俣川', '海老名', '横浜', '町田', '新横浜'],
       haneda: ['羽田空港', '蒲田', '川崎', '品川', '横浜'],
       shinkansen: ['大手町', '品川', '新横浜'],
     };
