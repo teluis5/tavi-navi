@@ -112,8 +112,8 @@ const formatAmount = (val: number | string) => {
     </h2>
   </div>
 
-  <div class="ticket-box budget-ticket-wrap">
-    <div class="ticket-box-top budget-summary-bar">
+  <div class="budget-card-clean">
+    <div class="budget-summary-bar">
       <div>
         <span class="ticket-box-kicker">ESTIMATED TOTAL / PER PERSON</span>
         <div class="ticket-box-headline">
@@ -122,8 +122,6 @@ const formatAmount = (val: number | string) => {
         </div>
       </div>
     </div>
-
-    <hr class="ticket-perforation" />
 
     <div class="budget-ticket-body">
       <table class="budget-table">
@@ -176,14 +174,19 @@ const formatAmount = (val: number | string) => {
     flex-shrink: 0;
   }
 
-  .budget-ticket-wrap {
-    margin: 0;
+  .budget-card-clean {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    overflow: hidden;
   }
   .budget-ticket-body {
     padding: 0.75rem 1.35rem 1.1rem;
   }
   .budget-summary-bar {
-    border-bottom: none;
+    padding: 1rem 1.35rem 0.9rem;
+    background: #F8FAFB;
+    border-bottom: 1px dashed #cbd5e1;
     margin-bottom: 0;
   }
   @media (max-width: 640px) {
