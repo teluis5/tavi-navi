@@ -455,7 +455,7 @@ const RAILWAY_LINES = [
         rakuten?.setAttribute('aria-disabled', 'true');
         return;
       }
-      if (!Number.isFinite(data.price) || data.price <= 0 || !Number.isFinite(data.fetchedAt) || Date.now() - data.fetchedAt >= 86400000 || data.fetchedAt > Date.now()) {
+      if ((!Number.isFinite(data.price) || data.price <= 0) && data.noTwin !== true || !Number.isFinite(data.fetchedAt) || Date.now() - data.fetchedAt >= 86400000 || data.fetchedAt > Date.now()) {
         areaPrice.textContent = 'この日の目安料金はご案内できません。空室・料金はリンク先で確認できます。';
         return;
       }
@@ -466,7 +466,7 @@ const RAILWAY_LINES = [
       }
       const details = document.createElement('small');
       details.textContent = `（大人2名・1室・1泊、${checked}取得）`;
-      areaPrice.replaceChildren(`ツインの目安：${data.price.toLocaleString('ja-JP')}円`, details);
+      areaPrice.replaceChildren(data.noTwin === true ? 'ツインの空室なし・別タイプあり' : `ツインの目安：${data.price.toLocaleString('ja-JP')}円`, details);
     } catch {
       if (request === priceRequest) areaPrice.textContent = '目安料金を取得できませんでした。空室・料金はリンク先で確認できます。';
     }
