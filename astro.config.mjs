@@ -7,15 +7,25 @@ import sitemap from '@astrojs/sitemap';
 import icon from 'astro-icon';
 import { defineConfig, fontProviders } from 'astro/config';
 
-// 公開済み日本語記事が存在する都道府県・月を自動集計（サイトマップの薄いページ除外用）
+// 公開済み日本語記事が存在する都道府県・月・市町村パスを自動集計（サイトマップの薄いページ除外用）
 const activePrefs = new Set();
 const activeMonths = new Set();
 const allPrefIds = new Set();
+const allCityPaths = new Set();
 
 try {
 	const prefFile = fs.readFileSync(path.resolve('./src/data/prefectures.ts'), 'utf8');
 	for (const m of prefFile.matchAll(/id:\s*['"]([a-z-]+)['"]/g)) {
 		allPrefIds.add(m[1]);
+	}
+
+	const citiesFile = fs.readFileSync(path.resolve('./src/data/cities.ts'), 'utf8');
+	for (const block of citiesFile.split(/\{/).slice(1)) {
+		const idM = block.match(/id:\s*['"]([a-z0-9-]+)['"]/);
+		const prefM = block.match(/prefId:\s*['"]([a-z-]+)['"]/);
+		if (idM && prefM) {
+			allCityPaths.add(`/${prefM[1]}/${idM[1]}/`);
+		}
 	}
 
 	const articlesDir = path.resolve('./src/content/articles');
@@ -74,6 +84,12 @@ export default defineConfig({
 					return false;
 				}
 				if (/^\/[^/]+\/[^/]+\/\d+\/$/.test(pathname)) {
+					return false;
+				}
+				if (/^\/(?!season\/)[^/]+\/\d{1,2}\/$/.test(pathname)) {
+					return false;
+				}
+				if (allCityPaths.has(pathname)) {
 					return false;
 				}
 				const prefMatch = pathname.match(/^\/([a-z-]+)\/$/);
