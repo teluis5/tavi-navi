@@ -66,9 +66,8 @@ const MAP_LABELS = [
   }
 ];
 
-const EXTRA_TOKYO_WEST = new Set(['大崎', '目黒', '新橋']);
-const EXTRA_TOKYO_EAST = new Set(['五反田', '大井町', '汐留']);
-const mapGroup = (name: string) => EXTRA_TOKYO_WEST.has(name) ? 'tokyo-west' : EXTRA_TOKYO_EAST.has(name) ? 'tokyo-east' : 'main';
+const EXTRA_AREAS = new Set(['大崎', '目黒', '新橋', '五反田', '大井町', '汐留']);
+const mapGroup = (name: string) => EXTRA_AREAS.has(name) ? 'alternatives' : 'main';
 const DIRECT_BUS_AREAS = new Set(['新横浜', '横浜', 'みなとみらい', '関内', '桜木町', '羽田空港']);
 const MAP_AREAS = [
   { name: '南町田', x: 279.6, y: 315, access: '南町田グランベリーパーク駅 → シャトルバス（約20分）', accessMinutes: 30, feature: 'シャトルバス発着駅に近く、朝の移動を抑えたい人に。駅周辺の宿は限られます。', target: 'denentoshi', hotel: 0 },
@@ -229,8 +228,7 @@ const RAILWAY_LINES = [
       <p class="map-instruction">Hマークにマウスを合わせるか、タップすると宿泊エリアの紹介を見られます。</p>
       <div class="map-groups" role="group" aria-label="地図に表示する宿泊エリア">
         <button type="button" class="map-group" data-map-group="main" aria-pressed="true">主なエリア</button>
-        <button type="button" class="map-group" data-map-group="tokyo-west" aria-pressed="false">追加：目黒・大崎・新橋</button>
-        <button type="button" class="map-group" data-map-group="tokyo-east" aria-pressed="false">追加：五反田・大井町・汐留</button>
+        <button type="button" class="map-group" data-map-group="alternatives" aria-pressed="false">空室が見つからないときの候補</button>
       </div>
       <div class="map-layout">
         <div class="map-image">
