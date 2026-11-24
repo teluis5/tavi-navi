@@ -514,7 +514,7 @@ const RAILWAY_LINES = [
     if (jalan) jalan.hidden = !ids;
     if (!ids || !checkin?.value || !checkout?.value) return;
     const yahooTarget = new URL(`https://travel.yahoo.co.jp/station/${ids[0]}/`);
-    yahooTarget.search = new URLSearchParams({ cid: checkin.value.replaceAll('-', ''), cod: checkout.value.replaceAll('-', ''), ppc: '2', rc: '1' }).toString();
+    yahooTarget.search = new URLSearchParams({ cid: checkin.value.replaceAll('-', ''), cod: checkout.value.replaceAll('-', ''), ppc: '2', rc: '1', distance: '3000' }).toString();
     const [stayYear, stayMonth, stayDay] = checkin.value.split('-');
     const nights = Math.round((Date.parse(`${checkout.value}T00:00:00Z`) - Date.parse(`${checkin.value}T00:00:00Z`)) / 86400000);
     const jalanTarget = new URL(`https://www.jalan.net/${ids[1]}`);
