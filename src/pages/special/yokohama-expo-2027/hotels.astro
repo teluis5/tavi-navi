@@ -212,7 +212,7 @@ const RAILWAY_LINES = [
 
     <section class="price-compare" aria-labelledby="hotel-search-title">
       <h2 id="hotel-search-title">宿泊日を選ぶ</h2>
-      <p>日程を選ぶと空室状況や料金目安を確認できます。</p>
+      <p>日程を選ぶと空室状況や料金目安を確認できます。<span id="hotel-price-updated"></span></p>
       <div class="price-dates">
         <label>チェックイン<input id="hotel-checkin" type="date" required /></label>
         <label>チェックアウト<input id="hotel-checkout" type="date" required /></label>
@@ -426,9 +426,11 @@ const RAILWAY_LINES = [
   const priceStatus = document.querySelector<HTMLElement>('#hotel-price-status');
   const priceEndpoint = 'https://teluis-expo-hotel-prices.expo-price-cache.workers.dev';
   const areaPrice = document.querySelector<HTMLElement>('#map-area-price');
+  const priceUpdated = document.querySelector<HTMLElement>('#hotel-price-updated');
   let priceRequest = 0;
   async function updateAreaPrice(point: HTMLButtonElement) {
     const request = ++priceRequest;
+    if (priceUpdated) priceUpdated.textContent = '';
     if (!areaPrice || !checkin || !checkout) return;
     const start = Date.parse(`${checkin.value}T00:00:00Z`);
     const end = Date.parse(`${checkout.value}T00:00:00Z`);
@@ -450,6 +452,10 @@ const RAILWAY_LINES = [
         return;
       }
       const checked = new Intl.DateTimeFormat('ja-JP', { timeZone: 'Asia/Tokyo', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }).format(new Date(data.fetchedAt));
+      if (priceUpdated) {
+        const fullDate = new Intl.DateTimeFormat('ja-JP', { timeZone: 'Asia/Tokyo', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(new Date(data.fetchedAt));
+        priceUpdated.textContent = `（更新日時：${fullDate}）`;
+      }
       const details = document.createElement('small');
       details.textContent = `（大人2名・1室・1泊、${checked}取得）`;
       areaPrice.replaceChildren(`ツインの目安：${data.price.toLocaleString('ja-JP')}円`, details);
@@ -560,6 +566,7 @@ const RAILWAY_LINES = [
   }
   function closeCard() {
     priceRequest++;
+    if (priceUpdated) priceUpdated.textContent = '';
     if (busRoute) busRoute.style.display = 'none';
     if (card) card.hidden = true;
     points.forEach((item) => item.setAttribute('aria-pressed', 'false'));
