@@ -1,0 +1,38 @@
+---
+title: "どこかにビューーン！角館駅　東京発で武家屋敷と樺細工を巡る日帰り"
+description: "角館駅から徒歩で武家屋敷と樺細工伝承館を巡る日帰り案。到着・出発の条件と施設の休館日、費用を確認します。"
+pubDate: 2026-11-24
+lang: "ja"
+pref: "akita"
+category: "モデルコース"
+season: "通年"
+departure: "tokyo"
+duration: "日帰り"
+tags: ["どこかにビューーン！", "角館駅", "武家屋敷", "樺細工", "車なし", "モデルコース"]
+draft: false
+---
+import TrainCondition from '../../components/TrainCondition.astro';
+import TravelTimeline from '../../components/TravelTimeline.astro';
+import TransitBookingHub from '../../components/TransitBookingHub.astro';
+
+<TrainCondition text={"角館駅に昼前までに到着し、午後に帰る列車を想定した徒歩の行程案です。指定列車の時刻と各施設の営業を確認してから利用してください。12月28日〜1月4日は樺細工伝承館が休館します。"} />
+
+角館駅から歩いて、武家屋敷の町並みと角館に伝わる樺細工に触れる日帰り案です。歩行時間は雪や荷物を考慮し余裕を持たせています。以下は公式情報に基づく案で、実際の乗車・訪問体験ではありません（2026年11月24日確認）。
+
+## 角館駅から武家屋敷・樺細工へ
+
+<TravelTimeline days={[{ title: '角館駅 → 武家屋敷 → 樺細工伝承館 → 角館駅', steps: [
+  { title: '東京駅から秋田新幹線で角館駅へ', points: ['指定列車の到着時刻と帰りの時刻を確認し、荷物は必要に応じて駅周辺で預ける。'], transitDetail: { method: '徒歩の目安 25〜30分', route: '角館駅 → 青柳家', specs: ['市の案内では駅から徒歩20分。天候や信号待ちの余裕を加えています。'] } },
+  { title: '青柳家と武家屋敷通り', duration: '目安 60分', points: ['黒塀が続く通りを歩き、青柳家の屋敷を見学。大人500円。', '仙北市の案内では4〜11月は9:00〜17:00、12〜3月は9:00〜16:00。'], links: [{ label: '仙北市：武家屋敷', href: 'https://www.city.semboku.akita.jp/sightseeing/spot/07_buke.html' }], transitDetail: { method: '武家屋敷通りを徒歩移動', route: '青柳家 → 樺細工伝承館' } },
+  { title: '角館樺細工伝承館', duration: '目安 60分', points: ['山桜の樹皮を使う樺細工の展示を見る。大人500円。製作実演の日は事前に確認。', '4〜11月は9:00〜17:00、12〜3月は9:00〜16:30。入場は閉館30分前まで。年末年始休館。'], links: [{ label: '仙北市：開館時間・観覧料', href: 'https://www.city.semboku.akita.jp/sightseeing/densyo/shisetsu.html' }, { label: '製作実演の案内', href: 'https://www.city.semboku.akita.jp/sightseeing/densyo/zituen.html' }], transitDetail: { method: '徒歩で外町方面へ', route: '伝承館 → 外町交流広場' } },
+  { title: '外町で昼食と町歩き', duration: '目安 60〜90分', points: ['昼食の店は事前に営業日を確認。混雑する季節は食事の順番を入れ替えてよい。'], links: [{ label: '仙北市：外町交流広場', href: 'https://www.city.semboku.akita.jp/sightseeing/spot/07_tomachi.html' }], transitDetail: { method: '徒歩の目安 15分', route: '外町交流広場 → 角館駅', specs: ['市の案内では駅まで徒歩9分。余裕を加えています。'] } },
+  { title: '角館駅から指定列車で帰路へ', points: ['改札には余裕を持って戻る。帰りの列車が早い場合は昼食や見学先を減らす。'] }
+]}]} />
+
+## 費用と時間の目安
+
+大人1人の施設入館料は青柳家500円と樺細工伝承館500円で計1,000円。昼食・買い物は別途です。どこかにビューーン！の必要ポイントは発地や座席によって異なります。[JR東日本の商品案内](https://www.eki-net.com/top/product/shinkansen/e-dokokani.html)で確認してください。
+
+駅発着の現地行程には、見学2時間、食事・町歩き1〜1時間半、移動と駅での余裕を含め、少なくとも4時間半程度を確保してください。指定列車の時刻、道路状況や施設の営業日は旅行日ごとに確認が必要です。
+
+<TransitBookingHub destination="角館" station="角館駅" pref="akita" ticketType="dokokani" />

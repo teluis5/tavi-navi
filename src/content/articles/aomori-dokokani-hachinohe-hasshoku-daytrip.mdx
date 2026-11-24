@@ -1,0 +1,35 @@
+---
+title: "どこかにビューーン！八戸駅　東京発で八食センターを楽しむ日帰り"
+description: "八戸駅からバスで八食センターへ。市場で買い物をして七厘村で食材を焼く、車なしの日帰り行程です。"
+pubDate: 2026-11-24
+lang: "ja"
+pref: "aomori"
+category: "モデルコース"
+season: "通年"
+departure: "tokyo"
+duration: "日帰り"
+tags: ["どこかにビューーン！", "八戸駅", "八食センター", "車なし", "モデルコース"]
+draft: false
+---
+import TrainCondition from '../../components/TrainCondition.astro';
+import TravelTimeline from '../../components/TravelTimeline.astro';
+import TransitBookingHub from '../../components/TransitBookingHub.astro';
+
+<TrainCondition text={"市場棟・七厘村の営業日と八食150円バスの往復時刻を先に確認してください。市場の休業日もバスは運行しますが、1月1日は運休です。道路状況による遅れも考慮して帰りの新幹線まで余裕を取ります。"} />
+
+八戸駅から八食センターへ往復し、市場の買い物と七厘村での食事を楽しむ日帰り案です。施設とバスの公式案内を基にしています（2026年11月24日確認）。乗車・訪問した体験談ではありません。
+
+## 八戸駅から市場へ
+
+<TravelTimeline days={[{ title: '八戸駅 → 八食センター → 八戸駅', steps: [
+  { title: '東京駅から八戸駅へ', points: ['指定された新幹線で八戸駅に到着。帰りの列車までの時間を確認する。'], transitDetail: { method: '八食150円バス', route: '八戸駅東口4番のりば → 八食センター厨スタジアム東口', specs: ['大人片道150円。時刻は公式時刻表で確認。', '施設休業日でも運行するため、施設側の営業日も別に確認。'] }, links: [{ label: '八食センター：交通アクセス・時刻表', href: 'https://www.849net.com/access/' }] },
+  { title: '市場で食材と土産を選ぶ', duration: '目安 60分', points: ['市場棟は通常9:00〜18:00。営業日・繁忙期の営業時間はカレンダーで確認。', '七厘村では八食センター内で購入した食材を焼ける。'], links: [{ label: '営業カレンダー', href: 'https://www.849net.com/calendar/' }] },
+  { title: '七厘村で炭火焼きの昼食', duration: '目安 90〜120分', points: ['利用料は大人1人500円・2時間。食材や飲み物は別料金。', '施設外で購入した飲食物は持ち込めない。'], links: [{ label: '七厘村の利用案内', href: 'https://849net.com/shichirin-mura/' }], transitDetail: { method: '八食150円バス', route: '八食センター厨スタジアム東口 → 八戸駅', specs: ['復路時刻と、駅到着後の新幹線への乗換時間を確認。'] } },
+  { title: '八戸駅から指定列車で帰路へ', points: ['バス遅延や買い物時間を見込んで、駅で十分な余裕を取る。'] }
+]}]} />
+
+## 費用と必要な時間
+
+大人1人のバス往復300円と七厘村利用料500円で、食材を除き800円です。新幹線のポイント、購入する食材・飲み物・土産は別途。現地では市場の買い物と食事だけで約2時間半〜3時間を見込み、さらに往復バスと待ち時間、新幹線への乗換時間を確保します。帰りのバスと指定列車が接続しなければ、食事時間を調整してください。
+
+<TransitBookingHub destination="八戸" station="八戸駅" pref="aomori" ticketType="dokokani" />

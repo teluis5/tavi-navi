@@ -1,0 +1,35 @@
+---
+title: "どこかにビューーン！新青森駅　東京発でねぶたと青森駅前を巡る日帰り"
+description: "新青森駅から青森駅へ移動し、ねぶたの家 ワ・ラッセと駅周辺を歩く日帰り案。営業時間と乗換条件を確認します。"
+pubDate: 2026-11-24
+lang: "ja"
+pref: "aomori"
+category: "モデルコース"
+season: "通年"
+departure: "tokyo"
+duration: "日帰り"
+tags: ["どこかにビューーン！", "新青森駅", "青森駅", "ねぶた", "車なし", "モデルコース"]
+draft: false
+---
+import TrainCondition from '../../components/TrainCondition.astro';
+import TravelTimeline from '../../components/TravelTimeline.astro';
+import TransitBookingHub from '../../components/TransitBookingHub.astro';
+
+<TrainCondition text={"新青森〜青森の在来線は別途運賃が必要です。指定列車と在来線の接続、ワ・ラッセや飲食店の営業日を事前に確認し、帰りは新幹線への乗換に十分な余裕を取ってください。"} />
+
+新青森駅から在来線で青森駅へ。青森駅前のねぶたの家 ワ・ラッセを中心に、食事と買い物を楽しむ日帰り案です。施設の公式案内を基に作成しました（2026年11月24日確認）。実地訪問の記録ではありません。
+
+## 青森駅前でねぶたと食を楽しむ
+
+<TravelTimeline days={[{ title: '新青森駅 → 青森駅 → ワ・ラッセ → 新青森駅', steps: [
+  { title: '東京駅から新青森駅へ', points: ['指定列車で新青森駅に到着。帰りの発車時刻も確認する。'], transitDetail: { method: 'JR奥羽本線', route: '新青森駅 → 青森駅', specs: ['在来線は別運賃。発車時刻はJR東日本で確認。'] }, links: [{ label: '新青森駅の時刻表', href: 'https://timetables.jreast.co.jp/timetable/list0854.html' }] },
+  { title: 'ねぶたの家 ワ・ラッセ', duration: '目安 90分', points: ['青森駅から徒歩1分。祭りで使われた大型ねぶたなどを見る。', 'ミュージアム・ホールの個人入場料は大人620円。営業時間と休館日を公式案内で確認。'], links: [{ label: '営業時間・休館日', href: 'https://www.nebuta.jp/warasse/shisetsu/business-day.html' }, { label: '料金案内', href: 'https://www.nebuta.jp/warasse/shisetsu/pay.html' }, { label: 'アクセス', href: 'https://www.nebuta.jp/warasse/access.html' }] },
+  { title: '青森駅周辺で昼食と買い物', duration: '目安 90分', points: ['食事の店や土産売り場は営業日を確認。帰りの在来線時刻から逆算して出発する。'], transitDetail: { method: 'JR奥羽本線', route: '青森駅 → 新青森駅', specs: ['新幹線との乗換時間を確保。'] }, links: [{ label: '青森駅の時刻表', href: 'https://timetables.jreast.co.jp/timetable/list0025.html' }] },
+  { title: '新青森駅から指定列車で帰路へ', points: ['在来線が遅れた場合も考慮して早めに戻る。'] }
+]}]} />
+
+## 費用と時間の目安
+
+ワ・ラッセの大人入場料620円のほか、新青森〜青森の在来線運賃、食事・土産代、新幹線のポイントが必要です。施設見学と食事だけで約3時間を見込み、往復の在来線・待ち時間・新幹線乗換にさらに余裕を持たせます。営業時間や運賃は旅行日について公式案内を確認してください。
+
+<TransitBookingHub destination="青森市" station="新青森駅" pref="aomori" ticketType="dokokani" />

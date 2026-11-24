@@ -1,0 +1,35 @@
+---
+title: "どこかにビューーン！七戸十和田駅　東京発で十和田市現代美術館へ日帰り"
+description: "七戸十和田駅からバスで十和田市現代美術館を訪れる平日の日帰り案。便数と休館日、帰りの接続を確認します。"
+pubDate: 2026-11-24
+lang: "ja"
+pref: "aomori"
+category: "モデルコース"
+season: "通年"
+departure: "tokyo"
+duration: "日帰り"
+tags: ["どこかにビューーン！", "七戸十和田駅", "十和田市現代美術館", "車なし", "モデルコース"]
+draft: false
+---
+import TrainCondition from '../../components/TrainCondition.astro';
+import TravelTimeline from '../../components/TravelTimeline.astro';
+import TransitBookingHub from '../../components/TransitBookingHub.astro';
+
+<TrainCondition text={"掲載したバスは平日用です。土日祝、お盆・年末年始の運行条件と美術館の開館日を必ず確認してください。駅で往路バスの15分以上前に到着し、復路も新幹線への乗換時間を十分に確保できる場合の案です。"} />
+
+七戸十和田駅から十和田市現代美術館へ、路線バスで向かう平日の日帰り案です。便数が限られるため、観光施設より先に往復のバスと指定列車を確認しましょう。運行情報は2026年11月24日確認、実際の乗車・訪問体験ではありません。
+
+## バスで十和田市現代美術館へ
+
+<TravelTimeline days={[{ title: '七戸十和田駅 → 十和田市現代美術館 → 七戸十和田駅', steps: [
+  { title: '東京から七戸十和田駅へ', points: ['指定列車の到着後、駅南口のバス乗り場へ。'], transitDetail: { method: '十和田観光電鉄バス（平日）', route: '七戸十和田駅 → 十和田市現代美術館前', specs: ['2026年10月1日現在の事業者時刻表では11:12発・11:57着の便があります。駅到着は10:57以前が目安。', '土日祝運休。お盆・年末年始は特別な運行条件があります。'] }, links: [{ label: '十和田観光電鉄：時刻表', href: 'https://www.toutetsu.co.jp/jikoku/shichinohe-towada.html' }] },
+  { title: '十和田市現代美術館', duration: '目安 90分', points: ['作品を見ながら館内を巡る。展示替えや休館日、観覧料は訪問日について公式サイトで確認。'], links: [{ label: '美術館の利用案内', href: 'https://towadaartcenter.com/overview/visit/' }], transitDetail: { method: '徒歩で周辺へ', route: '美術館 → 官庁街通り周辺' } },
+  { title: '官庁街通り周辺で昼食と散策', duration: '目安 60分以上', points: ['営業中の店を事前に確認。帰りのバスの時間から逆算して、余裕をもって食事を終える。'], transitDetail: { method: '十和田観光電鉄バス（平日）', route: '十和田市現代美術館前 → 七戸十和田駅', specs: ['2026年10月1日現在の事業者時刻表では15:22発・16:07着。乗り場や当日の運行を確認。', '土日祝運休。駅到着後の新幹線乗換にも15分以上の余裕を確保。'] }, links: [{ label: '十和田観光電鉄：時刻表', href: 'https://www.toutetsu.co.jp/jikoku/shichinohe-towada.html' }] },
+  { title: '七戸十和田駅から指定列車で帰路へ', points: ['天候や道路状況による遅れも考慮。指定列車が早く接続できない場合、この便を使う行程は組めません。'] }
+]}]} />
+
+## 費用と成立条件
+
+新幹線に使うポイントのほか、バス往復運賃、美術館の観覧料、昼食代が必要です。運賃と観覧料は訪問日に適用される金額を各公式サイトで確認してください。復路の新幹線が16:22より前に出発する場合、この復路バスでは乗換時間を確保できません。遅延の可能性もあるため、さらに余裕のある列車が必要です。
+
+<TransitBookingHub destination="十和田市" station="七戸十和田駅" pref="aomori" ticketType="dokokani" />
