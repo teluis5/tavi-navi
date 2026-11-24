@@ -74,6 +74,7 @@ const isSearchMore = title.includes('他の宿') || title.includes('宿を探す
 const isHotelStep = Boolean(propIsHotel || hotelCatName || hotelData?.hotelNo || hotelData?.rakutenUrl || isSearchMore);
 
 const pillText = hotelCatName || cleanText(alternativeLabel);
+const hasPhoto = Boolean(image || images?.some((item) => typeof item === 'string' ? item.trim() : item && ('image' in item ? item.image : item.src)));
 ---
 
 <div
@@ -82,7 +83,7 @@ const pillText = hotelCatName || cleanText(alternativeLabel);
   role={spotData ? 'button' : undefined}
   tabindex={spotData ? '0' : undefined}
 >
-  <SpotPhotoGallery
+  {hasPhoto ? <SpotPhotoGallery
     title={title}
     pillText={pillText}
     image={image}
@@ -92,7 +93,7 @@ const pillText = hotelCatName || cleanText(alternativeLabel);
     isImageSample={isImageSample}
     spotData={spotData}
     hotelData={hotelData}
-  />
+  /> : <div class="spot-text-heading">{title}</div>}
 
   <div class="wide-spot-body">
     <div class="spot-body-main">
@@ -182,6 +183,14 @@ const pillText = hotelCatName || cleanText(alternativeLabel);
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+  }
+
+  .spot-text-heading {
+    padding: 0.9rem 1rem 0;
+    color: #111827;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.4;
   }
 
   .spot-body-footer {
