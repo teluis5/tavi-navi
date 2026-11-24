@@ -31,8 +31,8 @@
     <path d="M 941.52 271.5 L 1002 195 L 1033.36 145" stroke="#91bcb0" stroke-width="3.5" class="rail" />
     <!-- 京急線：品川・羽田空港・横浜 -->
     <path d="M 1119.6 220 L 1074.8 360 L 1002 500 M 1074.8 360 L 1175.6 440" stroke="#b9c3c6" stroke-width="4" class="rail" />
-    <!-- 東京・成田／横浜・羽田の空港バス -->
-    <path d="M 1119.6 100 L 1175.6 40 M 1175.6 440 L 1108.4 500 H 1002" stroke="#b9c3c6" stroke-width="4" stroke-dasharray="2 8" class="rail" />
+    <!-- 横浜・羽田の空港バス -->
+    <path d="M 1175.6 440 L 1108.4 500 H 1002" stroke="#b9c3c6" stroke-width="4" stroke-dasharray="2 8" class="rail" />
     <!-- 東海道新幹線：地図記号風の複線 -->
     <path d="M 1119.6 100 L 1136.4 160 L 1119.6 220 L 402.8 596.89" stroke="#83aac9" stroke-width="10" class="rail" />
     <path d="M 1119.6 100 L 1136.4 160 L 1119.6 220 L 402.8 596.89" stroke="#fff" stroke-width="6" class="rail" />
@@ -50,7 +50,6 @@
     <circle cx="806" cy="290" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="766.8" cy="405.5" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="1002" cy="500" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" /><circle cx="1136.4" cy="554" r="8" fill="#fff" stroke="#b9c3c6" stroke-width="3" />
     <circle cx="279.6" cy="315" r="13" fill="#e8ad59" stroke="#fff" stroke-width="3" /><circle cx="470" cy="286.25" r="13" fill="#e8ad59" stroke="#fff" stroke-width="3" /><circle cx="279.6" cy="500" r="13" fill="#e8ad59" stroke="#fff" stroke-width="3" /><circle cx="470" cy="500" r="13" fill="#e8ad59" stroke="#fff" stroke-width="3" />
     <circle cx="380.4" cy="395" r="31" fill="#2475a5" stroke="#fff" stroke-width="4" />
-    <circle cx="1175.6" cy="40" r="15" fill="#f3f5f5" stroke="#a3b1b5" stroke-width="2" /><use href="#plane" transform="translate(1175.6,40) scale(.7)" />
     <circle cx="1175.6" cy="440" r="15" fill="#f3f5f5" stroke="#a3b1b5" stroke-width="2" /><use href="#plane" transform="translate(1175.6,440) scale(.7)" />
   </g>
 </svg>
