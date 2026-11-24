@@ -408,11 +408,13 @@ const RAILWAY_LINES = [
   const formatDate = (date: Date) => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
   if (checkin && checkout) {
     const today = new Date();
-    const tomorrow = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
+    const openingDay = new Date(2027, 2, 19);
+    const defaultCheckin = today < openingDay ? new Date(2027, 2, 18) : today;
+    const defaultCheckout = new Date(defaultCheckin.getFullYear(), defaultCheckin.getMonth(), defaultCheckin.getDate() + 1);
     checkin.min = formatDate(today);
-    checkin.value = formatDate(today);
-    checkout.min = formatDate(tomorrow);
-    checkout.value = formatDate(tomorrow);
+    checkin.value = formatDate(defaultCheckin);
+    checkout.min = formatDate(defaultCheckout);
+    checkout.value = formatDate(defaultCheckout);
     checkin.addEventListener('change', () => {
       if (!checkin.value) return;
       const [year, month, day] = checkin.value.split('-').map(Number);
