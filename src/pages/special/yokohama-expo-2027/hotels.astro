@@ -98,6 +98,27 @@ const MAP_AREAS = [
   { name: '武蔵小杉', x: 806, y: 290, access: '相鉄・JR直通線（約35分）→ 瀬谷駅 → シャトルバス（約10分）', accessMinutes: 55, feature: '都心や羽田方面からの移動にも使いやすい拠点。', target: 'direct', hotel: 1 },
 ];
 
+// Yahoo!トラベルの日付指定なし・各駅から1kmの掲載施設数（2026年11月24日確認）。
+const AREA_HOTEL_COUNTS: Record<string, number> = {
+  大手町: 37, 南町田: 2, 二俣川: 1, 川崎: 24, 蒲田: 27, 五反田: 13, 大崎: 12,
+  目黒: 5, 大井町: 5, 新橋: 78, 汐留: 85, 八王子: 12, 橋本: 4, 大和: 1,
+  桜木町: 33, 新宿: 50, 品川: 17, 横浜: 16, 新横浜: 15, 町田: 7, 渋谷: 30,
+  海老名: 4, 武蔵小杉: 4, みなとみらい: 21, 関内: 48, 羽田空港: 3,
+};
+const AREA_TAGS: Record<string, string[]> = {
+  南町田: ['シャトルバス発着駅'], 二俣川: ['相鉄線', '会場に近い'], 川崎: ['羽田空港方面'],
+  蒲田: ['羽田空港方面'], 五反田: ['都内観光', '山手線'], 大崎: ['相鉄・JR直通'],
+  目黒: ['都内観光', '相鉄・東急直通'], 大井町: ['品川・羽田方面'], 新橋: ['銀座観光'],
+  汐留: ['都内観光', '新橋周辺'], 大手町: ['東京駅・丸の内', '相鉄・東急直通'],
+  八王子: ['多摩エリア', '横浜線'], 橋本: ['横浜線', '京王相模原線'], 大和: ['相鉄線', '会場に近い'],
+  桜木町: ['みなとみらい観光', '直行バス予定'], みなとみらい: ['横浜観光', '直行バス予定'],
+  関内: ['横浜中華街', '直行バス予定'], 羽田空港: ['空港周辺', '直行バス予定'],
+  新宿: ['都内観光', '相鉄・JR直通'], 品川: ['東海道新幹線', '羽田空港方面'],
+  横浜: ['横浜観光', '直行バス予定'], 新横浜: ['東海道新幹線', '直行バス予定'],
+  町田: ['横浜線', '飲食店'], 渋谷: ['都内観光', '田園都市線'],
+  海老名: ['相鉄線', '神奈川西部'], 武蔵小杉: ['相鉄・JR直通', '都心・羽田方面'],
+};
+
 
 ---
 
@@ -176,15 +197,17 @@ const MAP_AREAS = [
     <section class="area-comparison" aria-labelledby="area-comparison-title">
       <h2 id="area-comparison-title">宿泊エリアの比較</h2>
       <p>会場までの時間と、選択した宿泊日のツインの料金目安を比べられます。料金は楽天トラベルの大人2名・1室・1泊の情報です。エリア名を押すと地図で詳細を確認できます。</p>
+      <p class="comparison-note">宿の数はYahoo!トラベルに掲載された各駅から1km以内の施設数（日付指定なし、2026年11月24日確認）です。空室数ではありません。羽田空港は第3ターミナル駅周辺です。</p>
       <table class="comparison-table">
-        <thead><tr><th scope="col">エリア</th><th scope="col">会場まで</th><th scope="col">ツインの目安</th><th scope="col">エリアの特徴</th></tr></thead>
+        <thead><tr><th scope="col">エリア</th><th scope="col">会場まで</th><th scope="col">宿の量</th><th scope="col">ツインの目安</th><th scope="col">エリアの特徴</th></tr></thead>
         <tbody>
           {MAP_AREAS.map((area) => (
             <tr data-comparison-code={STATIONS[area.name].code}>
               <th scope="row"><button type="button" class="comparison-area" data-area={area.name}>{area.name}</button></th>
               <td data-label="会場まで"><strong>{area.accessMinutes > 0 ? `約${area.accessMinutes}分` : '直行バス予定'}</strong>{DIRECT_BUS_AREAS.has(area.name) && area.accessMinutes > 0 && <span class="comparison-bus">直行バスも運行予定</span>}</td>
+              <td data-label="宿の量">{AREA_HOTEL_COUNTS[area.name]}件</td>
               <td data-label="ツインの目安" class="comparison-price">確認中</td>
-              <td data-label="エリアの特徴">{area.feature}</td>
+              <td data-label="エリアの特徴"><div class="comparison-tags">{AREA_TAGS[area.name].map(tag => <span class="comparison-tag">{tag}</span>)}</div></td>
             </tr>
           ))}
         </tbody>
@@ -281,12 +304,16 @@ const MAP_AREAS = [
   .area-comparison { padding-top: 32px; }
   .area-comparison h2 { margin: 0 0 8px; font-size: 22px; }
   .area-comparison > p { margin: 0 0 16px; line-height: 1.7; }
+  .area-comparison .comparison-note { color: #52665c; font-size: 12px; }
   .comparison-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; }
   .comparison-table th, .comparison-table td { padding: 14px 12px; border-bottom: 1px solid #dce5df; vertical-align: top; line-height: 1.6; }
   .comparison-table thead { background: #edf6ef; }
   .comparison-table tbody th { width: 16%; }
   .comparison-table tbody td:nth-child(2) { width: 18%; }
-  .comparison-table tbody td:nth-child(3) { width: 19%; font-variant-numeric: tabular-nums; }
+  .comparison-table tbody td:nth-child(3) { width: 10%; font-variant-numeric: tabular-nums; }
+  .comparison-table tbody td:nth-child(4) { width: 19%; font-variant-numeric: tabular-nums; }
+  .comparison-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+  .comparison-tag { display: inline-block; padding: 3px 8px; border-radius: 999px; background: #e8f3eb; color: #174a32; font-size: 12px; line-height: 1.5; }
   .comparison-area { padding: 0; border: 0; background: none; color: #166534; font: inherit; font-weight: 700; text-decoration: underline; cursor: pointer; }
   .comparison-bus { display: block; color: #52665c; font-size: 12px; }
   @media (max-width: 650px) {
