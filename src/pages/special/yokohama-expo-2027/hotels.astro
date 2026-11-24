@@ -217,8 +217,7 @@ const RAILWAY_LINES = [
         <label>チェックイン<input id="hotel-checkin" type="date" required /></label>
         <label>チェックアウト<input id="hotel-checkout" type="date" required /></label>
       </div>
-      <p class="price-status" id="hotel-price-status" role="status">大人2名・1室で検索します。ツインなどの部屋タイプは検索先で選べます。</p>
-      <p class="price-note">羽田空港は第3ターミナル付近を中心に検索します。広告を含みます。空室や料金は楽天トラベルでご確認ください。</p>
+      <p class="price-status" id="hotel-price-status" role="status">大人2名・1室で検索します。ツインなどの部屋タイプは検索先で選べます。料金は目安です。</p>
     </section>
 
     <section class="map-section" aria-labelledby="access-map-title">
@@ -316,7 +315,6 @@ const RAILWAY_LINES = [
   .price-dates label { display: grid; gap: 8px; font-weight: 700; }
   .price-dates input { box-sizing: border-box; min-width: 0; width: 100%; min-height: 44px; padding: 8px; font: inherit; }
   .price-compare .price-status { margin: 12px 0 0; color: #52665c; font-size: 14px; }
-  .price-compare .price-note { margin: 12px 0 0; color: #52665c; font-size: 12px; }
   .bus-notice { padding: 12px 16px; border-radius: 8px; background: #eef8f1; color: #174a32; font-size: 14px; }
   .map-detail .map-direct-bus { padding: 10px; border-radius: 8px; background: #dcefe2; color: #174a32; }
   .map-section { padding-top: 32px; }
@@ -509,7 +507,7 @@ const RAILWAY_LINES = [
     if (jalan) jalan.href = affiliate('892747339', jalanTarget);
   };
   const updateLinks = () => {
-    if (priceStatus && checkin?.value && checkout?.value && checkin.value >= checkin.min && checkout.value > checkin.value) priceStatus.textContent = '大人2名・1室で検索します。ツインなどの部屋タイプは検索先で選べます。';
+    if (priceStatus && checkin?.value && checkout?.value && checkin.value >= checkin.min && checkout.value > checkin.value) priceStatus.textContent = '大人2名・1室で検索します。ツインなどの部屋タイプは検索先で選べます。料金は目安です。';
     const selected = document.querySelector<HTMLButtonElement>('.map-point[aria-pressed="true"]');
     if (selected) updateTravelLinks(selected);
     if (selected) void updateAreaPrice(selected);
