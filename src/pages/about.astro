@@ -15,9 +15,10 @@ const aboutSchema = {
     founder: {
       '@type': 'Person',
       name: 'teluis',
-      jobTitle: 'メディア統括ディレクター / ITエンジニア',
+      jobTitle: '旅メディア統括ディレクター / 旅歴10年のトラベラー',
       image: 'https://tavi-navi.net/brand/teluis_avatar.webp',
-      url: 'https://teluis.com/about/'
+      url: 'https://teluis.com/about/',
+      description: '大学時代の2017年よりマイカーで日本全国の津々浦々を走破。47都道府県の道路網・観光地・名湯を巡り尽くした経験と一次情報をもとに、旅行者に寄り添う無理のないモデルコースを発信。'
     }
   }
 };
@@ -57,7 +58,7 @@ const aboutSchema = {
 
       <!-- 運営者プロフィール -->
       <section class="section-block">
-        <h2>👤 運営体制・プロフィール</h2>
+        <h2>👤 運営者プロフィール・旅への想い</h2>
 
         <div class="profile-card">
           <div class="profile-header">
@@ -71,17 +72,62 @@ const aboutSchema = {
               class="profile-avatar"
             />
             <div class="profile-meta">
-              <span class="profile-role">メディア統括ディレクター / 発行責任者</span>
+              <span class="profile-role">発行責任者 / トラベルディレクター</span>
               <h3 class="profile-name">teluis（テルイズ）</h3>
-              <p class="profile-sub">現役ITエンジニア / システムコンサルタント</p>
+              <p class="profile-sub">全国走破トラベラー / 現役ITエンジニア・コンサルタント</p>
             </div>
           </div>
           <div class="profile-body">
+            <!-- トラベルハイライト実績 -->
+            <div class="travel-stats-grid">
+              <div class="stat-card">
+                <span class="stat-num">2017<span class="stat-unit">年〜</span></span>
+                <span class="stat-label">全国走破スタート</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-num">47<span class="stat-unit">都道府県</span></span>
+                <span class="stat-label">全県実走・名所巡礼</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-num">10<span class="stat-unit">万km+</span></span>
+                <span class="stat-label">国内マイカー走破距離</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-num">4<span class="stat-unit">シーズン</span></span>
+                <span class="stat-label">四季の旬＆現地検証</span>
+              </div>
+            </div>
+
             <p>
-              コンサルティングファームでDX・システムアーキテクチャの戦略立案に従事する傍ら、個人開発および複数Webメディアの運営・執筆を手がけています。
+              <strong>「日本全国のまだ見ぬ絶景と、その土地の空気を肌で感じたい」</strong>という強い衝動から、大学生だった2017年頃にマイカーを手に入れ、日本全国を飛び回る旅をスタートさせました。
             </p>
             <p>
-              仕事で培った「業務フロー最適化・論理的検証」の手法を旅行計画に持ち込み、<strong>「車なし×新幹線・路線バスで回る高効率モデルコース」</strong>や、自治体・オープンデータを活用した旅の動線設計を研究・発信しています。
+              以来、北は北海道の宗谷岬から南は九州・沖縄まで、高速道路はもちろんのこと、地方の険しい山岳峠道や海沿いのローカル国道を自らハンドルを握って津々浦々を走破。全国の名所旧跡、四季折々の絶景、秘湯、そして地元の人しか知らない名物食堂や道の駅に立ち寄る生活を10年近く本気で続けてきました。
+            </p>
+            <p>
+              車で日本列島を走り倒してきたからこそ、<strong>「どの季節に、どの時間帯に訪れるのが最も美しいか」「現地で何時に動けば混雑を避けられるか」「道中の高低差や実際の道路・歩行事情はどうなっているか」</strong>を身体で知っています。
+            </p>
+
+            <div class="travel-passion-box">
+              <h4>🚗 私の旅の歩みとスタンス</h4>
+              <ul class="travel-history-list">
+                <li>
+                  <strong>2017年〜（学生時代：全国ドライブ行脚の原点）</strong><br />
+                  愛車にテントと荷物を詰め込み、長期休暇のたびに日本列島を長距離縦断。車中泊やゲストハウスを巡りながら、主要な国立公園や47都道府県の王道観光ルートを自走制覇。
+                </li>
+                <li>
+                  <strong>2020年〜（四季の旬・ローカル深掘り期）</strong><br />
+                  「一度訪れた場所でも、季節が変われば全く違う顔を見せる」ことに魅了され、桜・新緑・紅葉・雪景色の見頃ピークに合わせたピンポイント遠征をライフワークに。
+                </li>
+                <li>
+                  <strong>現在（車なし・公共交通×マイカーの両輪攻略へ）</strong><br />
+                  普段はITエンジニア／コンサルタントとして働きつつ、新幹線や路線バスを組み合わせた「運転しない人でも100%楽しめるモデルコース」の体系化に着手。培ってきた現地の空間把握力とデータ分析力をフル活用し、当サイト「tavi-navi」を通じて本当に役立つ旅のタイムラインを発信しています。
+                </li>
+              </ul>
+            </div>
+
+            <p style="margin-top: 1.25rem;">
+              旅は計画段階からすでに始まっています。「時間が足りなくて後悔した」「現地に着いたら想像と違った」という失敗をなくし、読者の皆様が最高の旅の思い出を作れるよう、嘘偽りのない実走目線で全力サポートしていきます。
             </p>
           </div>
         </div>
@@ -89,7 +135,7 @@ const aboutSchema = {
         <div class="team-desc-box">
           <h3>編集・リサーチ体制（tavi-navi 編集部）</h3>
           <p>
-            全国47都道府県の自治体・観光協会が公開する公式情報、JRやバス事業者の最新運行ダイヤ、気象・開花速報データを常時トラッキング。旅行者目線での「無理のないタイムスケジュール」と「読者が迷わない動線」を専任チームで査読・検証して記事を制作しています。
+            実走経験豊富な責任者によるルート検証に加え、全国47都道府県の自治体・観光協会が公開する公式情報、JRや路線バスの最新ダイヤ、気象・開花速報データを常時トラッキング。旅行者目線での「無理のないタイムスケジュール」と「読者が迷わない動線」を専任チームで査読・検証して記事を制作しています。
           </p>
         </div>
       </section>
@@ -325,6 +371,95 @@ const aboutSchema = {
     margin-bottom: 0;
   }
 
+  /* トラベル実績スタッツグリッド */
+  .travel-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: #f8fafc;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+  }
+  .stat-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0.5rem 0.25rem;
+  }
+  .stat-num {
+    font-size: 1.35rem;
+    font-weight: 900;
+    color: var(--color-primary);
+    line-height: 1.2;
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+  }
+  .stat-unit {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--color-text-muted);
+  }
+  .stat-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--color-text-muted);
+    margin-top: 0.25rem;
+  }
+
+  /* トラベルパッション＆ヒストリー */
+  .travel-passion-box {
+    margin: 1.25rem 0;
+    background: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    border-left: 4px solid var(--color-primary);
+    border-radius: var(--radius-md);
+    padding: 1.25rem 1.4rem;
+  }
+  .travel-passion-box h4 {
+    font-size: 0.98rem;
+    font-weight: 800;
+    color: var(--color-text-main);
+    margin: 0 0 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .travel-history-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+  .travel-history-list li {
+    position: relative;
+    padding-left: 1.25rem;
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: var(--color-text-main);
+  }
+  .travel-history-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.5rem;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-primary);
+  }
+  .travel-history-list li strong {
+    color: var(--color-primary-dark, var(--color-primary));
+    font-size: 0.9rem;
+    display: inline-block;
+    margin-bottom: 0.15rem;
+  }
+
   .team-desc-box {
     background: var(--color-bg-base);
     border: 1px solid var(--color-border);
@@ -450,6 +585,11 @@ const aboutSchema = {
       flex-direction: column;
       align-items: flex-start;
       gap: 0.75rem;
+    }
+    .travel-stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+      padding: 0.75rem;
     }
   }
 </style>
